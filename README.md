@@ -146,6 +146,52 @@ View live project here [link to deployed link]
       **Time:**     
       Implementing features using new technical skills will require time and careful planning. 
 
+- ## **Structure**
+
+    - ### **Information architecture**
+
+         ![website architecture](documentation/structure/architecture.png)
+         Link to document (png format) [here](documentation/structure/architecture.png)
+
+    - ### **Website workflow**
+
+        ![website workflow](documentation/structure/workflow.png)
+         Link to document (png format) [here](documentation/structure/workflow.png) 
+
+    - ### **Organisation of functionality and content**
+
+      **Header:** Logo and a collapsible menu for guest users. Once users are logged in, they will have access to certain functionality such as notification and add an event. Users will also have easy access to their profile, their events as well as their groups.   
+
+      **Homepage:** Search option, information about and on how to use the website as well as a carousel of upcoming events,
+    
+      **Footer:** Contact form and useful links
+    
+      **All events and groups:** list of all events with search and sort option. Each event card will include important information: event title, date & time, location, number of attendees.
+    
+      **Event and group detail pages:** display all the information relevant event / group
+    
+      **Profile page:** to display all the relevant information about a user
+    
+      **View my events pages:** to display a summary of all the events organised as well events the user is attending / interested in.
+
+      **View my group page:** to display a summary of all the groups for which the user is either a member or an organiser. 
+
+      Other pages will have the primary purpose to collect information add/ edit information stored on the database such as user profile, events and groups.
+
+    - ### **Interaction design**
+
+        - Collapsible menu
+        - Modal forms for editing profile and contact us page 
+        - Buttons and content cards with hovering effects 
+        - Icons with hovering effect
+
+    - ### **Database structure**
+
+        Database structure was designed using [diagram.io](https://dbdiagram.io). 
+
+        ![website architecture](documentation/structure/db_structure.png)
+
+        Link to document (png format) [here](documentation/structure/db_structure.png) 
 
 
 
