@@ -19,21 +19,21 @@ View live project here [link to deployed link]
     - [Structure](#structure)
     - [Skeleton](#skeleton)
     - [Design](#design)
-  - [Features](#FEATURES)
+  - [Features](#features)
     - [Existing features](#existing-features)
     - [Features left to implement](#features-left-to-implement)
-  - [Technologies Used](#Technology-used)
+  - [Technologies Used](#technology-used)
     - [Languages](#Languages)
-    - [Libraries and frameworks](#Libraries-frameworks-and-other-technologies)
-  - [Testing](#TESTING)
+    - [Libraries and frameworks](#libraries-and-frameworks)
+  - [Testing](#testing)
   - [Deployment](#DEPLOYMENT)
-    - [Deployment of the page](#Deployment-of-the-page)
-    - [How to run the code locally](#How-to-run-the-code-locally)
-   - [Credits](#CREDITS)
-     - [Code](#Code)
-     - [Content](#Content)
-     - [Media](#Media)
-     - [Acknowledgment](#Acknowledgments)
+    - [Deployment of the page](#deployment-of-the-page)
+    - [How to run the code locally](#how-to-run-the-code-locally)
+   - [Credits](#credits)
+     - [Code](#code)
+     - [Content](#content)
+     - [Media](#media)
+     - [Acknowledgment](#acknowledgments)
 
 
 # **UX DESIGN**
@@ -95,5 +95,57 @@ View live project here [link to deployed link]
     - I want to be able to cancel an event so that attendees can get notified of the cancellation
     - I want to be able to delete an event so that I can manage my account more effectively
     - I want to view important notifications about my events so that I keep up-to-date.
+
+
+- ## **Scope** 
+
+    - ### **Feature trade-off**
+
+        ![features tradeoff](documentation/scope/features_tradeoff.png)
+
+        This website will be developed as a minimal viable product with room for future improvements and releases incorporating additional features.
+
+    - ### **Functional requirements**
+        - To be able to sign-up using email address and secure password
+        - To be able to login 
+        - To be able to add/view/edit/delete profile information and preferences
+        - To be able to reset password 
+        - To be able to add/view/edit/delete an event 
+        - To be able to add/view/edit/delete a group
+        - To be able to cancel an event 
+        - To be able to search events according to keyword and set of criteria
+        - To be able to sort meetup according to a set of criteria 
+        - To be able to display search results 
+        - To be able to add/view/edit/delete a question 
+        - To be able to add/view/edit/delete an answer 
+        - To be able to notify users when an event is about to take place, when an event has been changed or cancelled and when a question has been asked / answered
+        - To be able to share events on social media
+        - To be able to store and retrieve images 
+        - To be able to contact the site owner 
+        - To receive feedback for important actions: create - update - delete
+        - Page 404 Not Found
+        - Page 500 Internal Server Error page 
+
+	- ### **Non functional requirements**
+	
+      - Display event location on a map
+      - Display profile and event images 
+
+    - ### **Content requirements**
+        - Clear and concise information on how how to use the website 
+        - Forms for user input 
+        - Engaging text and headings throughout to display relevant user input such as profile page, events and groups as well as questions and answers
+        - Background images to provide visually appealing and engaging interface
+        - Icons for interactive and visual elements 
+
+    - ### **Constraints**
+	
+      **Technical skills:**   
+      The site owner is still learning Python, Flask and MongoD, which may impact on the successful implementation of the planned features. 
+
+      **Time:**     
+      Implementing features using new technical skills will require time and careful planning. 
+
+
 
 
