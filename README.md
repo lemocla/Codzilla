@@ -189,9 +189,45 @@ View live project here [link to deployed link]
 
         Database structure was designed using [diagram.io](https://dbdiagram.io). 
 
-        ![website architecture](documentation/structure/db_structure.png)
+        ![database architecture](documentation/structure/db_structure.png)
 
         Link to document (png format) [here](documentation/structure/db_structure.png) 
 
 
+- ## **Skeleton**
 
+    **Homepage wireframe** 
+
+    ![Homepage](documentation/wireframes/homepage_user_in.png)
+    Link to homepage wireframe (png format) [here](ocumentation/wireframes/homepage_guest_user.png) 
+
+    Please find below links to a selection of wireframe for this project. 
+    - [Sign in page wireframe](documentation/wireframes/login_page.png) 
+    - [Sign up page wireframe](documentation/wireframes/sign_up_page.png) 
+    - [Complete profile wireframe](documentation/wireframes/complete_profile.png) 
+    - [Profile completed wireframe](documentation/wireframes/profile_completed.png) 
+    - [All events and groups wireframe](documentation/wireframes/all_events_and_groups.png) 
+    - [Add / edit an event wireframe](documentation/wireframes/create_edit_event.png) 
+    - [Add / edit a group wireframe](documentation/wireframes/create_a_group.png) 
+    - [Profile page](documentation/wireframes/profile_page.png)
+    - [Edit profile modals wireframe](documentation/wireframes/profile_edit_modals.png) 
+    - [My events wireframe](documentation/wireframes/my_events.png) 
+    - [My groups wireframe](documentation/wireframes/my_groups.png) 
+    - [Notification](documentation/wireframes/notification.png) 
+
+    Please find all the wireframes in pdf format [here](documentation/wireframes/wireframes_all.pdf)
+
+    #### **Difference to design**
+
+    #### **Limitations** 
+
+- ## **Design** 
+
+    The website will feature a simple, modern and engaging design, with minimum colours and imagery to keep the emphasis on the events and information displayed.
+
+    - #### **Imagery**
+    - #### **Colour scheme**
+    - #### **Typography**
+    - #### **Icons**
+    - #### **Styling**
+    - #### **Difference to design** 
