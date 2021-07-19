@@ -23,10 +23,11 @@ View live project here [link to deployed link]
     - [Existing features](#existing-features)
     - [Features left to implement](#features-left-to-implement)
   - [Technologies Used](#technology-used)
-    - [Languages](#Languages)
-    - [Libraries and frameworks](#libraries-and-frameworks)
+    - [Languages](#languages)
+    - [Database](#database)
+    - [Libraries, frameworks and other technologies](#libraries-frameworks-and-other-technologies)
   - [Testing](#testing)
-  - [Deployment](#DEPLOYMENT)
+  - [Deployment](#deployment)
     - [Deployment of the page](#deployment-of-the-page)
     - [How to run the code locally](#how-to-run-the-code-locally)
    - [Credits](#credits)
@@ -231,3 +232,161 @@ View live project here [link to deployed link]
     - #### **Icons**
     - #### **Styling**
     - #### **Difference to design** 
+
+# **FEATURES**
+
+  - ## **Existing features**
+
+  - ## **Features left to implement**
+
+# **TECHNOLOGY USED**
+
+  - ## **Languages**
+    - HTML
+    - CSS
+    - Javascript 
+    - Python 
+
+  - ## **Database**
+    - MongoDB
+
+  - ## **Libraries frameworks and other technologies**
+    - Flask
+    - Heroku 
+    - PyMongo 
+    - Jinja
+
+
+# **TESTING** 
+
+ - ## **Intro** 
+
+ - ## **Code validation** 
+    - #### **W3C HTML Code Validator**
+    - #### **W3C CSS Jigsaw Validator**
+    - #### **JSHint validator**
+    - #### **Python 8**
+
+ - ## **User stories** 
+
+ - ## **Responsiveness and compatibility** 
+
+ - ## **Testing performance**
+
+ - ## **Testing accessibility - wave report**
+
+  - ## **Interesting issues and know bugs**
+    - #### **Interesting issues**
+    - #### **Known bugs**
+
+# **DEPLOYMENT**
+
+  This website was developed on Gitpod using the Code Institute student template with changes frequently committed to git then pushed onto GitHub from the Gitpod terminal.
+  
+  The application is deployed on Heroku with the repository hosted on Github
+  
+  - ## **Prerequisite**
+    - Have an account with MongoDB and get a connection string 
+    - Have an account with Heroku 
+  - ## **To use the code locally** 
+
+    To use this project, you can either fork or clone the local repository on gitHug as follows, then go to the deployment section to configure and deploy the app on Heroku.
+ 
+    - ### **Forking local repository** 
+      You can make a copy of the GitHub Repository by "forking" the original repository onto your own account, where changes can be made without affecting the original repository by following the following steps: 
+
+      - Log onto Github
+      - Navigate to the GitHub repository : https://github.com/lemocla/Codzilla
+      - Click on the fork icon (located on top right of the page at the same level of repository name)
+
+      ![forking](documentation/deployment/fork.png)
+ 
+      - You should now have a copy of this repository into your GitHub account.
+	    - To make a change, clone the file into your local IDE
+
+      For more information on how to fork a repository, please check this [github documentation](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo). 
+      
+
+    - ### **Cloning the repository into your local IDE** 
+
+      - Log into GitHub and navigate to the GitHub repository: https://github.com/lemocla/Codzilla
+      - Above the repository folder and file content, click “Code”
+      - Select from one of the following options:  
+
+        ![cloning](documentation/deployment/cloning.png)
+
+        #### **Clone the files using url** 
+          - Copy the url
+          - Create a repository in GitHub and a workspace in your IDE
+          - Open the terminal and type: ``$ git clone https://github.com/lemocla/Codzilla``
+          - All the files should have been imported in your workspace
+
+	      #### **Download zip files**
+          - Create a repository in GitHub and a workspace in your IDE
+          - Unzip the folder
+          - Upload the files into your workspace
+
+      You can find all the steps to follow according to your chosen method in this [GitHub documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) on how to clone a repository.
+
+  - ## **Prepare for deployment**
+	
+    - ### **Get connection string with MongoDB**
+
+      - Click on project
+      - Click on connect
+        ![mongo_connect](documentation/deployment/mongodb_connect.png)
+      - Select connect your application (make sure python & version 3.6 selected)
+        ![mongo connect app](documentation/deployment/mongodb_connect_app.png)
+      - Copy link & change db name & password (make sure you use the password for user access and not your login details)
+        ![mongo connect app](documentation/deployment/mongodb_connection_string.png)
+        
+
+    - ### **Set local environment** 
+
+      - Create env.py file in the route directory by entering touch env.py in your command line interface
+      - Add the following to your env.py
+ 
+            import os   
+            os.environ.setdefault("IP", "0.0.0.0")    
+            os.environ.setdefault("PORT", "5000")   
+            os.environ.setdefault("SECRET_KEY", "your_secret_key")   
+            os.environ.setdefault("MONGO_URI", "Your_Mongo_connection_string")   
+            os.environ.setdefault("MONGO_DBNAME", "Your_DB_Name")
+
+      - Add your env.py and ‘pycache/’ directory to .gitignore 
+
+    - ### **Requirements.txt and Procfile**
+
+      - Create a requirements.txt file, which will list all of the Python dependencies by typing the following in the command line interface:    
+            ``$ pip freeze > requirements.txt``   
+ 
+      - Create a Procfile, which is a specific type of file that tells Heroku how to run our project by typing the following the command line interface:    
+            ``$ echo web: python app.py > Procfile``     
+       (Make sure to write Procfile with a capital P and to remove blank line in the Procfile)
+    
+      - Add and commit the requirement.txt and procfile then push to GitHub
+
+  - ##  **Deployment on Heroku**
+
+    - Log onto Heroku and click the create new app button
+      ![Heroku add app](documentation/deployment/heroku_add.png)
+    - Enter a unique name for your application
+    - Select the region closest to you      
+    - Set your deployment method to 'GitHub'
+      ![Heroku connect github](documentation/deployment/heroku_connect.png)
+    - Search for the repository you wish to deploy from 
+    - Enable automatic deploy 
+      ![Heroku github setting](documentation/deployment/heroku_github.png)
+
+    - Set environment in Heroku App 
+      - Go to settings, then click on reveal config vars
+      - Enter your key value pairs as per your env.py file (without the inverted commas)
+        ![Heroku variable](documentation/deployment/heroku_variable.png)
+
+
+# **CREDITS** 
+
+- ## **Code**
+- ## **Content**
+- ## **Media**
+- ## **Acknowledgments** 
