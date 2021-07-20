@@ -1,0 +1,74 @@
+/*---------[ Font ]---------*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Roboto:wght@400;500;700&family=Tourney:wght@800&display=swap');
+
+/*---------[ Color ]---------*/
+
+:root {
+    --ivory: #E7E7E0;
+    --fuchsia: #D9276A;
+    --darkgray: #6E6E6E;
+    --black: #070100;
+    --blue: #5710E6;
+}
+
+body {
+    font-family: 'Open Sans', serif;
+}
+
+/*---------[ Navbar ]---------*/
+
+nav {
+    height: 70px;
+    line-height: 70px;
+    background-color: #fff;
+}
+
+.dropdown-content {
+    min-width: 175px !important;
+    max-width: 300px !important;
+    right: 2px !important;
+    left: unset !important;
+    top: 73px !important;
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span {
+    color: var(--black) !important;
+    border-bottom: 1px solid var(--ivory);
+}
+
+nav .brand-logo {
+    color: var(--fuchsia) !important;
+    font-family: 'Tourney', cursive;
+    font-size: 2.3rem;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.nav-btn {
+    color: var(--darkgray);
+    font-size: 2rem;
+}
+
+.nav-item {
+    color: var(--darkgray);
+    padding: 0 9px !important;
+}
+
+nav ul a:hover {
+    background-color: transparent;
+}
+
+.nav-item:hover {
+    transform: scaleY(1.08);
+    filter: brightness(50%);
+    font-weight: 600;
+}
+
+
+@media only screen and (max-width: 992px)
+{
+nav .brand-logo.left {
+    left: 1rem;
+}
+}

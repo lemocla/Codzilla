@@ -227,10 +227,33 @@ View live project here [link to deployed link]
     The website will feature a simple, modern and engaging design, with minimum colours and imagery to keep the emphasis on the events and information displayed.
 
     - #### **Imagery**
+
     - #### **Colour scheme**
+
+      The website will use the following colour palette, which was customed made using  and checked for accessibility using [Adobe Color](https://color.adobe.com/create/color-wheel) 
+      ![color palette](documentation/design/colours.png)
+
+      Colours will be used sparingly throughout the website. 
+
+      The colour blue will be used for icons and buttons to inform users with regards to their interest and participation into groups and events. 
+      
+      Fuchsia will be used for the logo and was selected for its bright and bold appearance offering a striking contrast with the blue. It will also be used to hightlight certain text elements. 
+
     - #### **Typography**
+
+      The website will use the following fronts from [Google](https://fonts.google.com/):
+      - Open sans for the text throughout due its friendly appearance and being easy to read. 
+      - Roboto for headings as it complements Open sans very nicely 
+      - Tourney for the logo for its technological aspect. 
+
     - #### **Icons**
+      Icons by [font-awesome](https://fontawesome.com/) will be used in the navigation bar to allow user to quickly access functionalities offered by the website once logged-in. 
+
     - #### **Styling**
+
+      - Horizontal lines to structure and make the content of the website easy to read.
+      - Rounded edge borders and buttons for a more user friendly and inviting interface.
+
     - #### **Difference to design** 
 
 # **FEATURES**

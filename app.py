@@ -22,10 +22,14 @@ mongo = PyMongo(app)
 
 # test function to make sure app is properly configured
 @app.route("/")
+def base():
+    return render_template("base.html")
+
+
 @app.route("/get_events")
 def get_events():
     events = mongo.db.events.find()
-    return render_template("all_events.html", events=events)
+    return render_template("allevents.html", events=events)
 
 
 if __name__ == "__main__":
