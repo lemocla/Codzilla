@@ -32,6 +32,11 @@ def get_events():
     return render_template("allevents.html", events=events)
 
 
+@app.route("/accessibility")
+def accessibility():
+    return render_template("accessibility.html", page_title="accessibility statement")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

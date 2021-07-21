@@ -6,7 +6,7 @@
 :root {
     --ivory: #E7E7E0;
     --fuchsia: #D9276A;
-    --darkgray: #6E6E6E;
+    --darkgray: #6E6E6E;  /*#575759*/;
     --black: #070100;
     --blue: #5710E6;
 }
@@ -26,6 +26,24 @@ h5 {
     font-weight: 700;
 }
 
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+.breakline{
+width: 100px;
+border: 2px var(--fuchsia) solid;
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.hyperlink{
+color:var(--blue);
+}
 /*---------[ Navbar ]---------*/
 
 nav {
