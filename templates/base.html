@@ -2,30 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png')}}">
-    <meta name="Description" content="Codzilla brings coders together for social, networking and collaborative events">
-    <meta name="keywords" content="event, meetup, coding meetup, coding event, networking, tech meetup">
-    <meta name="author" content="Claire Lemonnier">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
-    <title>{% block title %}{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png')}}">
+  <meta name="Description" content="Codzilla brings coders together for social, networking and collaborative events">
+  <meta name="keywords" content="event, meetup, coding meetup, coding event, networking, tech meetup">
+  <meta name="author" content="Claire Lemonnier">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
+  <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav>
-            <div class="nav-wrapper white">
-                <a href="#!" class="brand-logo left">codzilla</a>
-                <a href="#" data-activates="mobile" data-beloworigin="true"
-                    class="button-collapse dropdown-button right"><i class="nav-btn fas fa-bars"></i></a>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <div class="nav-wrapper white">
+        <a href="#!" class="brand-logo left">codzilla</a>
+        <a href="#" data-activates="mobile" data-beloworigin="true" class="button-collapse dropdown-button right"><i
+            class="nav-btn fas fa-bars"></i></a>
 
-                <!-- for user in session
+        <!-- for user in session
                 <ul class="right">
                     <li><a class="nav-item" href=""><i class="fas fa-home"></i></a></li>
                     <li><a class="nav-item" href=""><i class="fas fa-bell"></i></a></li>
@@ -42,34 +42,64 @@
                 </ul>
                 -->
 
-                <!-- Navigation user not in session -->
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="nav-item nav-text" href="">Log in</a></li>
-                    <li><a class="nav-item nav-text" href="">Sign up</a></li>
-                    <li><a class="nav-item nav-text" href="">All events</a></li>
-                </ul>
+        <!-- Navigation user not in session -->
+        <ul class="right hide-on-med-and-down">
+          <li><a class="nav-item nav-text" href="">Log in</a></li>
+          <li><a class="nav-item nav-text" href="">Sign up</a></li>
+          <li><a class="nav-item nav-text" href="">All events</a></li>
+        </ul>
 
-                <!-- Mobile nav -->
-                <ul id="mobile" class='dropdown-content'>
-                    <li><a href="">Log in</a></li>
-                    <li><a href="">Sign up</a></li>
-                    <li><a href="">All events</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+        <!-- Mobile nav -->
+        <ul id="mobile" class='dropdown-content'>
+          <li><a href="">Log in</a></li>
+          <li><a href="">Sign up</a></li>
+          <li><a href="">All events</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Content -->
-    <main class="container">
-        {% block content%}
-        {% endblock %}
-    </main>
+  <!-- Content -->
+  <main class="container">
+    {% block content%}
+    {% endblock %}
+  </main>
 
-    <!-- Footer -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js')}}""></script>
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h5 class="white-text center">Useful links</h5>
+        </div>
+        <div class="col s4">
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Accessibility</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Privacy</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="col s3 offset-s5 l2 offset-l6">
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Sign in</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Sign up</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">F.A.Q</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2021 Copyright Claire Lemonnier
+      </div>
+    </div>
+  </footer>
+
+  <!--scripts-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js')}}""></script>
     {% block scripts %}
     {% endblock %}
 </body>

@@ -15,6 +15,17 @@ body {
     font-family: 'Open Sans', serif;
 }
 
+/*---------[ headings ]---------*/
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Roboto', serif;
+    font-weight: 700;
+}
+
 /*---------[ Navbar ]---------*/
 
 nav {
@@ -65,10 +76,19 @@ nav ul a:hover {
     font-weight: 600;
 }
 
+/*---------[ Footer ]---------*/
 
-@media only screen and (max-width: 992px)
-{
-nav .brand-logo.left {
-    left: 1rem;
+.page-footer {
+    background-color: var(--darkgray);
 }
+
+.page-footer a:hover {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo.left {
+        left: 1rem;
+    }
 }
