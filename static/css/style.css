@@ -6,7 +6,9 @@
 :root {
     --ivory: #E7E7E0;
     --fuchsia: #D9276A;
-    --darkgray: #6E6E6E;  /*#575759*/;
+    --darkgray: #6E6E6E;
+    /*#575759*/
+    ;
     --black: #070100;
     --blue: #5710E6;
 }
@@ -34,16 +36,17 @@ h2 {
     font-size: 1.64rem;
 }
 
-.breakline{
-width: 100px;
-border: 2px var(--fuchsia) solid;
-text-align: center;
-margin-bottom: 2rem;
+.breakline {
+    width: 100px;
+    border: 2px var(--fuchsia) solid;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.hyperlink{
-color:var(--blue);
+.hyperlink {
+    color: var(--blue);
 }
+
 /*---------[ Navbar ]---------*/
 
 nav {
@@ -94,22 +97,29 @@ nav ul a:hover {
     font-weight: 600;
 }
 
+/*---------[ faq ]------------*/
+
+.question{
+    color: var(--fuchsia);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
 /*---------[ Footer ]---------*/
 
 .page-footer {
     background-color: var(--ivory);
 }
 
-.footer-text{
-    color:var(--black);
+.footer-text {
+    color: var(--black);
 }
 
-.contact-btn{
-
-background-color: var(--fuchsia);
-color: #ffffff;
-margin-bottom: 1.5rem;
+.btn.contact-btn {
+    background-color: var(--fuchsia);
+    color: #ffffff;
+    margin-bottom: 1.5rem;
 }
+
 .page-footer a:hover {
     font-weight: bold;
     font-size: 1.1rem;

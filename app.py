@@ -37,6 +37,11 @@ def accessibility():
     return render_template("accessibility.html", page_title="accessibility statement")
 
 
+@app.route("/faq")
+def faq():
+    return render_template("faq.html", page_title="frequently asked question")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
