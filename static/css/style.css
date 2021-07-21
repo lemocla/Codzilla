@@ -31,7 +31,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.64rem;
 }
 
 .breakline{
@@ -97,9 +97,19 @@ nav ul a:hover {
 /*---------[ Footer ]---------*/
 
 .page-footer {
-    background-color: var(--darkgray);
+    background-color: var(--ivory);
 }
 
+.footer-text{
+    color:var(--black);
+}
+
+.contact-btn{
+
+background-color: var(--fuchsia);
+color: #ffffff;
+margin-bottom: 1.5rem;
+}
 .page-footer a:hover {
     font-weight: bold;
     font-size: 1.1rem;
