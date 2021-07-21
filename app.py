@@ -32,6 +32,11 @@ def get_events():
     return render_template("allevents.html", events=events)
 
 
+@app.route("/contact_us")
+def contact_us():
+    return render_template("contact_us.html", page_title="contact us")
+
+
 @app.route("/accessibility")
 def accessibility():
     return render_template("accessibility.html", page_title="accessibility statement")
