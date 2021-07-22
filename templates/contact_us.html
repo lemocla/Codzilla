@@ -8,27 +8,32 @@
         <h1 class="center-align">Contact us</h1>
         <hr class="breakline">
     </div>
+            {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
 </div>
 
 <div class="row">
     <!-- Contact form -->
-    <form class="col s12 l6">
+    <form class="col s12 l6" method="post">
         <div class="row">
             <div class="input-field col s12">
-                <input id="first_name" type="text" class="validate" maxlength="50" required>
-                <label for="first_name">Full name</label>
+                <input id="fullname" name="fullname" type="text" class="validate" maxlength="50" required>
+                <label for="fullname">Full name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="email" type="email" class="validate" required>
+                <input id="email" type="email" name="email" class="validate" required>
                 <label for="email">Email</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <textarea id="textarea1" class="materialize-textarea validate" minlength="15" required></textarea>
-                <label for="textarea1">Message</label>
+                <textarea id="message" name="message" class="materialize-textarea validate" minlength="10" required></textarea>
+                <label for="message">Message</label>
             </div>
         </div>
         <div class="row">
