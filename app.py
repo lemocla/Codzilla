@@ -79,7 +79,7 @@ def contact_us():
                               subject=subject)
                 conn.send(msg)
 
-        flash("Your message was sent successfully.")
+        flash("Your message was sent successfully!")
         return redirect(url_for('contact_us'))
     return render_template("contact_us.html", page_title="contact us")
 

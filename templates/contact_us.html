@@ -8,11 +8,16 @@
         <h1 class="center-align">Contact us</h1>
         <hr class="breakline">
     </div>
-            {% with messages = get_flashed_messages() %}
-        {% for message in messages %}
+</div>
+
+<div class="row flashes">
+    <div class="col s12 l6 center-align">
+    {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
         <p>{{ message }}</p>
-        {% endfor %}
-        {% endwith %}
+    {% endfor %}
+    {% endwith %}
+    </div>
 </div>
 
 <div class="row">
@@ -32,7 +37,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <textarea id="message" name="message" class="materialize-textarea validate" minlength="10" required></textarea>
+                <textarea id="message" name="message" class="materialize-textarea validate" minlength="10"
+                    required></textarea>
                 <label for="message">Message</label>
             </div>
         </div>
