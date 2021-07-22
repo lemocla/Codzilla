@@ -67,15 +67,24 @@ def contact_us():
         with mail.connect() as conn:
             for recipient in recipients:
                 if recipient == admin_email:
-                    message = sender_message
-                    subject = "New query from: %s" % sender_fullname
+                    message = (f"<h3>Hello</h3>"
+                               "<p>Please find below message from:</p>"
+                               f"<p><b>Name:</b> {sender_fullname}</p> "
+                               f"<p><b>Email:</b> {sender_email}</p> "
+                               f"<p><b>Message:</b> {sender_message} </p>")
+                    subject = f"New query from: {sender_fullname}"
 
                 elif recipient == sender_email:
-                    message = 'We have received your message and aim to respond within the next 2 working days'
+                    message = (f"<h3>Hello {sender_fullname},</h3>"
+                               "<p>We have received your message and aim"
+                               " to respond within the next 2 working days.</p>"
+                               "<p>Best regards</p>"
+                               "<p>Codzilla Team</p>"
+                               )
                     subject = 'Thank your for your query'
 
                 msg = Message(recipients=[recipient],
-                              body=message,
+                              html=message,
                               subject=subject)
                 conn.send(msg)
 
