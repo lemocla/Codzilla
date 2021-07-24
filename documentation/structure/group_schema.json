@@ -1,0 +1,61 @@
+{
+    "description": "This document records the details of a group",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "events": {
+            "bsonType": "array",
+            "description": "must be an array made of objectId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "group_admin": {
+            "bsonType": "array",
+            "description": "must be an array made of a minimum of 1 objectId",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 1
+        },
+        "group_city": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "group_country": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "group_description": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "group_img_url": {
+            "bsonType": "string",
+            "description": "must be a string if the field exists"
+        },
+        "group_members": {
+            "bsonType": "array",
+            "description": "must be an array made of objectId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "group_name": {
+            "bsonType": "string",
+            "description": "must be a unique string and is required",
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "_id",
+        "group_name",
+        "group_description",
+        "group_city",
+        "group_country"
+    ],
+    "title": "group"
+}

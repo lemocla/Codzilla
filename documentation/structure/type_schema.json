@@ -1,0 +1,18 @@
+{
+    "description": "This document records the details of a type",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "type_name": {
+            "bsonType": "string",
+            "description": "must be a string and is required",
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "_id",
+        "type_name"
+    ],
+    "title": "type"
+}

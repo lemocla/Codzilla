@@ -1,0 +1,83 @@
+{
+    "description": "This document records the details of an event",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "attendees": {
+            "bsonType": "array",
+            "description": "must be an array made of objectId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "created_by": {
+            "bsonType": "objectId",
+            "description": "must be an objectId and is required"
+        },
+        "date_end": {
+            "bsonType": "date",
+            "description": "must be a date if the field exists"
+        },
+        "date_start": {
+            "bsonType": "date",
+            "description": "must be a date and is required"
+        },
+        "event_category": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "event_description": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "event_imgUrl": {
+            "bsonType": "string",
+            "description": "must be a string if the field exists"
+        },
+        "event_link": {
+            "bsonType": "string",
+            "description": "must be a string if the field exists"
+        },
+        "event_location": {
+            "bsonType": "string",
+            "description": "must be a string if the field exists"
+        },
+        "event_name": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "event_type": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "group": {
+            "bsonType": "string",
+            "description": "must be a string if the field exists"
+        },
+        "is_endtime": {
+            "bsonType": "bool",
+            "description": "must be a boolean and is required"
+        },
+        "max_attendees": {
+            "bsonType": "int",
+            "description": "must be an integer if the field exists"
+        },
+        "status": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        }
+    },
+    "required": [
+        "_id",
+        "created_by",
+        "date_start",
+        "event_name",
+        "event_type",
+        "event_category",
+        "event_description",
+        "status"
+    ],
+    "title": "event"
+}

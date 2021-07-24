@@ -1,0 +1,144 @@
+{
+    "description": "This document records the details of a user",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "city": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "country": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "email": {
+            "bsonType": "string",
+            "description": "must be a string and is required",
+            "uniqueItems": true
+        },
+        "events_attending": {
+            "bsonType": "array",
+            "description": "must be an array made of ObjecId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "events_interest": {
+            "bsonType": "array",
+            "description": "must be an array made of ObjecId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "events_organised": {
+            "bsonType": "array",
+            "description": "must be an array made of ObjecId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "first_name": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "group_following": {
+            "bsonType": "array",
+            "description": "must be an array made of ObjecId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "group_owned": {
+            "bsonType": "array",
+            "description": "must be an array made of ObjecId and can be empty",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "minItems": 0
+        },
+        "last_name": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "notifications_msg": {
+            "bsonType": "array",
+            "description": "must be an array of ojbect and can be empty",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "msg": {
+                        "bsonType": "string"
+                    },
+                    "notification_date": {
+                        "bsonType": "date"
+                    },
+                    "notification_type": {
+                        "bsonType": "string"
+                    }
+                },
+                "required": [
+                    "msg",
+                    "notification_date",
+                    "notification_type"
+                ]
+            },
+            "minItems": 0
+        },
+        "password": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "preferences": {
+            "bsonType": "object",
+            "description": "must be an object and is required",
+            "properties": {
+                "event_question": {
+                    "bsonType": "bool"
+                },
+                "event_reminder": {
+                    "bsonType": "bool"
+                },
+                "event_update": {
+                    "bsonType": "bool"
+                },
+                "new_follower": {
+                    "bsonType": "bool"
+                },
+                "new_participant": {
+                    "bsonType": "bool"
+                },
+                "query_answered": {
+                    "bsonType": "bool"
+                }
+            },
+            "required": [
+                "event_question",
+                "event_reminder",
+                "event_update",
+                "new_follower",
+                "new_participant",
+                "query_answered"
+            ]
+        },
+        "user_imgUrl": {
+            "bsonType": "string",
+            "description": "must be a string if field exists"
+        }
+    },
+    "required": [
+        "_id",
+        "first_name",
+        "last_name",
+        "city",
+        "country",
+        "email",
+        "password",
+        "preferences"
+    ],
+    "title": "user"
+}
