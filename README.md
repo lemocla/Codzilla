@@ -188,11 +188,27 @@ View live project here [link to deployed link]
 
     - ### **Database structure**
 
-        Database structure was designed using [diagram.io](https://dbdiagram.io). 
+        Database schema was designed using [diagram.io](https://dbdiagram.io). 
 
         ![database architecture](documentation/structure/db_structure.png)
 
+        <img align="right" alt="test" src="documentation/structure/example_schema.png" width="150"/>  
+
         Link to document (png format) [here](documentation/structure/db_structure.png) 
+
+        - #### **JSON Schema validation**
+        
+          - JSON Schema validation was generated with MongoDB Realm to which additional details were added such as description, unique values and required fields. 
+
+          - **JSON Schema**
+            - [user_schema](documentation/structure/user_schema.json)
+            - [event_schema](documentation/structure/event_schema.json)
+            - [group_schema](documentation/structure/group_schema.json)
+            - [question_answer_schema](documentation/structure/question_answer.json)
+            - [category_schema](documentation/structure/category_schema.json)
+            - [type_schema](documentation/structure/type_schema.json)       
+
+        (this may evolve to adjust to the application requirements)
 
 
 - ## **Skeleton**
@@ -412,4 +428,6 @@ View live project here [link to deployed link]
 - ## **Code**
 - ## **Content**
 - ## **Media**
+      - Sign-up page: [unDraw](https://undraw.co/search)
+      - Contact page: [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=email)
 - ## **Acknowledgments** 
