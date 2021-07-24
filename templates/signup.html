@@ -12,7 +12,7 @@
 <div class="row">
     <!-- Contact form -->
     <div class="col s12 l6">
-    <form  method="post">
+    <form  method="post" method="POST" action="{{ url_for('signup') }}">
         <div class="row">
             <div class="input-field col s6">
                 <input id="fname" name="fname" type="text" class="validate" maxlength="50" required>

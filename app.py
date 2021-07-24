@@ -5,7 +5,7 @@ from flask_pymongo import PyMongo
 # flask mail
 from flask_mail import Mail, Message
 # for later: from bson.objectid import ObjectId
-
+from werkzeug.security import generate_password_hash
 
 # import environment
 if os.path.exists("env.py"):
@@ -40,9 +40,35 @@ def base():
     return render_template("base.html", page_title="base template")
 
 
-# Sign up
-@app.route("/signup")
+# Sign up functionality
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
+    if request.method == "POST":
+        signup = {
+            "first_name": request.form.get("fname").lower(),
+            "last_name": request.form.get("lname").lower(),
+            "email": request.form.get("email").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "city": "",
+            "country": "",
+            "events_attending": [],
+            "user_imgUrl": "",
+            "events_interest": [],
+            "events_organised": [],
+            "group_following": [],
+            "group_owned": [],
+            "notifications_msg": [],
+            "preferences": {"event_reminder": True,
+                            "query_answered": True,
+                            "event_update": True,
+                            "new_participant": True,
+                            "event_question": True,
+                            "new_follower": True}
+        }
+        try:
+            mongo.db.users.insert_one(signup)
+        except Exception as e:
+            print(e)
     return render_template("signup.html", page_title="sign-up page")
 
 
