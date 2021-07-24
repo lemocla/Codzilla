@@ -45,7 +45,7 @@
         <!-- Navigation user not in session -->
         <ul class="right hide-on-med-and-down">
           <li><a class="nav-item nav-text" href="">Log in</a></li>
-          <li><a class="nav-item nav-text" href="">Sign up</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('signup') }}">Sign up</a></li>
           <li><a class="nav-item nav-text" href="">All events</a></li>
         </ul>
 
@@ -78,7 +78,7 @@
         <h5 class="black-text">Useful links</h5>
           <ul>
             <li><a class="footer-text" href="#!">Sign in</a></li>
-            <li><a class="footer-text" href="#!">Sign up</a></li>
+            <li><a class="footer-text" href="{{ url_for('signup') }}">Sign up</a></li>
             <li><a class="footer-text" href="{{ url_for('faq') }}">F.A.Q</a></li>
             <li><a class="footer-text" href="#!">Privacy</a></li>
             <li><a class="footer-text" href="{{ url_for('accessibility') }}">Accessibility</a></li>

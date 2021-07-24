@@ -11,6 +11,7 @@ from flask_mail import Mail, Message
 if os.path.exists("env.py"):
     import env
 
+
 # create an instance of flask
 app = Flask(__name__)
 
@@ -33,10 +34,16 @@ mongo = PyMongo(app)
 mail = Mail(app)
 
 
-# test function to make sure app is properly configured
+# Sign up
 @app.route("/")
 def base():
-    return render_template("base.html")
+    return render_template("base.html", page_title="base template")
+
+
+# Sign up
+@app.route("/signup")
+def signup():
+    return render_template("signup.html", page_title="sign-up page")
 
 
 @app.route("/get_events")
