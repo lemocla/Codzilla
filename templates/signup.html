@@ -9,33 +9,44 @@
     </div>
 </div>
 
+<!-- Flash messages -->
+<div class="row flashes">
+    <div class="col s12 l6 center-align">
+    {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {% endwith %}
+    </div>
+</div>
+
+<!-- Contact form -->
 <div class="row">
-    <!-- Contact form -->
     <div class="col s12 l6">
     <form  id="signup" method="post" method="POST" action="{{ url_for('signup') }}">
         <div class="row">
             <div class="input-field col s6">
-                <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="20" pattern="^[a-zA-Z._-]{1,20}$" required>
+                <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
                 <label for="fname">First name</label>
                 <p class="error-text hide" for="fname"></p>
             </div>
             <div class="input-field col s6">
-                <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="20" pattern="^[a-zA-Z._-]{1,20}$" required>
+                <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
                 <label for="lname">Last name</label>
                 <p class="error-text hide" for="lname"></p>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="email" type="email" name="email" maxlength="30" class="validate" required>
+                <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                 <label for="email">Email</label>
                 <p class="error-text hide" for="email"></p>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <!-- https://www.ocpsoft.org/tutorials/regular-expressions/password-regular-expression/ -->
-                <input id="password" type="password" name="password" minlenght="8" maxlength="20" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$" class="validate" required>
+                <!-- https://regex101.com/ -->
+                <input id="password" type="password" name="password" minlenght="8" maxlength="32" pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$" class="validate" required>
                 <label for="password">Password</label>
                 <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.</p>
                 <p class="error-text hide" for="password"></p>
