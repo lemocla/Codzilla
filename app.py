@@ -6,6 +6,8 @@ from flask_pymongo import PyMongo
 from flask_mail import Mail, Message
 # for later: from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash
+import re
+
 
 # import environment
 if os.path.exists("env.py"):
@@ -34,6 +36,30 @@ mongo = PyMongo(app)
 mail = Mail(app)
 
 
+# variables
+pwd_pattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
+name_pattern = ("^[a-zA-Z._-]{1,20}$")
+
+
+def check_regex(pattern, data, string_flash):
+    check = re.search(pattern, data)
+    if check:
+        match = True
+    else:
+        match = False
+        flash(f"Your {string_flash} is invalid!")
+    print(match)
+    return bool(match)
+
+
+def signup_validation(password, fname, lname):
+    check_pwd = check_regex(pwd_pattern, password, "password")
+    check_fname = check_regex(name_pattern, fname, "first name")
+    check_lname = check_regex(name_pattern, lname, "last name")
+    check_list = [check_pwd, check_fname, check_lname]
+    return check_list
+
+
 # Sign up
 @app.route("/")
 def base():
@@ -44,6 +70,10 @@ def base():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
+        password = request.form.get("password")
+        fname = request.form.get("fname")
+        lname = request.form.get("lname")
+        valid = all(signup_validation(password, fname, lname))
         signup = {
             "first_name": request.form.get("fname").lower(),
             "last_name": request.form.get("lname").lower(),
@@ -65,10 +95,15 @@ def signup():
                             "event_question": True,
                             "new_follower": True}
         }
-        try:
-            mongo.db.users.insert_one(signup)
-        except Exception as e:
-            print(e)
+        if valid:
+            try:
+                mongo.db.users.insert_one(signup)
+                flash("Sign up successful!")
+            except Exception as e:
+                print(e)
+        else:
+            return redirect(url_for("signup"))
+
     return render_template("signup.html", page_title="sign-up page")
 
 
