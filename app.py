@@ -108,12 +108,19 @@ def signup():
             try:
                 mongo.db.users.insert_one(signup)
                 flash("Sign up successful!")
+                return redirect(url_for("complete_profile"))
             except Exception as e:
                 print(e)
         else:
             return redirect(url_for("signup"))
 
     return render_template("signup.html", page_title="sign-up page")
+
+
+# Sign up functionality
+@app.route("/complete_profile", methods=["GET", "POST"])
+def complete_profile():
+    return render_template("complete-profile.html", page_title="complete profile page")
 
 
 @app.route("/get_events")
