@@ -70,10 +70,19 @@ def base():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
+        # check if username already exists
+        existing_user = mongo.db.users.find_one(
+            {"email": request.form.get("email").lower()})
+
+        if existing_user:
+            flash("Username already exists, please sign in")
+            return redirect(url_for("signup"))
+        # form validation
         password = request.form.get("password")
         fname = request.form.get("fname")
         lname = request.form.get("lname")
         valid = all(signup_validation(password, fname, lname))
+        # sign up dictionary
         signup = {
             "first_name": request.form.get("fname").lower(),
             "last_name": request.form.get("lname").lower(),
