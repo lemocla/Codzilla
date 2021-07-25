@@ -1,10 +1,10 @@
 import os
-from flask import (Flask, render_template, request, redirect, url_for, flash)
+from flask import (Flask, render_template, request, redirect, url_for, flash, session)
 # connect Flask to MongoDB
 from flask_pymongo import PyMongo
 # flask mail
 from flask_mail import Mail, Message
-# for later: from bson.objectid import ObjectId
+from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash
 import re
 
@@ -108,7 +108,8 @@ def signup():
             try:
                 mongo.db.users.insert_one(signup)
                 flash("Sign up successful!")
-                return redirect(url_for("complete_profile"))
+                session['email'] = request.form['email']
+                return redirect(url_for("complete_profile", email=session["email"]))
             except Exception as e:
                 print(e)
         else:
@@ -117,10 +118,22 @@ def signup():
     return render_template("signup.html", page_title="sign-up page")
 
 
-# Sign up functionality
-@app.route("/complete_profile", methods=["GET", "POST"])
-def complete_profile():
-    return render_template("complete-profile.html", page_title="complete profile page")
+# Complete profile functionality
+# https://testdriven.io/blog/flask-sessions/
+@app.route("/complete_profile/<email>", methods=["GET", "POST"])
+def complete_profile(email):
+    # Get the session's user mail from MongoDB
+    email = mongo.db.users.find_one(
+        {"email": session["email"]})["email"]
+    # Get the first name for session user from MongoDB
+    fname = mongo.db.users.find_one(
+        {"email": session["email"]})["first_name"].capitalize()
+    if session["email"]:
+        return render_template(
+            "complete-profile.html",
+            page_title="complete profile page",
+            email=email,
+            name=fname)
 
 
 @app.route("/get_events")
