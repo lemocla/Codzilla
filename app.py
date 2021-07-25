@@ -117,7 +117,7 @@ def signup():
             try:
                 mongo.db.users.insert_one(signup)
                 flash("Sign up successful!")
-                session['email'] = request.form['email']
+                session['email'] = request.form['email'].lower()
                 return redirect(url_for("complete_profile", email=session["email"]))
             except Exception as e:
                 print(e)
@@ -132,14 +132,11 @@ def signup():
 @app.route("/complete_profile/<email>", methods=["GET", "POST"])
 def complete_profile(email):
     # Get the session's user mail from MongoDB
-    email = mongo.db.users.find_one(
-        {"email": session["email"]})["email"]
+    email = mongo.db.users.find_one({"email": session["email"].lower()})["email"]
     # Get the first name for session user from MongoDB
-    fname = mongo.db.users.find_one(
-        {"email": session["email"]})["first_name"].capitalize()
+    fname = mongo.db.users.find_one({"email": session["email"].lower()})["first_name"].capitalize()
     # Get ID from mongoDB
-    user_id = mongo.db.users.find_one(
-        {"email": session["email"]})["_id"]
+    user_id = mongo.db.users.find_one({"email": session["email"].lower()})["_id"]
 
     # Complete user profile
     if request.method == "POST":
@@ -155,14 +152,34 @@ def complete_profile(email):
                             "new_follower": check_box(request.form.get("new_follower"))},
             "profile_completed": True
         }}
-        mongo.db.users.update({"_id": ObjectId(user_id)}, profile)
-        flash("Profile successfully completed")
+        try:
+            mongo.db.users.update({"_id": ObjectId(user_id)}, profile)
+            flash("Profile successfully completed")
+            return redirect(url_for("profile_completed", email=session["email"]))
+        except Exception as e:
+            print(e)
     if session["email"]:
         return render_template(
             "complete-profile.html",
             page_title="complete profile page",
             email=email,
             name=fname)
+
+
+@app.route("/profile_completed/<email>")
+def profile_completed(email):
+    # Get the session's user mail from MongoDB
+    email = mongo.db.users.find_one(
+            {"email": session["email"].lower()})["email"]
+    # Get the first name for session user from MongoDB
+    fname = mongo.db.users.find_one(
+            {"email": session["email"].lower()})["first_name"].capitalize()    
+
+    if session["email"]:
+        return render_template(
+            "profile-completed.html",
+            page_title="profile completed",
+            email=email, name=fname)
 
 
 @app.route("/get_events")
