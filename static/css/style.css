@@ -42,6 +42,10 @@ h2 {
     font-size: 1.64rem;
 }
 
+h3 {
+    font-size: 1.2rem;
+}
+
 .breakline {
     width: 100px;
     border: 2px var(--fuchsia) solid;
@@ -128,6 +132,10 @@ nav ul a:hover {
     padding-left: 5rem;
 }
 
+.notifications-container{
+margin: 0;
+border: 1px solid red;
+}
 input,
 textarea {
     border-bottom: 1px solid var(--darkgray) !important;

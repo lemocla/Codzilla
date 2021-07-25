@@ -60,6 +60,14 @@ def signup_validation(password, fname, lname):
     return check_list
 
 
+def check_box(value):
+    if value == "on":
+        check_value = True
+    else:
+        check_value = False
+    return check_value
+
+
 # Sign up
 @app.route("/")
 def base():
@@ -102,7 +110,8 @@ def signup():
                             "event_update": True,
                             "new_participant": True,
                             "event_question": True,
-                            "new_follower": True}
+                            "new_follower": True},
+            "profile_completed": False
         }
         if valid:
             try:
@@ -128,6 +137,26 @@ def complete_profile(email):
     # Get the first name for session user from MongoDB
     fname = mongo.db.users.find_one(
         {"email": session["email"]})["first_name"].capitalize()
+    # Get ID from mongoDB
+    user_id = mongo.db.users.find_one(
+        {"email": session["email"]})["_id"]
+
+    # Complete user profile
+    if request.method == "POST":
+        profile = {"$set": {
+            "user_imgUrl": request.form.get("user-img"),
+            "city": request.form.get("city"),
+            "country": request.form.get("country"),
+            "preferences": {"event_reminder": check_box(request.form.get("event_reminder")),
+                            "query_answered": check_box(request.form.get("query_answered")),
+                            "event_update": check_box(request.form.get("event_update")),
+                            "new_participant": check_box(request.form.get("new_participant")),
+                            "event_question": check_box(request.form.get("event_question")),
+                            "new_follower": check_box(request.form.get("new_follower"))},
+            "profile_completed": True
+        }}
+        mongo.db.users.update({"_id": ObjectId(user_id)}, profile)
+        flash("Profile successfully completed")
     if session["email"]:
         return render_template(
             "complete-profile.html",

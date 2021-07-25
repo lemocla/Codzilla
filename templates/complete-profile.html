@@ -8,7 +8,16 @@
         <hr class="breakline">
     </div>
 </div>
-
+<!-- Flash messages -->
+<div class="row flashes">
+    <div class="col s12 l6 center-align">
+    {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {% endwith %}
+    </div>
+</div>
 <!-- Complete profile form-->
 <div class="row">
 
@@ -16,7 +25,7 @@
         action="{{ url_for('complete_profile', email=email )}}">
         <div class="row">
             <div class="input-field col s12">
-                <input id="user-img" name="user-img" type="text" class="validate" minlenght="1" maxlength="32">
+                <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
                 <label for="city">Image URL</label>
             </div>
         </div>
@@ -31,7 +40,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <input id="country" name="country" type="text" class="validate" minlenght="1" maxlength="32"
-                    pattern="^[a-zA-Z._-]{1,32}$" required>
+                    pattern="^[a-zA-Z._- ]{1,32}$" required>
                 <label for="country">Country</label>
                 <p class="error-text hide" for="country"></p>
 
