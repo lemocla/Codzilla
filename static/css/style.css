@@ -107,7 +107,7 @@ nav ul a:hover {
 
 /*---------[ flashes ]------------*/
 
-.flashes{
+.flashes {
     color: var(--fuchsia);
     font-weight: 700;
 }
@@ -128,20 +128,35 @@ nav ul a:hover {
     padding-left: 5rem;
 }
 
-input, textarea {
-border-bottom: 1px solid var(--darkgray) !important;
+input,
+textarea {
+    border-bottom: 1px solid var(--darkgray) !important;
 }
 
-input:focus, textarea:focus {
-box-shadow: 0 1px 0 0 var(--blue) !important;
+input:focus,
+textarea:focus {
+    box-shadow: 0 1px 0 0 var(--blue) !important;
 }
 
-label{
-color: var(--darkgray) !important;
+label {
+    color: var(--darkgray) !important;
 }
 
-.required{
-color: var(--fuchsia);
+.required {
+    color: var(--fuchsia);
+}
+
+.error-text {
+    color: var(--fuchsia);
+}
+
+.error-text, .helper-text{
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.hide {
+    display: none;
 }
 
 .btn.btn-send {
@@ -165,7 +180,8 @@ color: var(--fuchsia);
     margin-bottom: 1.5rem;
 }
 
-.page-footer a:hover, .btn.btn-send:hover {
+.page-footer a:hover,
+.btn.btn-send:hover {
     font-weight: bold;
     font-size: 1.1rem;
 }
@@ -199,4 +215,3 @@ color: var(--fuchsia);
 
     }
 }
-
