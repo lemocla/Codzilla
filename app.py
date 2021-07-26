@@ -188,14 +188,11 @@ def login():
         # check for existing user
         existing_user = mongo.db.users.find_one(
             {"email": request.form.get("email").lower()})
-        fname = mongo.db.users.find_one(
-            {"email": session["email"].lower()})["first_name"].capitalize()
-
+        
         if existing_user:
             # check if passowrd matches
             if check_password_hash(existing_user["password"], request.form.get("password")):
                 session["email"] = request.form.get("email").lower()
-                flash("Welcome, {}".format(fname))
                 return redirect(url_for("profile_completed", email=session["email"]))
             else:
                 # invalid password match
@@ -207,6 +204,15 @@ def login():
             flash("Incorrect Username and/or password")
             return redirect(url_for("login"))
     return render_template("login.html", page_title="login page")
+
+
+# Log out
+@app.route("/logout")
+def logout():
+    # remove user from session cookies
+    flash("You have been logged out")
+    session.pop("email")
+    return redirect(url_for("login"))
 
 
 @app.route("/get_events")
