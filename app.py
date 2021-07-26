@@ -182,6 +182,11 @@ def profile_completed(email):
             email=email, name=fname)
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html", page_title="login page")
+
+
 @app.route("/get_events")
 def get_events():
     events = mongo.db.events.find()

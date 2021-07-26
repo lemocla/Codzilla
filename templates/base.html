@@ -47,14 +47,14 @@
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
-          <li><a class="nav-item nav-text" href="">Log in</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('login') }}">Log in</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('signup') }}">Sign up</a></li>
           <li><a class="nav-item nav-text" href="">All events</a></li>
         </ul>
 
         <!-- Mobile nav -->
         <ul id="mobile" class='dropdown-content'>
-          <li><a href="">Log in</a></li>
+          <li><a href="{{ url_for('login') }}">Log in</a></li>
           <li><a href="{{ url_for('signup') }}">Sign up</a></li>
           <li><a href="">All events</a></li>
         </ul>
@@ -81,7 +81,7 @@
         <div class="col l4 offset-l2 s12">
           <h5 class="black-text">Useful links</h5>
           <ul>
-            <li><a class="footer-text" href="#!">Sign in</a></li>
+            <li><a class="footer-text" href="{{ url_for('login') }}">Log in</a></li>
             <li><a class="footer-text" href="{{ url_for('signup') }}">Sign up</a></li>
             <li><a class="footer-text" href="{{ url_for('faq') }}">F.A.Q</a></li>
             <li><a class="footer-text" href="#!">Privacy</a></li>
