@@ -182,6 +182,7 @@ def profile_completed(email):
             email=email, name=fname)
 
 
+# Log in 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -213,6 +214,18 @@ def logout():
     flash("You have been logged out")
     session.pop("email")
     return redirect(url_for("login"))
+
+
+# Profile
+@app.route("/profile/<email>", methods=["GET", "POST"])
+def profile(email):
+    # Get the session's user mail from MongoDB
+    email = mongo.db.users.find_one(
+            {"email": session["email"].lower()})["email"]
+    user = mongo.db.users.find_one({"email": session["email"].lower()})       
+    if session["email"]:
+        return render_template(
+            "profile.html", page_title="profile page", email=email, user=user)
 
 
 @app.route("/get_events")

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="row head-bg">
+    <div class="col s12">
+        <h1 class="center-align">Profile</h1>
+        <hr class="breakline">
+    </div>
+</div>
+<div class="row">
+<div class="col 12">
+<p>Hello {{ user.first_name }}</p>
+</div>
+</div>
+
+{% endblock %}
