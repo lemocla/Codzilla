@@ -31,10 +31,7 @@
 
     });
 
-  // Modals 
-
-  $(document).ready(function(){
+  // Modals  
     $('.modal').modal();
-  });
-  
+ 
   });

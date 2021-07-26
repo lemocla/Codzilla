@@ -11,10 +11,10 @@
 <div class="row">
     <div class="col 12 s12 l8 offset-l2">
         <h2>Personal information</h2>
-        
+
         <!-- Personal information-->
         <div class="row valign-wrapper">
-            <div class="col s3">   
+            <div class="col s3">
                 <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img">
             </div>
             <div class="col s9 ">
@@ -31,10 +31,12 @@
         <h2>Account settings</h2>
         <p><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
         <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
-        <button class="btn btn-send" id="edit-email">Edit email</button>
-        <button class="btn btn-send" id="edit-password">Edit password</button>
+        <button id="edit-email" data-target="email-modal"
+            class="btn modal-trigger btn-send">Edit email</button>
+        <button class="btn modal-trigger btn-send" data-target="password-modal" id="edit-password">Edit password</button>
         <hr class="margin-top">
-
+ <!-- Modal Trigger -->
+ 
         <!-- Preferences -->
         <h2>My preferences</h2>
         <div class="row">
@@ -124,70 +126,160 @@
 
 
 <!-- Modal personal information -->
-<div id="personal-info-modal" class="modal modal">
+<div id="personal-info-modal" class="modal">
     <div class="modal-content">
         <!--Modal content -->
         <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
             data-target="personal-info-modal"></i>
         <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
-        <!-- form-->
-        <form id="form-edit-info" class="modal-forms" method="post" method="POST" action="">
-            <!-- Image Url-->
-            <div class="row">
-                <div class="col s12 m2 center-align">
-                    <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img resize">
-                </div>
-                <div class="input-field col s12 m10">
-                    <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
-                    <label for="city">Image URL</label>
-                </div>
-            </div>
-            <!-- First name -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="32"
-                        pattern="^[a-zA-Z._-]{1,32}$" required>
-                    <label for="fname">First name</label>
-                    <p class="error-text hide" for="fname"></p>
-                </div>
-            </div>
-            <!-- Last name -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="32"
-                        pattern="^[a-zA-Z._-]{1,32}$" required>
-                    <label for="lname">Last name</label>
-                    <p class="error-text hide" for="lname"></p>
-                </div>
-            </div>
-            <!-- City -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="city" name="city" type="text" class="validate" minlenght="1" maxlength="32"
-                        pattern="^[a-zA-Z._-]{1,32}$" required>
-                    <label for="city">City</label>
-                    <p class="error-text hide" for="city"></p>
-                </div>
-            </div>
-            <!-- Country -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="country" name="country" type="text" class="validate" minlenght="1" maxlength="32"
-                        pattern="^[a-zA-Z._- ]{1,32}$" required>
-                    <label for="country">Country</label>
-                    <p class="error-text hide" for="country"></p>
-                </div>
-                <!-- Buttons -->
-                <div class="row">
-                    <div class="col s12 center-align margin-top">
-                        <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
-                        <button class="btn btn-send modal-close" type="button">Close</button>
-                    </div>
-                </div>
-        </form>
+        
 
+        <!-- form-->
+       <form id="form-edit-info" class="modal-forms" method="post">
+           <!-- Image Url-->
+           <div class="row">
+               <div class="col s12 m2 center-align">
+                   <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img resize">
+               </div>
+               <div class="input-field col s12 m10">
+                   <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
+                   <label for="city">Image URL</label>
+               </div>
+           </div>
+                   <!-- First name -->
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="32"
+                       pattern="^[a-zA-Z._-]{1,32}$" required>
+                   <label for="fname">First name</label>
+                   <p class="error-text hide" for="fname"></p>
+               </div>
+           </div>
+           <!-- Last name -->
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="32"
+                       pattern="^[a-zA-Z._-]{1,32}$" required>
+                   <label for="lname">Last name</label>
+                   <p class="error-text hide" for="lname"></p>
+               </div>
+           </div>
+           <!-- City -->
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="city" name="city" type="text" class="validate" minlenght="1" maxlength="32"
+                       pattern="^[a-zA-Z._-]{1,32}$" required>
+                   <label for="city">City</label>
+                   <p class="error-text hide" for="city"></p>
+               </div>
+           </div>
+           <!-- Country -->
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="country" name="country" type="text" class="validate" minlenght="1" maxlength="32"
+                       pattern="^[a-zA-Z._- ]{1,32}$" required>
+                   <label for="country">Country</label>
+                   <p class="error-text hide" for="country"></p>
+               </div>
+            </div>
+            <!-- Buttons -->
+               <div class="row">
+                   <div class="col s12 center-align margin-top">
+                       <button class="btn btn-send " type="submit" name="submit">Submit</button>
+                       <button class="btn btn-send modal-close" type="button">Close</button>
+                   </div>
+               </div>   
+       </form>
+    </div>
+</div>
+
+<!-- Modal edit email  -->
+<div id="email-modal" class="modal">
+    <div class="modal-content">
+        <!--Modal content -->
+        <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
+            data-target="email-modal"></i>
+        <h2 class="center-align">Change your email</h2>
+        <hr class="breakline">
+        <!-- form-->
+       <form id="form-edit-email" class="modal-forms" method="post" method="POST" action="">
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="current-email" type="email" name="current-email" maxlength="50" class="validate"
+                       disabled>
+                   <label for="current-email">current-email</label>
+               </div>
+           </div>
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="email" type="email" name="email" maxlength="50" class="validate" required>
+                   <label for="email">New email</label>
+                   <p class="error-text hide" for="email"></p>
+               </div>
+           </div>
+           <div class="row">
+               <div class="input-field col s12">
+                   <input id="confirm-email" type="email" name="email" maxlength="50" class="validate" required>
+                   <label for="confirm-email">Confirm your new email</label>
+                   <p class="error-text hide" for="confirm-email"></p>
+               </div>
+           </div>
+           <!-- Buttons -->
+           <div class="row">
+               <div class="col s12 center-align margin-top">
+                   <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
+                   <button class="btn btn-send modal-close" type="button">Close</button>
+               </div>
+           </div>
+       </form>
 
     </div>
 </div>
+
+ <!-- Modal edit password  -->
+<div id="password-modal" class="modal">
+    <div class="modal-content">
+        <!--Modal content -->
+        <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
+            data-target="password-modal"></i>
+        <h2 class="center-align">Change your password</h2>
+        <hr class="breakline">
+        <!-- form-->
+        <form id="form-edit-password" class="modal-forms" method="post" method="POST" action="">
+                <div class="row">
+            <div class="input-field col s12">
+                <!-- https://regex101.com/ -->
+                <input id="current-pwd" type="password" name="current-pwd" minlenght="8" maxlength="32" pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$" class="validate" required>
+                <label for="current-pwd">Current password</label>
+                <p class="error-text hide" for="current-pwd"></p>
+            </div>
+        </div>
+                <div class="row">
+            <div class="input-field col s12">
+                <!-- https://regex101.com/ -->
+                <input id="password" type="password" name="password" minlenght="8" maxlength="32" pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$" class="validate" required>
+                <label for="password">New Password</label>
+                <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.</p>
+                <p class="error-text hide" for="password"></p>
+            </div>
+        </div>
+                <div class="row">
+            <div class="input-field col s12">
+                <input id="conf-new-pwd" type="password" name="conf-new-pwd" minlenght="8" maxlength="32" pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$" class="validate" required>
+                <label for="conf-new-pwd">Confirm new password</label>
+                <p class="error-text hide" for="conf-new-pwd"></p>
+            </div>
+        </div>
+     <!-- Buttons -->
+           <div class="row">
+               <div class="col s12 center-align margin-top">
+                   <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
+                   <button class="btn btn-send modal-close" type="button">Close</button>
+               </div>
+           </div>   
+        </form>
+    </div>
+</div>
+          
 {% endblock %}
