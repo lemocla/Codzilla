@@ -7,15 +7,24 @@
         <h1 class="center-align">Welcome {{ name }}!</h1>
         <hr class="breakline">
     </div>
-</div>
-<!-- Flash messages -->
-<div class="row flashes">
-    <div class="col s12 l6 center-align">
-    {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-    {% endwith %}
+    <div class="col s12 flashes center-align">
+     <p>Congratulations! You have completed your profile.</p>
     </div>
+</div>
+
+<div class="row">
+<div class="col s12 center-align margin-bottom">
+<h2>What would you like to do next?</h2></div>
+<div class="col s12 center-align"><a href="!#" class="btn contact-btn btn-width">Browse events</a></div>
+<div class="col s12 center-align"><a href="!#" class="btn contact-btn btn-width">Add an event</a></div>
+<div class="col s12 center-align"><a href="!#" class="btn contact-btn btn-width">Go to homepage</a></div>
+
+
+<div class="row">
+<div class="col s12 center align margin-top">
+        <img width="100%" src="{{ url_for('static', filename='images/banner.png')}}"
+            alt="group in cafe illustration">
+</div>
+</div>
 </div>
 {% endblock %}

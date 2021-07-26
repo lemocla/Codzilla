@@ -58,6 +58,34 @@ h3 {
     color: var(--blue);
 }
 
+/*--------[ buttons ]---------*/
+
+.btn.contact-btn {
+    background-color: var(--fuchsia);
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.page-footer a:hover,
+.contact-btn:hover,
+.btn.btn-send:hover {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.btn-width{
+width: 250px;
+}
+
+/*---------[ Margins ---------*/
+
+.margin-bottom{
+    margin-bottom: 2rem;
+}
+
+.margin-top{
+margin-top: 2rem;
+}
 /*---------[ Navbar ]---------*/
 
 nav {
@@ -134,7 +162,6 @@ nav ul a:hover {
 
 .notifications-container{
 margin: 0;
-border: 1px solid red;
 }
 input,
 textarea {
@@ -182,17 +209,8 @@ label {
     color: var(--black);
 }
 
-.btn.contact-btn {
-    background-color: var(--fuchsia);
-    color: #ffffff;
-    margin-bottom: 1.5rem;
-}
 
-.page-footer a:hover,
-.btn.btn-send:hover {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
+
 
 /*---------[ Media queries ]---------*/
 
