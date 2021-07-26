@@ -5,7 +5,7 @@ from flask_pymongo import PyMongo
 # flask mail
 from flask_mail import Mail, Message
 from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import re
 
 
@@ -173,7 +173,7 @@ def profile_completed(email):
             {"email": session["email"].lower()})["email"]
     # Get the first name for session user from MongoDB
     fname = mongo.db.users.find_one(
-            {"email": session["email"].lower()})["first_name"].capitalize()    
+            {"email": session["email"].lower()})["first_name"].capitalize()
 
     if session["email"]:
         return render_template(
@@ -182,8 +182,30 @@ def profile_completed(email):
             email=email, name=fname)
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        # check for existing user
+        existing_user = mongo.db.users.find_one(
+            {"email": request.form.get("email").lower()})
+        fname = mongo.db.users.find_one(
+            {"email": session["email"].lower()})["first_name"].capitalize()
+
+        if existing_user:
+            # check if passowrd matches
+            if check_password_hash(existing_user["password"], request.form.get("password")):
+                session["email"] = request.form.get("email").lower()
+                flash("Welcome, {}".format(fname))
+                return redirect(url_for("profile_completed", email=session["email"]))
+            else:
+                # invalid password match
+                flash("Incorrect password")
+                return redirect(url_for("login"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or password")
+            return redirect(url_for("login"))
     return render_template("login.html", page_title="login page")
 
 
