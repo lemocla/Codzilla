@@ -73,19 +73,20 @@ h3 {
     font-size: 1.1rem;
 }
 
-.btn-width{
-width: 250px;
+.btn-width {
+    width: 250px;
 }
 
-/*---------[ Margins ---------*/
+/*---------[ Margins ]---------*/
 
-.margin-bottom{
+.margin-bottom {
     margin-bottom: 2rem;
 }
 
-.margin-top{
-margin-top: 2rem;
+.margin-top {
+    margin-top: 2rem;
 }
+
 /*---------[ Navbar ]---------*/
 
 nav {
@@ -160,6 +161,24 @@ nav ul a:hover {
     padding-left: 3rem;
 }
 
+/*--------[ profile page ]---------*/
+
+.profile-img {
+    width: 68.5px !important;
+    height: 68.5px !important;
+    object-fit: cover;
+    border: 1px solid var(--ivory);
+}
+
+.profile-name {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.profile-icon {
+    padding-right: 1rem;
+}
+
 /*---------[ Contact form ]---------*/
 
 .contact-img {
@@ -168,8 +187,8 @@ nav ul a:hover {
     padding-left: 5rem;
 }
 
-.notifications-container{
-margin: 0;
+.notifications-container {
+    margin: 0;
 }
 
 input,
@@ -194,7 +213,8 @@ label {
     color: var(--fuchsia);
 }
 
-.error-text, .helper-text{
+.error-text,
+.helper-text {
     font-size: 0.75rem;
     margin: 0;
 }
@@ -231,6 +251,11 @@ label {
 
     nav .nav-wrapper {
         padding: 0 15px;
+    }
+
+    .profile-img {
+        width: 100px !important;
+        height: 100px !important;
     }
 }
 

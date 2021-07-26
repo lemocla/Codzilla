@@ -3,15 +3,117 @@
 
 {% block content %}
 <div class="row head-bg">
-    <div class="col s12">
-        <h1 class="center-align">Profile</h1>
+    <div class="col s12 l8 offset-l2">
+        <h1 class="center-align">My Profile</h1>
         <hr class="breakline">
     </div>
 </div>
 <div class="row">
-<div class="col 12">
-<p>Hello {{ user.first_name }}</p>
-</div>
+    <div class="col 12 s12 l8 offset-l2">
+        <h2>Personal information</h2>
+        <div class="row valign-wrapper">
+            <div class="col s3">
+                <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img">
+                <!-- notice the "circle" class -->
+            </div>
+            <div class="col s9 ">
+                <h3 class="profile-name"><i class="fas fa-user profile-icon"></i>{{ user.first_name }} {{user.last_name}}</h3>
+                <p><i class="fas fa-map-marker-alt profile-icon"></i> {{ user.city}}, {{user.country}}</p>
+            </div>
+        </div>
+        <button class="btn btn-send" id="edit-personal-info">Edit</button>
+        <hr class="margin-top">
+        <h2>Account settings</h2>
+        <p><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
+        <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
+        <button class="btn btn-send" id="edit-email">Edit email</button>
+        <button class="btn btn-send" id="edit-password">Edit password</button>
+        <hr class="margin-top">
+        <h2>My preferences</h2>
+                <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>As an attendee</h3>
+                    </div>
+                    <div class="col m9 s7" for="event_reminder">Event reminder</div>
+                    <div class="col m3 s5 switch">
+                        <label for="event_reminder">
+                            Off
+                            <input type="checkbox" id="event_reminder" name="event_reminder" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m9 s7" for="event_update">Events postponed / cancelled</div>
+                    <div class="col m3 s5 switch">
+                        <label for="event_update">
+                            Off
+                            <input type="checkbox" id="event_update" name="event_update" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m9 s7" for="query_answered">Answer to my questions</div>
+                    <div class="col m3 s5 switch">
+                        <label for="query_answered">
+                            Off
+                            <input type="checkbox" id="query_answered" name="query_answered" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <h3>As an organiser</h3>
+                    </div>
+                    <div class="col m9 s7" for="new_participant">New participants to my events</div>
+                    <div class="col m3 s5 switch">
+                        <label for="new_participant">
+                            Off
+                            <input type="checkbox" id="new_participant" name="new_participant" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m9 s7" for="event_question">Questions to my events</div>
+                    <div class="col m3 s5 switch">
+                        <label for="event_question">
+                            Off
+                            <input type="checkbox" id="event_questionr" name="event_question" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m9 s7" for="new_follower">New followers to my groups</div>
+                    <div class="col m3 s5 switch">
+                        <label for="new_follower">
+                            Off
+                            <input type="checkbox" id="new_follower" name="new_follower" checked>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <button class="btn btn-send" id="save-preferences">Save preferences</button>
+        <hr class="margin-top">
+        <h2>Additional actions</h2>
+
+        <button class="btn btn-send" id="delete-profile">Delete profile</button>
+    </div>
 </div>
 
 {% endblock %}
