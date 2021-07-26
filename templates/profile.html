@@ -22,14 +22,17 @@
                 <p><i class="fas fa-map-marker-alt profile-icon"></i> {{ user.city}}, {{user.country}}</p>
             </div>
         </div>
-        <button class="btn btn-send" id="edit-personal-info">Edit</button>
+        <button id="edit-personal-info" data-target="personal-info-modal"
+            class="btn modal-trigger btn-send">Edit</button>
         <hr class="margin-top">
+        <!-- Account seets -->
         <h2>Account settings</h2>
         <p><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
         <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
         <button class="btn btn-send" id="edit-email">Edit email</button>
         <button class="btn btn-send" id="edit-password">Edit password</button>
         <hr class="margin-top">
+        <!-- Preferences -->
         <h2>My preferences</h2>
         <div class="row">
             <div class="col s12">
@@ -69,7 +72,6 @@
                         </label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col s12">
                         <h3>As an organiser</h3>
@@ -109,27 +111,30 @@
 
             </div>
         </div>
+        <!-- Delete profile -->
         <button class="btn btn-send" id="save-preferences">Save preferences</button>
         <hr class="margin-top">
         <h2>Additional actions</h2>
-
-        <button class="btn btn-send" id="delete-profile">Delete profile</button>
+        <button class="btn btn-send" type="submit" id="delete-profile">Delete profile</button>
     </div>
 </div>
-<!--Modals-->
-<div id="personal-info-modal" class="row valign-wrapper modal-container hide">
 
-    <!-- Modal content -->
-    <div class="col s12 m6 offset-m3 z-depth-5 modal-content center-align">
-        <i class="far fa-times-circle close-form"></i>
-        <h2>Edit personal information</h2>
+
+<!-- Modal personal information -->
+<div id="personal-info-modal" class="modal modal">
+    <div class="modal-content">
+        <!--Modal content -->
+        <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
+            data-target="personal-info-modal"></i>
+        <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
+        <!-- form-->
         <form id="form-edit-info" class="modal-forms" method="post" method="POST" action="">
             <div class="row">
                 <div class="col s2">
-                <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img">
-                <!-- notice the "circle" class -->
-            </div>
+                    <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img">
+                    <!-- notice the "circle" class -->
+                </div>
                 <div class="input-field col s10">
                     <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
                     <label for="city">Image URL</label>
@@ -166,15 +171,16 @@
                     <label for="country">Country</label>
                     <p class="error-text hide" for="country"></p>
                 </div>
+                <!-- Buttons -->
                 <div class="row">
                     <div class="col s12 center-align margin-top">
-                        <button class="btn btn-send" type="submit" name="signup">Submit</button>
-                        <button class="btn btn-send" type="submit" name="signup">Close</button>
+                        <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
+                        <button class="btn btn-send modal-close" type="button">Close</button>
                     </div>
                 </div>
         </form>
+
+
     </div>
-
 </div>
-
 {% endblock %}

@@ -73,6 +73,11 @@ h3 {
     font-size: 1.1rem;
 }
 
+.close-form:hover {
+    font-weight: bold;
+    font-size: 2.2rem;
+}
+
 .btn-width {
     width: 250px;
 }
@@ -181,38 +186,23 @@ nav ul a:hover {
 
 /*------------[ Modals ]------------*/
 
-.modal-container {
-        position: absolute;
-    height: inherit;
-    /*display: flex;
-    align-items: center;*/
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    min-height: 100vh;
-    padding: 25px 0;
-    overflow: auto;
-    background-color: #e7e7e07e;
+.modal {
+    top: 5% !important;
+    max-height: 90%;
 }
 
-.modal-content{
-    background-color: white;
-    border-radius: 1.5rem;
-    position: relative;
-    /*padding: 25px 150px!important;*/
+.close-form {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem
 }
 
-.close-form{
- position: absolute;
- top: 1rem;
- right: 1rem;
- font-size: 2rem
+.modal-forms {
+    width: 80% !important;
+    margin: 0 auto;
 }
-.modal-forms{
-width: 75% !important;
-margin: 0 auto;
-}
+
 /*---------[ Contact form ]---------*/
 
 .contact-img {

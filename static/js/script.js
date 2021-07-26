@@ -15,7 +15,7 @@
       //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
       if ($(this).is(":invalid") && $(`p[for=${this.id}]`).length > 0) {
         // fetch label text and build error message
-        let label = $(`label[for=${this.id}]`).text().replace('*','');	
+        let label = $(`label[for=${this.id}]`).text().replace('*', '');
         let errorMsg = `Please enter a valid ${label}.`;
 
         // first and last name error messages
@@ -30,4 +30,11 @@
       }
 
     });
+
+  // Modals 
+  
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+
   });
