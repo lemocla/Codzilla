@@ -228,6 +228,31 @@ def profile(email):
             "profile.html", page_title="profile page", email=email, user=user)
 
 
+@app.route('/edit_info/<user_id>', methods=['GET', 'POST'])
+def edit_info(user_id):
+    print(user_id)
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
+    print(email)
+    if request.method == "POST":
+        personal_info = {"$set": {
+                        "user_imgUrl": request.form.get("user-img"),
+                        "first_name": request.form.get("fname"),
+                        "last_name": request.form.get("lname"),
+                        "city": request.form.get("city"),
+                        "country": request.form.get("country"),
+                        }}    
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)}, personal_info)
+            flash("Your profile has been updated!")
+            return redirect(url_for(
+                        "profile", page_title="profile page", 
+                        email=email, user=user))
+        except Exception as e:
+            print(e)
+        return render_template("profile.html", page_title="profile page", email=email, user=user)
+
+
 @app.route("/get_events")
 def get_events():
     events = mongo.db.events.find()

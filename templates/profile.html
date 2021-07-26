@@ -8,6 +8,16 @@
         <hr class="breakline">
     </div>
 </div>
+<!-- Flash messages -->
+<div class="row flashes">
+    <div class="col s12 l6 center-align">
+    {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {% endwith %}
+    </div>
+</div>
 <div class="row">
     <div class="col 12 s12 l8 offset-l2">
         <h2>Personal information</h2>
@@ -134,23 +144,22 @@
         <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
         
-
         <!-- form-->
-       <form id="form-edit-info" class="modal-forms" method="post">
+       <form id="form-edit-info" class="modal-forms" method="post" action="{{ url_for('edit_info', user_id=user._id) }}">
            <!-- Image Url-->
            <div class="row">
                <div class="col s12 m2 center-align">
                    <img src={{user.user_imgUrl}} alt="" class="circle responsive-img profile-img resize">
                </div>
                <div class="input-field col s12 m10">
-                   <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
-                   <label for="city">Image URL</label>
+                   <input id="user-img" name="user-img" value="{{ user.user_imgUrl }}" type="text" class="validate" minlenght="1">
+                   <label for="user-img">Image URL</label>
                </div>
            </div>
                    <!-- First name -->
            <div class="row">
                <div class="input-field col s12">
-                   <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="32"
+                   <input id="fname" name="fname" value="{{ user.first_name }}"type="text" class="validate" minlenght="1" maxlength="32"
                        pattern="^[a-zA-Z._-]{1,32}$" required>
                    <label for="fname">First name</label>
                    <p class="error-text hide" for="fname"></p>
@@ -159,7 +168,7 @@
            <!-- Last name -->
            <div class="row">
                <div class="input-field col s12">
-                   <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="32"
+                   <input id="lname" name="lname" value="{{ user.last_name }}" type="text" class="validate" minlenght="1" maxlength="32"
                        pattern="^[a-zA-Z._-]{1,32}$" required>
                    <label for="lname">Last name</label>
                    <p class="error-text hide" for="lname"></p>
@@ -168,7 +177,7 @@
            <!-- City -->
            <div class="row">
                <div class="input-field col s12">
-                   <input id="city" name="city" type="text" class="validate" minlenght="1" maxlength="32"
+                   <input id="city" name="city" value="{{ user.city }}" type="text" class="validate" minlenght="1" maxlength="32"
                        pattern="^[a-zA-Z._-]{1,32}$" required>
                    <label for="city">City</label>
                    <p class="error-text hide" for="city"></p>
@@ -177,7 +186,7 @@
            <!-- Country -->
            <div class="row">
                <div class="input-field col s12">
-                   <input id="country" name="country" type="text" class="validate" minlenght="1" maxlength="32"
+                   <input id="country" name="country" value="{{ user.country }}" type="text" class="validate" minlenght="1" maxlength="32"
                        pattern="^[a-zA-Z._- ]{1,32}$" required>
                    <label for="country">Country</label>
                    <p class="error-text hide" for="country"></p>
