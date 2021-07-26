@@ -32,9 +32,9 @@
     });
 
   // Modals 
-  
+
   $(document).ready(function(){
     $('.modal').modal();
   });
-
+  
   });

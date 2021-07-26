@@ -11,6 +11,7 @@
     /*#575759*/
     --black: #070100;
     --blue: #5710E6;
+    --imgHeight: auto;
 }
 
 
@@ -168,11 +169,13 @@ nav ul a:hover {
 
 /*--------[ profile page ]---------*/
 
+
 .profile-img {
-    width: 68.5px !important;
-    height: 68.5px !important;
-    object-fit: cover;
+    height: 100% !important;
+    max-width: 80px !important;
+    max-height: 80px !important;
     border: 1px solid var(--ivory);
+    object-fit: cover;
 }
 
 .profile-name {
@@ -263,8 +266,6 @@ label {
 }
 
 
-
-
 /*---------[ Media queries ]---------*/
 
 @media only screen and (min-width: 600px) {
@@ -278,8 +279,14 @@ label {
     }
 
     .profile-img {
-        width: 100px !important;
-        height: 100px !important;
+        position: relative;
+        max-width: 110px !important;
+        max-height: 110px !important;
+    }
+
+    .resize {
+        max-width: 70px !important;
+        max-height: 70px !important;
     }
 }
 
