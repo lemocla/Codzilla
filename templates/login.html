@@ -9,5 +9,41 @@
     </div>
 </div>
 
+<!-- login form -->
+<div class="row">
+   <div class="col s12 l6">
+   <form  id="signin" method="post" method="POST" action="{{ url_for('login') }}">
+ 
+       <div class="row">
+           <div class="input-field col s12">
+               <input id="email" type="email" name="email" maxlength="50" class="validate" required>
+               <label for="email">Email</label>
+               <p class="error-text hide" for="email"></p>
+           </div>
+       </div>
+       <div class="row">
+           <div class="input-field col s12">
+               <input id="password" type="password" name="password" minlenght="8" maxlength="32" class="validate" required>
+               <label for="password">Password</label>
+               <p class="helper-text">Forgotten your password? Click here to reset</p>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col s12 center-align">
+               <button class="btn btn-send" type="submit" name="signup">Log in</button>
+           </div>
+       </div>
+   </form>
+   <div class="col s12 center-align">
+    <p">Don't have an account? <a href="{{ url_for('signup') }}">Please register</a>.</p>
+   </div>
+   </div>
+   <!-- Image large screen only -->
+   <div class="col l6 right-align hide-on-med-and-down">
+       <img class="login-img" src="{{ url_for('static', filename='images/login.png')}}"
+           alt="login illustration">
+   </div>
+ 
+</div>
 
 {% endblock %}

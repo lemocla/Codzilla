@@ -152,6 +152,14 @@ nav ul a:hover {
     font-weight: 700;
 }
 
+/*---------[ Log in ]-------------*/
+
+.login-img {
+    width: 100%;
+    min-width: 375px;
+    padding-left: 3rem;
+}
+
 /*---------[ Contact form ]---------*/
 
 .contact-img {
@@ -163,6 +171,7 @@ nav ul a:hover {
 .notifications-container{
 margin: 0;
 }
+
 input,
 textarea {
     border-bottom: 1px solid var(--darkgray) !important;
