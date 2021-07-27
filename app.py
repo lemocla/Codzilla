@@ -62,9 +62,9 @@ def signup_validation(password, fname, lname):
 
 def check_box(value):
     if value == "on":
-        check_value = True
+        check_value = "true"
     else:
-        check_value = False
+        check_value = 'false'
     return check_value
 
 
@@ -302,6 +302,32 @@ def edit_password(user_id):
         else:
             flash("Make sure that both passwords matches")
             return render_template("profile.html", page_title="profile page", email=email, user=user) 
+
+
+# Edit preferences
+@app.route('/edit_preferences/<user_id>', methods=['GET', 'POST'])
+def edit_preferences(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
+    if request.method == "POST":
+        preferences = {"$set": {"preferences": 
+                                {"event_reminder": request.form.get("event_reminder"),
+                                 "query_answered": request.form.get("query_answered"),
+                                 "event_update": request.form.get("event_update"),
+                                 "new_participant": request.form.get("new_participant"),
+                                 "event_question": request.form.get("event_question"),
+                                 "new_follower": request.form.get("new_follower")}
+                                }
+                        }
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)}, preferences)
+            flash("Your preferences have been updated!")
+            return redirect(url_for(
+                        "profile", page_title="profile page", 
+                        email=email, user=user))
+        except Exception as e:
+            print(e)
+        return render_template("profile.html", page_title="profile page", email=email, user=user)    
 
 
 @app.route("/get_events")

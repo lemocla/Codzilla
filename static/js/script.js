@@ -31,14 +31,29 @@
 
     });
 
-  // Modals  
+    // Modals  
     $('.modal').modal();
- 
-  // Checkboxes profile page 
-  $('input[type=checkbox]').each(function () {
-    if ($(this).val() === "True"){
-      $(this).prop('checked', true);
-    }
 
-  });
+    // Checkboxes profile page 
+    $('#form-edit-preferences input[type=checkbox]').each(function () {
+      if ($(this).attr('value') == "true") {
+        $(this).prop('checked', true);
+      }
+      else  {
+        $(this).val(false);
+        $(this).prop('checked', false);
+      }
+    });
+
+    // https://stackoverflow.com/questions/3442322/jquery-checkbox-event-handling
+    $('#form-edit-preferences input[type=checkbox]').change(function () {
+        console.log($(this).attr('id') + "is changing");
+        if ($(this).val() === "false") {
+          $(this).prop('checked', true);
+          $(this).val(true);
+        } else  {
+          $(this).prop('checked', false);
+          $(this).val(false);
+        }
+      });
   });
