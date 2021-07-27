@@ -330,6 +330,14 @@ def edit_preferences(user_id):
         return render_template("profile.html", page_title="profile page", email=email, user=user)    
 
 
+@app.route("/delete_account/<user_id>")
+def delete_account(user_id):
+    session.pop("email", None)
+    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    flash("Account successfully deleted")
+    return redirect(url_for("signup"))
+
+
 @app.route("/get_events")
 def get_events():
     events = mongo.db.events.find()
