@@ -34,4 +34,11 @@
   // Modals  
     $('.modal').modal();
  
+  // Checkboxes profile page 
+  $('input[type=checkbox]').each(function () {
+    if ($(this).val() === "True"){
+      $(this).prop('checked', true);
+    }
+
+  });
   });

@@ -46,9 +46,10 @@
         <button class="btn modal-trigger btn-send" data-target="password-modal" id="edit-password">Edit password</button>
         <hr class="margin-top">
  <!-- Modal Trigger -->
- 
+        
         <!-- Preferences -->
         <h2>My preferences</h2>
+      
         <div class="row">
             <div class="col s12">
                 <div class="row">
@@ -58,8 +59,8 @@
                     <div class="col m9 s7" for="event_reminder">Event reminder</div>
                     <div class="col m3 s5 switch">
                         <label for="event_reminder">
-                            Off
-                            <input type="checkbox" id="event_reminder" name="event_reminder" checked>
+                            Off 
+                            <input type="checkbox" id="event_reminder" value="{{ user.preferences['event_reminder'] }}" name="event_reminder">
                             <span class="lever"></span>
                             On
                         </label>
@@ -70,7 +71,7 @@
                     <div class="col m3 s5 switch">
                         <label for="event_update">
                             Off
-                            <input type="checkbox" id="event_update" name="event_update" checked>
+                            <input type="checkbox" id="event_update" value="{{ user.preferences['event_update'] }}" name="event_update">
                             <span class="lever"></span>
                             On
                         </label>
@@ -81,7 +82,7 @@
                     <div class="col m3 s5 switch">
                         <label for="query_answered">
                             Off
-                            <input type="checkbox" id="query_answered" name="query_answered" checked>
+                            <input type="checkbox" id="query_answered" value="{{ user.preferences['query_answered'] }}" name="query_answered">
                             <span class="lever"></span>
                             On
                         </label>
@@ -95,7 +96,7 @@
                     <div class="col m3 s5 switch">
                         <label for="new_participant">
                             Off
-                            <input type="checkbox" id="new_participant" name="new_participant" checked>
+                            <input type="checkbox" id="new_participant" value="{{ user.preferences['new_participant'] }}" name="new_participant">
                             <span class="lever"></span>
                             On
                         </label>
@@ -106,7 +107,7 @@
                     <div class="col m3 s5 switch">
                         <label for="event_question">
                             Off
-                            <input type="checkbox" id="event_questionr" name="event_question" checked>
+                            <input type="checkbox" id="event_question" value="{{ user.preferences['event_question'] }}" name="event_question">
                             <span class="lever"></span>
                             On
                         </label>
@@ -117,13 +118,13 @@
                     <div class="col m3 s5 switch">
                         <label for="new_follower">
                             Off
-                            <input type="checkbox" id="new_follower" name="new_follower" checked>
+                            <input type="checkbox" id="new_follower" value="{{ user.preferences['new_follower'] }}" name="new_follower">
                             <span class="lever"></span>
                             On
                         </label>
                     </div>
                 </div>
-
+           
             </div>
         </div>
         <!-- Delete profile -->
