@@ -254,7 +254,7 @@
         <h2 class="center-align">Change your password</h2>
         <hr class="breakline">
         <!-- form-->
-        <form id="form-edit-password" class="modal-forms" method="post" method="POST" action="">
+        <form id="form-edit-password" class="modal-forms" method="post" method="POST" action="{{ url_for('edit_password', user_id=user._id) }}">
                 <div class="row">
             <div class="input-field col s12">
                 <!-- https://regex101.com/ -->
