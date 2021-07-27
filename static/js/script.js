@@ -9,6 +9,22 @@
       $('label[for=' + this.id + ']').append('<span class="required"> *</span>');
     });
 
+    // Password visible
+    //https://www.w3schools.com/howto/howto_js_toggle_password.asp
+    $(".password-visible").click(function(){
+      id = $(this).attr("data-target");
+      console.log(id)
+      if ($(`#${id}`).attr("type") == "password"){
+       $(`#${id}`).attr("type", "text");
+       $(".password-visible").removeClass('fa-eye').addClass('fa-eye-slash');
+      }
+      else if($(`#${id}`).attr("type") == "text"){
+        $(`#${id}`).attr("type", "password");
+       $(".password-visible").removeClass('fa-eye-slash').addClass('fa-eye');
+      }
+    });
+
+
     // Sign up form validation 
 
     $("input").change(function () {
