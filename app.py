@@ -71,6 +71,15 @@ def check_box(value):
 # Sign up
 @app.route("/")
 def base():
+    if session["email"]:
+        # check if username already exists
+        existing_user = mongo.db.users.find_one(
+            {"email": session["email"].lower()})
+        if existing_user:
+            return render_template("base.html", page_title="base template", email="existing_user")
+        else:
+            session.pop("email")
+            return render_template("base.html", page_title="base template")
     return render_template("base.html", page_title="base template")
 
 
@@ -189,7 +198,7 @@ def login():
         # check for existing user
         existing_user = mongo.db.users.find_one(
             {"email": request.form.get("email").lower()})
-        
+      
         if existing_user:
             # check if passowrd matches
             if check_password_hash(existing_user["password"], request.form.get("password")):
@@ -251,6 +260,28 @@ def edit_info(user_id):
         except Exception as e:
             print(e)
         return render_template("profile.html", page_title="profile page", email=email, user=user)
+
+
+@app.route('/edit_email/<user_id>', methods=['GET', 'POST'])
+def edit_email(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
+    if request.form.get("email") == request.form.get("confirm-email"):
+        if request.method == "POST":
+            email_update = {"$set": {"email": request.form.get("email")}}
+            new_email = request.form.get("email")
+            try:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, email_update)
+                flash("Your email has been updated successfully")
+                session["email"] = request.form.get("email")
+                return redirect(url_for(
+                        "profile", page_title="profile page", 
+                        email=new_email, user=user))
+            except Exception as e:
+                print(e)
+    else:
+        flash("Make sure that new email and confirm email are the same.")
+        return render_template("profile.html", page_title="profile page", email=email, user=user)   
 
 
 @app.route("/get_events")

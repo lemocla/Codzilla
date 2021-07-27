@@ -130,7 +130,7 @@
         <button class="btn btn-send" id="save-preferences">Save preferences</button>
         <hr class="margin-top">
         <h2>Additional actions</h2>
-        <button class="btn btn-send" type="submit" id="delete-profile">Delete profile</button>
+        <button class="btn modal-trigger btn-send" data-target="delete-modal" type="submit" id="delete-profile">Delete profile</button>
     </div>
 </div>
 
@@ -211,11 +211,11 @@
             data-target="email-modal"></i>
         <h2 class="center-align">Change your email</h2>
         <hr class="breakline">
-        <!-- form-->
-       <form id="form-edit-email" class="modal-forms" method="post" method="POST" action="">
+        <!-- form -->
+       <form id="form-edit-email" class="modal-forms" method="post" method="POST" action="{{ url_for('edit_email', user_id=user._id) }}">
            <div class="row">
                <div class="input-field col s12">
-                   <input id="current-email" type="email" name="current-email" maxlength="50" class="validate"
+                   <input id="current-email" type="email" name="current-email" value="{{ user.email }}" maxlength="50" class="validate"
                        disabled>
                    <label for="current-email">current-email</label>
                </div>
@@ -224,12 +224,11 @@
                <div class="input-field col s12">
                    <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                    <label for="email">New email</label>
-                   <p class="error-text hide" for="email"></p>
                </div>
            </div>
            <div class="row">
                <div class="input-field col s12">
-                   <input id="confirm-email" type="email" name="email" maxlength="50" class="validate" required>
+                   <input id="confirm-email" type="email" name="confirm-email" maxlength="50" class="validate" required>
                    <label for="confirm-email">Confirm your new email</label>
                    <p class="error-text hide" for="confirm-email"></p>
                </div>
