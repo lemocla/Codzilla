@@ -1,6 +1,6 @@
   $(document).ready(function () {
 
-    // Materialize drop down funrtionality
+    // Materialize drop down functionality
     $('.dropdown-button').dropdown({});
 
     // Add asterix to labels for required fields
@@ -9,31 +9,28 @@
       $('label[for=' + this.id + ']').append('<span class="required"> *</span>');
     });
 
-    // Password visible
+    // Toggle password visibility
     //https://www.w3schools.com/howto/howto_js_toggle_password.asp
-    $(".password-visible").click(function(){
+    $(".password-visible").click(function () {
       id = $(this).attr("data-target");
       console.log(id)
-      if ($(`#${id}`).attr("type") == "password"){
-       $(`#${id}`).attr("type", "text");
-       $(".password-visible").removeClass('fa-eye').addClass('fa-eye-slash');
-      }
-      else if($(`#${id}`).attr("type") == "text"){
+      if ($(`#${id}`).attr("type") == "password") {
+        $(`#${id}`).attr("type", "text");
+        $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+      } else if ($(`#${id}`).attr("type") == "text") {
         $(`#${id}`).attr("type", "password");
-       $(".password-visible").removeClass('fa-eye-slash').addClass('fa-eye');
+        $(this).removeClass('fa-eye-slash').addClass('fa-eye');
       }
     });
 
 
     // Sign up form validation 
-
     $("input").change(function () {
       //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
       if ($(this).is(":invalid") && $(`p[for=${this.id}]`).length > 0) {
         // fetch label text and build error message
         let label = $(`label[for=${this.id}]`).text().replace('*', '');
         let errorMsg = `Please enter a valid ${label}.`;
-
         // first and last name error messages
         if (($(this).attr("id") === "fname" || $(this).attr("id") === "lname")) {
           errorMsg = errorMsg + " Only the special characters - . _ are accepted. Digits are not accepted";
@@ -44,7 +41,6 @@
         // hide field if valid
         $(`p[for=${this.id}]`).addClass("hide").html("");
       }
-
     });
 
     // Modals  
@@ -54,22 +50,37 @@
     $('#form-edit-preferences input[type=checkbox]').each(function () {
       if ($(this).attr('value') == "true") {
         $(this).prop('checked', true);
-      }
-      else  {
+      } else {
         $(this).val(false);
         $(this).prop('checked', false);
       }
     });
 
+    // Edit Email & passowrds validation 
+    $('[data-check=check]').change(function () {
+      check_val = $("#" + $(this).attr('data-target')).val();
+      label = $(this).attr('data-target');
+      if ($(this).val() != check_val) {
+        // fetch label text and build error message
+        let errorMsg = `Please make sure that both ${label}s match.`;
+        // display message
+        $(`p[for=${this.id}]`).html(errorMsg).removeClass("hide");
+      } else {
+        // hide field if valid
+        $(`p[for=${this.id}]`).addClass("hide").html("");
+      }
+    });
+
+    // Check boxes edit preferences form
     // https://stackoverflow.com/questions/3442322/jquery-checkbox-event-handling
     $('#form-edit-preferences input[type=checkbox]').change(function () {
-        console.log($(this).attr('id') + "is changing");
-        if ($(this).val() === "false") {
-          $(this).prop('checked', true);
-          $(this).val(true);
-        } else  {
-          $(this).prop('checked', false);
-          $(this).val(false);
-        }
-      });
+      console.log($(this).attr('id') + "is changing");
+      if ($(this).val() === "false") {
+        $(this).prop('checked', true);
+        $(this).val(true);
+      } else {
+        $(this).prop('checked', false);
+        $(this).val(false);
+      }
+    });
   });

@@ -240,7 +240,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="confirm-email" type="email" name="confirm-email" maxlength="50" class="validate"
+                    <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check" maxlength="50" class="validate"
                         required>
                     <label for="confirm-email">Confirm your new email</label>
                     <p class="error-text hide" for="confirm-email"></p>
@@ -294,7 +294,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="password-visible far fa-eye" data-target="conf-new-pwd"></i>
-                    <input id="conf-new-pwd" type="password" name="conf-new-pwd" minlenght="8" maxlength="32"
+                    <input id="conf-new-pwd" type="password" name="conf-new-pwd" data-target="password" data-check="check" minlenght="8" maxlength="32"
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="conf-new-pwd">Confirm new password</label>
