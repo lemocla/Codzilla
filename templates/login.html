@@ -36,7 +36,7 @@
                 <i class="password-visible far fa-eye" data-target="password"></i>
                <input id="password" type="password" name="password" minlenght="8" maxlength="32" class="validate" required>
                <label for="password">Password</label>
-               <p class="helper-text">Forgotten your password? Click here to reset</p>
+               <p class="helper-text">Forgotten your password? <a href="" class="hyperlink modal-trigger" data-target="reset-modal">Reset password</a></p>
            </div>
        </div>
        <div class="row">
@@ -54,7 +54,35 @@
        <img class="login-img" src="{{ url_for('static', filename='images/login.png')}}"
            alt="login illustration">
    </div>
- 
 </div>
 
+<!-- Modal edit email  -->
+<div id="reset-modal" class="modal">
+    <div class="modal-content">
+        <!--Modal content -->
+        <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="email-modal"></i>
+        <h2 class="center-align">Password Reset</h2>
+        <hr class="breakline">
+        <p>Enter your email and press submit to receive your link to reset your password</p>
+        <!-- form -->
+        <form id="form-edit-email" class="modal-forms" method="post" method="POST"
+            action="">
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email-request" type="email" name="email-request" maxlength="50" class="validate" required>
+                    <label for="email-request">Email</label>
+                </div>
+            </div>
+            <!-- Buttons -->
+            <div class="row">
+                <div class="col s12 center-align margin-top">
+                    <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
+                    <button class="btn btn-send modal-close" type="button">Close</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
 {% endblock %}
