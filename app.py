@@ -1,5 +1,6 @@
 import os
-from flask import (Flask, render_template, request, redirect, url_for, flash, session)
+from flask import (Flask, render_template, request, redirect, url_for, flash,
+                   session)
 # connect Flask to MongoDB
 from flask_pymongo import PyMongo
 # flask mail
@@ -37,11 +38,16 @@ mail = Mail(app)
 
 
 # variables
-pwd_pattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
+pwd_pattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])"\
+              "(?=.*[!@-?~$%*^()~+=._])(?=S+$).{8,32}$"
 name_pattern = ("^[a-zA-Z._-]{1,20}$")
 
 
 def check_regex(pattern, data, string_flash):
+    """
+    Check that user input match regex pattern
+    Flash message if data invalid
+    """
     check = re.search(pattern, data)
     if check:
         match = True
@@ -53,6 +59,9 @@ def check_regex(pattern, data, string_flash):
 
 
 def signup_validation(password, fname, lname):
+    """
+    Check that sign up input against criteria
+    """
     check_pwd = check_regex(pwd_pattern, password, "password")
     check_fname = check_regex(name_pattern, fname, "first name")
     check_lname = check_regex(name_pattern, lname, "last name")
@@ -61,6 +70,9 @@ def signup_validation(password, fname, lname):
 
 
 def check_box(value):
+    """
+    Set default value for checkbox
+    """
     if value == "on":
         check_value = "true"
     else:
@@ -68,7 +80,7 @@ def check_box(value):
     return check_value
 
 
-# Sign up
+# Home page
 @app.route("/")
 def base():
     return render_template("base.html", page_title="base template")
@@ -77,14 +89,23 @@ def base():
 # Sign up functionality
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    """
+    Check if user email exists,
+    If so, add flash message informing user
+    Check if data are valid
+    Create a signup dictionary from user input
+    Insert in MongoBD if data is valid and,
+    Add the new user email into 'session' cookie
+    Redirect to complete profile page
+    """
     if request.method == "POST":
-        # check if username already exists
+        # check if email already exists
         existing_user = mongo.db.users.find_one(
             {"email": request.form.get("email").lower()})
-
         if existing_user:
             flash("Username already exists, please sign in")
             return redirect(url_for("signup"))
+
         # form validation
         password = request.form.get("password")
         fname = request.form.get("fname")
@@ -118,7 +139,8 @@ def signup():
                 mongo.db.users.insert_one(signup)
                 flash("Sign up successful!")
                 session['email'] = request.form['email'].lower()
-                return redirect(url_for("complete_profile", email=session["email"]))
+                return redirect(url_for("complete_profile",
+                                        email=session["email"]))
             except Exception as e:
                 print(e)
         else:
@@ -131,12 +153,23 @@ def signup():
 # https://testdriven.io/blog/flask-sessions/
 @app.route("/complete_profile/<email>", methods=["GET", "POST"])
 def complete_profile(email):
+    """
+    Get email, first name and user ID from MongoDB
+    Build dictionary from user input
+    Update user in MongoDB
+    Flash message to inform user of successful completion
+    Redirect to complete profile completed page
+    """
     # Get the session's user mail from MongoDB
-    email = mongo.db.users.find_one({"email": session["email"].lower()})["email"]
+    email = mongo.db.users.find_one({"email":
+                                     session["email"].lower()})["email"]
     # Get the first name for session user from MongoDB
-    fname = mongo.db.users.find_one({"email": session["email"].lower()})["first_name"].capitalize()
+    fname = mongo.db.users.find_one({"email":
+                                     session["email"].lower()})[
+                                     "first_name"].capitalize()
     # Get ID from mongoDB
-    user_id = mongo.db.users.find_one({"email": session["email"].lower()})["_id"]
+    user_id = mongo.db.users.find_one({"email":
+                                      session["email"].lower()})["_id"]
 
     # Complete user profile
     if request.method == "POST":
@@ -144,18 +177,25 @@ def complete_profile(email):
             "user_imgUrl": request.form.get("user-img"),
             "city": request.form.get("city"),
             "country": request.form.get("country"),
-            "preferences": {"event_reminder": check_box(request.form.get("event_reminder")),
-                            "query_answered": check_box(request.form.get("query_answered")),
-                            "event_update": check_box(request.form.get("event_update")),
-                            "new_participant": check_box(request.form.get("new_participant")),
-                            "event_question": check_box(request.form.get("event_question")),
-                            "new_follower": check_box(request.form.get("new_follower"))},
+            "preferences": {"event_reminder": check_box(request.form.get(
+                             "event_reminder")),
+                            "query_answered": check_box(request.form.get(
+                             "query_answered")),
+                            "event_update": check_box(request.form.get(
+                             "event_update")),
+                            "new_participant": check_box(request.form.get(
+                             "new_participant")),
+                            "event_question": check_box(request.form.get(
+                             "event_question")),
+                            "new_follower": check_box(request.form.get(
+                             "new_follower"))},
             "profile_completed": True
         }}
         try:
             mongo.db.users.update({"_id": ObjectId(user_id)}, profile)
             flash("Profile successfully completed")
-            return redirect(url_for("profile_completed", email=session["email"]))
+            return redirect(url_for("profile_completed",
+                                    email=session["email"]))
         except Exception as e:
             print(e)
     if session["email"]:
@@ -168,10 +208,12 @@ def complete_profile(email):
 
 @app.route("/profile_completed/<email>")
 def profile_completed(email):
-    # Get the session's user mail from MongoDB
+    """
+    Get email and first name from MongoDB
+    Display page if user in session
+    """
     email = mongo.db.users.find_one(
             {"email": session["email"].lower()})["email"]
-    # Get the first name for session user from MongoDB
     fname = mongo.db.users.find_one(
             {"email": session["email"].lower()})["first_name"].capitalize()
 
@@ -185,27 +227,35 @@ def profile_completed(email):
 # Log in
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """
+    Get existing user from MongoDB
+    Check if existing user
+    If existing user, check password
+    If password match redirect to profile completed
+    If no password match, redirect to login page and,
+    Inform user password is incorrect
+    If no existing user, flash message to inform user
+    """
     if request.method == "POST":
-        # check for existing user
         existing_user = mongo.db.users.find_one(
             {"email": request.form.get("email").lower()})
 
         if existing_user:
             print(existing_user)
-            # check if passowrd matches 
-            if check_password_hash(existing_user["password"], request.form.get("password")):
+            # check if passowrd matches
+            if check_password_hash(existing_user["password"],
+                                   request.form.get("password")):
                 session["email"] = request.form.get("email").lower()
                 email = request.form.get("email").lower()
                 print(session["email"])
                 return redirect(url_for("profile_completed", email=email))
             else:
-                # invalid password match
                 flash("Incorrect password")
                 return redirect(url_for("login"))
 
         else:
             # username doesn't exist
-            flash("Incorrect Username and/or password")
+            flash("Incorrect email and/or password")
             return redirect(url_for("login"))
     return render_template("login.html", page_title="login page")
 
@@ -213,7 +263,11 @@ def login():
 # Log out
 @app.route("/logout")
 def logout():
-    # remove user from session cookies
+    """
+    Remove user from session cookies
+    Flash message to inform user
+    Redirect to login page
+    """
     session.pop("email", None)
     flash("You have been logged out")
     return redirect(url_for("login"))
@@ -222,10 +276,13 @@ def logout():
 # Profile
 @app.route("/profile/<email>", methods=["GET", "POST"])
 def profile(email):
-    # Get the session's user mail from MongoDB
+    """
+    Get session's user email from MongoDB
+    if user in session, display profile page
+    """
     email = mongo.db.users.find_one(
             {"email": session["email"].lower()})["email"]
-    user = mongo.db.users.find_one({"email": session["email"].lower()})     
+    user = mongo.db.users.find_one({"email": session["email"].lower()})
     if session["email"]:
         return render_template(
             "profile.html", page_title="profile page", email=email, user=user)
@@ -234,6 +291,13 @@ def profile(email):
 # Edit personal information
 @app.route('/edit_info/<user_id>', methods=['GET', 'POST'])
 def edit_info(user_id):
+    """
+    Get user and user email from MongoDB
+    Build dictionary from user input to update personal info
+    Update user document on MongoDB
+    Flash message to inform user of successful update
+    Redirect to profile page
+    """
     print(user_id)
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
@@ -247,19 +311,30 @@ def edit_info(user_id):
                         "country": request.form.get("country"),
                         }}
         try:
-            mongo.db.users.update_one({"_id": ObjectId(user_id)}, personal_info)
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      personal_info)
             flash("Your profile has been updated!")
             return redirect(url_for(
-                        "profile", page_title="profile page", 
+                        "profile", page_title="profile page",
                         email=email, user=user))
         except Exception as e:
             print(e)
-        return render_template("profile.html", page_title="profile page", email=email, user=user)
+        return render_template("profile.html", page_title="profile page",
+                               email=email, user=user)
 
 
-# Edit email "password": generate_password_hash(request.form.get("password"))
+# Edit email
 @app.route('/edit_email/<user_id>', methods=['GET', 'POST'])
 def edit_email(user_id):
+    """
+    Get user and user email from MongoDB
+    Check both new and confirm email are the same
+    If so, build dictionary from user input
+    If not, flash message to inform user
+    Update user document on MongoDB
+    Flash message to inform user of successful update
+    Redirect to profile page
+    """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
     if request.form.get("email") == request.form.get("confirm-email"):
@@ -267,71 +342,103 @@ def edit_email(user_id):
             email_update = {"$set": {"email": request.form.get("email")}}
             new_email = request.form.get("email")
             try:
-                mongo.db.users.update_one({"_id": ObjectId(user_id)}, email_update)
+                mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                          email_update)
                 flash("Your email has been updated successfully")
                 session["email"] = request.form.get("email")
                 return redirect(url_for(
-                        "profile", page_title="profile page", 
+                        "profile", page_title="profile page",
                         email=new_email, user=user))
             except Exception as e:
                 print(e)
     else:
         flash("Make sure that new email and confirm email are the same.")
-        return render_template("profile.html", page_title="profile page", email=email, user=user)   
+        return render_template("profile.html", page_title="profile page",
+                               email=email, user=user)
 
 
 # Edit password
 @app.route('/edit_password/<user_id>', methods=['GET', 'POST'])
 def edit_password(user_id):
+    """
+    Get user and user email from MongoDB
+    Check both new and confirm passwords are the same
+    If so, build dictionary from user input
+    If not, flash message to inform user
+    Update user document on MongoDB
+    Flash message to inform user of successful update
+    Redirect to profile page
+    """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
     print(f"from edit password {email}")
     if request.method == "POST":
-        password_update = {"$set": {"password": generate_password_hash(request.form.get("password"))}}
+        password_update = {"$set": {"password": generate_password_hash(
+                            request.form.get("password"))}}
         password = request.form.get("password")
         valid = check_regex(pwd_pattern, password, "password")
         if valid:
             try:
-                mongo.db.users.update_one({"_id": ObjectId(user_id)}, password_update)
+                mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                          password_update)
                 flash("Your password has been updated successfully")
                 return redirect(url_for(
-                        "profile", page_title="profile page", 
+                        "profile", page_title="profile page",
                         email=email, user=user))
             except Exception as e:
                 print(e)
         else:
             flash("Make sure that both passwords matches")
-            return render_template("profile.html", page_title="profile page", email=email, user=user) 
+            return render_template("profile.html", page_title="profile page",
+                                   email=email, user=user)
 
 
 # Edit preferences
 @app.route('/edit_preferences/<user_id>', methods=['GET', 'POST'])
 def edit_preferences(user_id):
+    """
+    Get user and user email from MongoDB
+    Build dictionary from user input
+    Update user document on MongoDB
+    Flash message to inform user of successful update
+    Redirect to profile page
+    """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
     if request.method == "POST":
-        preferences = {"$set": {"preferences": 
-                                {"event_reminder": request.form.get("event_reminder"),
-                                 "query_answered": request.form.get("query_answered"),
-                                 "event_update": request.form.get("event_update"),
-                                 "new_participant": request.form.get("new_participant"),
-                                 "event_question": request.form.get("event_question"),
-                                 "new_follower": request.form.get("new_follower")}
-                                }
-                        }
+        preferences = {"$set": {"preferences":
+                                {"event_reminder": request.form.get(
+                                 "event_reminder"),
+                                 "query_answered": request.form.get(
+                                 "query_answered"),
+                                 "event_update": request.form.get(
+                                 "event_update"),
+                                 "new_participant": request.form.get(
+                                 "new_participant"),
+                                 "event_question": request.form.get(
+                                 "event_question"),
+                                 "new_follower": request.form.get(
+                                 "new_follower")}
+                                }}
         try:
             mongo.db.users.update_one({"_id": ObjectId(user_id)}, preferences)
             flash("Your preferences have been updated!")
             return redirect(url_for(
-                        "profile", page_title="profile page", 
+                        "profile", page_title="profile page",
                         email=email, user=user))
         except Exception as e:
             print(e)
-        return render_template("profile.html", page_title="profile page", email=email, user=user)    
+        return render_template("profile.html", page_title="profile page",
+                               email=email, user=user)
 
 
 @app.route("/delete_account/<user_id>")
 def delete_account(user_id):
+    """
+    Remove user email for session cookie
+    Delete user from MongoDB
+    Redirect to sign up page
+    """
     session.pop("email", None)
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
     flash("Account successfully deleted")
@@ -376,7 +483,8 @@ def contact_us():
                 elif recipient == sender_email:
                     message = (f"<h3>Hello {sender_fullname},</h3>"
                                "<p>We have received your message and aim"
-                               " to respond within the next 2 working days.</p>"
+                               " to respond within the next 2 working "
+                               "days.</p>"
                                "<p>Best regards</p>"
                                "<p>Codzilla Team</p>"
                                )
@@ -392,12 +500,14 @@ def contact_us():
     return render_template("contact_us.html", page_title="contact us")
 
 
+# Accessibility page
 @app.route("/accessibility")
 def accessibility():
     return render_template("accessibility.html",
                            page_title="accessibility statement")
 
 
+# Frequently asked question page
 @app.route("/faq")
 def faq():
     return render_template("faq.html", page_title="frequently asked question")
