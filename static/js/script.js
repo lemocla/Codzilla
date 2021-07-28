@@ -83,4 +83,26 @@
         $(this).val(false);
       }
     });
+
+    // Call python check password on user input
+  $('#current-pwd').change(function(){
+   email = $('#user_email').text().replace(" ", "")
+   check = $('#current-pwd').val()
+   $.ajax({
+			url: `/check_password/${email}/${check}`,
+      data: email,
+			type: 'POST',
+			success: function(response){
+				if (response === "no match"){
+          $('#message-error').html("Current password is incorrect").removeClass('hide');
+        }
+        else if (response === "match"){
+          $('#message-error').html("").addClass('hide');
+        }
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+    });
   });

@@ -1,6 +1,6 @@
 import os
 from flask import (Flask, render_template, request, redirect, url_for, flash,
-                   session)
+                   session, jsonify)
 # connect Flask to MongoDB
 from flask_pymongo import PyMongo
 # flask mail
@@ -38,8 +38,7 @@ mail = Mail(app)
 
 
 # variables
-pwd_pattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])"\
-              "(?=.*[!@-?~$%*^()~+=._])(?=S+$).{8,32}$"
+pwd_pattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
 name_pattern = ("^[a-zA-Z._-]{1,20}$")
 
 
@@ -357,6 +356,19 @@ def edit_email(user_id):
                                email=email, user=user)
 
 
+# Check if password is correct on user input
+@app.route('/check_password/<email>/<check>', methods=['GET', 'POST'])
+def check_password(email, check):
+    user = mongo.db.users.find_one({"email": email})
+    print(user)
+    print(f"test -{email}- and check {check}")
+    if check_password_hash(user["password"], check):
+        message = "match"
+    else:
+        message = "no match"
+    return jsonify(message)
+
+
 # Edit password
 @app.route('/edit_password/<user_id>', methods=['GET', 'POST'])
 def edit_password(user_id):
@@ -371,26 +383,40 @@ def edit_password(user_id):
     """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
-    print(f"from edit password {email}")
-    if request.method == "POST":
-        password_update = {"$set": {"password": generate_password_hash(
-                            request.form.get("password"))}}
-        password = request.form.get("password")
-        valid = check_regex(pwd_pattern, password, "password")
-        if valid:
-            try:
-                mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                          password_update)
-                flash("Your password has been updated successfully")
-                return redirect(url_for(
-                        "profile", page_title="profile page",
-                        email=email, user=user))
-            except Exception as e:
-                print(e)
+
+    # Check if both new and confirmation input are the same
+    if request.form.get("password") == request.form.get("conf-new-pwd"):
+
+        # Check if current password matches the one on MongoDB
+        if check_password_hash(user["password"],
+                               request.form.get("current-pwd")):
+
+            if request.method == "POST":
+                password_update = {"$set": {"password": generate_password_hash(
+                           request.form.get("password"))}}
+                if check_regex(pwd_pattern, request.form.get("password"),
+                               "password"):
+                    try:
+                        mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                                  password_update)
+                        flash("Your password has been updated successfully")
+                        return redirect(url_for("profile",
+                                        page_title="profile page",
+                                        email=email, user=user))
+                    except Exception as e:
+                        print(e)
+                else:
+                    return render_template("profile.html",
+                                           page_title="profile page",
+                                           email=email, user=user)
         else:
-            flash("Make sure that both passwords matches")
+            flash("Current password is incorrect")
             return render_template("profile.html", page_title="profile page",
                                    email=email, user=user)
+    else:
+        flash("Make sure that both passwords matches")
+        return render_template("profile.html", page_title="profile page",
+                               email=email, user=user)
 
 
 # Edit preferences

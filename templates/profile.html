@@ -2,6 +2,7 @@
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
+
 <div class="row head-bg">
     <div class="col s12 l8 offset-l2">
         <h1 class="center-align">My Profile</h1>
@@ -39,7 +40,7 @@
 
         <!-- Account settings -->
         <h2>Account settings</h2>
-        <p><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
+        <p id="user_email"><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
         <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
         <button id="edit-email" data-target="email-modal" class="btn modal-trigger btn-send">Edit email</button>
         <button class="btn modal-trigger btn-send" data-target="password-modal" id="edit-password">Edit
@@ -48,7 +49,7 @@
 
         <!-- Preferences -->
         <h2>My preferences</h2>
-        <form id="form-edit-preferences"  method="post" method="POST"
+        <form id="form-edit-preferences" method="post" method="POST"
             action="{{ url_for('edit_preferences', user_id=user._id) }}">
             <div class="row">
                 <div class="col s12">
@@ -133,10 +134,10 @@
 
                 </div>
             </div>
-              <button class="btn btn-send" id="save-preferences">Save preferences</button>
+            <button class="btn btn-send" id="save-preferences">Save preferences</button>
         </form>
         <!-- Delete profile -->
-      
+
         <hr class="margin-top">
         <h2>Additional actions</h2>
         <button class="btn modal-trigger btn-send" data-target="delete-modal" type="submit" id="delete-profile">Delete
@@ -240,8 +241,8 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check" maxlength="50" class="validate"
-                        required>
+                    <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
+                        maxlength="50" class="validate" required>
                     <label for="confirm-email">Confirm your new email</label>
                     <p class="error-text hide" for="confirm-email"></p>
                 </div>
@@ -265,6 +266,10 @@
         <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="password-modal"></i>
         <h2 class="center-align">Change your password</h2>
         <hr class="breakline">
+
+        <!-- Error messages-->
+        <p id="message-error" class="center-align flashes hide"></p>
+
         <!-- form-->
         <form id="form-edit-password" class="modal-forms" method="post" method="POST"
             action="{{ url_for('edit_password', user_id=user._id) }}">
@@ -294,7 +299,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="password-visible far fa-eye" data-target="conf-new-pwd"></i>
-                    <input id="conf-new-pwd" type="password" name="conf-new-pwd" data-target="password" data-check="check" minlenght="8" maxlength="32"
+                    <input id="conf-new-pwd" type="password" name="conf-new-pwd" data-target="password"
+                        data-check="check" minlenght="8" maxlength="32"
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="conf-new-pwd">Confirm new password</label>
@@ -304,7 +310,7 @@
             <!-- Buttons -->
             <div class="row">
                 <div class="col s12 center-align margin-top">
-                    <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
+                    <button class="btn btn-send" type="submit" name="submit">Submit</button>
                     <button class="btn btn-send modal-close" type="button">Close</button>
                 </div>
             </div>
@@ -325,7 +331,8 @@
         <!-- Buttons -->
         <div class="row">
             <div class="col s12 center-align margin-top">
-                <a href="{{ url_for('delete_account', user_id=user._id) }}"" class="btn btn-send modal-close" type="submit" name="submit">Delete</a>
+                <a href="{{ url_for('delete_account', user_id=user._id) }}"" class=" btn btn-send modal-close"
+                    type="submit" name="submit">Delete</a>
                 <button class="btn btn-send modal-close" type="button">Cancel</button>
             </div>
         </div>
