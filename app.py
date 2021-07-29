@@ -109,10 +109,8 @@ def signup():
             return redirect(url_for("signup"))
 
         # form validation
-        password = request.form.get("password")
-        fname = request.form.get("fname")
-        lname = request.form.get("lname")
-        valid = all(signup_validation(password, fname, lname))
+        valid = all(signup_validation(request.form.get("password"),
+                    request.form.get("fname"), request.form.get("lname")))
         # sign up dictionary
         signup = {
             "first_name": request.form.get("fname").lower(),
@@ -148,7 +146,7 @@ def signup():
         else:
             return redirect(url_for("signup"))
 
-    return render_template("signup.html", page_title="sign-up page")
+    return render_template("signup.html")
 
 
 # Complete profile functionality
@@ -162,17 +160,9 @@ def complete_profile(email):
     Flash message to inform user of successful completion
     Redirect to complete profile completed page
     """
-    # Get the session's user mail from MongoDB
-    email = mongo.db.users.find_one({"email":
-                                     session["email"].lower()})["email"]
-    # Get the first name for session user from MongoDB
-    fname = mongo.db.users.find_one({"email":
-                                     session["email"].lower()})[
-                                     "first_name"].capitalize()
     # Get ID from mongoDB
     user_id = mongo.db.users.find_one({"email":
                                       session["email"].lower()})["_id"]
-
     # Complete user profile
     if request.method == "POST":
         profile = {"$set": {
@@ -201,11 +191,12 @@ def complete_profile(email):
         except Exception as e:
             print(e)
     if session["email"]:
+        # Get the first name for session user from MongoDB
+        fname = mongo.db.users.find_one({"email":
+                                        session["email"].lower()})[
+                                        "first_name"].capitalize()
         return render_template(
-            "complete-profile.html",
-            page_title="complete profile page",
-            email=email,
-            name=fname)
+            "complete-profile.html", email=email, name=fname)
 
 
 @app.route("/profile_completed/<email>")
@@ -221,9 +212,7 @@ def profile_completed(email):
 
     if session["email"]:
         return render_template(
-            "profile-completed.html",
-            page_title="profile completed",
-            email=email, name=fname)
+            "profile-completed.html", email=email, name=fname)
 
 
 # Log in
@@ -243,14 +232,12 @@ def login():
             {"email": request.form.get("email").lower()})
 
         if existing_user:
-            print(existing_user)
             # check if passowrd matches
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
                 session["email"] = request.form.get("email").lower()
-                email = request.form.get("email").lower()
-                print(session["email"])
-                return redirect(url_for("profile_completed", email=email))
+                return redirect(url_for("profile_completed",
+                                email=session["email"]))
             else:
                 flash("Incorrect password")
                 return redirect(url_for("login"))
@@ -259,7 +246,7 @@ def login():
             # username doesn't exist
             flash("Incorrect email and/or password")
             return redirect(url_for("login"))
-    return render_template("login.html", page_title="login page")
+    return render_template("login.html")
 
 
 # Log out
@@ -297,10 +284,12 @@ def edit_info(user_id):
     Flash message to inform user of successful update
     Redirect to profile page
     """
-    print(user_id)
+
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
-    print(email)
+
+    if not user:
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         personal_info = {"$set": {
                         "user_imgUrl": request.form.get("user-img"),
@@ -331,34 +320,32 @@ def edit_email(user_id):
     Flash message to inform user of successful update
     Redirect to profile page
     """
+
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
-    if request.form.get("email") == request.form.get("confirm-email"):
-        if request.method == "POST":
+
+    if not user:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        if request.form.get("email") == request.form.get("confirm-email"):
             email_update = {"$set": {"email": request.form.get("email")}}
-            new_email = request.form.get("email")
             try:
                 mongo.db.users.update_one({"_id": ObjectId(user_id)},
                                           email_update)
                 flash("Your email has been updated successfully")
                 session["email"] = request.form.get("email")
-                return redirect(url_for(
-                        "profile", page_title="profile page",
-                        email=new_email, user=user))
+                return redirect(url_for("profile", user=user))
             except Exception as e:
                 print(e)
-    else:
-        flash("Make sure that new email and confirm email are the same.")
-        return render_template("profile.html", page_title="profile page",
-                               email=email, user=user)
+        else:
+            flash("Make sure that new email and confirm email are the same.")
+            return render_template("profile.html", user=user)
 
 
-# Check if password is correct on user input
+# Check if password is correct on user input when changing password
 @app.route('/check_password/<email>/<check>', methods=['GET', 'POST'])
 def check_password(email, check):
     user = mongo.db.users.find_one({"email": email})
-    print(user)
-    print(f"test -{email}- and check {check}")
     if check_password_hash(user["password"], check):
         message = "match"
     else:
@@ -370,50 +357,49 @@ def check_password(email, check):
 @app.route('/edit_password/<user_id>', methods=['GET', 'POST'])
 def edit_password(user_id):
     """
-    Get user and user email from MongoDB
+    Get user from MongoDB
     Check both new and confirm passwords are the same
-    If so, build dictionary from user input
+    Check if the password matches the one on MongoDB
+    Check if the password pass the regex pattern
     If not, flash message to inform user
+    If so, build dictionary from user input
     Update user document on MongoDB
     Flash message to inform user of successful update
     Redirect to profile page
     """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
+    if not user:
+        return render_template("login.html")
 
-    # Check if both new and confirmation input are the same
-    if request.form.get("password") == request.form.get("conf-new-pwd"):
+    if request.method == "POST":
+
+        # Check if both new and confirmation input are the same
+        if request.form.get("password") != request.form.get("conf-new-pwd"):
+            flash("Make sure that both passwords matches")
+            return render_template("profile.html", user=user)
 
         # Check if current password matches the one on MongoDB
-        if check_password_hash(user["password"],
-                               request.form.get("current-pwd")):
-
-            if request.method == "POST":
-                password_update = {"$set": {"password": generate_password_hash(
-                           request.form.get("password"))}}
-                if check_regex(pwd_pattern, request.form.get("password"),
-                               "password"):
-                    try:
-                        mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                                  password_update)
-                        flash("Your password has been updated successfully")
-                        return redirect(url_for("profile",
-                                        page_title="profile page",
-                                        email=email, user=user))
-                    except Exception as e:
-                        print(e)
-                else:
-                    return render_template("profile.html",
-                                           page_title="profile page",
-                                           email=email, user=user)
-        else:
+        if not check_password_hash(user["password"],
+                                   request.form.get("current-pwd")):
             flash("Current password is incorrect")
-            return render_template("profile.html", page_title="profile page",
-                                   email=email, user=user)
-    else:
-        flash("Make sure that both passwords matches")
-        return render_template("profile.html", page_title="profile page",
-                               email=email, user=user)
+            return render_template("profile.html", user=user)
+
+        if not check_regex(pwd_pattern,
+                           request.form.get("password"), "password"):
+            flash("Password format is not valid, please inclue a mix of "
+                  "letters, numbers and symbols.")
+            return render_template("profile.html", user=user)
+
+        password_update = {"$set": {"password": generate_password_hash(
+                           request.form.get("password"))}}
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      password_update)
+            flash("Your password has been updated successfully")
+            return redirect(url_for("profile", user=user))
+        except Exception as e:
+            print(e)
+    return render_template("profile.html", user=user)
 
 
 # Edit preferences
@@ -427,7 +413,10 @@ def edit_preferences(user_id):
     Redirect to profile page
     """
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    email = mongo.db.users.find_one({"_id": ObjectId(user_id)})["email"]
+
+    if not user:
+        return render_template("login.html")
+
     if request.method == "POST":
         preferences = {"$set": {"preferences":
                                 {"event_reminder": request.form.get(
@@ -446,13 +435,10 @@ def edit_preferences(user_id):
         try:
             mongo.db.users.update_one({"_id": ObjectId(user_id)}, preferences)
             flash("Your preferences have been updated!")
-            return redirect(url_for(
-                        "profile", page_title="profile page",
-                        email=email, user=user))
+            return redirect(url_for("profile", user=user))
         except Exception as e:
             print(e)
-        return render_template("profile.html", page_title="profile page",
-                               email=email, user=user)
+    return render_template("profile.html", user=user)
 
 
 @app.route("/delete_account/<user_id>")
@@ -520,10 +506,13 @@ def contact_us():
 
         flash("Your message was sent successfully!")
         return redirect(url_for('contact_us'))
-    return render_template("contact_us.html", page_title="contact us")
+    return render_template("contact_us.html")
 
 
 def get_reset_token(email, expires=500):
+    """
+    Return a token to encode user email
+    """
     return jwt.encode({'user': email,
                        'exp':    time() + expires},
                       key=os.environ.get("SECRET_KEY"))
@@ -532,9 +521,10 @@ def get_reset_token(email, expires=500):
 @app.route("/password_reset_request", methods=['GET', 'POST'])
 def password_reset_request():
     """
-    Get email for user
+    Get email for user from user input
     Check if the user exists in MongoDB
-    Create token link
+    Create token link using get_reset_token
+    Render email template (as need template literal for the link)
     Send email to user with link to reset password page
     """
     if request.method == 'POST':
@@ -555,10 +545,14 @@ def password_reset_request():
         mail.send(msg)
         flash("Reset password request successfully sent")
         return redirect(url_for('login'))
-    return render_template("login.html", page_title="login page")
+    return render_template("login.html")
 
 
 def verify_reset_token(token):
+    """
+    Decode token and return email
+    Check if email exists in MongoDB
+    """
     try:
         email = jwt.decode(token, os.environ.get("SECRET_KEY"),
                            algorithms=["HS256"])['user']
@@ -573,6 +567,15 @@ def verify_reset_token(token):
 
 @app.route("/reset-password/<token>", methods=['GET', 'POST'])
 def reset_password(token):
+    """
+    Decode token and return existing user
+    If not an exisitng user, redirect to login & inform user
+    Render the reset password html page
+    Collect information from user input
+    Check if both password match and pass regex pattern check
+    Update password on MongoDB
+    Return to login page
+    """
     existing_user = verify_reset_token(token)
 
     if not existing_user:
@@ -582,39 +585,41 @@ def reset_password(token):
     if request.method == "POST":
         password = request.form.get('password')
         confirmation_password = request.form.get('conf-new-pwd')
-        user_id = existing_user["_id"]
-        if password == confirmation_password:
-            password_update = {"$set": {"password": generate_password_hash(
-                               password)}}
-            try:
-                mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                          password_update)
-                flash("Your password has been reset successfully!")
-                return redirect(url_for('login'))
-            except Exception as e:
-                print(e)
-                return
-        else:
+
+        if password != confirmation_password:
             flash("Make sure that both passwords match")
             return render_template("reset-password.html")
+
+        if not check_regex(pwd_pattern,
+                           request.form.get("password"), "password"):
+            flash("Password format is not valid, please inclue a mix of "
+                  "letters, numbers and symbols.")
+            return render_template("reset-password.html")
+
+        user_id = existing_user["_id"]
+        password_update = {"$set": {"password": generate_password_hash(
+                            password)}}
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      password_update)
+            flash("Your password has been reset successfully!")
+            return redirect(url_for('login'))
+        except Exception as e:
+            print(e)
+            return
     return render_template("reset-password.html")
 
 
 # Accessibility page
 @app.route("/accessibility")
 def accessibility():
-    if session["email"]:
-        print("from accessibility I can see user is in session")
-        render_template("accessibility.html", email=session["email"].lower(),
-                        page_title="accessibility statement")
-    return render_template("accessibility.html",
-                           page_title="accessibility statement")
+    return render_template("accessibility.html")
 
 
 # Frequently asked question page
 @app.route("/faq")
 def faq():
-    return render_template("faq.html", page_title="frequently asked question")
+    return render_template("faq.html")
 
 
 # Frequently asked question page
