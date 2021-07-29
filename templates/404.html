@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Page 404{% endblock %}
+
+{% block content %}
+
+<div class="row error-container valign-wrapper margin-top">
+    <div class="col s12 l7 center-align">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/error.svg')}}">
+    </div>
+    <div class="col s12 l5 center-align">
+            <h1 class="center-align h1-error">OOPS!</h1>
+            <hr class="breakline">
+            <p class="p-error">You seem to have lost your way... </p>
+            <p class="p-error margin-bottom">Not to worry, have a doughnut and find your way home!</p>
+            <a class="btn contact-btn" href="{{ url_for('home') }}">Go back home</a>
+    </div>
+</div>
+
+    {% endblock %}

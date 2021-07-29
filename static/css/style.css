@@ -83,18 +83,19 @@ h3 {
     width: 250px;
 }
 
-.password-visible{
-font-size: 1.4rem !important;
-color: var(--black);
-position: absolute !important;
-z-index: 2 !important;
-top: 0.85rem !important;
-right: 1.3rem!important;
+.password-visible {
+    font-size: 1.4rem !important;
+    color: var(--black);
+    position: absolute !important;
+    z-index: 2 !important;
+    top: 0.85rem !important;
+    right: 1.3rem !important;
 }
 
-.password-visible:hover{
-font-size: 1.35rem !important;
+.password-visible:hover {
+    font-size: 1.35rem !important;
 }
+
 /*---------[ Margins ]---------*/
 
 .margin-bottom {
@@ -181,40 +182,6 @@ nav ul a:hover {
 
 /*--------[ profile page ]---------*/
 
-/*
-.modal-container {
-        position: absolute;
-    height: inherit;
-   
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    min-height: 100vh;
-    padding: 25px 0;
-    overflow: auto;
-    background-color: #e7e7e07e;
-}
-
-.modal-content{
-    background-color: white;
-    border-radius: 1.5rem;
-    position: relative;
-}
-
-.close-form{
- position: absolute;
- top: 1rem;
- right: 1rem;
- font-size: 2rem
-}
-.modal-forms{
-width: 75% !important;
-margin: 0 auto;
-}
-
-
-*/
 .profile-img {
     height: 100% !important;
     max-width: 80px !important;
@@ -299,6 +266,22 @@ label {
     background-color: var(--blue);
 }
 
+/*---------[ Error pages]-----*/
+
+.error-container{
+ flex-direction: column;
+}
+.h1-error {
+    margin-top: 3rem
+}
+
+.error-container img {
+    margin-top: 3rem;
+}
+
+.p-error {
+    font-size: 1.2rem;
+}
 
 /*---------[ Footer ]---------*/
 
@@ -317,6 +300,10 @@ label {
 
     h1 {
         margin-top: 8rem;
+    }
+
+    .h1-error {
+        margin-top: 3rem
     }
 
     nav .nav-wrapper {
@@ -348,6 +335,16 @@ label {
 
     .container {
         width: 75%;
+    }
 
+    .error-container {
+        height: 70vh !important;
+        min-height: 400px;
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .error-container img {
+        margin-top: 0;
     }
 }

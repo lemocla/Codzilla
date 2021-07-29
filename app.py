@@ -85,8 +85,9 @@ def check_box(value):
 
 # Home page
 @app.route("/")
-def base():
-    return render_template("base.html", page_title="base template")
+@app.route("/home")
+def home():
+    return render_template("home.html")
 
 
 # Sign up functionality
@@ -286,7 +287,7 @@ def profile(email):
     email = mongo.db.users.find_one(
             {"email": session["email"].lower()})["email"]
     user = mongo.db.users.find_one({"email": session["email"].lower()})
-    if session["email"]:
+    if user:
         return render_template(
             "profile.html", page_title="profile page", email=email, user=user)
 
@@ -619,6 +620,14 @@ def accessibility():
 @app.route("/faq")
 def faq():
     return render_template("faq.html", page_title="frequently asked question")
+
+
+# Frequently asked question page
+# https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 
 if __name__ == "__main__":
