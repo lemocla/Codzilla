@@ -276,18 +276,15 @@ def logout():
 
 
 # Profile
-@app.route("/profile/<email>", methods=["GET", "POST"])
-def profile(email):
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
     """
     Get session's user email from MongoDB
     if user in session, display profile page
     """
-    email = mongo.db.users.find_one(
-            {"email": session["email"].lower()})["email"]
     user = mongo.db.users.find_one({"email": session["email"].lower()})
     if user:
-        return render_template(
-            "profile.html", page_title="profile page", email=email, user=user)
+        return render_template("profile.html", user=user)
 
 
 # Edit personal information
@@ -316,13 +313,10 @@ def edit_info(user_id):
             mongo.db.users.update_one({"_id": ObjectId(user_id)},
                                       personal_info)
             flash("Your profile has been updated!")
-            return redirect(url_for(
-                        "profile", page_title="profile page",
-                        email=email, user=user))
+            return redirect(url_for("profile", user=user))
         except Exception as e:
             print(e)
-        return render_template("profile.html", page_title="profile page",
-                               email=email, user=user)
+        return render_template("profile.html", user=user)
 
 
 # Edit email
@@ -566,7 +560,7 @@ def password_reset_request():
 
 def verify_reset_token(token):
     try:
-        email = jwt.decode(token, os.environ.get("SECRET_KEY"), 
+        email = jwt.decode(token, os.environ.get("SECRET_KEY"),
                            algorithms=["HS256"])['user']
     except Exception as e:
         print(e)
@@ -609,6 +603,10 @@ def reset_password(token):
 # Accessibility page
 @app.route("/accessibility")
 def accessibility():
+    if session["email"]:
+        print("from accessibility I can see user is in session")
+        render_template("accessibility.html", email=session["email"].lower(),
+                        page_title="accessibility statement")
     return render_template("accessibility.html",
                            page_title="accessibility statement")
 
