@@ -9,9 +9,7 @@ from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
 import jwt
-from jwt import PyJWKClient
 from time import time
-import datetime
 
 
 # import environment
@@ -548,15 +546,13 @@ def password_reset_request():
     if request.method == 'POST':
         email = request.form.get('email-request')
         user = mongo.db.users.find_one({"email": email.lower()})
-        user_id = mongo.db.users.find_one({"email": email.lower()})["_id"]
         if not user:
             flash("Your email couldn't be verified")
             return redirect(url_for('login'))
         token = get_reset_token(email)
-        
+
         # flask documentation https://pythonhosted.org/Flask-Mail/
         message = render_template('reset-email.html',
-                                  email=email, 
                                   token=token)
         subject = "Codzilla password reset"
         msg = Message(recipients=[email],
@@ -570,10 +566,12 @@ def password_reset_request():
 
 def verify_reset_token(token):
     try:
-        email = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=["HS256"])['user']     
-        print(f"email returned from decode is {email}")  
+        email = jwt.decode(token, os.environ.get("SECRET_KEY"), 
+                           algorithms=["HS256"])['user']
     except Exception as e:
         print(e)
+        flash("Your link has timed out. Reset your password again"
+              " for a new link")
         return
     existing_user = mongo.db.users.find_one({"email": email.lower()})
     return existing_user
@@ -582,9 +580,8 @@ def verify_reset_token(token):
 @app.route("/reset-password/<token>", methods=['GET', 'POST'])
 def reset_password(token):
     existing_user = verify_reset_token(token)
-    print(f"existing user is {existing_user}")
+
     if not existing_user:
-        print('no user found')
         flash("Your password couldn't be reset")
         return redirect(url_for('login'))
 
@@ -605,8 +602,8 @@ def reset_password(token):
                 return
         else:
             flash("Make sure that both passwords match")
-            return render_template("reset-password.html", page_title="Reset password")
-    return render_template("reset-password.html", page_title="Reset password")
+            return render_template("reset-password.html")
+    return render_template("reset-password.html")
 
 
 # Accessibility page
