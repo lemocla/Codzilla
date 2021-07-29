@@ -8,6 +8,10 @@ from flask_mail import Mail, Message
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
+import jwt
+from jwt import PyJWKClient
+from time import time
+import datetime
 
 
 # import environment
@@ -524,6 +528,84 @@ def contact_us():
         flash("Your message was sent successfully!")
         return redirect(url_for('contact_us'))
     return render_template("contact_us.html", page_title="contact us")
+
+
+def get_reset_token(email, expires=500):
+    return jwt.encode({'user': email,
+                       'exp':    time() + expires},
+                      key=os.environ.get("SECRET_KEY"))
+
+
+@app.route("/password_reset_request", methods=['GET', 'POST'])
+def password_reset_request():
+    """
+    Get email for user
+    Check if the user exists in MongoDB
+    Create token link
+    Send email to user with link to reset password page
+    """
+    if request.method == 'POST':
+        email = request.form.get('email-request')
+        user = mongo.db.users.find_one({"email": email.lower()})
+        user_id = mongo.db.users.find_one({"email": email.lower()})["_id"]
+        if not user:
+            flash("Your email couldn't be verified")
+            return redirect(url_for('login'))
+        token = get_reset_token(email)
+        
+        # flask documentation https://pythonhosted.org/Flask-Mail/
+        message = render_template('reset-email.html',
+                                  email=email, 
+                                  token=token)
+        subject = "Codzilla password reset"
+        msg = Message(recipients=[email],
+                      html=message,
+                      subject=subject)
+        mail.send(msg)
+        flash("Reset password request successfully sent")
+        return redirect(url_for('login'))
+    return render_template("login.html", page_title="login page")
+
+
+def verify_reset_token(token):
+    try:
+        email = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=["HS256"])['user']     
+        print(f"email returned from decode is {email}")  
+    except Exception as e:
+        print(e)
+        return
+    existing_user = mongo.db.users.find_one({"email": email.lower()})
+    return existing_user
+
+
+@app.route("/reset-password/<token>", methods=['GET', 'POST'])
+def reset_password(token):
+    existing_user = verify_reset_token(token)
+    print(f"existing user is {existing_user}")
+    if not existing_user:
+        print('no user found')
+        flash("Your password couldn't be reset")
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        password = request.form.get('password')
+        confirmation_password = request.form.get('conf-new-pwd')
+        user_id = existing_user["_id"]
+        if password == confirmation_password:
+            password_update = {"$set": {"password": generate_password_hash(
+                               password)}}
+            try:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                          password_update)
+                flash("Your password has been reset successfully!")
+                return redirect(url_for('login'))
+            except Exception as e:
+                print(e)
+                return
+        else:
+            flash("Make sure that both passwords match")
+            return render_template("reset-password.html", page_title="Reset password")
+    return render_template("reset-password.html", page_title="Reset password")
 
 
 # Accessibility page

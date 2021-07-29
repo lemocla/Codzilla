@@ -66,7 +66,7 @@
         <p>Enter your email and press submit to receive your link to reset your password</p>
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="post" method="POST"
-            action="">
+            action="{{ url_for('password_reset_request') }}">
             
             <div class="row">
                 <div class="input-field col s12">
