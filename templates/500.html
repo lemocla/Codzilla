@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Page 500{% endblock %}
+
+{% block content %}
+
+<div class="row error-container valign-wrapper margin-top">
+    <div class="col s12 l7 center-align">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/error500.svg')}}">
+    </div>
+    <div class="col s12 l5 center-align">
+            <h1 class="center-align h1-error">Internal Error</h1>
+            <hr class="breakline">
+            <p class="p-error">Oops, something went wrong</p>
+            <p class="p-error margin-bottom">We're looking into the issue, but do come back later.</p>
+            <a class="btn contact-btn" href="{{ url_for('home') }}">Go back home</a>
+    </div>
+</div>
+{% endblock %}
