@@ -3,8 +3,93 @@
 
 {% block content %}
 <div class="row">
-<div class="col s12">
-<h1 class="center-align">Home page</h1>
-<hr class="breakline">
+    <div class="col s12 m6">
+        <h1 class="center-align">Hello World!</h1>
+        <p>Join or organise events to meet, connect and develop with fellow coders. </p>
+    </div>
+    <div class="col s12 m6">
+        <p>Find events near you!</p>
+        <form>
+            <div class="input-field col s12">
+                <i class="fas fa-search material-icons prefix"></i>
+                <input id="search-home" type="text" class="validate">
+                <label for="search-home">search</label>
+            </div>
+            <div class="col s12">
+                <button class="btn contact-btn" type=submit name="submit">search</button>
+            </div>
+        </form>
+    </div>
 </div>
+<div class="row">
+    <div class="col s12">
+        <h2 class="center-align">About us</h2>
+        <hr class="breakline">
+        <p>Do you want to meet with fellow coders to expand your skills, network or portfollio? Look no further,
+            Codzilla is the platform for you.</p>
+        <p>Join or organise events and meet new friends along the way around:</p>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>a group or open-source project</li>
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>a study group to learn and exapand on a specific language or framework</li>
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>a working group to help each others with CVs and cover letters</li>
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>a drink to simply meet and socialize</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row home-container">
+    <div class="col s12">
+        <h2 class="center-align">Upcoming events</h2>
+        <hr class="breakline">
+    </div>
+    <div class="col s12 m5">
+        <div class="card">
+            <div class="card-image">
+                <img
+                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="far fa-star"></i></a>
+            </div>
+            <div class="card-content">
+                <p class="date-time">Thurs, 20th July @ 14:00</p>
+                <p class="event-title">London code institute meetup</p>
+                <p class="organiser">Social by group 1</p>
+                <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
+                <div class="card-action">
+                <div class="row">
+                    <div class="col s6">
+                        <p><i class="fas fa-user-circle"></i>5 attendees</p>
+                    </div>
+                    <div class="col s6">
+                        <a class="btn" href="#">Attend</a>
+                    </div>
+                </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <h2 class="center-align">How it works</h2>
+       <hr class="breakline">
+        <h3>As participant</h3>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>Look for local meet-ups by entering your location to find events near you or keywords to find events
+                around your centre of interest.</li>
+           <li><span class="fa-li"><i class="fas fa-check"></i></span>Just sign-in or register to join a meet-up.</li>
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>Still unsure if you can make it, then simply register your interest and join later.</li>
+        </ul>
+        <h3>As an organiser</h3>
+        <p>Fancy organising a meet-up and connecting with fellow developers?</p>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>Just click on add event to set the date, the place, a description and topic.</li>
+            <li><span class="fa-li"><i class="fas fa-check"></i></span>Add a group to organise regular event and grow your community</li>
+        </ul>
+
+    </div>
+</div>
+
 {% endblock %}

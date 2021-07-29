@@ -164,6 +164,32 @@ nav ul a:hover {
     font-weight: 700;
 }
 
+/*-------[ homepage ]------------*/
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+   color: white;
+   /*margin-right: 24px;*/
+   -webkit-transition: color .3s ease;
+   transition: color .3s ease;
+   text-transform: uppercase;
+}
+.date-time{
+color: var(--fuchsia) !important;
+font-weight:600;
+}
+.event-title{
+padding-top: 5px;
+font-size: 1.3rem;
+font-weight: bold;
+}
+.organiser{
+font-size: 1rem;
+padding-bottom: 7px;
+}
+.location{
+font-size: 0.9rem;
+}
+
 /*---------[ faq ]------------*/
 
 .question {
