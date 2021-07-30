@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="row error-container valign-wrapper margin-top">
+<div class="row error-container valign-wrapper margin-top head-container">
     <div class="col s12 l7 center-align">
         <img class="responsive-img" src="{{ url_for('static', filename='images/error.svg')}}">
     </div>
@@ -15,5 +15,4 @@
             <a class="btn contact-btn" href="{{ url_for('home') }}">Go back home</a>
     </div>
 </div>
-
-    {% endblock %}
+{% endblock %}

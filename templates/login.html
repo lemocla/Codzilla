@@ -2,58 +2,62 @@
 {% block title %}Login page{% endblock %}
 
 {% block content %}
-<div class="row head-bg">
+<div class="row head-container">
     <div class="col s12">
         <h1 class="center-align">Log in</h1>
         <hr class="breakline">
     </div>
 </div>
 
-<div class="row flashes">
-    <div class="col s12 l6 center-align">
-    {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-    {% endwith %}
-    </div>
-</div>
-
 <!-- login form -->
 <div class="row">
-   <div class="col s12 l6">
-   <form  id="signin" method="post" method="POST" action="{{ url_for('login') }}">
- 
-       <div class="row">
-           <div class="input-field col s12">
-               <input id="email" type="email" name="email" maxlength="50" class="validate" required>
-               <label for="email">Email</label>
-               <p class="error-text hide" for="email"></p>
-           </div>
-       </div>
-       <div class="row">
-           <div class="input-field col s12">
-                <i class="password-visible far fa-eye" data-target="password"></i>
-               <input id="password" type="password" name="password" minlenght="8" maxlength="32" class="validate" required>
-               <label for="password">Password</label>
-               <p class="helper-text">Forgotten your password? <a href="" class="hyperlink modal-trigger" data-target="reset-modal">Reset password</a></p>
-           </div>
-       </div>
-       <div class="row">
-           <div class="col s12 center-align">
-               <button class="btn btn-send" type="submit" name="signup">Log in</button>
-           </div>
-       </div>
-   </form>
-   <div class="col s12 center-align">
-    <p">Don't have an account? <a class="hyperlink" href="{{ url_for('signup') }}">Please register</a>.</p>
-   </div>
-   </div>
-   <!-- Image large screen only -->
-   <div class="col l6 right-align hide-on-med-and-down">
-       <img class="login-img" src="{{ url_for('static', filename='images/login.png')}}"
-           alt="login illustration">
-   </div>
+
+    <div class="col s12 l6">
+        <div class="row">
+            <div class="col s12">
+                <div class="col s12 l6 center-align flashes">
+                    {% with messages = get_flashed_messages() %}
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                    {% endwith %}
+                </div>
+
+            </div>
+            <form class="cols s12" id="signin" method="post" method="POST" action="{{ url_for('login') }}">
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" name="email" maxlength="50" class="validate" required>
+                        <label for="email">Email</label>
+                        <p class="error-text hide" for="email"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="password-visible far fa-eye" data-target="password"></i>
+                        <input id="password" type="password" name="password" minlenght="8" maxlength="32"
+                            class="validate" required>
+                        <label for="password">Password</label>
+                        <p class="helper-text">Forgotten your password? <a href="" class="hyperlink modal-trigger"
+                                data-target="reset-modal">Reset password</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align margin-top">
+                        <button class="btn btn-send" type="submit" name="signup">Log in</button>
+                    </div>
+                </div>
+            </form>
+            <div class="col s12 center-align">
+                <p>Don't have an account? <a class="hyperlink" href="{{ url_for('signup') }}">Please register</a>.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Image large screen only -->
+    <div class="col l6 hide-on-med-and-down">
+        <div class="login-img"></div>
+    </div>
 </div>
 
 <!-- Modal edit email  -->
@@ -67,10 +71,11 @@
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="post" method="POST"
             action="{{ url_for('password_reset_request') }}">
-            
+
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email-request" type="email" name="email-request" maxlength="50" class="validate" required>
+                    <input id="email-request" type="email" name="email-request" maxlength="50" class="validate"
+                        required>
                     <label for="email-request">Email</label>
                 </div>
             </div>
