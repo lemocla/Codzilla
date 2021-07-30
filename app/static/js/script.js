@@ -3,8 +3,7 @@
     // Materialize drop down functionality
     $('.dropdown-button').dropdown({});
 
-    // Add asterix to labels for required fields
-    // https://stackoverflow.com/questions/17048223/correct-syntax-for-this-label-jquery 
+    // Add asterix to labels for required fields 
     $("[required]").each(function () {
       $('label[for=' + this.id + ']').append('<span class="required"> *</span>');
     });
@@ -84,25 +83,27 @@
       }
     });
 
-    // Call python check password on user input
-  $('#current-pwd').change(function(){
-   email = $('#user_email').text().replace(" ", "")
-   check = $('#current-pwd').val()
-   $.ajax({
-			url: `/check_password/${email}/${check}`,
-      data: email,
-			type: 'POST',
-			success: function(response){
-				if (response === "no match"){
-          $('#message-error').html("Current password is incorrect").removeClass('hide');
+    /* Call python check password on user input
+       https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
+       https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html
+    */
+    $('#current-pwd').change(function () {
+      email = $('#user_email').text().replace(" ", "")
+      check = $('#current-pwd').val()
+      $.ajax({
+        url: `/check_password/${email}/${check}`,
+        data: email,
+        type: 'POST',
+        success: function (response) {
+          if (response === "no match") {
+            $('#message-error').html("Current password is incorrect").removeClass('hide');
+          } else if (response === "match") {
+            $('#message-error').html("").addClass('hide');
+          }
+        },
+        error: function (error) {
+          console.log(error);
         }
-        else if (response === "match"){
-          $('#message-error').html("").addClass('hide');
-        }
-			},
-			error: function(error){
-				console.log(error);
-			}
-		});
+      });
     });
   });
