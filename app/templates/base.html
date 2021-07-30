@@ -38,7 +38,7 @@
           <li><a href="{{ url_for('routes.profile') }}">My profile</a></li>
           <li><a href="">My events</a></li>
           <li><a href="">My groups</a></li>
-          <li><a href="{{ url_for('routes.logout') }}">Logout</a></li>
+          <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         </ul>
 
         {% else %}
@@ -47,15 +47,15 @@
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
-          <li><a class="nav-item nav-text" href="{{ url_for('routes.login') }}">Log in</a></li>
-          <li><a class="nav-item nav-text" href="{{ url_for('routes.signup') }}">Sign up</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('auth.login') }}">Log in</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
           <li><a class="nav-item nav-text" href="">All events</a></li>
         </ul>
 
         <!-- Mobile nav -->
         <ul id="mobile" class='dropdown-content'>
-          <li><a href="{{ url_for('routes.login') }}">Log in</a></li>
-          <li><a href="{{ url_for('routes.signup') }}">Sign up</a></li>
+          <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
+          <li><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
           <li><a href="">All events</a></li>
         </ul>
         {% endif %}
@@ -81,8 +81,8 @@
         <div class="col l4 offset-l2 s12">
           <h5 class="black-text">Useful links</h5>
           <ul>
-            <li><a class="footer-text" href="{{ url_for('routes.login') }}">Log in</a></li>
-            <li><a class="footer-text" href="{{ url_for('routes.signup') }}">Sign up</a></li>
+            <li><a class="footer-text" href="{{ url_for('auth.login') }}">Log in</a></li>
+            <li><a class="footer-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
             <li><a class="footer-text" href="{{ url_for('routes.faq') }}">F.A.Q</a></li>
             <li><a class="footer-text" href="#!">Privacy</a></li>
             <li><a class="footer-text" href="{{ url_for('routes.accessibility') }}">Accessibility</a></li>

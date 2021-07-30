@@ -22,7 +22,7 @@
 <div class="row">
 
     <form class="col s12 l8 offset-l2" method="post" method="POST"
-        action="{{ url_for('complete_profile', email=email )}}">
+        action="{{ url_for('auth.complete_profile', email=email )}}">
         <div class="row">
             <div class="input-field col s12">
                 <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
