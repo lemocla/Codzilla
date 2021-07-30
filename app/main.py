@@ -8,17 +8,17 @@ from flask_mail import Message
 
 
 # Blueprint
-routes = Blueprint("routes", __name__)
+main = Blueprint("main", __name__)
 
 
 # Homepage
-@routes.route("/")
-@routes.route("/Home")
+@main.route("/")
+@main.route("/Home")
 def home():
     return render_template("home.html")
 
 
-@routes.route("/get_events")
+@main.route("/get_events")
 def get_events():
     events = mongo.db.events.find()
     return render_template("allevents.html", events=events)
@@ -29,7 +29,7 @@ https://sendgrid.com/blog/sending-emails-from-python-flask-applications-with-twi
 """
 
 
-@routes.route("/contact_us", methods=['GET', 'POST'])
+@main.route("/contact_us", methods=['GET', 'POST'])
 def contact_us():
     """ Get input from user in contact form
     Send a acknowledgment email to suer
@@ -74,24 +74,24 @@ def contact_us():
 
 
 # Accessibility page
-@routes.route("/accessibility")
+@main.route("/accessibility")
 def accessibility():
     return render_template("accessibility.html")
 
 
 # Frequently asked question page
-@routes.route("/faq")
+@main.route("/faq")
 def faq():
     return render_template("faq.html")
 
 
 # Frequently asked question page
 # https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
-@routes.errorhandler(404)
+@main.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 
-@routes.errorhandler(500)
+@main.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500

@@ -24,11 +24,11 @@ def create_app(default_config=Config):
     mail.init_app(app)
 
     # Import and register Blueprints
-    from app.routes import routes
+    from app.main import main
     from app.auth import auth
     from app.users import users
 
-    app.register_blueprint(routes)
+    app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(users)
 
