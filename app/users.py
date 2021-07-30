@@ -3,31 +3,10 @@ from flask import (flash, render_template, redirect,
                    request, session, url_for, jsonify, Blueprint)
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
-# regex
-import re
+from app.validators import validators
 
 # Blueprint
 users = Blueprint("users", __name__)
-
-
-# variables
-pwd_pattern = r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
-name_pattern = r"^[a-zA-Z._-]{1,20}$"
-
-
-def check_regex(pattern, data, string_flash):
-    """
-    Check that user input match regex pattern
-    Flash message if data invalid
-    """
-    check = re.search(pattern, data)
-    if check:
-        match = True
-    else:
-        match = False
-        flash(f"Your {string_flash} is invalid!")
-    print(match)
-    return bool(match)
 
 
 # Profile
@@ -152,8 +131,9 @@ def edit_password(user_id):
             flash("Current password is incorrect")
             return render_template("profile.html", user=user)
 
-        if not check_regex(pwd_pattern,
-                           request.form.get("password"), "password"):
+        if not validators.check_regex(validators.pwd_pattern,
+                                      request.form.get("password"),
+                                      "password"):
             flash("Password format is not valid, please inclue a mix of "
                   "letters, numbers and symbols.")
             return render_template("profile.html", user=user)

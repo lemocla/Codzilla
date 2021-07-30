@@ -7,56 +7,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 # flask mail
 from flask_mail import Message
-# regext
-import re
+
 # encoding / decoding tokens
 import jwt
 from time import time
+from app.validators import validators
 
 
 # Blueprint
 auth = Blueprint("auth", __name__)
-
-# variables
-pwd_pattern = r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
-name_pattern = r"^[a-zA-Z._-]{1,20}$"
-
-
-def check_regex(pattern, data, string_flash):
-    """
-    Check that user input match regex pattern
-    Flash message if data invalid
-    """
-    check = re.search(pattern, data)
-    if check:
-        match = True
-    else:
-        match = False
-        flash(f"Your {string_flash} is invalid!")
-    print(match)
-    return bool(match)
-
-
-def signup_validation(password, fname, lname):
-    """
-    Check that sign up input against criteria
-    """
-    check_pwd = check_regex(pwd_pattern, password, "password")
-    check_fname = check_regex(name_pattern, fname, "first name")
-    check_lname = check_regex(name_pattern, lname, "last name")
-    check_list = [check_pwd, check_fname, check_lname]
-    return check_list
-
-
-def check_box(value):
-    """
-    Set default value for checkbox
-    """
-    if value == "on":
-        check_value = "true"
-    else:
-        check_value = 'false'
-    return check_value
 
 
 # Sign up functionality
@@ -80,7 +39,7 @@ def signup():
             return redirect(url_for("auth.signup"))
 
         # form validation
-        valid = all(signup_validation(request.form.get("password"),
+        valid = all(validators.signup_validation(request.form.get("password"),
                     request.form.get("fname"), request.form.get("lname")))
         # sign up dictionary
         signup = {
@@ -140,18 +99,18 @@ def complete_profile(email):
             "user_imgUrl": request.form.get("user-img"),
             "city": request.form.get("city"),
             "country": request.form.get("country"),
-            "preferences": {"event_reminder": check_box(request.form.get(
-                             "event_reminder")),
-                            "query_answered": check_box(request.form.get(
-                             "query_answered")),
-                            "event_update": check_box(request.form.get(
-                             "event_update")),
-                            "new_participant": check_box(request.form.get(
-                             "new_participant")),
-                            "event_question": check_box(request.form.get(
-                             "event_question")),
-                            "new_follower": check_box(request.form.get(
-                             "new_follower"))},
+            "preferences": {"event_reminder": validators.check_box(
+                            request.form.get("event_reminder")),
+                            "query_answered": validators.check_box(
+                            request.form.get("query_answered")),
+                            "event_update": validators.check_box(
+                            request.form.get("event_update")),
+                            "new_participant": validators.check_box(
+                            request.form.get("new_participant")),
+                            "event_question": validators.check_box(
+                            request.form.get("event_question")),
+                            "new_follower": validators.check_box(
+                            request.form.get("new_follower"))},
             "profile_completed": True
         }}
         try:
@@ -324,8 +283,9 @@ def reset_password(token):
             flash("Make sure that both passwords match")
             return render_template("reset-password.html")
 
-        if not check_regex(pwd_pattern,
-                           request.form.get("password"), "password"):
+        if not validators.check_regex(validators.pwd_pattern,
+                                      request.form.get("password"),
+                                      "password"):
             flash("Password format is not valid, please inclue a mix of "
                   "letters, numbers and symbols.")
             return render_template("reset-password.html")
