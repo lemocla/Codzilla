@@ -35,7 +35,7 @@ h5 {
 }
 
 h1 {
-    margin-top: 5rem;
+    /* margin-top: 5rem;*/
     font-size: 2.5rem;
 }
 
@@ -67,11 +67,38 @@ h3 {
     margin-bottom: 1.5rem;
 }
 
+.btn.btn-attend {
+    background-color: #e7e7e08a;
+    color: var(--black);
+    font-weight: 600;
+    border: 1px solid #6e6e6e6b;
+}
+
+.btn-interest {
+    background-color: var(--ivory);
+    color: var(--black);
+    font-weight: 600;
+    border: 1px solid var(--darkgray);
+}
+
+.btn-interest i {
+    color: var(--black)
+}
+
 .page-footer a:hover,
 .contact-btn:hover,
-.btn.btn-send:hover {
+.btn.btn-send:hover,
+.btn.btn-attend:hover,
+.btn-interest {
     font-weight: bold;
     font-size: 1.1rem;
+}
+
+.btn-floating:hover {
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: var(--ivory);
+    transform: scale(1.1);
 }
 
 .close-form:hover {
@@ -166,28 +193,92 @@ nav ul a:hover {
 
 /*-------[ homepage ]------------*/
 
+.head-container,
+.home-container {
+    margin-top: 4rem;
+}
+
+.home-container h1 {
+    font-family: 'Tourney', cursive;
+    margin-bottom: 2.5rem;
+}
+
+.home-container p {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.home-container form {
+    margin-top: 25px;
+}
+
+.banner-image {
+    padding-top: 25px;
+}
+
+.heading {
+    font-size: 2.5rem;
+}
+
+.small-heading {
+    margin-top: 1rem;
+    margin-bottom: 2.1rem;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+.list-item {
+    padding-bottom: 0.65rem
+}
+
+.list-icon {
+    padding-right: 2rem;
+    color: var(--fuchsia);
+    font-size: 1.2rem;
+}
+
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-   color: white;
-   /*margin-right: 24px;*/
-   -webkit-transition: color .3s ease;
-   transition: color .3s ease;
-   text-transform: uppercase;
+    color: white;
+    /*margin-right: 24px;*/
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+    text-transform: uppercase;
 }
-.date-time{
-color: var(--fuchsia) !important;
-font-weight:600;
+
+.date-time {
+    color: var(--fuchsia) !important;
+    font-weight: 600;
 }
-.event-title{
-padding-top: 5px;
-font-size: 1.3rem;
-font-weight: bold;
+
+.event-title {
+    padding-top: 5px;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
-.organiser{
-font-size: 1rem;
-padding-bottom: 7px;
+
+.organiser {
+    font-size: 1rem;
+    padding-bottom: 7px;
 }
-.location{
-font-size: 0.9rem;
+
+.location {
+    font-size: 0.9rem;
+}
+
+.attendees {
+    font-size: 1.5rem;
+    padding-right: 0.5rem;
+}
+
+.card-action {
+    margin-top: 15px;
+    padding: 16px 0 0 0 !important;
+}
+
+.action-container {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 /*---------[ faq ]------------*/
@@ -294,9 +385,10 @@ label {
 
 /*---------[ Error pages]-----*/
 
-.error-container{
- flex-direction: column;
+.error-container {
+    flex-direction: column;
 }
+
 .h1-error {
     margin-top: 3rem
 }
@@ -324,8 +416,20 @@ label {
 
 @media only screen and (min-width: 600px) {
 
+    /*
     h1 {
         margin-top: 8rem;
+    }*/
+    .home-container {
+        margin-top: 9rem;
+    }
+
+    .head-container {
+        margin-top: 8.5rem;
+    }
+
+    .home-container h1 {
+        margin-top: reset;
     }
 
     .h1-error {
@@ -352,6 +456,10 @@ label {
     nav .brand-logo.left {
         left: 1rem;
     }
+
+    .banner-image {
+        padding-top: 45px;
+    }
 }
 
 @media only screen and (min-width: 993px) {
@@ -361,6 +469,14 @@ label {
 
     .container {
         width: 75%;
+    }
+
+    .home-container form {
+        margin-top: 4rem;
+    }
+
+    .banner-image {
+        padding-top: 0px;
     }
 
     .error-container {
