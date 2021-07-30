@@ -25,8 +25,11 @@ def create_app(default_config=Config):
 
     # Import and register Blueprints
     from app.routes import routes
-    app.register_blueprint(routes)
     from app.auth import auth
+    from app.users import users
+
+    app.register_blueprint(routes)
     app.register_blueprint(auth)
+    app.register_blueprint(users)
 
     return app
