@@ -108,6 +108,13 @@ class User():
             print(e)
 
     @staticmethod
+    def delete_one_user(user_id):
+        """
+        Delete record
+        """
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+
+    @staticmethod
     def check_existing_user(email):
         """
         Find record with user in MongoDB

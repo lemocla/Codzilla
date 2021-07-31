@@ -1,8 +1,6 @@
-from . import mongo
 from flask import (flash, render_template, redirect,
                    request, session, url_for, jsonify, Blueprint)
 from werkzeug.security import generate_password_hash, check_password_hash
-from bson.objectid import ObjectId
 from app.validators import validators
 # Classes
 from app.models.user import User
@@ -194,6 +192,6 @@ def delete_account(user_id):
     Redirect to sign up page
     """
     session.pop("email", None)
-    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    User.delete_one_user(user_id)
     flash("Account successfully deleted")
     return redirect(url_for("auth.signup"))
