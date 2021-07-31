@@ -12,7 +12,8 @@ from flask_mail import Message
 import jwt
 from time import time
 from app.validators import validators
-
+# Classes
+from app.models.user import User
 
 # Blueprint
 auth = Blueprint("auth", __name__)
@@ -41,32 +42,16 @@ def signup():
         # form validation
         valid = all(validators.signup_validation(request.form.get("password"),
                     request.form.get("fname"), request.form.get("lname")))
-        # sign up dictionary
-        signup = {
-            "first_name": request.form.get("fname").lower(),
-            "last_name": request.form.get("lname").lower(),
-            "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password")),
-            "city": "",
-            "country": "",
-            "events_attending": [],
-            "user_imgUrl": "",
-            "events_interest": [],
-            "events_organised": [],
-            "group_following": [],
-            "group_owned": [],
-            "notifications_msg": [],
-            "preferences": {"event_reminder": True,
-                            "query_answered": True,
-                            "event_update": True,
-                            "new_participant": True,
-                            "event_question": True,
-                            "new_follower": True},
-            "profile_completed": False
-        }
+        # Creaste an instance of new user
+
         if valid:
             try:
-                mongo.db.users.insert_one(signup)
+                new_user = User(first_name=request.form.get("fname").lower(),
+                                last_name=request.form.get("lname").lower(),
+                                email=request.form.get("email").lower(),
+                                password=generate_password_hash(request.form.get(
+                                                                "password")))
+                new_user.insert_into_database()
                 flash("Sign up successful!")
                 session['email'] = request.form['email'].lower()
                 return redirect(url_for("auth.complete_profile",
