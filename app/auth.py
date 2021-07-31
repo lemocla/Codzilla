@@ -1,19 +1,17 @@
 import os
-from . import mongo
 from . import mail
 from flask import (flash, render_template, redirect,
                    request, session, url_for, Blueprint)
 from werkzeug.security import generate_password_hash, check_password_hash
-from bson.objectid import ObjectId
 # flask mail
 from flask_mail import Message
-
 # encoding / decoding tokens
 import jwt
 from time import time
 from app.validators import validators
 # Classes
 from app.models.user import User
+
 
 # Blueprint
 auth = Blueprint("auth", __name__)
@@ -33,8 +31,9 @@ def signup():
     """
     if request.method == "POST":
         # check if email already exists
-        existing_user = mongo.db.users.find_one(
-            {"email": request.form.get("email").lower()})
+        existing_user = User.check_existing_user(request.form.get(
+                                                 "email").lower())
+
         if existing_user:
             flash("Username already exists, please sign in")
             return redirect(url_for("auth.signup"))
@@ -42,18 +41,19 @@ def signup():
         # form validation
         valid = all(validators.signup_validation(request.form.get("password"),
                     request.form.get("fname"), request.form.get("lname")))
-        # Creaste an instance of new user
 
         if valid:
             try:
                 new_user = User(first_name=request.form.get("fname").lower(),
                                 last_name=request.form.get("lname").lower(),
                                 email=request.form.get("email").lower(),
-                                password=generate_password_hash(request.form.get(
-                                                                "password")))
+                                password=generate_password_hash(
+                                         request.form.get("password")))
                 new_user.insert_into_database()
+
                 flash("Sign up successful!")
                 session['email'] = request.form['email'].lower()
+
                 return redirect(url_for("auth.complete_profile",
                                         email=session["email"]))
             except Exception as e:
@@ -75,42 +75,38 @@ def complete_profile(email):
     Flash message to inform user of successful completion
     Redirect to complete profile completed page
     """
-    # Get ID from mongoDB
-    user_id = mongo.db.users.find_one({"email":
-                                      session["email"].lower()})["_id"]
-    # Complete user profile
+    if not session["email"]:
+        redirect(url_for("login.html"))
+
+    # Get the first name for session user from MongoDB
+    user = User.check_existing_user(email)
+    fname = User.check_existing_user(email)["first_name"].capitalize()
+
     if request.method == "POST":
-        profile = {"$set": {
-            "user_imgUrl": request.form.get("user-img"),
-            "city": request.form.get("city"),
-            "country": request.form.get("country"),
-            "preferences": {"event_reminder": validators.check_box(
-                            request.form.get("event_reminder")),
-                            "query_answered": validators.check_box(
-                            request.form.get("query_answered")),
-                            "event_update": validators.check_box(
-                            request.form.get("event_update")),
-                            "new_participant": validators.check_box(
-                            request.form.get("new_participant")),
-                            "event_question": validators.check_box(
-                            request.form.get("event_question")),
-                            "new_follower": validators.check_box(
-                            request.form.get("new_follower"))},
-            "profile_completed": True
-        }}
-        try:
-            mongo.db.users.update({"_id": ObjectId(user_id)}, profile)
-            flash("Profile successfully completed")
-            return redirect(url_for("auth.profile_completed",
-                                    email=session["email"]))
-        except Exception as e:
-            print(e)
-    if session["email"]:
-        # Get the first name for session user from MongoDB
-        fname = mongo.db.users.find_one({"email":
-                                        session["email"].lower()})[
-                                        "first_name"].capitalize()
-        return render_template(
+
+        profile = {"user_imgUrl": request.form.get("user-img"),
+                   "city": request.form.get("city"),
+                   "country": request.form.get("country"),
+                   "preferences": {"event_reminder": validators.check_box(
+                                    request.form.get("event_reminder")),
+                                   "query_answered": validators.check_box(
+                                     request.form.get("query_answered")),
+                                   "event_update": validators.check_box(
+                                     request.form.get("event_update")),
+                                   "new_participant": validators.check_box(
+                                     request.form.get("new_participant")),
+                                   "event_question": validators.check_box(
+                                     request.form.get("event_question")),
+                                   "new_follower": validators.check_box(
+                                     request.form.get("new_follower"))},
+                   "profile_completed": True}
+
+        User.edit_user(user["_id"], profile)
+        flash("Profile successfully completed")
+        return redirect(url_for("auth.profile_completed",
+                                email=session["email"]))
+
+    return render_template(
             "complete-profile.html", email=email, name=fname)
 
 
@@ -120,12 +116,9 @@ def profile_completed(email):
     Get email and first name from MongoDB
     Display page if user in session
     """
-    email = mongo.db.users.find_one(
-            {"email": session["email"].lower()})["email"]
-    fname = mongo.db.users.find_one(
-            {"email": session["email"].lower()})["first_name"].capitalize()
 
     if session["email"]:
+        fname = User.check_existing_user(email)["first_name"].capitalize()
         return render_template(
             "profile-completed.html", email=email, name=fname)
 
@@ -142,14 +135,17 @@ def login():
     Inform user password is incorrect
     If no existing user, flash message to inform user
     """
+
     if request.method == "POST":
-        existing_user = mongo.db.users.find_one(
-            {"email": request.form.get("email").lower()})
+
+        existing_user = User.check_existing_user(
+                        request.form.get("email").lower())
 
         if existing_user:
             # check if passowrd matches
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
+
                 session["email"] = request.form.get("email").lower()
                 return redirect(url_for("auth.profile_completed",
                                 email=session["email"]))
@@ -204,8 +200,8 @@ def password_reset_request():
     Send email to user with link to reset password page
     """
     if request.method == 'POST':
-        email = request.form.get('email-request')
-        user = mongo.db.users.find_one({"email": email.lower()})
+        email = request.form.get('email-request').lower()
+        user = User.check_existing_user(email)
         if not user:
             flash("Your email couldn't be verified")
             return redirect(url_for('auth.login'))
@@ -238,7 +234,7 @@ def verify_reset_token(token):
         flash("Your link has timed out. Reset your password again"
               " for a new link")
         return
-    existing_user = mongo.db.users.find_one({"email": email.lower()})
+    existing_user = User.check_existing_user(email.lower())
     return existing_user
 
 
@@ -278,12 +274,9 @@ def reset_password(token):
         user_id = existing_user["_id"]
         password_update = {"$set": {"password": generate_password_hash(
                             password)}}
-        try:
-            mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                      password_update)
-            flash("Your password has been reset successfully!")
-            return redirect(url_for('auth.login'))
-        except Exception as e:
-            print(e)
-            return
+
+        User.edit_user(user_id, password_update)
+        flash("Your password has been reset successfully!")
+        return redirect(url_for('auth.login'))
+
     return render_template("reset-password.html")

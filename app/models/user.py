@@ -5,6 +5,7 @@ to users stored in MongDB.
 """
 from app import mongo
 from werkzeug.security import generate_password_hash
+from bson.objectid import ObjectId
 
 
 class User():
@@ -29,7 +30,8 @@ class User():
         self.password = password
         self.city = city if isinstance(city, str) else str("")
         self.country = country if isinstance(country, str) else str("")
-        self.user_imgUrl = user_imgUrl if isinstance(user_imgUrl, str) else str("")
+        self.user_imgUrl = user_imgUrl if isinstance(user_imgUrl,
+                                                     str) else str("")
         self.events_attending = events_attending if isinstance(
                                 events_attending, list) else []
         self.events_interest = events_interest if isinstance(
@@ -93,3 +95,38 @@ class User():
             mongo.db.users.insert_one(self.get_user_info())
         except Exception as e:
             print(e)
+
+    @staticmethod
+    def edit_user(user_id, info):
+        """
+        Update record
+        """
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      {"$set": info})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def check_existing_user(email):
+        """
+        Find record with user in MongoDB
+        """
+        user = mongo.db.users.find_one({"email": email})
+        return user
+
+    @staticmethod
+    def find_user_by_id(user_id):
+        """
+        Find record with user in MongoDB
+        """
+        user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+        return user
+
+    @staticmethod
+    def get_user_id(email):
+        """
+        Find record with user in MongoDB
+        """
+        user_id = mongo.db.users.find_one({"email": email.lower()})["_id"]
+        return user_id
