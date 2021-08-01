@@ -81,8 +81,36 @@ h3 {
     border: 1px solid var(--darkgray);
 }
 
-.btn-interest i {
-    color: var(--black)
+.btn-floating i {
+    font-size: 1.6rem;
+    text-align: left;
+    line-height: 37px;
+    padding-left: 6px;
+    color: var(--black);
+}
+
+.tabs{
+height: 40px;
+}
+
+.tabs .tab a {
+    color: var(--black);
+    background: var(--ivory);
+    border-radius: 3px;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: var(--darkgray);
+    color: #fafafa;
+    font-weight: 700;  
+}
+
+.tabs .indicator {
+    background-color: var(--black);
+}
+
+.tabs .tab {
+line-height: 40px;
 }
 
 .page-footer a:hover,

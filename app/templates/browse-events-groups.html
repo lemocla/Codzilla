@@ -5,7 +5,7 @@
 
 <div class="row head-container">
     <div class="col s12 l8 offset-l2">
-        <h1 class="center-align">Browse all groups and events</h1>
+        <h1 class="center-align">Search groups and events</h1>
         <hr class="breakline">
     </div>
 </div>
@@ -14,32 +14,31 @@
 <div class="row">
     <div class="col s12">
         <form>
-            <div class="input-field col s12 center-align">
+            <div class="input-field col s12 m6 offset-m3 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
                 <input id="search-home" type="text" class="validate">
-                <label for="search-home">search</label>
+                <label for="search-home">search by location, topic, key words...</label>
             </div>
-            <div class="col s12 center-align">
+            <div class="col s12 center-align margin-top">
                 <button class="btn contact-btn" type=submit name="submit">search</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Interchange between events & groups -->
+<!-- Tabs -->
 <div class="row">
-    <div class="col s6">
-        <a class="btn" href="">View Events</a>
-    </div>
-    <div class="col s6">
-        <a class="btn" href="">View Groups</a>
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s6 btn-tab"><a class="active" href="#view-events">view events</a></li>
+        <li class="tab col s6 btn-tab"><a href="#view-groups">view groups</a></li>
+      </ul>
     </div>
 </div>
 
-</div>
 <!-- All events -->
 
-<div class="row">
+<div class="row" id="view-events">
     <div class="col s12">
         <h2 class="center-align">All events</h2>
         <hr class="breakline">
@@ -82,8 +81,8 @@
                         {% endif %}
                     </p>
                     <div class="card-action">
-                        <div class="row action-container">
-                            <div class="col s6">
+                        <div class="row action-container valign-wrapper">
+                            <div class="col s6 valign-wrapper">
                                 <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
                                 </p>
                             </div>
@@ -106,7 +105,7 @@
 
 
 <!-- All groups -->
-<div class="row">
+<div class="row" id="view-groups">
     <div class="col s12">
         <h2 class="center-align">All groups</h2>
         <hr class="breakline">
@@ -127,8 +126,8 @@
 
                     <p class="gp-description">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
-                        <div class="row action-container">
-                            <div class="col s6">
+                        <div class="row action-container valign-wrapper">
+                            <div class="col s6 valign-wrapper">
                                 <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }} member(s)</p>
                             </div>
                             <div class="col s6 right-align">

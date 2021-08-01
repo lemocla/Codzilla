@@ -3,6 +3,9 @@
     // Materialize drop down functionality
     $('.dropdown-button').dropdown({});
 
+    // Tabs
+    $('.tabs').tabs();
+
     //Flickity caraouse initialisation
     $('.main-carousel').flickity({
       cellAlign: 'left',
