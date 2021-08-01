@@ -18,12 +18,13 @@ def home():
     return render_template("home.html")
 
 
-@main.route("/browse_events_groups/<events>/<groups>")
+@main.route("/browse_events_groups/")
 def browse_events_groups():
     events = list(mongo.db.events.find())
     groups = list(mongo.db.groups.find())
+    users = mongo.db.users.find()
     return render_template("browse-events-groups.html", events=events,
-                           groups=groups)
+                           groups=groups, users=users)
 
 
 """"

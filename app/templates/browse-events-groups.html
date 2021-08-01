@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Browse groups and events{% endblock %}
 
 {% block content %}
 
@@ -29,38 +29,63 @@
 <!-- Interchange between events & groups -->
 <div class="row">
     <div class="col s6">
-        <a class="btn"  href="">View Events</a>
+        <a class="btn" href="">View Events</a>
     </div>
     <div class="col s6">
         <a class="btn" href="">View Groups</a>
     </div>
 </div>
 
+</div>
 <!-- All events -->
+
 <div class="row">
-<div class="col s12">
+    <div class="col s12">
         <h2 class="center-align">All events</h2>
         <hr class="breakline">
     </div>
+    {% if events|length > 0 %}
+    {% for event in events %}
 
     <div class="col s12">
         <div class="div card horizontal">
             <div class="card-image">
-                <img class="horizontal-card-img"
-                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+                <img class="horizontal-card-img" src="{{ event.img_url }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
                             class="far fa-star"></i></a>
-                    <p class="date-time">Thurs, 20th July @ 14:00</p>
-                    <p class="event-title">London code institute meetup</p>
-                    <p class="organiser">Social by group 1</p>
-                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
+                    <p class="date-time">
+                        <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
+                        {% if event.is_endtime %}
+                            {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+                            {{event.date_end.strftime('%I:%M %p')}}
+                        {% else %}
+                            {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                        {% endif %}
+                    </p>
+                    <p class="event-title">{{ event.event_title }}</p>
+                    <p class="organiser">{{ event.event_category}}
+                        {% if event.group != "" %}
+                        by {{ event.group }}
+                        {% else %}
+                        {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
+                        by {{ user.first_name }} {{user.last_name}}
+                        {% endif %}
+                    </p>
+                    <p class="location">
+                        {% if event.event_type == "in person" %}
+                        {{ event.event_location}}
+                        {% else %}
+                        {{ event.event_type}}
+                        {% endif %}
+                    </p>
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
+                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendees
+                                </p>
                             </div>
                             <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Attend</a>
@@ -71,11 +96,18 @@
             </div>
         </div>
     </div>
+    {% endfor %}
+    {% else %}
+    <div class="col s12">
+        <p>No results founds</p>
+    </div>
+    {% endif %}
 </div>
+
 
 <!-- All groups -->
 <div class="row">
-<div class="col s12">
+    <div class="col s12">
         <h2 class="center-align">All groups</h2>
         <hr class="breakline">
     </div>
