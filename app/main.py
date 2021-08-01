@@ -18,10 +18,12 @@ def home():
     return render_template("home.html")
 
 
-@main.route("/browse_events_groups")
+@main.route("/browse_events_groups/<events>/<groups>")
 def browse_events_groups():
-    events = mongo.db.events.find()
-    return render_template("browse-events-groups.html", events=events)
+    events = list(mongo.db.events.find())
+    groups = list(mongo.db.groups.find())
+    return render_template("browse-events-groups.html", events=events,
+                           groups=groups)
 
 
 """"
@@ -83,15 +85,3 @@ def accessibility():
 @main.route("/faq")
 def faq():
     return render_template("faq.html")
-
-
-# Frequently asked question page
-# https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
-@main.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-
-@main.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
