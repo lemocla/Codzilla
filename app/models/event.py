@@ -30,3 +30,8 @@ class Event():
                   {"date_start": {"$gte": datetime.today()}}).sort(
                   "date_start", 1))
         return events
+
+    @staticmethod
+    def search_events(query):
+        results = mongo.db.events.find({"$text": {"$search": query}})
+        return results

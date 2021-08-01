@@ -12,6 +12,18 @@ from app.models.user import User
 main = Blueprint("main", __name__)
 
 
+# Search
+@main.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("search")
+    events = list(Event.search_events(query))
+    groups = list(Group.search_groups(query))
+    users = User.find_all_users()
+    return render_template("browse-events-groups.html",
+                           events=events, groups=groups,
+                           users=users)
+
+
 # Homepage
 @main.route("/")
 @main.route("/Home")

@@ -21,3 +21,8 @@ class Group():
     def find_all_groups():
         groups = list(mongo.db.groups.find())
         return groups
+
+    @staticmethod
+    def search_groups(query):
+        results = mongo.db.groups.find({"$text": {"$search": query}})
+        return results

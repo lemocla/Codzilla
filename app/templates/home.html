@@ -9,10 +9,10 @@
         <h1>Hello World!</h1>
         <p>Meet, connect and develop with fellow coders. </p>
         <p>Find events near you!</p>
-        <form>
+        <form id="search-home" action="{{ url_for('main.search') }}" method="POST">
             <div class="input-field col s12 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
-                <input id="search-home" type="text" class="validate">
+                <input id="search-home" name="search" type="text" class="validate">
                 <label for="search-home">search by location, topic, key words...</label>
             </div>
             <div class="col s12 center-align">
