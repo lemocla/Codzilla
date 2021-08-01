@@ -333,6 +333,10 @@ nav ul a:hover {
     top: -20px !important;
 }
 
+.gp-description{
+    margin-top: 0.75rem !important;
+}
+
 /*---------[ faq ]------------*/
 
 .question {

@@ -65,26 +65,26 @@
                             {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
                         {% endif %}
                     </p>
-                    <p class="event-title">{{ event.event_title }}</p>
-                    <p class="organiser">{{ event.event_category}}
+                    <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group != "" %}
-                        by {{ event.group }}
+                        by {{ event.group.capitalize()  }}
                         {% else %}
                         {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
-                        by {{ user.first_name }} {{user.last_name}}
+                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
                         {% endif %}
                     </p>
                     <p class="location">
                         {% if event.event_type == "in person" %}
-                        {{ event.event_location}}
+                        {{ event.event_location.capitalize() }}
                         {% else %}
-                        {{ event.event_type}}
+                        {{ event.event_type.capitalize() }}
                         {% endif %}
                     </p>
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendees
+                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
                                 </p>
                             </div>
                             <div class="col s6 right-align">
@@ -111,21 +111,25 @@
         <h2 class="center-align">All groups</h2>
         <hr class="breakline">
     </div>
+ {% if groups|length > 0 %}
+{% for group in groups %}
+
     <div class="col s12">
         <div class="div card horizontal">
             <div class="card-image">
                 <img class="horizontal-card-img"
-                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+                    src="{{ group.img_url }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <p class="event-title">Group name</p>
-                    <p class="location">London, United Kingdom</p>
-                    <p>This is the placeholder for group description</p>
+                    <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                    <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
+
+                    <p class="gp-description">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 followers</p>
+                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }} member(s)</p>
                             </div>
                             <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Join</a>
@@ -136,6 +140,12 @@
             </div>
         </div>
     </div>
+    {% endfor %}
+    {% else %}
+    <div class="col s12">
+        <p>No results founds</p>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
