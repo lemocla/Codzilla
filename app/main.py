@@ -5,7 +5,7 @@ from flask import (flash, render_template, redirect,
                    request, url_for, Blueprint)
 # flask mail
 from flask_mail import Message
-
+from datetime import datetime
 
 # Blueprint
 main = Blueprint("main", __name__)
@@ -15,12 +15,20 @@ main = Blueprint("main", __name__)
 @main.route("/")
 @main.route("/Home")
 def home():
-    return render_template("home.html")
+    # Variables
+    events = list(mongo.db.events.find(
+                  {"date_start": {"$gte": datetime.today()}}).sort(
+                  "date_start", 1))
+    users = mongo.db.users.find()
+    return render_template("home.html", events=events, users=users)
 
 
 @main.route("/browse_events_groups/")
 def browse_events_groups():
-    events = list(mongo.db.events.find())
+    # Variables
+    events = list(mongo.db.events.find(
+                  {"date_start": {"$gte": datetime.today()}}).sort(
+                  "date_start", 1))
     groups = list(mongo.db.groups.find())
     users = mongo.db.users.find()
     return render_template("browse-events-groups.html", events=events,

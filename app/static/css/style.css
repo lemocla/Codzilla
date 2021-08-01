@@ -295,6 +295,9 @@ nav ul a:hover {
     font-size: 0.9rem;
 }
 
+.p-loc-home{
+    height: 36px;
+}
 .attendees {
     font-size: 1.5rem;
     padding-right: 0.5rem;
@@ -336,7 +339,8 @@ nav ul a:hover {
 
 .flickity-page-dots {
     bottom: -8%;
-    left: 0
+    left: 10%;
+    width: 80%;
 }
 
 /*-------[ Horizontal cards ]--*/

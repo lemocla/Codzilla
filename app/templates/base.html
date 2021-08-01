@@ -49,7 +49,7 @@
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
-          <li><a class="nav-item" href="{{ url_for('main.home') }}">Home</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('main.home') }}">Home</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('main.browse_events_groups')}}">All events</a></li>
@@ -57,7 +57,7 @@
 
         <!-- Mobile nav -->
         <ul id="mobile" class='dropdown-content'>
-          <li><a class="nav-item" href="{{ url_for('main.home') }}">Home</a></li>
+          <li><a href="{{ url_for('main.home') }}">Home</a></li>
           <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
           <li><a href="{{ url_for('main.browse_events_groups')}}">All events</a></li>

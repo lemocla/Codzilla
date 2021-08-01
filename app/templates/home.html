@@ -13,7 +13,7 @@
             <div class="input-field col s12 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
                 <input id="search-home" type="text" class="validate">
-                <label for="search-home">search</label>
+                <label for="search-home">search by location, topic, key words...</label>
             </div>
             <div class="col s12 center-align">
                 <button class="btn contact-btn" type=submit name="submit">search</button>
@@ -66,26 +66,50 @@
         <h2 class="center-align heading">Upcoming events</h2>
         <hr class="breakline">
     </div>
-
+    {% if events|length > 0 %}
     <div class="col s12 main-carousel">
 
+        {% for event in events %}
         <div class="carousel-cell">
-            <div class="div card">
+            <div class="card">
                 <div class="card-image">
-                    <img
-                        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+                    <img src="{{ event.img_url }}">
                     <a class="btn-floating halfway-fab waves-effect waves-light btn-interest"><i
                             class="far fa-star"></i></a>
                 </div>
                 <div class="card-content">
-                    <p class="date-time">Thurs, 20th July @ 14:00</p>
-                    <p class="event-title">London code institute meetup</p>
-                    <p class="organiser">Social by group 1</p>
-                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
+                    <p class="date-time">
+                        <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
+                        {% if event.is_endtime %}
+                        {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+                        {{event.date_end.strftime('%I:%M %p')}}
+                        {% else %}
+                        {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                        {% endif %}
+                    </p>
+                    <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    <p class="organiser">
+                        {{ event.event_category.capitalize() }}
+                        {% if event.group != "" %}
+                        by {{ event.group.capitalize()  }}
+                        {% else %}
+                        {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
+                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
+                        {% endif %}
+                    </p>
+                    <p class="location p-loc-home">
+                        {% if event.event_type == "in person" %}
+                        {{ event.event_location.capitalize() }}
+                        {% else %}
+                        {{ event.event_type.capitalize() }}
+                        {% endif %}
+                    </p>
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
+                                <p><i class="fas fa-user-circle attendees"></i>
+                                    {{ event.attendees|length }} attendee(s)
+                                </p>
                             </div>
                             <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Attend</a>
@@ -95,91 +119,18 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="carousel-cell">
-            <div class="div card">
-                <div class="card-image">
-                    <img
-                        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
-                    <span class="btn-floating halfway-fab waves-effect waves-light btn-interest"><i
-                            class="far fa-star"></i></span>
-                </div>
-                <div class="card-content">
-                    <p class="date-time">Thurs, 20th July @ 14:00</p>
-                    <p class="event-title">London code institute meetup</p>
-                    <p class="organiser">Social by group 1</p>
-                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
-                    <div class="card-action">
-                        <div class="row action-container">
-                            <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
-                            </div>
-                            <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="carousel-cell">
-            <div class="card">
-                <div class="card-image">
-                    <img
-                        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
-                    <span class="btn-floating halfway-fab waves-effect waves-light btn-interest"><i
-                            class="far fa-star"></i></span>
-                </div>
-                <div class="card-content">
-                    <p class="date-time">Thurs, 20th July @ 14:00</p>
-                    <p class="event-title">London code institute meetup</p>
-                    <p class="organiser">Social by group 1</p>
-                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
-                    <div class="card-action">
-                        <div class="row action-container">
-                            <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
-                            </div>
-                            <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="carousel-cell">
-            <div class="card">
-                <div class="card-image">
-                    <img
-                        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
-                    <span class="btn-floating halfway-fab waves-effect waves-light btn-interest"><i
-                            class="far fa-star"></i></span>
-                </div>
-                <div class="card-content">
-                    <p class="date-time">Thurs, 20th July @ 14:00</p>
-                    <p class="event-title">London code institute meetup</p>
-                    <p class="organiser">Social by group 1</p>
-                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
-                    <div class="card-action">
-                        <div class="row action-container">
-                            <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
-                            </div>
-                            <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
+    {% else %}
+    <div class="col s6 offset-s3">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+    </div>
+    <div class="col s12 center-align">
+        <h3>Sorry there are no coming events</h3>
+        <p>Why not sign-up today and add new events?</p>
+        <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">Sign up</a>
+    </div>
+    {% endif %}
 </div>
 
 <!-- How it works -->
