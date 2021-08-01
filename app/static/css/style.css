@@ -311,6 +311,28 @@ nav ul a:hover {
     left: 0
 }
 
+/*-------[ Horizontal cards ]--*/
+
+.card.horizontal {
+    flex-direction: column !important
+}
+
+.horizontal-card-img {
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.card.horizontal .card-image {
+    max-width: 100% !important;
+}
+
+.hor-card-btn {
+    position: absolute;
+    right: 16px !important;
+    bottom: unset !important;
+    top: -20px !important;
+}
+
 /*---------[ faq ]------------*/
 
 .question {
@@ -475,6 +497,21 @@ label {
         min-width: 350px;
         margin-right: 0.75rem;
         margin-left: 1rem;
+    }
+
+    .card.horizontal {
+        flex-direction: row !important
+    }
+
+    .card.horizontal .card-image {
+        max-width: 40% !important;
+    }
+
+    .hor-card-btn {
+        position: absolute;
+        right: 16px !important;
+        bottom: unset !important;
+        top: 8px !important;
     }
 
     .profile-img {

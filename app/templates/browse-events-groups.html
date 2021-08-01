@@ -1,14 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% for event in events %} 
-        {{ event.event_name }}<br> 
-    {% endfor %}  
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+<div class="row head-container">
+    <div class="col s12 l8 offset-l2">
+        <h1 class="center-align">Browse all groups and events</h1>
+        <hr class="breakline">
+    </div>
+</div>
+
+<!-- Search -->
+<div class="row">
+    <div class="col s12">
+        <form>
+            <div class="input-field col s12 center-align">
+                <i class="fas fa-search material-icons prefix"></i>
+                <input id="search-home" type="text" class="validate">
+                <label for="search-home">search</label>
+            </div>
+            <div class="col s12 center-align">
+                <button class="btn contact-btn" type=submit name="submit">search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Interchange between events & groups -->
+<div class="row">
+    <div class="col s6">
+        <a class="btn"  href="">View Events</a>
+    </div>
+    <div class="col s6">
+        <a class="btn" href="">View Groups</a>
+    </div>
+</div>
+
+<!-- All events -->
+<div class="row">
+<div class="col s12">
+        <h2 class="center-align">All events</h2>
+        <hr class="breakline">
+    </div>
+
+    <div class="col s12">
+        <div class="div card horizontal">
+            <div class="card-image">
+                <img class="horizontal-card-img"
+                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
+                            class="far fa-star"></i></a>
+                    <p class="date-time">Thurs, 20th July @ 14:00</p>
+                    <p class="event-title">London code institute meetup</p>
+                    <p class="organiser">Social by group 1</p>
+                    <p class="location">Cafe Noir, 314 Kilburn ln, London, W9 3EF</p>
+                    <div class="card-action">
+                        <div class="row action-container">
+                            <div class="col s6">
+                                <p><i class="fas fa-user-circle attendees"></i>5 attendees</p>
+                            </div>
+                            <div class="col s6 right-align">
+                                <a class="btn btn-attend" href="#">Attend</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All groups -->
+<div class="row">
+<div class="col s12">
+        <h2 class="center-align">All groups</h2>
+        <hr class="breakline">
+    </div>
+    <div class="col s12">
+        <div class="div card horizontal">
+            <div class="card-image">
+                <img class="horizontal-card-img"
+                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F141849303%2F393602250309%2F1%2Foriginal.20210716-133510?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C161%2C5164%2C2582&s=7579b88f869c4c8335aaed77efa60fe6">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p class="event-title">Group name</p>
+                    <p class="location">London, United Kingdom</p>
+                    <p>This is the placeholder for group description</p>
+                    <div class="card-action">
+                        <div class="row action-container">
+                            <div class="col s6">
+                                <p><i class="fas fa-user-circle attendees"></i>5 followers</p>
+                            </div>
+                            <div class="col s6 right-align">
+                                <a class="btn btn-attend" href="#">Join</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

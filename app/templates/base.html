@@ -31,7 +31,7 @@
           <li><a class="nav-item" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i></a></li>
           <li><a class="nav-item" href=""><i class="fas fa-bell"></i></a></li>
           <li><a class="nav-item" href=""><i class="far fa-calendar-plus"></i></a></li>
-          <li><a class="nav-item" href=""><i class="fas fa-search"></i></a></li>
+          <li><a class="nav-item" href="{{ url_for('main.browse_events_groups')}}"><i class="fas fa-search"></i></a></li>
           <li><a class="nav-item dropdown-button" data-activates="profile" data-beloworigin="true" href=""><i
                 class="fas fa-user"></i></a></li>
         </ul>
@@ -49,16 +49,18 @@
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
+          <li><a class="nav-item" href="{{ url_for('main.home') }}">Home</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
-          <li><a class="nav-item nav-text" href="">All events</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('main.browse_events_groups')}}">All events</a></li>
         </ul>
 
         <!-- Mobile nav -->
         <ul id="mobile" class='dropdown-content'>
+          <li><a class="nav-item" href="{{ url_for('main.home') }}">Home</a></li>
           <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
-          <li><a href="">All events</a></li>
+          <li><a href="{{ url_for('main.browse_events_groups')}}">All events</a></li>
         </ul>
         {% endif %}
       </div>

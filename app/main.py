@@ -18,10 +18,10 @@ def home():
     return render_template("home.html")
 
 
-@main.route("/get_events")
-def get_events():
+@main.route("/browse_events_groups")
+def browse_events_groups():
     events = mongo.db.events.find()
-    return render_template("allevents.html", events=events)
+    return render_template("browse-events-groups.html", events=events)
 
 
 """"
