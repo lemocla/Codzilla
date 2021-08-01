@@ -3,6 +3,13 @@
     // Materialize drop down functionality
     $('.dropdown-button').dropdown({});
 
+    //Flickity caraouse initialisation
+    $('.main-carousel').flickity({
+      cellAlign: 'left',
+      contain: true,
+      pageDots: true,
+    });
+
     // Add asterix to labels for required fields 
     $("[required]").each(function () {
       $('label[for=' + this.id + ']').append('<span class="required"> *</span>');

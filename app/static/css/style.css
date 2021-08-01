@@ -189,6 +189,7 @@ nav ul a:hover {
 .flashes {
     color: var(--fuchsia);
     font-weight: 700;
+    text-align: center;
 }
 
 /*-------[ homepage ]------------*/
@@ -279,6 +280,35 @@ nav ul a:hover {
 .action-container {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
+}
+
+/*----[ Homepage carousel ]---*/
+
+.main-carousel {
+    margin-bottom: 3.5rem;
+}
+
+.carousel-cell {
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.flickity-prev-next-button.previous {
+    top: unset;
+    bottom: -16%;
+    left: 0;
+}
+
+.flickity-prev-next-button.next {
+    top: unset;
+    bottom: -16%;
+    right: 0;
+}
+
+.flickity-page-dots {
+    bottom: -8%;
+    left: 0
 }
 
 /*---------[ faq ]------------*/
@@ -440,6 +470,13 @@ label {
         padding: 0 15px;
     }
 
+    .carousel-cell {
+        width: 48%;
+        min-width: 350px;
+        margin-right: 0.75rem;
+        margin-left: 1rem;
+    }
+
     .profile-img {
         position: relative;
         max-width: 110px !important;
@@ -477,6 +514,28 @@ label {
 
     .banner-image {
         padding-top: 0px;
+    }
+
+    .carousel-cell {
+        width: 31%;
+        min-width: 372px;
+        margin-right: 0rem;
+        margin-left: 1rem;
+
+    }
+
+    .flickity-prev-next-button.previous {
+        top: 50%;
+        left: -55px;
+    }
+
+    .flickity-prev-next-button.next {
+        top: 50%;
+        right: -55px;
+    }
+
+    .flickity-page-dots {
+        bottom: -8%;
     }
 
     .error-container {
