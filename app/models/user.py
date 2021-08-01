@@ -137,3 +137,8 @@ class User():
         """
         user_id = mongo.db.users.find_one({"email": email.lower()})["_id"]
         return user_id
+
+    @staticmethod
+    def find_all_users():
+        users = list(mongo.db.users.find())
+        return users

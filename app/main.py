@@ -1,11 +1,12 @@
 import os
-from . import mongo
 from . import mail
 from flask import (flash, render_template, redirect,
                    request, url_for, Blueprint)
 # flask mail
 from flask_mail import Message
-from datetime import datetime
+from app.models.event import Event
+from app.models.group import Group
+from app.models.user import User
 
 # Blueprint
 main = Blueprint("main", __name__)
@@ -16,21 +17,17 @@ main = Blueprint("main", __name__)
 @main.route("/Home")
 def home():
     # Variables
-    events = list(mongo.db.events.find(
-                  {"date_start": {"$gte": datetime.today()}}).sort(
-                  "date_start", 1))
-    users = mongo.db.users.find()
+    events = Event.find_all_events()
+    users = User.find_all_users()
     return render_template("home.html", events=events, users=users)
 
 
+# All events and groups
 @main.route("/browse_events_groups/")
 def browse_events_groups():
-    # Variables
-    events = list(mongo.db.events.find(
-                  {"date_start": {"$gte": datetime.today()}}).sort(
-                  "date_start", 1))
-    groups = list(mongo.db.groups.find())
-    users = mongo.db.users.find()
+    events = Event.find_all_events()
+    groups = Group.find_all_groups()
+    users = User.find_all_users()
     return render_template("browse-events-groups.html", events=events,
                            groups=groups, users=users)
 
