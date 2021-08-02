@@ -142,3 +142,8 @@ class User():
     def find_all_users():
         users = list(mongo.db.users.find())
         return users
+
+    @staticmethod
+    def find_users_by_id(col):
+        users = mongo.db.users.find({"_id": {"$in": col}})
+        return users

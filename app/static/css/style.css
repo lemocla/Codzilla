@@ -394,6 +394,29 @@ nav ul a:hover {
     font-size: 1.4rem;
 }
 
+.collection {
+    border: none;
+}
+
+.collection .collection-item.avatar {
+    min-height: 60px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.collection .collection-item {
+    line-height: 34px !important;
+    /* margin: 0; */
+    border-radius: 3px;
+    border: 1px solid #e0e0e0 !important;
+}
+
+.collection .collection-item.avatar:not(.circle-clipper)>.circle,
+.collection .collection-item.avatar :not(.circle-clipper)>.circle {
+    object-fit: cover;
+}
+
 /*---------[ faq ]------------*/
 
 .question {
@@ -643,10 +666,11 @@ label {
     .flickity-page-dots {
         bottom: -8%;
     }
-    
-    .card-summary .card-content{
-    padding-left: 3rem !important;
+
+    .card-summary .card-content {
+        padding-left: 3rem !important;
     }
+
     .error-container {
         height: 70vh !important;
         min-height: 400px;

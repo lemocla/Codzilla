@@ -58,11 +58,9 @@
     <div class="col s12">
         <h2>Upcoming events</h2>
     </div>
-
     {% if events|length > 0 %}
     {% for event in events %}
-
-        <div class="col s12">
+    <div class="col s12">
         <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ event.img_url }}">
@@ -116,20 +114,31 @@
     </div>
     {% endif %}
 </div>
-
-
-
-
-
-
-
 </div>
 <hr>
 
 <!-- Upcoming events -->
 <div class="row">
     <div class="col s12">
-        <h2>Members (x)</h2>
+        <h2>Members ({{ group.group_members|length }})</h2>
     </div>
+    {% if users|length > 0 %}
+    <div class="col s12">
+        <ul class="collection">
+            {% for user in users %}
+            <li class="collection-item avatar z-depth-2">
+                <img src="{{ user.user_imgUrl }}" alt="" class="circle">
+                <span class="title">{{ user.first_name }} {{ user.last_name }} </span>
+            </li>
+            {% endfor %}
+    </div>
+    {% else %}
+    <div class="col s12 center-align">
+        <h3>No upcoming events</h3>
+    </div>
+    <div class="col s4 offset-s4">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
