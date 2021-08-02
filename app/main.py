@@ -27,7 +27,7 @@ def search():
 
 # Homepage
 @main.route("/")
-@main.route("/Home")
+@main.route("/home")
 def home():
     # Variables
     events = Event.find_all_events()
