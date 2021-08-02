@@ -32,3 +32,8 @@ class Group():
     def search_groups(query):
         results = mongo.db.groups.find({"$text": {"$search": query}})
         return results
+
+    @staticmethod
+    def find_groups_by_id(col):
+        groups = mongo.db.groups.find({"_id": {"$in": col}})
+        return groups

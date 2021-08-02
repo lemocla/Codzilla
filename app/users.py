@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.validators import validators
 # Classes
 from app.models.user import User
+from app.models.group import Group
 
 
 # Blueprint
@@ -203,4 +204,8 @@ def my_groups():
     if not user:
         return redirect(url_for("login"))
 
-    return render_template("my-groups.html", user=user)
+    groups_owned = list(Group.find_groups_by_id(user["group_owned"]))
+    groups_following = list(Group.find_groups_by_id(user["group_following"]))
+    return render_template("my-groups.html", user=user,
+                           groups_owned=groups_owned,
+                           groups_following=groups_following)
