@@ -89,8 +89,8 @@ h3 {
     color: var(--black);
 }
 
-.tabs{
-height: 40px;
+.tabs {
+    height: 40px;
 }
 
 .tabs .tab a {
@@ -99,10 +99,11 @@ height: 40px;
     border-radius: 3px;
 }
 
-.tabs .tab a:hover, .tabs .tab a.active {
+.tabs .tab a:hover,
+.tabs .tab a.active {
     background-color: var(--darkgray);
     color: #fafafa;
-    font-weight: 700;  
+    font-weight: 700;
 }
 
 .tabs .indicator {
@@ -110,7 +111,7 @@ height: 40px;
 }
 
 .tabs .tab {
-line-height: 40px;
+    line-height: 40px;
 }
 
 .page-footer a:hover,
@@ -295,9 +296,10 @@ nav ul a:hover {
     font-size: 0.9rem;
 }
 
-.p-loc-home{
+.p-loc-home {
     height: 36px;
 }
+
 .attendees {
     font-size: 1.5rem;
     padding-right: 0.5rem;
@@ -365,7 +367,7 @@ nav ul a:hover {
     top: -20px !important;
 }
 
-.gp-description{
+.gp-description {
     margin-top: 0.75rem !important;
 }
 
@@ -442,6 +444,10 @@ nav ul a:hover {
 input,
 textarea {
     border-bottom: 1px solid var(--darkgray) !important;
+}
+
+.input-field .prefix.active {
+    color: var(--fuchsia);
 }
 
 input:focus,
