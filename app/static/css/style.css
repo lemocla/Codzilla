@@ -92,10 +92,10 @@ h3 {
 }
 
 .btn-floating i {
+    width:initial;
     font-size: 1.6rem;
-    text-align: left;
+    text-align: center;
     line-height: 37px;
-    padding-left: 6px;
     color: var(--black);
 }
 
@@ -407,7 +407,6 @@ nav ul a:hover {
 
 .collection .collection-item {
     line-height: 34px !important;
-    /* margin: 0; */
     border-radius: 3px;
     border: 1px solid #e0e0e0 !important;
 }
@@ -415,6 +414,11 @@ nav ul a:hover {
 .collection .collection-item.avatar:not(.circle-clipper)>.circle,
 .collection .collection-item.avatar :not(.circle-clipper)>.circle {
     object-fit: cover;
+}
+
+.dropdown-content.dropdown-for-btn {
+    right: 20px !important;
+    top: 60px !important;
 }
 
 /*---------[ faq ]------------*/
