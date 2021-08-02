@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Create a group{% endblock %}
+
+{% block content %}
+<div class="row head-container">
+    <div class="col s12">
+        <h1 class="center-align">Create your group</h1>
+        <hr class="breakline">
+    </div>
+</div>
+
+<div class="row valign-wrapper">
+    <div class="col s12 m8 offset-m2 l6">
+        <div class="row">
+            <!-- form -->
+            <form class="cols s12" id="add_group" method="POST" action="{{ url_for('groups.add_group') }}">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="group_name" type="text" name="group_name" minlenght="3" maxlength="250"
+                            class="validate" required>
+                        <label for="group_name">Group name</label>
+                        <p class="error-text hide" for="email"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="group_city" type="text" name="group_city" value="{{ user.city }}" minlenght="3"
+                            maxlength="250" class="validate" required>
+                        <label for="group_city">City</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="group_country" type="text" value="{{ user.country }}" name="group_country"
+                            minlenght="3" maxlength="250" class="validate" required>
+                        <label for="group_country">Country</label>
+                    </div>
+                </div>
+                <div class="row"> 
+                        <div class="input-field col s12">
+                        <textarea id="group_description" name="group_description" minlenght="3"
+                            maxlength="1500" class="materialize-textarea validate" required></textarea>
+                        <label for="group_description">Group description</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="group_img_url" type="text" name="img_url" minlenght="3" maxlength="1500">
+                        <label for="img_url">Add a cover image</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 center-align margin-top">
+                        <button class="btn btn-send" type="submit" >Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Image large screen only -->
+    <div class="col l6 hide-on-med-and-down">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}" alt="">
+    </div>
+</div>
+
+
+
+{% endblock %}

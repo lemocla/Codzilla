@@ -37,6 +37,11 @@ class Group():
             print(e)
 
     @staticmethod
+    def update_group(user_id, info):
+        mongo.db.groups.update_one({"_id": ObjectId(user_id)},
+                                   {"$set": info})
+
+    @staticmethod
     def find_one_group(group_id):
         group = mongo.db.groups.find_one({"_id": ObjectId(group_id)})
         return group

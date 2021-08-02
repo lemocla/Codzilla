@@ -34,4 +34,13 @@ def add_group():
         User.append_list(user["_id"], "group_owned", new.inserted_id)
         flash("Group successfully added!")
         return redirect(url_for('users.my_groups'))
-    return render_template("group-form.html", user=user)
+    return render_template("add_group.html", user=user)
+
+
+@groups.route("/edit_group/<group_id>", methods=["GET", "POST"])
+def edit_group(group_id):
+    if not session["email"]:
+        return redirect(url_for('login'))
+    user = User.check_existing_user(session["email"])
+    group = Group.find_one_group(group_id)
+    return render_template("edit_group.html", user=user, group=group)
