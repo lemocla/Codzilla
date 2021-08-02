@@ -4,7 +4,6 @@ from app.models.group import Group
 from app.models.event import Event
 from app.models.user import User
 
-
 # Blueprint
 groups = Blueprint("groups", __name__)
 
@@ -18,9 +17,21 @@ def group(group_id):
                            users=users)
 
 
-@groups.route("/add_group")
+@groups.route("/add_group", methods=["GET", "POST"])
 def add_group():
     if not session["email"]:
         return redirect(url_for('login'))
     user = User.check_existing_user(session["email"])
+    new_group = Group(group_name=request.form.get("group_name"),
+                      group_city=request.form.get("group_city"),
+                      group_country=request.form.get("group_country"),
+                      group_description=request.form.get("group_description"),
+                      img_url=request.form.get("img_url"),
+                      group_admin=[user["_id"]])
+    if request.method == "POST":
+        new = new_group.insert_into_database()
+        print(new)
+        User.append_list(user["_id"], "group_owned", new.inserted_id)
+        flash("Group successfully added!")
+        return redirect(url_for('users.my_groups'))
     return render_template("group-form.html", user=user)

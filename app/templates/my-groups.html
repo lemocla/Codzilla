@@ -28,6 +28,13 @@
     <div class="col s12 m6 col-add-group">
         <a href="{{ url_for('groups.add_group')}}" class="btn btn-send">Add a group</a>
     </div>
+    <div class="col s12 center-align flashes">
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+    </div>
     {% if groups_owned|length > 0 %}
     {% for group in groups_owned %}
     <div class="col s12 margin-top">
@@ -37,14 +44,14 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-button dropdown-trigger" 
-                    data-activates="{{ group._id }}" data-beloworigin="true">
-                    <i class="fas fa-ellipsis-h"></i>
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-button dropdown-trigger"
+                        data-activates="{{ group._id }}" data-beloworigin="true">
+                        <i class="fas fa-ellipsis-h"></i>
                     </a>
-                            <ul id="{{ group._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
-                            <li><a href="">Edit</a></li>
-                            <li><a href="">Delete</a></li>
-                            </ul>
+                    <ul id="{{ group._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
+                        <li><a href="">Edit</a></li>
+                        <li><a href="">Delete</a></li>
+                    </ul>
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
                         <p class="event-title">{{ group.group_name.capitalize() }}</p>
                     </a>
@@ -104,7 +111,7 @@
                                 <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
                                     member(s)</p>
                             </div>
-                                <div class="col s6 right-align">
+                            <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Unfollow</a>
                             </div>
                         </div>

@@ -108,6 +108,17 @@ class User():
             print(e)
 
     @staticmethod
+    def append_list(user_id, field, value):
+        """
+        Update record
+        """
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      {"$push": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
     def delete_one_user(user_id):
         """
         Delete record
