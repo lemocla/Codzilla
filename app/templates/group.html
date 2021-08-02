@@ -9,54 +9,57 @@
         <hr class="breakline">
     </div>
 </div>
+
 <div class="row">
-    <div class="col s12 m6">Image</div>
-    <div class="col s12 m6">
-    <div class="row">
-    <div class="col s12">
-    <h2>{{ group.group_name }}</h2>
-    </div>
-    <div class="col s12">
-        <ul class="fa-ul">
-            <li class="list-item"><span class="fa-li"><i class="fas fa-map-marker-alt list-icon"></i></span>
-                City, country
-            </li>
-            <li class="list-item"><span class="fa-li"><i class="far fa-user list-icon"></i></span>
-                Organised by
-            </li>
-            <li class="list-item"><span class="fa-li"><i class="fas fa-user-circle list-icon"></i></span>
-                x members
-            </li>
-        </ul>
-    </div>
-    <div class="col s12">
-        <form>
-            <button class="btn btn-send" type="submit">Join</button>
-        </form>
-    </div>
-    </div>
+    <div class="s12 card horizontal card-summary">
+        <div class="card-image">
+            <img class="horizontal-card-img" src="{{ group.img_url }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                <ul class="fa-ul">
+                    <li class="list-item"><span class="fa-li"><i class="fas fa-map-marker-alt list-icon"></i></span>
+                        {{group.group_city}}, {{group.group_country}}
+                    </li>
+                    <li class="list-item"><span class="fa-li"><i class="far fa-user list-icon"></i></span>
+                        Organised by
+                    </li>
+                    <li class="list-item"><span class="fa-li"><i class="fas fa-user-circle list-icon"></i></span>
+                        {{ group.group_members|length }} members
+                    </li>
+                </ul>
+                <div class="card-action">
+                    <div class="row action-container valign-wrapper">
+                        <div class="col s12">
+                            <a class="btn btn-attend" href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <hr>
 
 <!-- Description -->
 <div class="row">
-        <div class="col s12">
+    <div class="col s12">
         <h2>Description</h2>
     </div>
     <div class="col s12">
-        <p>Text here</p>
+        <p>{{ group.group_description }}</p>
     </div>
 </div>
 <hr>
 
 <!-- Upcoming events -->
 <div class="row">
-        <div class="col s12">
+    <div class="col s12">
         <h2>Upcoming events</h2>
     </div>
     <div class="col s12">
-    events cards here
+        events cards here
     </div>
 </div>
 <hr>

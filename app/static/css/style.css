@@ -59,11 +59,12 @@ h3 {
     color: var(--blue);
 }
 
-.page-link, .page-link p{
+.page-link,
+.page-link p {
     color: var(--black);
 }
 
-.page-link p:hover{
+.page-link p:hover {
     color: var(--blue);
     font-size: 1.4rem !important;
 }
@@ -380,6 +381,19 @@ nav ul a:hover {
     margin-top: 0.75rem !important;
 }
 
+/*---------[ groups]-------*/
+.card-summary {
+    box-shadow: none !important;
+}
+
+.card-content.fa-ul {
+    margin-left: 2em;
+}
+
+.card-content.fa-ul.li {
+    font-size: 1.4rem;
+}
+
 /*---------[ faq ]------------*/
 
 .question {
@@ -558,6 +572,10 @@ label {
         max-width: 40% !important;
     }
 
+    .card-summary.card.horizontal .card-image {
+        max-width: 50% !important;
+    }
+
     .hor-card-btn {
         position: absolute;
         right: 16px !important;
@@ -625,7 +643,10 @@ label {
     .flickity-page-dots {
         bottom: -8%;
     }
-
+    
+    .card-summary .card-content{
+    padding-left: 3rem !important;
+    }
     .error-container {
         height: 70vh !important;
         min-height: 400px;
@@ -636,4 +657,5 @@ label {
     .error-container img {
         margin-top: 0;
     }
+
 }
