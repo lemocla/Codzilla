@@ -1,4 +1,5 @@
 from app import mongo
+from bson.objectid import ObjectId
 
 
 class Group():
@@ -16,6 +17,11 @@ class Group():
                                                          list) else []
         self.group_admin = group_admin if isinstance(
                            group_admin, list) else []
+
+    @staticmethod
+    def find_one_group(group_id):
+        group = mongo.db.groups.find_one({"_id": ObjectId(group_id)})
+        return group
 
     @staticmethod
     def find_all_groups():

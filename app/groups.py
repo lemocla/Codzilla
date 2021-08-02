@@ -1,4 +1,3 @@
-import os
 from flask import (flash, render_template, redirect,
                    request, url_for, Blueprint)
 from app.models.group import Group
@@ -8,6 +7,7 @@ from app.models.group import Group
 groups = Blueprint("groups", __name__)
 
 
-@groups.route("/group")
-def group():
-    return render_template("group.html")
+@groups.route("/group/<group_id>")
+def group(group_id):
+    group = Group.find_one_group(group_id)
+    return render_template("group.html", group=group)

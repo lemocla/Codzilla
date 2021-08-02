@@ -59,6 +59,15 @@ h3 {
     color: var(--blue);
 }
 
+.page-link, .page-link p{
+    color: var(--black);
+}
+
+.page-link p:hover{
+    color: var(--blue);
+    font-size: 1.4rem !important;
+}
+
 /*--------[ buttons ]---------*/
 
 .btn.contact-btn {

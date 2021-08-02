@@ -54,7 +54,7 @@
     {% for event in events %}
 
     <div class="col s12">
-        <div class="div card horizontal">
+        <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ event.img_url }}">
             </div>
@@ -129,13 +129,15 @@
     {% for group in groups %}
 
     <div class="col s12">
-        <div class="div card horizontal">
+        <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ group.img_url }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
+                    <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
                     <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                    </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
 
                     <p class="gp-description">{{ group.group_description.capitalize() }}</p>
