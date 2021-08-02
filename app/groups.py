@@ -39,8 +39,23 @@ def add_group():
 
 @groups.route("/edit_group/<group_id>", methods=["GET", "POST"])
 def edit_group(group_id):
+
     if not session["email"]:
         return redirect(url_for('login'))
+
     user = User.check_existing_user(session["email"])
     group = Group.find_one_group(group_id)
-    return render_template("edit_group.html", user=user, group=group)
+
+    if request.method == "POST":
+        edit_info = {"group_name": request.form.get("group_name"),
+                     "group_city": request.form.get("group_city"),
+                     "group_country": request.form.get("group_country"),
+                     "group_description": request.form.get(
+                                          "group_description"),
+                     "img_url": request.form.get("img_url")}
+        Group.update_group(group_id, edit_info)
+        flash("Group successfully edited!")
+        return redirect(url_for('users.my_groups'))
+
+    return render_template("edit_group.html", user=user, group=group,
+                           group_id=group_id)
