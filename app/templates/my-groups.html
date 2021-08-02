@@ -14,20 +14,23 @@
 <div class="row">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s6 btn-tab"><a class="active" href="#view-group-admin">owning</a></li>
-            <li class="tab col s6 btn-tab"><a href="#view-group-member">following</a></li>
+            <li class="tab col s6 btn-tab"><a class="active" href="#view-group-owning">owning</a></li>
+            <li class="tab col s6 btn-tab"><a href="#view-group-following">following</a></li>
         </ul>
     </div>
 </div>
 
 <!-- Group admin -->
-<div class="row">
-    <div class="col s12">
+<div id="view-group-owning" class="row">
+    <div class="col s12 m6">
         <h2>My groups as an owner</h2>
+    </div>
+    <div class="col s12 m6 col-add-group">
+        <a href="" class="btn btn-send">Add a group</a>
     </div>
     {% if groups_owned|length > 0 %}
     {% for group in groups_owned %}
-    <div class="col s12">
+    <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ group.img_url }}">
@@ -54,13 +57,17 @@
     </div>
     {% endfor %}
     {% else %}
-    You don't own any group
+    <div class="col s6 offset-s3 m4 offset-m4 margin-top">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}">
+    </div>
+    <div class="col s12 center-align">
+        <h3>You don't own any groups</h3>
+    </div>
     {% endif %}
 </div>
-<hr>
 
 <!-- Group members-->
-<div class="row">
+<div id="view-group-following" class="row">
     <div class="col s12">
         <h2>My groups as a member</h2>
     </div>
@@ -93,8 +100,12 @@
     </div>
     {% endfor %}
     {% else %}
-    <div class="col s12">
-    You don't own any group
+    <div class="col s6 offset-s3 m4 offset-m4 margin-top">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}">
+    </div>
+    <div class="col s12 center-align">
+        <h3>You don't follow any groups </h3>
+        <a href="{{ url_for('main.browse_events_groups')}}" class="btn btn-send">Browse groups & events</a>
     </div>
     {% endif %}
 </div>

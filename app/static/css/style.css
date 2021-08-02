@@ -616,6 +616,11 @@ label {
         max-width: 70px !important;
         max-height: 70px !important;
     }
+
+    .col-add-group{
+    margin: 1.3rem 0 1rem 0 !important;
+    text-align: right;
+    }
 }
 
 @media only screen and (max-width: 992px) {
