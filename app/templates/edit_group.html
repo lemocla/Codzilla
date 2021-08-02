@@ -18,7 +18,7 @@
                     <div class="input-field col s12">
                         <input id="group_name" type="text" name="group_name" value="{{ group.group_name }}" minlenght="3" maxlength="250"
                             class="validate" required>
-                        <label for="group_name">Group name</label>
+                        <label for="group_name">Edit group name</label>
                         <p class="error-text hide" for="email"></p>
                     </div>
                 </div>
@@ -26,34 +26,37 @@
                     <div class="input-field col s12">
                         <input id="group_city" type="text" name="group_city" value="{{ group.group_city }}" minlenght="3"
                             maxlength="250" class="validate" required>
-                        <label for="group_city">City</label>
+                        <label for="group_city">Edit city</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_country" type="text" value="{{ group.group_country }}" name="group_country"
                             minlenght="3" maxlength="250" class="validate" required>
-                        <label for="group_country">Country</label>
+                        <label for="group_country">Edit country</label>
                     </div>
                 </div>
                 <div class="row"> 
                         <div class="input-field col s12">
                         <textarea id="group_description" name="group_description" minlenght="3"
                             maxlength="1500" class="materialize-textarea validate" required>{{ group.group_description }}</textarea>
-                        <label for="group_description">Group description</label>
+                        <label for="group_description">Edit group description</label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_img_url" type="text" name="img_url" value="{{ group.img_url }}" minlenght="3" maxlength="1500">
-                        <label for="img_url">Add a cover image</label>
+                        <label for="img_url">Edit a cover image</label>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col s12 center-align margin-top">
-                        <button class="btn btn-send" type="submit" >Submit</button>
+                    <div class="col s6 right-align margin-top">
+                        <button class="btn btn-send" type="submit">Submit</button>
+                    </div>
+                    <div class="col s6 left-align margin-top">
+                        <a class="btn btn-send" href="{{ url_for('users.my_groups') }}">Cancel</a>
                     </div>
                 </div>
             </form>
