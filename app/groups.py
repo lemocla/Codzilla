@@ -1,5 +1,5 @@
 from flask import (flash, render_template, redirect,
-                   request, url_for, Blueprint)
+                   request, url_for, session, Blueprint)
 from app.models.group import Group
 from app.models.event import Event
 from app.models.user import User
@@ -16,3 +16,11 @@ def group(group_id):
     users = list(User.find_users_by_id(group["group_members"]))
     return render_template("group.html", group=group, events=events,
                            users=users)
+
+
+@groups.route("/add_group")
+def add_group():
+    if not session["email"]:
+        return redirect(url_for('login'))
+    user = User.check_existing_user(session["email"])
+    return render_template("group-form.html", user=user)

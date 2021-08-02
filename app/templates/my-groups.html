@@ -26,7 +26,7 @@
         <h2>My groups as an owner</h2>
     </div>
     <div class="col s12 m6 col-add-group">
-        <a href="" class="btn btn-send">Add a group</a>
+        <a href="{{ url_for('groups.add_group')}}" class="btn btn-send">Add a group</a>
     </div>
     {% if groups_owned|length > 0 %}
     {% for group in groups_owned %}
