@@ -35,7 +35,7 @@
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
-                    <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
 
@@ -54,18 +54,49 @@
     </div>
     {% endfor %}
     {% else %}
-    You don't own any group 
+    You don't own any group
     {% endif %}
 </div>
 <hr>
 
 <!-- Group members-->
 <div class="row">
-<div class="col s12">
-<h2>My groups as a member</h2>
+    <div class="col s12">
+        <h2>My groups as a member</h2>
+    </div>
+    {% if groups_following|length > 0 %}
+    {% for group in groups_following %}
+    <div class="col s12">
+        <div class="div card horizontal hoverable">
+            <div class="card-image">
+                <img class="horizontal-card-img" src="{{ group.img_url }}">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
+                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                    </a>
+                    <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
+
+                    <p class="gp-description">{{ group.group_description.capitalize() }}</p>
+                    <div class="card-action">
+                        <div class="row action-container valign-wrapper">
+                            <div class="col s12 valign-wrapper">
+                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
+                                    member(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col s12">
+    You don't own any group
+    </div>
+    {% endif %}
 </div>
-<div class="col s12">
-list group here
-</div>
-</div>
+
 {% endblock %}
