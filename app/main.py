@@ -21,7 +21,8 @@ def search():
     users = User.find_all_users()
     return render_template("browse-events-groups.html",
                            events=events, groups=groups,
-                           users=users)
+                           query=query,
+                           users=users, search=True)
 
 
 # Homepage

@@ -16,11 +16,13 @@
         <form id="search-all" action="{{ url_for('main.search') }}" method="POST">
             <div class="input-field col s12 m6 offset-m3 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
-                <input id="search-home" name="search" type="text" class="validate">
+                <input id="search-home" name="search" {% if search %} value="{{ query }}" {% endif %} type="text"
+                    class="validate">
                 <label for="search-home">search by location, topic, key words...</label>
             </div>
             <div class="col s12 center-align margin-top">
                 <button class="btn contact-btn" type=submit name="submit">search</button>
+                <a class="btn contact-btn" href="{{ url_for('main.browse_events_groups')}}">reset</a>
             </div>
         </form>
     </div>
@@ -29,10 +31,10 @@
 <!-- Tabs -->
 <div class="row">
     <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s6 btn-tab"><a class="active" href="#view-events">view events</a></li>
-        <li class="tab col s6 btn-tab"><a href="#view-groups">view groups</a></li>
-      </ul>
+        <ul class="tabs">
+            <li class="tab col s6 btn-tab"><a class="active" href="#view-events">view events</a></li>
+            <li class="tab col s6 btn-tab"><a href="#view-groups">view groups</a></li>
+        </ul>
     </div>
 </div>
 
@@ -43,6 +45,11 @@
         <h2 class="center-align">All events</h2>
         <hr class="breakline">
     </div>
+    {% if search %}
+    <div class="col s12 center-align margin-bottom">
+        <h3>Your search results for " {{ query }} "</h3>
+    </div>
+    {% endif %}
     {% if events|length > 0 %}
     {% for event in events %}
 
@@ -58,10 +65,10 @@
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
-                            {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
-                            {{event.date_end.strftime('%I:%M %p')}}
+                        {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+                        {{event.date_end.strftime('%I:%M %p')}}
                         {% else %}
-                            {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                        {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
                         {% endif %}
                     </p>
                     <p class="event-title">{{ event.event_title.capitalize() }}</p>
@@ -110,14 +117,18 @@
         <h2 class="center-align">All groups</h2>
         <hr class="breakline">
     </div>
- {% if groups|length > 0 %}
-{% for group in groups %}
+    {% if search %}
+    <div class="col s12 center-align margin-bottom">
+        <h3>Your search results for " {{ query }} "</h3>
+    </div>
+    {% endif %}
+    {% if groups|length > 0 %}
+    {% for group in groups %}
 
     <div class="col s12">
         <div class="div card horizontal">
             <div class="card-image">
-                <img class="horizontal-card-img"
-                    src="{{ group.img_url }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -128,7 +139,8 @@
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }} member(s)</p>
+                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
+                                    member(s)</p>
                             </div>
                             <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Join</a>
