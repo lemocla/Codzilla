@@ -195,3 +195,12 @@ def delete_account(user_id):
     User.delete_one_user(user_id)
     flash("Account successfully deleted")
     return redirect(url_for("auth.signup"))
+
+
+@users.route("/my_groups")
+def my_groups():
+    user = User.check_existing_user(session["email"].lower())
+    if not user:
+        return redirect(url_for("login"))
+
+    return render_template("my-groups.html", user=user)
