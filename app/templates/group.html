@@ -5,7 +5,7 @@
 
 <div class="row head-container">
     <div class="col s12 l8 offset-l2">
-        <h1 class="center-align">Group description</h1>
+        <h1 class="center-align">{{ group.group_name.capitalize() }}</h1>
         <hr class="breakline">
     </div>
 </div>
@@ -58,9 +58,71 @@
     <div class="col s12">
         <h2>Upcoming events</h2>
     </div>
-    <div class="col s12">
-        events cards here
+
+    {% if events|length > 0 %}
+    {% for event in events %}
+
+        <div class="col s12">
+        <div class="div card horizontal hoverable">
+            <div class="card-image">
+                <img class="horizontal-card-img" src="{{ event.img_url }}">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
+                            class="far fa-star"></i></a>
+                    <p class="date-time">
+                        <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
+                        {% if event.is_endtime %}
+                        {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+                        {{event.date_end.strftime('%I:%M %p')}}
+                        {% else %}
+                        {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                        {% endif %}
+                    </p>
+                    <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    <p class="organiser">{{ event.event_category.capitalize() }}
+                        by {{ event.group.capitalize()  }}
+                    </p>
+                    <p class="location">
+                        {% if event.event_type == "in person" %}
+                        {{ event.event_location.capitalize() }}
+                        {% else %}
+                        {{ event.event_type.capitalize() }}
+                        {% endif %}
+                    </p>
+                    <div class="card-action">
+                        <div class="row action-container valign-wrapper">
+                            <div class="col s6 valign-wrapper">
+                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
+                                </p>
+                            </div>
+                            <div class="col s6 right-align">
+                                <a class="btn btn-attend" href="#">Attend</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+    {% else %}
+    <div class="col s12 center-align">
+        <h3>No upcoming events</h3>
+    </div>
+    <div class="col s4 offset-s4">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+    </div>
+    {% endif %}
+</div>
+
+
+
+
+
+
+
 </div>
 <hr>
 

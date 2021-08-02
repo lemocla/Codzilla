@@ -35,3 +35,8 @@ class Event():
     def search_events(query):
         results = mongo.db.events.find({"$text": {"$search": query}})
         return results
+
+    @staticmethod
+    def find_events_by_id(col):
+        events = mongo.db.events.find({"_id": {"$in": col}})
+        return events
