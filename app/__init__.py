@@ -27,11 +27,13 @@ def create_app(default_config=Config):
     from app.main import main
     from app.auth import auth
     from app.users import users
+    from app.groups import groups
     from app.validators.validators import validators
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(users)
+    app.register_blueprint(groups)
     app.register_blueprint(validators)
 
     return app
