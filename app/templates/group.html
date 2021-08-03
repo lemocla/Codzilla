@@ -41,7 +41,7 @@
                         </div>
                         {% else %}
                         <div class="col s12">
-                            <a class="btn btn-attend" href="#">Join {{ admin }}</a>
+                            <a class="btn btn-attend" href="#">Join</a>
                         </div>
                         {% endif %}
                     </div>
@@ -82,10 +82,10 @@
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
-                        {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
-                        {{event.date_end.strftime('%I:%M %p')}}
+                        {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
+                        {{event.date_end.strftime('%H:%M')}}
                         {% else %}
-                        {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                        {{ event.date_start.strftime('%a %d %B %Y @ %H:%M') }}
                         {% endif %}
                     </p>
                     <!-- link to event page-->
