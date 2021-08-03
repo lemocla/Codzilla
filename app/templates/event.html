@@ -10,4 +10,59 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="s12 card horizontal card-summary">
+        <div class="card-image">
+            <img class="horizontal-card-img" src="{{ event.img_url }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p class="date-time">
+                    <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
+                    {% if event.is_endtime %}
+                    {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+                    {{event.date_end.strftime('%I:%M %p')}}
+                    {% else %}
+                    {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+                    {% endif %}
+                </p>
+                <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                 <p class="organiser">{{ event.event_category.capitalize() }}
+                        {% if event.group != "" %}
+                        by {{ event.group.capitalize()  }}
+                        {% else %}
+                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
+                        {% endif %}
+                    </p>
+                    <p class="location">
+                        {% if event.event_type == "in person" %}
+                        {{ event.event_location.capitalize() }}
+                        {% else %}
+                        {{ event.event_type.capitalize() }}
+                        {% endif %}
+                    </p>
+
+                <div class="card-action">
+                    <div class="row action-container valign-wrapper">
+                        {% if admin == True %}
+                        <div class="col s16">
+                            <a class="btn btn-send"
+                                href="#">Edit</a>
+                        </div>
+                        <div class="col s16">
+                            <a class="btn btn-send" href="#">Delete</a>
+                        </div>
+                        {% else %}
+                        <div class="col s12">
+                            <a class="btn btn-attend" href="#">Attend</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
 {% endblock %}
