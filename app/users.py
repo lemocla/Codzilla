@@ -5,6 +5,7 @@ from app.validators import validators
 # Classes
 from app.models.user import User
 from app.models.group import Group
+from app.models.event import Event
 
 
 # Blueprint
@@ -209,3 +210,18 @@ def my_groups():
     return render_template("my-groups.html", user=user,
                            groups_owned=groups_owned,
                            groups_following=groups_following)
+
+
+@users.route("/my_events")
+def my_events():
+    user = User.check_existing_user(session["email"].lower())
+    if not user:
+        return redirect(url_for("login"))
+
+    organising = list(Event.find_events_by_id(user["events_organised"]))
+    attending = list(Event.find_events_by_id(user["events_attending"]))
+    interesting = list(Event.find_events_by_id(user["events_interest"]))
+    return render_template("my-events.html", user=user,
+                           organising=organising,
+                           attending=attending,
+                           interesting=interesting)

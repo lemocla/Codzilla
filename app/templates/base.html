@@ -38,7 +38,7 @@
 
         <ul id="profile" class='dropdown-content'>
           <li><a href="{{ url_for('users.profile') }}">My profile</a></li>
-          <li><a href="">My events</a></li>
+          <li><a href="{{ url_for('users.my_events') }}">My events</a></li>
           <li><a href="{{ url_for('users.my_groups') }}">My groups</a></li>
           <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         </ul>
