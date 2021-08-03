@@ -375,6 +375,7 @@ nav ul a:hover {
     right: 16px !important;
     bottom: unset !important;
     top: -20px !important;
+    text-align: center;
 }
 
 .gp-description {
