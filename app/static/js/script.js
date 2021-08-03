@@ -135,4 +135,9 @@
         }
       });
     });
+
+    $("#btn-answer-question").click(function(){
+      $("#answer-question").toggleClass("hide");
+    
+    })
   });

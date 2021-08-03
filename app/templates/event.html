@@ -61,9 +61,10 @@
             </div>
         </div>
     </div>
-     <hr>
+    <hr>
 </div>
 
+<!-- event details -->
 <div class="row">
     <div class="col s6">
         <p>
@@ -87,10 +88,9 @@
     <div class="col s6">
         map placeholder
     </div>
-
-
 </div>
-<!-- Members -->
+
+<!-- Attendees -->
 <div class="row">
     <hr>
     <div class="col s12">
@@ -116,4 +116,72 @@
     {% endif %}
 </div>
 
+<!-- questions and anwers -->
+<div class="row">
+    <hr>
+    <div class="col s12">
+        <h2>Questions and Answers</h2>
+    </div>
+    {% if questions_answers|length > 0 %}
+    {% for qa in questions_answers %}
+
+    <div class="col s12">
+        <div class="row">
+            <div class="col s12 m6">
+                <p class="z-depth-4 qa-container"><span class="question">Q. </span>
+                    {{ qa.question.capitalize()}}
+                </p>
+
+            </div>
+            {% if qa.answered == True %}
+            <div class="col s11 offset-s1 m6 offset-m3">
+                <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
+            </div>
+            {% elif qa.answered == False and admin == True %}
+            <div class="col s12">
+                <div id="btn-answer-question" class="btn btn-send margin-top">Answer question</div>
+                <!-- answer quetion form -->
+                <form id="answer-question" class="hide" action="" method="post">
+                    <div class="input-field col s12">
+                        <textarea id="answer" name="answer" class="materialize-textarea"></textarea>
+                        <label for="answer">Write your answer</label>
+                    </div>
+                    <button class="btn btn-send" type="submit">submit</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col s12 center-align">
+        <h3>There are no questions asked</h3>
+    </div>
+    <div class="col s4 offset-s4">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}">
+    </div>
+    {% if admin == False %}
+    <div class="col s12 center-align">
+        <div class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</div>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+<!-- modal ask a question -->
+<div id="ask-question" class="modal">
+    <div class="row modal-content">
+    <div class="col s12">
+        <h3>Ask a question</h3>
+        </div>
+        <form class="col s12">
+            <div class="input-field col s12">
+                <textarea id="question" name="question" class="materialize-textarea"></textarea>
+                <label for="question">Write your question</label>
+            </div>
+            <button class="btn btn-send" type="submit">submit</button>
+             <button class="btn btn-send modal-close">cancel</button>
+        </form>
+    </div>
+
+</div>
 {% endblock %}

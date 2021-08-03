@@ -423,6 +423,14 @@ nav ul a:hover {
     top: 60px !important;
 }
 
+.qa-container{
+    padding: 1rem !important;
+}
+
+.qa-container .question{
+font-size: 1.4rem;
+}
+
 /*---------[ faq ]------------*/
 
 .question {
