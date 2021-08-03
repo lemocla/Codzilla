@@ -97,6 +97,7 @@
        https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
        https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html
     */
+
     $('#current-pwd').change(function () {
       email = $('#user_email').text().replace(" ", "")
       check = $('#current-pwd').val()
@@ -110,6 +111,24 @@
           } else if (response === "match") {
             $('#message-error').html("").addClass('hide');
           }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    //Delete group modals
+    $('[data-target=delete-group-modal]').click(function () {
+      group_id = $(this).attr('id');
+      $('#delete-group-btn').attr('data-group', group_id)
+      $('#delete-group-btn').attr('href', `/delete-group/${group_id}`)
+      $.ajax({
+        url: `/delete-group-modal/${group_id}`,
+        data: group_id,
+        type: 'POST',
+        success: function (response) {
+          $('#modal-group-name').text(response)
         },
         error: function (error) {
           console.log(error);

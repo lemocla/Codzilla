@@ -1,5 +1,6 @@
 from flask import (flash, render_template, redirect,
-                   request, url_for, session, Blueprint)
+                   request, url_for, session, Blueprint,
+                   jsonify)
 from app.models.group import Group
 from app.models.event import Event
 from app.models.user import User
@@ -59,3 +60,19 @@ def edit_group(group_id):
 
     return render_template("edit_group.html", user=user, group=group,
                            group_id=group_id)
+
+
+# delete group modals
+@groups.route('/delete-group-modal/<group_id>', methods=['GET', 'POST'])
+def delete_group_modal(group_id):
+    group = Group.find_one_group(group_id)
+    message = group["group_name"]
+    return jsonify(message)
+
+
+# delete group modals
+@groups.route('/delete-group/<group_id>', methods=['GET', 'POST'])
+def delete_group(group_id):
+    Group.delete_one_group(group_id)
+    flash("Your group has been successfully deleted")
+    return redirect(url_for('users.my_groups'))

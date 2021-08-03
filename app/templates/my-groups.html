@@ -50,7 +50,8 @@
                     </a>
                     <ul id="{{ group._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
                         <li><a href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a></li>
-                        <li><a href="">Delete</a></li>
+                        <li><a class="modal-trigger" id="{{group._id}}" data-target="delete-group-modal"
+                                href="#delete-group-modal">Delete</a></li>
                     </ul>
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
                         <p class="event-title">{{ group.group_name.capitalize() }}</p>
@@ -65,7 +66,8 @@
                                     member(s)</p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-send" href="{{ url_for('groups.edit_group', group_id=group._id)}}">Edit</a>
+                                <a class="btn btn-send"
+                                    href="{{ url_for('groups.edit_group', group_id=group._id)}}">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -130,6 +132,27 @@
         <a href="{{ url_for('main.browse_events_groups')}}" class="btn btn-send">Browse groups & events</a>
     </div>
     {% endif %}
+</div>
+
+<!-- Delete profiel  -->
+<div id="delete-group-modal" class="modal">
+    <div class="modal-content">
+        <!--Modal content -->
+        <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="password-modal"></i>
+        <h2 class="center-align">Delete group</h2>
+        <hr class="breakline">
+        <p class="center-align">Are you sure you want to delete <b id="modal-group-name">group</b>?
+
+        </p>
+        <!-- Buttons -->
+        <div class="row">
+            <div class="col s12 center-align margin-top">
+                <a id="delete-group-btn" href="#" class="btn btn-send modal-close" data-group="">Delete</a>
+                <button class="btn btn-send modal-close" type="button">Cancel</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}

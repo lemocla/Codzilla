@@ -45,6 +45,13 @@ class Group():
             print(e)
 
     @staticmethod
+    def delete_one_group(group_id):
+        """
+        Delete record
+        """
+        mongo.db.groups.delete_one({"_id": ObjectId(group_id)})
+
+    @staticmethod
     def find_one_group(group_id):
         group = mongo.db.groups.find_one({"_id": ObjectId(group_id)})
         return group
