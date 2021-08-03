@@ -10,8 +10,19 @@
     </div>
 </div>
 
+<!-- Tabs -->
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6 btn-tab"><a class="active" href="#view-events-organised">Organiser</a></li>
+            <li class="tab col s6 btn-tab"><a href="#view-events-attending">Participant</a></li>
+            <li class="tab col s6 btn-tab"><a href="#view-events-interested">Interested</a></li>
+        </ul>
+    </div>
+</div>
+
 <!-- Events as an organiser  -->
-<div id="view-group-owning" class="row">
+<div id="view-events-organised" class="row">
     <div class="col s12 m6">
         <h2>As an organiser</h2>
     </div>
@@ -22,14 +33,25 @@
     {% if organising|length > 0 %}
     {% for event in organising %}
     <div class="col s12 margin-top">
-                <div class="div card horizontal hoverable">
+        <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ event.img_url }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
-                            class="far fa-star"></i></a>
+
+                    <!-- foating navigation -->
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-button dropdown-trigger"
+                        data-activates="{{ event._id }}" data-beloworigin="true">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                    <ul id="{{ event._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
+                        <li><a href="">Edit</a></li>
+                        <li><a class="modal-trigger" id="" data-target=""
+                                href="">Delete</a></li>
+                    </ul>
+
+                    <!-- event content -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
@@ -82,14 +104,14 @@
 </div>
 
 <!-- Events as a participants -->
-<div id="view-group-owning" class="row">
+<div id="view-events-attending" class="row">
     <div class="col s12 m6">
         <h2>As a participant</h2>
     </div>
     {% if attending|length > 0 %}
     {% for event in attending %}
     <div class="col s12 margin-top">
-                <div class="div card horizontal hoverable">
+        <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ event.img_url }}">
             </div>
@@ -150,14 +172,14 @@
 </div>
 
 <!-- Events I'm interested in -->
-<div id="view-group-owning" class="row">
+<div id="view-events-interested" class="row">
     <div class="col s12 m6">
         <h2>Events I'm interested in</h2>
     </div>
     {% if interesting|length > 0 %}
     {% for event in interesting %}
     <div class="col s12 margin-top">
-                <div class="div card horizontal hoverable">
+        <div class="div card horizontal hoverable">
             <div class="card-image">
                 <img class="horizontal-card-img" src="{{ event.img_url }}">
             </div>
