@@ -27,27 +27,26 @@
                     {% endif %}
                 </p>
                 <p class="event-title">{{ event.event_title.capitalize() }}</p>
-                 <p class="organiser">{{ event.event_category.capitalize() }}
-                        {% if event.group != "" %}
-                        by {{ event.group.capitalize()  }}
-                        {% else %}
-                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
-                        {% endif %}
-                    </p>
-                    <p class="location">
-                        {% if event.event_type == "in person" %}
-                        {{ event.event_location.capitalize() }}
-                        {% else %}
-                        {{ event.event_type.capitalize() }}
-                        {% endif %}
-                    </p>
+                <p class="organiser">{{ event.event_category.capitalize() }}
+                    {% if event.group != "" %}
+                    by {{ event.group.capitalize()  }}
+                    {% else %}
+                    by {{ owner.first_name.capitalize()  }} {{owner.last_name.capitalize() }}
+                    {% endif %}
+                </p>
+                <p class="location">
+                    {% if event.event_type == "in person" %}
+                    {{ event.event_location.capitalize() }}
+                    {% else %}
+                    {{ event.event_type.capitalize() }}
+                    {% endif %}
+                </p>
 
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
                         <div class="col s16">
-                            <a class="btn btn-send"
-                                href="#">Edit</a>
+                            <a class="btn btn-send" href="#">Edit</a>
                         </div>
                         <div class="col s16">
                             <a class="btn btn-send" href="#">Delete</a>
@@ -62,7 +61,59 @@
             </div>
         </div>
     </div>
+     <hr>
 </div>
-<hr>
+
+<div class="row">
+    <div class="col s6">
+        <p>
+            <i class="far fa-calendar-alt"></i> {% if event.is_endtime %}
+            {{ event.date_start.strftime('%A %d %B %Y - %I:%M') }} to
+            {{event.date_end.strftime('%I:%M %p')}}
+            {% else %}
+            {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
+            {% endif %}
+        </p>
+        <p>
+            {% if event.event_type == "in person" %}
+            <i class="fas fa-map-marker-alt"></i> {{ event.event_location.capitalize() }}
+            {% else %}
+            <i class="fas fa-video"></i> {{ event.event_type.capitalize() }}
+            {% endif %}
+        </p>
+        <h2>Details</h2>
+        <p>{{ event.event_description }}</p>
+    </div>
+    <div class="col s6">
+        map placeholder
+    </div>
+
+
+</div>
+<!-- Members -->
+<div class="row">
+    <hr>
+    <div class="col s12">
+        <h2>Attendees ({{attendees|length }})</h2>
+    </div>
+    {% if attendees|length > 0 %}
+    <div class="col s12">
+        <ul class="collection">
+            {% for attendee in attendees %}
+            <li class="collection-item avatar z-depth-2">
+                <img src="{{ attendee.user_imgUrl }}" alt="" class="circle">
+                <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
+            </li>
+            {% endfor %}
+    </div>
+    {% else %}
+    <div class="col s12 center-align">
+        <h3>No attendees</h3>
+    </div>
+    <div class="col s4 offset-s4">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}
