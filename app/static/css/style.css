@@ -89,6 +89,7 @@ h3 {
     color: var(--black);
     font-weight: 600;
     border: 1px solid var(--darkgray);
+    text-align: center;
 }
 
 .btn-floating i {

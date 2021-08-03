@@ -33,7 +33,8 @@
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
                         <div class="col s16">
-                            <a class="btn btn-send" href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a>
+                            <a class="btn btn-send"
+                                href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a>
                         </div>
                         <div class="col s16">
                             <a class="btn btn-send" href="#">Delete</a>
@@ -87,7 +88,10 @@
                         {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
                         {% endif %}
                     </p>
-                    <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    <!-- link to event page-->
+                    <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
+                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         by {{ event.group.capitalize()  }}
                     </p>

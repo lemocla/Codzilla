@@ -1,5 +1,6 @@
 from app import mongo
 from datetime import datetime
+from bson.objectid import ObjectId
 
 
 class Event():
@@ -40,3 +41,8 @@ class Event():
     def find_events_by_id(col):
         events = mongo.db.events.find({"_id": {"$in": col}})
         return events
+
+    @staticmethod
+    def find_one_event(event_id):
+        event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
+        return event

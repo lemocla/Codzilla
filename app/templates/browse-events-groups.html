@@ -71,7 +71,10 @@
                         {{ event.date_start.strftime('%A %d %B %Y @ %I:%M %p') }}
                         {% endif %}
                     </p>
-                    <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    <!-- link to event page -->
+                    <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
+                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                    </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group != "" %}
                         by {{ event.group.capitalize()  }}
@@ -136,7 +139,7 @@
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
-                    <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
 
