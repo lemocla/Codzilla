@@ -14,8 +14,15 @@ def group(group_id):
     group = Group.find_one_group(group_id)
     events = list(Event.find_events_by_id(group["events"]))
     users = list(User.find_users_by_id(group["group_members"]))
+
+    admins = list(User.find_users_by_id(group["group_admin"]))
+    for a in admins:
+        if session["email"] == a["email"]:
+            admin = True
+        else:
+            admin = False
     return render_template("group.html", group=group, events=events,
-                           users=users)
+                           users=users, admin=admin)
 
 
 @groups.route("/add_group", methods=["GET", "POST"])

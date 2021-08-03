@@ -31,9 +31,18 @@
                 </ul>
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
-                        <div class="col s12">
-                            <a class="btn btn-attend" href="#">Join</a>
+                        {% if admin == True %}
+                        <div class="col s16">
+                            <a class="btn btn-send" href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a>
                         </div>
+                        <div class="col s16">
+                            <a class="btn btn-send" href="#">Delete</a>
+                        </div>
+                        {% else %}
+                        <div class="col s12">
+                            <a class="btn btn-attend" href="#">Join {{ admin }}</a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -117,7 +126,7 @@
 </div>
 <hr>
 
-<!-- Upcoming events -->
+<!-- Members -->
 <div class="row">
     <div class="col s12">
         <h2>Members ({{ group.group_members|length }})</h2>
@@ -134,7 +143,7 @@
     </div>
     {% else %}
     <div class="col s12 center-align">
-        <h3>No upcoming events</h3>
+        <h3>No members</h3>
     </div>
     <div class="col s4 offset-s4">
         <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
