@@ -16,11 +16,14 @@ def group(group_id):
     users = list(User.find_users_by_id(group["group_members"]))
 
     admins = list(User.find_users_by_id(group["group_admin"]))
-    for a in admins:
-        if session["email"] == a["email"]:
-            admin = True
-        else:
-            admin = False
+    if session:
+        for a in admins:
+            if session["email"] == a["email"]:
+                admin = True
+            else:
+                admin = False
+    else:
+        admin = False
     return render_template("group.html", group=group, events=events,
                            users=users, admin=admin)
 
