@@ -25,3 +25,8 @@ def event(event_id):
                            admin=admin, owner=owner,
                            attendees=attendees,
                            questions_answers=questions_answers)
+
+
+@events.route("/add-event", methods=["GET", "POST"])
+def add_event():
+    return render_template("add-event.html")

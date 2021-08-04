@@ -30,8 +30,8 @@
         <ul class="right">
           <li><a class="nav-item" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i></a></li>
           <li><a class="nav-item" href=""><i class="fas fa-bell"></i></a></li>
-          <li><a class="nav-item" href=""><i class="far fa-calendar-plus"></i></a></li>
-          <li><a class="nav-item" href="{{ url_for('main.browse_events_groups')}}"><i class="fas fa-search"></i></a></li>
+          <li><a class="nav-item" href="{{ url_for('events.add_event') }}"><i class="far fa-calendar-plus"></i></a></li>
+          <li><a class="nav-item" href="{{ url_for('main.browse_events_groups') }}"><i class="fas fa-search"></i></a></li>
           <li><a class="nav-item dropdown-button" data-activates="profile" data-beloworigin="true" href=""><i
                 class="fas fa-user"></i></a></li>
         </ul>

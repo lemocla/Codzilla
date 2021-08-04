@@ -68,6 +68,11 @@
     <div class="col s12">
         <h2>Upcoming events</h2>
     </div>
+    {% if admin == True %}
+    <div class="col s12">
+        <a href="{{ url_for('events.add_event')}}" class="btn btn-send">Add an event</a>
+    </div>
+    {% endif %}
     {% if events|length > 0 %}
     {% for event in events %}
     <div class="col s12">
