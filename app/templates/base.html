@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     type="text/css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
  
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
   <title>{% block title %}{% endblock %}</title>
@@ -32,7 +32,7 @@
           <li><a class="nav-item" href=""><i class="fas fa-bell"></i></a></li>
           <li><a class="nav-item" href="{{ url_for('events.add_event') }}"><i class="far fa-calendar-plus"></i></a></li>
           <li><a class="nav-item" href="{{ url_for('main.browse_events_groups') }}"><i class="fas fa-search"></i></a></li>
-          <li><a class="nav-item dropdown-button" data-activates="profile" data-beloworigin="true" href=""><i
+          <li><a class="nav-item dropdown-trigger" data-target="profile" data-beloworigin="true" href=""><i
                 class="fas fa-user"></i></a></li>
         </ul>
 
@@ -45,7 +45,8 @@
 
         {% else %}
         <!-- Navigation user not in session -->
-        <a href="#" data-activates="mobile" data-beloworigin="true" class="button-collapse dropdown-button right"><i
+       
+        <a href="#" data-target="mobile" class="dropdown-trigger hide-on-large-only right"><i
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
@@ -106,7 +107,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>

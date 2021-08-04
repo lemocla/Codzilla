@@ -21,7 +21,7 @@
 </div>
 
 <!-- Group admin -->
-<div id="view-group-owning" class="row">
+<div class="row" id="view-group-owning">
     <div class="col s12 m6">
         <h2>My groups as an owner</h2>
     </div>
@@ -44,11 +44,12 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-button dropdown-trigger"
-                        data-activates="{{ group._id }}" data-beloworigin="true">
+                    <!-- floating navigation -->
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-trigger btn"
+                        data-target="{{ group._id }}" data-beloworigin="true">
                         <i class="fas fa-ellipsis-h"></i>
                     </a>
-                    <ul id="{{ group._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
+                    <ul id="{{ group._id}}" class='dropdown-content z-depth-5'>
                         <li><a href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a></li>
                         <li><a class="modal-trigger" id="{{group._id}}" data-target="delete-group-modal"
                                 href="#delete-group-modal">Delete</a></li>
@@ -88,7 +89,7 @@
 </div>
 
 <!-- Group members-->
-<div id="view-group-following" class="row">
+<div class="row" id="view-group-following">
     <div class="col s12">
         <h2>My groups as a member</h2>
     </div>

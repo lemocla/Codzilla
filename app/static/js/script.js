@@ -1,10 +1,29 @@
-  $(document).ready(function () {
+  $(document).ready(function() {
 
+
+    // Materialize side bar
+     $('.sidenav').sidenav({edge: "right"});
     // Materialize drop down functionality
-    $('.dropdown-button').dropdown({});
+    $('.dropdown-trigger').dropdown();
+
 
     // Tabs
     $('.tabs').tabs();
+
+        // Modals  
+    $('.modal').modal();
+
+    // Materialize date picker
+     $('.datepicker').datepicker({
+        format: "dd mmmm, yyyy",
+        yearRange: 3,
+        showClearBtn: true,
+        i18n:{
+            done: "Select"
+        }
+    });
+      
+      $('.timepicker').timepicker({});
 
     //Flickity caraouse initialisation
     $('.main-carousel').flickity({
@@ -52,8 +71,7 @@
       }
     });
 
-    // Modals  
-    $('.modal').modal();
+
 
     // Checkboxes profile page 
     $('#form-edit-preferences input[type=checkbox]').each(function () {

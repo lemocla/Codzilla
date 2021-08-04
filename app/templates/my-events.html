@@ -14,9 +14,9 @@
 <div class="row">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s6 btn-tab"><a class="active" href="#view-events-organised">Organiser</a></li>
-            <li class="tab col s6 btn-tab"><a href="#view-events-attending">Participant</a></li>
-            <li class="tab col s6 btn-tab"><a href="#view-events-interested">Interested</a></li>
+            <li class="tab col s4 btn-tab"><a class="active" href="#view-events-organised">Organiser</a></li>
+            <li class="tab col s4 btn-tab"><a href="#view-events-attending">Participant</a></li>
+            <li class="tab col s4 btn-tab"><a href="#view-events-interested">Interested</a></li>
         </ul>
     </div>
 </div>
@@ -41,13 +41,13 @@
                 <div class="card-content">
 
                     <!-- foating navigation -->
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-button dropdown-trigger"
-                        data-activates="{{ event._id }}" data-beloworigin="true">
+                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-trigger btn"
+                        data-target="{{ event._id }}" data-beloworigin="true">
                         <i class="fas fa-ellipsis-h"></i>
                     </a>
-                    <ul id="{{ event._id}}" class='dropdown-content dropdown-for-btn z-depth-5'>
-                        <li><a href="">Edit</a></li>
-                        <li><a class="modal-trigger" id="" data-target="" href="">Delete</a></li>
+                    <ul id="{{ event._id}}" class='dropdown-content z-depth-5'>
+                        <li><a href="#">Edit</a></li>
+                        <li><a href="#">Delete</a></li>
                     </ul>
 
                     <!-- event content -->
@@ -104,7 +104,7 @@
     {% endif %}
 </div>
 
-<!-- Events as a participants -->
+<!-- Events as a participant -->
 <div id="view-events-attending" class="row">
     <div class="col s12 m6">
         <h2>As a participant</h2>
@@ -173,7 +173,7 @@
 </div>
 
 <!-- Events I'm interested in -->
-<div id="view-events-interested" class="row">
+<div class="row" id="view-events-interested">
     <div class="col s12 m6">
         <h2>Events I'm interested in</h2>
     </div>

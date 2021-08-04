@@ -106,16 +106,17 @@ h3 {
 
 .tabs .tab a {
     color: var(--black);
-    background: var(--ivory);
+    background: var(--ivory) !important;
     border-radius: 3px;
 }
 
 .tabs .tab a:hover,
 .tabs .tab a.active {
-    background-color: var(--darkgray);
+    background-color: var(--darkgray) !important;
     color: #fafafa;
     font-weight: 700;
 }
+
 
 .tabs .indicator {
     background-color: var(--black);
