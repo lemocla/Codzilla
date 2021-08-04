@@ -36,7 +36,7 @@
                 class="fas fa-user"></i></a></li>
         </ul>
 
-        <ul id="profile" class='dropdown-content'>
+        <ul id="profile" class='dropdown-content z-depth-5'>
           <li><a href="{{ url_for('users.profile') }}">My profile</a></li>
           <li><a href="{{ url_for('users.my_events') }}">My events</a></li>
           <li><a href="{{ url_for('users.my_groups') }}">My groups</a></li>
@@ -46,22 +46,22 @@
         {% else %}
         <!-- Navigation user not in session -->
        
-        <a href="#" data-target="mobile" class="dropdown-trigger hide-on-large-only right"><i
+        <a href="#" data-target="mobile" data-beloworigin="true" class="dropdown-trigger hide-on-large-only right"><i
             class="nav-btn fas fa-bars"></i></a>
 
         <ul class="right hide-on-med-and-down">
           <li><a class="nav-item nav-text" href="{{ url_for('main.home') }}">Home</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a class="nav-item nav-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
-          <li><a class="nav-item nav-text" href="{{ url_for('main.browse_events_groups')}}">All events</a></li>
+          <li><a class="nav-item nav-text" href="{{ url_for('main.browse_events_groups')}}">All groups & events</a></li>
         </ul>
 
         <!-- Mobile nav -->
-        <ul id="mobile" class='dropdown-content'>
+        <ul id="mobile" class='dropdown-content hide-on-large-only z-depth-5'>
           <li><a href="{{ url_for('main.home') }}">Home</a></li>
           <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
           <li><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
-          <li><a href="{{ url_for('main.browse_events_groups')}}">All events</a></li>
+          <li><a href="{{ url_for('main.browse_events_groups')}}">All groups & events</a></li>
         </ul>
         {% endif %}
       </div>
