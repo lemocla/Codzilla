@@ -8,7 +8,7 @@ validators = Blueprint("validators", __name__)
 
 # variables
 pwd_pattern = r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
-name_pattern = r"^[a-zA-Z._-]{1,20}$"
+name_pattern = r"^[a-zA-Z-_. ]{1,32}$"
 
 
 def check_regex(pattern, data, string_flash):
