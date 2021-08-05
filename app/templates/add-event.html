@@ -14,11 +14,14 @@
     <div class="col s12 m8 offset-m2">
         <div class="row">
             <!-- form -->
+            {% if group %}
+            <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event', group_id=group._id) }}">
+            {% else %}
             <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event') }}">
-
+            {% endif %}
                 <!-- event title -->
                 <div class="row">
-                        <div class="div input-field col s12">
+                    <div class="div input-field col s12">
                         <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
                             class="validate" required>
                         <label for="event_title">Event title</label>
@@ -31,7 +34,7 @@
                         <select id="event_type" name="event_type" class="validate" required>
                             <option class="option-default" value="" disabled selected>Select your option</option>
                             {% for type in types %}
-                             <option value="{{ type.type_name }}">{{ type.type_name }}</option>
+                            <option value="{{ type.type_name }}">{{ type.type_name }}</option>
                             {% endfor %}
                         </select>
                         <label for="event_type">Event type</label>
@@ -41,7 +44,7 @@
                         <select id="event_category" name="event_category" class="validate" required>
                             <option class="option-default" value="" disabled selected>Select your option</option>
                             {% for cat in categories %}
-                             <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                            <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
                             {% endfor %}
                         </select>
                         <label for="event_category">Category</label>
@@ -49,19 +52,29 @@
                 </div>
 
                 <!-- group  -->
-                 {% if groups|length > 0 %}
+
+                {% if groups|length > 0 %}
                 <div class="row">
                     <div class="input-field col s12">
                         <select id="group" name="group" class="validate">
                             <option class="option-default" value="" disabled selected>Select group</option>
-                              {% for group in groups %}
-                             <option value="{{ group.group_name }}">{{ group.group_name }}</option>
-                            {% endfor %}    
+                            {% for gp in groups %}
+                            {% if group %}
+                            {% if group._id == gp._id %}
+                            <option class="option-default" value="" disabled>Select group</option>
+                            <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>
+                            {% endif %}
+                            {% else %}
+
+                            <option value="{{ gp.group_name }}">{{ gp.group_name }}</option>
+                            {% endif %}
+                            {% endfor %}
                         </select>
                         <label for="group">Select group if any</label>
                     </div>
                 </div>
                 {% endif %}
+
 
                 <!-- date -->
                 <div class="row">
@@ -124,15 +137,14 @@
                     <div class="input-field col s12">
                         <input id="max_attendees" type="text" name="max_attendees" pattern="^(?![0])([0-9]){1,3}$">
                         <label for="max_attendees">Maximum number of attendees (1-100)</label>
-                         <p class="error-text hide" for="max_attendees"></p>
+                        <p class="error-text hide" for="max_attendees"></p>
                     </div>
                 </div>
                 <!-- cover image -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-image prefix"></i>
-                        <textarea id="img_url" name="img_url"
-                            class="materialize-textarea validate"></textarea>
+                        <textarea id="img_url" name="img_url" class="materialize-textarea validate"></textarea>
                         <label for="img_url">Add a cover image</label>
                     </div>
                 </div>
@@ -149,7 +161,7 @@
             </form>
         </div>
     </div>
-   
+
 </div>
 
 {% endblock  %}

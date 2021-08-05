@@ -27,7 +27,7 @@
         <h2>As an organiser</h2>
     </div>
     <div class="col s12 m6 col-add-group">
-        <a href="{{ url_for('events.add_event') }}" class="btn btn-send">Add an event</a>
+        <a href="{{ url_for('events.add_event', group_id=None) }}" class="btn btn-send">Add an event</a>
     </div>
 
     {% if organising|length > 0 %}

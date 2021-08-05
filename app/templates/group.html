@@ -70,7 +70,7 @@
     </div>
     {% if admin == True %}
     <div class="col s12">
-        <a href="{{ url_for('events.add_event')}}" class="btn btn-send">Add an event</a>
+        <a href="{{ url_for('events.add_event', group_id=group._id) }}" class="btn btn-send">Add an event</a>
     </div>
     {% endif %}
     {% if events|length > 0 %}

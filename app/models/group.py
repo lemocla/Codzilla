@@ -70,3 +70,19 @@ class Group():
     def find_groups_by_id(col):
         groups = mongo.db.groups.find({"_id": {"$in": col}})
         return groups
+
+    @staticmethod
+    def append_event_list(group_id, field, value):
+        """
+        Update record
+        """
+        try:
+            mongo.db.groups.update_one({"_id": ObjectId(group_id)},
+                                       {"$push": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def find_group_by_name(group_name):
+        result = mongo.db.groups.find_one({"group_name": group_name})
+        return result
