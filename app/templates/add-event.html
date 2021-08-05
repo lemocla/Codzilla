@@ -14,7 +14,7 @@
     <div class="col s12 m8 offset-m2">
         <div class="row">
             <!-- form -->
-            <form class="cols s12" id="add_event">
+            <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event') }}">
 
                 <!-- event title -->
                 <div class="row">

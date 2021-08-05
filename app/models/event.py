@@ -6,24 +6,51 @@ from bson.objectid import ObjectId
 class Event():
     def __init__(self, event_title, event_location, event_link, date_start,
                  date_end, is_endtime, event_description, event_category,
-                 event_type, img_url, group, max_attendees, attendees, status,
-                 created_by, _id=None):
+                 event_type, img_url, max_attendees, status, created_by,
+                 group=None, attendees=None, _id=None):
         self._id = _id
         self.event_title = event_title
-        self.event_location = event_location
-        self.event_link = event_link
+        self.event_location = event_location if isinstance(
+                              event_location, str) else ""
+        self.event_link = event_link if isinstance(event_link, str) else ""
         self.date_start = date_start
         self.is_endtime = is_endtime
         self.date_end = date_end
         self.event_description = event_description
         self.event_category = event_category
         self.event_type = event_type
-        self.img_url = img_url
-        self.group = group
+        self.img_url = img_url if isinstance(img_url, str) else ""
+        self.group = group if isinstance(group, str) else ""
         self.attendees = attendees if isinstance(attendees, list) else []
-        self.max_attendees = max_attendees
+        self.max_attendees = max_attendees if isinstance(
+                             max_attendees, str) else ""
         self.status = status
         self.created_by = created_by
+
+    def get_event_info(self):
+        info = {'event_title': self.event_title,
+                'event_location': self.event_location,
+                'event_link': self.event_link,
+                'date_start': self.date_start,
+                'is_endtime': self.is_endtime,
+                'date_end': self.date_end,
+                'event_description': self.event_description,
+                'event_category': self.event_category,
+                'event_type': self.event_type,
+                'img_url': self.img_url,
+                'group': self.group,
+                'attendees': self.attendees,
+                'max_attendees': self.max_attendees,
+                'status': self.status,
+                'created_by': self.created_by}
+        return info
+
+    def insert_into_database(self):
+        try:
+            new_id = mongo.db.events.insert_one(self.get_event_info())
+            return new_id
+        except Exception as e:
+            print(e)
 
     @staticmethod
     def find_all_events():
