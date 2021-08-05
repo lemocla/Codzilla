@@ -22,8 +22,16 @@
             done: "Select"
         }
     });
+    $('.timepicker').timepicker({
+    twelveHour: false,
+    showClearBtn: true,
+    i18n:{
+            done: "Select"
+        }
+    });
       
-      $('.timepicker').timepicker({});
+      $('select').formSelect();
+
 
     //Flickity caraouse initialisation
     $('.main-carousel').flickity({

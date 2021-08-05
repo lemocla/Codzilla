@@ -191,9 +191,12 @@ nav {
 
 .dropdown-content li>a,
 .dropdown-content li>span {
-    width: 100%;
     color: var(--black) !important;
     border-bottom: 1px solid var(--ivory);
+}
+
+nav ul a {
+    cursor: default !important;
 }
 
 nav .brand-logo {
@@ -572,6 +575,10 @@ label {
 /*---------[ Media queries ]---------*/
 
 @media only screen and (min-width: 600px) {
+    
+    nav {
+        padding: 0 15px !important;
+    }
 
     .home-container {
         margin-top: 9rem;

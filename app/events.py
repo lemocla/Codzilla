@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 from app import mongo
 from app.models.event import Event
 from app.models.user import User
+from app.models.group import Group
 
 # Blueprint
 events = Blueprint("events", __name__)
@@ -29,4 +30,10 @@ def event(event_id):
 
 @events.route("/add-event", methods=["GET", "POST"])
 def add_event():
-    return render_template("add-event.html")
+    user = User.check_existing_user(session["email"])
+    types = mongo.db.types.find()
+    categories = mongo.db.categories.find()
+    groups = list(Group.find_groups_by_id(user["group_owned"]))
+    return render_template("add-event.html", user=user,
+                           types=types, categories=categories,
+                           groups=groups)

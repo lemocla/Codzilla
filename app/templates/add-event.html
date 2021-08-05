@@ -11,55 +11,142 @@
 </div>
 
 <div class="row valign-wrapper">
-    <div class="col s12 m8 offset-m2 l6">
+    <div class="col s12 m8 offset-m2">
         <div class="row">
             <!-- form -->
             <form class="cols s12" id="add_event">
+
                 <!-- event title -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-pencil-alt prefix deep-purple-text text-darken-4"></i>
-                        <input id="event-title" type="text" name="event_title" minlenght="3" maxlength="250"
+                        <i class="fas fa-pencil-alt prefix"></i>
+                        <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
                             class="validate" required>
-                        <label for="event-title">Event title</label>
+                        <label for="event_title">Event title</label>
                     </div>
                 </div>
-                <!-- type -->
 
-                <!-- category -->
+                
+                <div class="row">
+                    <!-- type -->
+                    <div class="input-field col s6">
+                        <i class="fas fa-mouse-pointer prefix"></i>
+                        <select id="even_type" name="event_type" class="validate" required>
+                            <option value="" disabled selected>Select type of event</option>
+                            {% for type in types %}
+                             <option value="{{ type.type_name }}">{{ type.type_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="event_type">Event type</label>
+                    </div>
+                    <!-- category -->
+                    <div class="input-field col s6">
+                        <i class="fas fa-mouse-pointer prefix"></i>
+                        <select id="event_category" name="event_category" class="validate" required>
+                            <option value="" disabled selected>Select category</option>
+                            {% for cat in categories %}
+                             <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="event_category">Category</label>
+                    </div>
+                </div>
+
+                <!-- group  -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-mouse-pointer prefix"></i>
+                        <select id="group" name="group" class="validate">
+                            <option value="" disabled selected>Select group</option>
+                            {% if groups|length > 0 %}
+                              {% for group in groups %}
+                             <option value="{{ group.group_name }}">{{ group.group_name }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                        <label for="group">Select group if any</label>
+                    </div>
+    
+                </div>
 
                 <!-- date -->
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <i class="fas fa-calendar-alt prefix"></i>
-                        <input id="date-start" name="date_start" type="text" class="datepicker validate" required>
-                        <label for="date-start">Select date</label>
+                        <input id="date_start" name="date_start" type="text" class="datepicker validate" required>
+                        <label for="date_start">Select date</label>
+                    </div>
+                    <!-- time -->
+                    <div class="input-field col s6">
+                        <i class="fas fa-clock prefix"></i>
+                        <input id="time_start" name="time_start" type="text" class="timepicker validate" required>
+                        <label for="time_start">Select time</label>
                     </div>
                 </div>
-                <!-- time -->
 
                 <!-- endtime checkbox -->
+                <div class="row">
+                    <p class="col s12">
+                        <label>
+                            <input type="checkbox" class="filled-in" name="is_endtime" />
+                            <span>Add an end date and time</span>
+                        </label>
+                    </p>
+                </div>
 
-                <!-- location -->
+                <!-- end time -->
+                <div class="row hide">
+                    <div class="input-field col s6">
+                        <i class="fas fa-clock prefix"></i>
+                        <input id="time_end" name="time_end" type="text" class="timepicker validate">
+                        <label for="time_end">Select end time</label>
+                    </div>
+                </div>
 
                 <!-- event description -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="group_description" name="group_description" minlenght="3" maxlength="1500"
+                        <i class="fas fa-pencil-alt prefix"></i>
+                        <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
                             class="materialize-textarea validate" required></textarea>
                         <label for="event_description">Event description</label>
                     </div>
                 </div>
 
-                <!-- cover image -->
+                <!-- location -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="event-img-url" type="text" name="img_url" minlenght="3" maxlength="1500">
-                        <label for="event-img-url">Add a cover image</label>
+                        <i class="fas fa-map-marker-alt prefix"></i>
+                        <input id="event_location" type="text" name="event_location">
+                        <label for="event_location">Event location</label>
+                    </div>
+                </div>
+
+                <!-- event link -->
+                <div class="row hide">
+                    <div class="input-field col s12">
+                        <i class="fas fa-link prefix"></i>
+                        <input id="event_link" type="text" name="event_link">
+                        <label for="event_link">Event link</label>
                     </div>
                 </div>
 
                 <!-- maximum of attendees -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-users prefix"></i>
+                        <input id="max_attendees" type="text" name="max_attendees">
+                        <label for="max_attendees">Maximum number of attendees</label>
+                    </div>
+                </div>
+                <!-- cover image -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-image prefix"></i>
+                        <input id="img_url" type="text" name="img_url">
+                        <label for="img_url">Add a cover image</label>
+                    </div>
+                </div>
 
                 <!-- buttons -->
                 <div class="row">
@@ -73,10 +160,7 @@
             </form>
         </div>
     </div>
-    <!-- Image large screen only -->
-    <div class="col l6 hide-on-med-and-down">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}" alt="">
-    </div>
+   
 </div>
 
 {% endblock  %}
