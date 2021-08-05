@@ -1,8 +1,10 @@
-  $(document).ready(function() {
+  $(document).ready(function () {
 
 
     // Materialize side bar
-     $('.sidenav').sidenav({edge: "right"});
+    $('.sidenav').sidenav({
+      edge: "right"
+    });
     // Materialize drop down functionality
     $('.dropdown-trigger').dropdown();
 
@@ -10,27 +12,28 @@
     // Tabs
     $('.tabs').tabs();
 
-        // Modals  
+    // Modals  
     $('.modal').modal();
 
     // Materialize date picker
-     $('.datepicker').datepicker({
-        format: "dd mmmm, yyyy",
-        yearRange: 3,
-        showClearBtn: true,
-        i18n:{
-            done: "Select"
-        }
+    $('.datepicker').datepicker({
+      format: "d/mm/yyyy",
+      yearRange: 3,
+      showClearBtn: true,
+      i18n: {
+        done: "Select"
+      }
     });
+
+    // Materialize time picker
     $('.timepicker').timepicker({
-    twelveHour: false,
-    showClearBtn: true,
-    i18n:{
-            done: "Select"
-        }
+      twelveHour: false,
+      showClearBtn: true,
+
     });
-      
-      $('select').formSelect();
+
+    // Materialize form select
+    $('select').formSelect();
 
 
     //Flickity caraouse initialisation
@@ -59,7 +62,6 @@
       }
     });
 
-
     // Sign up form validation 
     $("input").change(function () {
       //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
@@ -78,8 +80,6 @@
         $(`p[for=${this.id}]`).addClass("hide").html("");
       }
     });
-
-
 
     // Checkboxes profile page 
     $('#form-edit-preferences input[type=checkbox]').each(function () {
@@ -162,8 +162,36 @@
       });
     });
 
-    $("#btn-answer-question").click(function(){
+    // Toggle answer question form 
+    $("#btn-answer-question").click(function () {
       $("#answer-question").toggleClass("hide");
-    
     })
+
+    // Event form
+
+    // Change display on event type
+    $('#event_type').change(function () {
+      option = $(this).val()
+      if (option == "in person") {
+        $("#link_container").addClass("hide");
+        $("#location_container").removeClass("hide");
+        $("input#event_location").prop("required", true)
+        $("label[for='event_location']").append('<span class="required"> *</span>');
+      } else if (option == "online event") {
+        $("#link_container").removeClass("hide");
+        $("#location_container").addClass("hide");
+        $("#event_location").removeAttr("required");
+        $("label[for='event_location'] span").remove();
+      }
+    });
+
+    // Display end date time if is end time is true
+    $('#is_endtime').change(function () {
+      $("#end_time_container").toggleClass("hide");
+      // clear value from field
+      if ($(this).is(":not(:checked)")) {
+        $("#time_end").val("")
+      }
+    });
+
   });

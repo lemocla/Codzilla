@@ -386,6 +386,7 @@ nav ul a:hover {
 }
 
 /*---------[ groups]-------*/
+
 .card-summary {
     box-shadow: none !important;
 }
@@ -499,6 +500,10 @@ nav ul a:hover {
     padding-left: 5rem;
 }
 
+.select-wrapper input.select-dropdown {
+    font-size: inherit;
+}
+
 .notifications-container {
     margin: 0;
 }
@@ -542,6 +547,7 @@ label {
 .btn.btn-send {
     background-color: var(--blue);
 }
+
 
 /*---------[ Error pages]-----*/
 
