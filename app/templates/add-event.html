@@ -119,8 +119,17 @@
                 <!-- location -->
                 <div id="location_container" class="row">
                     <div class="input-field col s12">
-                        <input id="event_location" type="text" name="event_location">
+                        <input class="controls" id="event_location" type="text" name="event_location">
                         <label for="event_location">Event location</label>
+                    </div>
+                </div>
+
+
+                <!-- map url -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="map_url" type="text" name="map_url">
+                        <label for="map_url">Longitude</label>
                     </div>
                 </div>
 
@@ -165,3 +174,10 @@
 </div>
 
 {% endblock  %}
+
+ {% block scripts %}
+ <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtOeM5h3VBhXqbIiC2KIaHCfsb3v2JVWk&libraries=places&channel=GMPSB_addressselection_v1_cAB" async defer>
+</script>
+
+{% endblock %}

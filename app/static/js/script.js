@@ -194,4 +194,24 @@
       }
     });
 
+
+    //Search address
+    $(function () {
+      const input = document.getElementById("event_location");
+      const option = {
+        fields:["formatted_address", "name", "url"]
+      }
+      const searchBox = new google.maps.places.SearchBox(input);
+      
+      searchBox.addListener("places_changed", function(){
+      
+      const places = searchBox.getPlaces();
+      const place = places["0"];
+      //
+      let url = document.getElementById("map_url");
+      input.value = place.name + ", " + place.formatted_address;
+      url.value = place.url;
+      })
+    });
+
   });
