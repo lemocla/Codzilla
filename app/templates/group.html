@@ -113,9 +113,16 @@
                                 <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
                                 </p>
                             </div>
+                            {% if admin == True %}
+                             <div class="col s6 right-align">
+                                <a class="btn btn-send"
+                                href="{{ url_for('events.edit_event', event_id=event._id, group_id=group._id) }}">Edit</a>
+                            </div>
+                            {% else %}
                             <div class="col s6 right-align">
                                 <a class="btn btn-attend" href="#">Attend</a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

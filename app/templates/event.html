@@ -45,8 +45,14 @@
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
+                        <!-- edit events button -->
                         <div class="col s16">
-                            <a class="btn btn-send" href="#">Edit</a>
+                            {% if group %}
+                            <a class="btn btn-send"
+                                href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
+                            {% else %}
+                            <a class="btn btn-send" href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
+                            {% endif %}
                         </div>
                         <div class="col s16">
                             <a class="btn btn-send" href="#">Delete</a>
@@ -61,14 +67,14 @@
             </div>
         </div>
     </div>
-   
+
 </div>
 
 <!-- event details -->
 <div class="row">
-<hr>
+    <hr>
     <div class="col s12">
-         <h2>Details</h2>
+        <h2>Details</h2>
     </div>
     <div class="col s12 m6">
         <p class="margin-bottom">{{ event.event_description }}</p>

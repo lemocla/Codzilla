@@ -91,6 +91,8 @@
       }
     });
 
+
+
     // Edit Email & passowrds validation 
     $('[data-check=check]').change(function () {
       check_val = $("#" + $(this).attr('data-target')).val();
@@ -215,5 +217,29 @@
       })
     });
 
+      // Checkboxes edit event
+    $('#edit_event input[type=checkbox]').each(function () {
+      if (($(this).attr('data-value') == "true") || ($(this).attr('data-value') == "True")) {
+        $(this).prop('checked', true);
+        $('#end_time_container').removeClass('hide')
+      } else {
+        $(this).val(false);
+        $(this).prop('checked', false);
+      }
+    });
+
+        // Change display on event type
+    if ($('#event_type').val() == "in person"){
+        $("#link_container").addClass("hide");
+        $("#location_container").removeClass("hide");
+        $("input#event_location").prop("required", true);
+        $("label[for='event_location']").append('<span class="required"> *</span>');
+      } 
+      else if ($('#event_type').val() == "online event") {
+        $("#link_container").removeClass("hide");
+        $("#location_container").addClass("hide");
+        $("#event_location").removeAttr("required");
+        $("label[for='event_location'] span").remove();
+      }
 
   });

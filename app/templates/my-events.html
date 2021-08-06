@@ -45,8 +45,9 @@
                         data-target="{{ event._id }}" data-beloworigin="true">
                         <i class="fas fa-ellipsis-h"></i>
                     </a>
+                    <!-- dropdown menu -->
                     <ul id="{{ event._id}}" class='dropdown-content z-depth-5'>
-                        <li><a href="#">Edit</a></li>
+                        <li><a href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a></li>
                         <li><a href="#">Delete</a></li>
                     </ul>
 
@@ -84,7 +85,7 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-send" href="#">Edit</a>
+                                <a class="btn btn-send" href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
                             </div>
                         </div>
                     </div>

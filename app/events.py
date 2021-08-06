@@ -99,3 +99,39 @@ def add_event(group_id=None):
         return render_template("add-event.html", user=user,
                                types=types, categories=categories,
                                groups=groups)
+
+
+@events.route("/edit-event/<event_id>/<group_id>)", methods=["GET", "POST"])
+@events.route("/edit-event/<event_id>)", methods=["GET", "POST"])
+def edit_event(event_id, group_id=None):
+
+    user = User.check_existing_user(session["email"])
+    types = mongo.db.types.find()
+    categories = mongo.db.categories.find()
+    groups = list(Group.find_groups_by_id(user["group_owned"]))
+    event = Event.find_one_event(event_id)
+    event_status = mongo.db.event_status.find()
+
+    if not session["email"]:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        print("we are in post")
+        if group_id:
+            return redirect(url_for('groups.group', group_id=group_id))
+        else:
+            print("we should redirect to my events")
+            return redirect(url_for('users.my_events'))
+
+    if (group_id):
+        group = Group.find_one_group(group_id)
+        return render_template("edit-event.html", user=user,
+                               types=types, categories=categories,
+                               groups=groups, event_status=event_status,
+                               group=group, event_id=event_id, event=event)
+    else:
+        group = None
+        return render_template("edit-event.html", user=user,
+                               types=types, categories=categories,
+                               event_status=event_status, groups=groups,
+                               event_id=event_id, event=event)
