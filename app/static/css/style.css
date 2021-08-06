@@ -172,6 +172,9 @@ h3 {
     margin-top: 2rem;
 }
 
+.remove-mg-top{
+margin-top: 0 !important;
+}
 /*---------[ Navbar ]---------*/
 
 nav {
@@ -424,6 +427,15 @@ nav ul a:hover {
 .dropdown-content.dropdown-for-btn {
     right: 20px !important;
     top: 60px !important;
+}
+
+.p-separator{
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding-top: 20px;
+}
+
+.map-container{
+padding-right: 0 !important;
 }
 
 .qa-container {

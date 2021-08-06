@@ -114,8 +114,10 @@
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
-   {% block scripts %}
-    {% endblock %}
+ <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtOeM5h3VBhXqbIiC2KIaHCfsb3v2JVWk&libraries=places">
+</script>
+
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>
   
 </body>

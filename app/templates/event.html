@@ -61,13 +61,18 @@
             </div>
         </div>
     </div>
-    <hr>
+   
 </div>
 
 <!-- event details -->
 <div class="row">
-    <div class="col s6">
-        <p>
+<hr>
+    <div class="col s12">
+         <h2>Details</h2>
+    </div>
+    <div class="col s12 m6">
+        <p class="margin-bottom">{{ event.event_description }}</p>
+        <p class="p-separator">
             <i class="far fa-calendar-alt"></i>
             {% if event.is_endtime %}
             {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
@@ -83,11 +88,13 @@
             <i class="fas fa-video"></i> {{ event.event_type.capitalize() }}
             {% endif %}
         </p>
-        <h2>Details</h2>
-        <p>{{ event.event_description }}</p>
+
     </div>
-    <div class="col s6">
-        map placeholder
+    <div class="col s12 m6 map-container">
+        <img class="responsive-img"
+            src="https://maps.googleapis.com/maps/api/staticmap?center={{event.event_location}}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ event.event_location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
+            alt="google static map for {{ event.event_title }}">
+
     </div>
 </div>
 
