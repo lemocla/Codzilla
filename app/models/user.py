@@ -119,6 +119,15 @@ class User():
             print(e)
 
     @staticmethod
+    def remove_from_list(user_id, field, value):
+        print(f"should pull {value} from {field} in {user_id}")
+        try:
+            mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                      {"$pull": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
     def delete_one_user(user_id):
         """
         Delete record
@@ -157,4 +166,12 @@ class User():
     @staticmethod
     def find_users_by_id(col):
         users = mongo.db.users.find({"_id": {"$in": col}})
+        return users
+
+    @staticmethod
+    def find_users_by_array_element(array_field, value):
+        """
+        find users field - ex events_interest
+        """
+        users = mongo.db.users.find({array_field: ObjectId(value)})
         return users

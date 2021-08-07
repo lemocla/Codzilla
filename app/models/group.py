@@ -84,8 +84,8 @@ class Group():
 
     @staticmethod
     def remove_from_list(group_id, field, value):
+        print(f"should pull {value} from {field} in {group_id}")
         try:
-            print(f"should pull {value} from {field} in {group_id}")
             mongo.db.groups.update_one({"_id": ObjectId(group_id)},
                                        {"$pull": {field: ObjectId(value)}})
         except Exception as e:

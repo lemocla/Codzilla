@@ -201,3 +201,36 @@ def cancel_event(event_id):
         flash("Event succesfully cancelled!")
         return redirect(url_for('events.event',
                         event_id=event_id))
+
+
+@events.route("/delete-event/<event_id>)", methods=["GET", "POST"])
+def delete_event(event_id):
+
+    if not session["email"]:
+        return redirect(url_for('login'))
+
+    event = Event.find_one_event(event_id)
+    user = User.check_existing_user(session["email"])
+    if request.method == "POST":
+        # remove from group if any - events
+        if event["group"]:
+            group = Group.find_group_by_name(event["group"])
+            Group.remove_from_list(group["_id"], "events", event_id)
+        # remove from users - events_organised
+        if event["created_by"] == user["_id"]:
+            User.remove_from_list(user["_id"], "events_organised", event_id)
+        # remove from users - events_attendees
+        if len(list(event["attendees"])) > 0:
+            for attendee in list(event["attendees"]):
+                User.remove_from_list(attendee, "events_attending", event_id)
+        # remove from db - events_interest
+        users_interested = list(User.find_users_by_array_element(
+                                "events_interest", event_id))
+
+        if len(users_interested) > 0:
+            for user_int in users_interested:
+                User.remove_from_list(user_int["_id"], "events_interest",
+                                      event_id)
+        Event.delete_event(event_id)
+        flash("Event succesfully deleted!")
+        return redirect(url_for('users.my_events'))

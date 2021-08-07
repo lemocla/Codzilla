@@ -64,7 +64,7 @@
                                 <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
                                 {% else %}
                                 <!-- delete event button  -->
-                                <a class="btn btn-send" href="#">Delete</a>
+                                <a class="btn btn-send modal-trigger" href="#delete-confirmation">Delete</a>
                             </div>
                             {% endif %}
                             {% else %}
@@ -202,11 +202,26 @@
             </div>
             <form id="form-cancel-event" class="col s12 center-align center-align p-separator" method="POST"
                 action="{{ url_for('events.cancel_event', event_id=event._id) }}">
-                <button class="btn btn-send margin-top" type="submit">submit</button>
+                <button class="btn btn-send margin-top" type="submit">confirm</button>
                 <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
             </form>
         </div>
+    </div>
 
+    <!-- modal cancel confirmation -->
+    <div id="delete-confirmation" class="modal">
+        <div class="row modal-content">
+            <div class="col s12 center-align">
+                <h2>Delete event confirmation</h2>
+                <hr class="breakline">
+                <p>Are you sure you want to delete this event?</p>
+            </div>
+            <form id="form-cancel-event" class="col s12 center-align center-align p-separator" method="POST"
+                action="{{ url_for('events.delete_event', event_id=event._id) }}">
+                <button class="btn btn-send margin-top" type="submit">confirm</button>
+                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+            </form>
+        </div>
     </div>
 
     <!-- modal ask a question -->

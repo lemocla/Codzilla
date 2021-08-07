@@ -61,6 +61,10 @@ class Event():
             print(e)
 
     @staticmethod
+    def delete_event(event_id):
+        mongo.db.events.delete_one({"_id": ObjectId(event_id)})
+
+    @staticmethod
     def find_all_active_events():
         events = list(mongo.db.events.find(
                   {"date_start": {"$gte": datetime.today()},
