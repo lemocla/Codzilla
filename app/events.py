@@ -187,3 +187,17 @@ def edit_event(event_id, group_id=None):
                                types=types, categories=categories,
                                event_status=event_status, groups=groups,
                                event_id=event_id, event=event)
+
+
+@events.route("/cancel-event/<event_id>)", methods=["GET", "POST"])
+def cancel_event(event_id):
+
+    if not session["email"]:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        status = {"status": "cancelled"}
+        Event.update_event(event_id, status)
+        flash("Event succesfully cancelled!")
+        return redirect(url_for('events.event',
+                        event_id=event_id))

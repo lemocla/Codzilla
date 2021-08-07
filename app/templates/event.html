@@ -45,18 +45,30 @@
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
+                        {% if event.status == "cancelled" %}
+                          <div class="col left-align red-text text-darken-4 cancelled-cont">Cancelled</div>
+                        {% endif %}
                         <!-- edit events button -->
-                        <div class="col s16">
+                        <div class="col s6 right-align">
                             {% if group %}
                             <a class="btn btn-send"
                                 href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
                             {% else %}
-                            <a class="btn btn-send" href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
+                            <a class="btn btn-send"
+                                href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
                             {% endif %}
                         </div>
-                        <div class="col s16">
+                        <!-- cancel event button -->
+                         {% if event.status == "active" %}
+                        <div class="col">
+                            <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
+                        </div>
+                        {% else %}
+                        <!-- delete event button  -->
+                        <div class="col ">
                             <a class="btn btn-send" href="#">Delete</a>
                         </div>
+                        {% endif %}
                         {% else %}
                         <div class="col s12">
                             <a class="btn btn-attend" href="#">Attend</a>
@@ -181,6 +193,22 @@
     {% endif %}
     {% endif %}
 </div>
+
+<!-- modal cancel confirmation -->
+<div id="cancel-confirmation" class="modal">
+    <div class="row modal-content">
+        <div class="col s12 center-align">
+            <h3>Cancel event</h3>
+            <p>Are you sure you want to cancel this event?</p>
+        </div>
+        <form id="form-cancel-event" class="col s12" method="POST" action="{{ url_for('events.cancel_event', event_id=event._id) }}">
+            <button class="btn btn-send" type="submit">submit</button>
+            <button class="btn btn-send modal-close">cancel</button>
+        </form>
+    </div>
+
+</div>
+
 <!-- modal ask a question -->
 <div id="ask-question" class="modal">
     <div class="row modal-content">
