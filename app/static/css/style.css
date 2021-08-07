@@ -172,8 +172,25 @@ h3 {
     margin-top: 2rem;
 }
 
+.small-pd-top {
+    padding-top: 1rem !important;
+}
+
+.mg-right {
+    margin-right: 0.75rem !important;
+}
+
 .remove-mg-top {
     margin-top: 0 !important;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+.remove-pd {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /*---------[ Navbar ]---------*/
@@ -617,6 +634,14 @@ label {
         margin-top: reset;
     }
 
+    .small-pd-top {
+        padding-top: 0 !important;
+    }
+
+    .align-right-md {
+        text-align: right !important;
+    }
+
     .h1-error {
         margin-top: 3rem
     }
@@ -629,7 +654,11 @@ label {
     }
 
     .card.horizontal {
-        flex-direction: row !important
+        flex-direction: row !important;
+    }
+
+    .event-card-content {
+        padding-right: 0 !important;
     }
 
     .card.horizontal .card-image {

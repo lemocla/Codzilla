@@ -16,7 +16,7 @@
             <img class="horizontal-card-img" src="{{ event.img_url }}">
         </div>
         <div class="card-stacked">
-            <div class="card-content">
+            <div class="card-content event-card-content">
                 <p class="date-time">
                     <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                     {% if event.is_endtime == "true" %}
@@ -28,7 +28,7 @@
                 </p>
                 <p class="event-title">{{ event.event_title.capitalize() }}</p>
                 <p class="organiser">{{ event.event_category.capitalize() }}
-                    {% if event.group != "" %}
+                    {% if event.group %}
                     by {{ event.group.capitalize()  }}
                     {% else %}
                     by {{ owner.first_name.capitalize()  }} {{owner.last_name.capitalize() }}
@@ -46,184 +46,184 @@
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
                         {% if event.status == "cancelled" %}
-                          <div class="col left-align red-text text-darken-4 cancelled-cont">Cancelled</div>
-                        {% endif %}
-                        <!-- edit events button -->
-                        <div class="col s6 right-align">
-                            {% if group %}
-                            <a class="btn btn-send"
-                                href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
+                        <div class="col s5 m4 left-align red-text text-darken-4 cancelled-cont">Cancelled</div>
+                        <div class="col s7 m8 right-align remove-pd">
                             {% else %}
-                            <a class="btn btn-send"
-                                href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
+                            <div class="col s12 left-align remove-pd">
+                                {% endif %}
+                                <!-- edit events button -->
+                                {% if group %}
+                                <a class="btn btn-send mg-right"
+                                    href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
+                                {% else %}
+                                <a class="btn btn-send mg-right"
+                                    href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
+                                {% endif %}
+                                <!-- cancel event button -->
+                                {% if event.status == "active" %}
+                                <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
+                                {% else %}
+                                <!-- delete event button  -->
+                                <a class="btn btn-send" href="#">Delete</a>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="col s12">
+                                <a class="btn btn-attend" href="#">Attend</a>
+                            </div>
                             {% endif %}
                         </div>
-                        <!-- cancel event button -->
-                         {% if event.status == "active" %}
-                        <div class="col">
-                            <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
-                        </div>
-                        {% else %}
-                        <!-- delete event button  -->
-                        <div class="col ">
-                            <a class="btn btn-send" href="#">Delete</a>
-                        </div>
-                        {% endif %}
-                        {% else %}
-                        <div class="col s12">
-                            <a class="btn btn-attend" href="#">Attend</a>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-</div>
-
-<!-- event details -->
-<div class="row">
-    <hr>
-    <div class="col s12">
-        <h2>Details</h2>
-    </div>
-    <div class="col s12 m6">
-        <p class="margin-bottom">{{ event.event_description }}</p>
-        <p class="p-separator">
-            <i class="far fa-calendar-alt"></i>
-            {% if event.is_endtime == "true" %}
-            {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
-            {{event.date_end.strftime('%H:%M')}}
-            {% else %}
-            {{ event.date_start.strftime('%a %d %B %Y @ %H:%M') }}
-            {% endif %}
-        </p>
-        <p>
-            {% if event.event_type == "in person" %}
-            <i class="fas fa-map-marker-alt"></i> {{ event.event_location.capitalize() }}
-            {% else %}
-            <i class="fas fa-video"></i> {{ event.event_type.capitalize() }}
-            {% endif %}
-        </p>
 
     </div>
-    <div class="col s12 m6 map-container">
-        <img class="responsive-img"
-            src="https://maps.googleapis.com/maps/api/staticmap?center={{event.event_location}}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ event.event_location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
-            alt="google static map for {{ event.event_title }}">
 
-    </div>
-</div>
-
-<!-- Attendees -->
-<div class="row">
-    <hr>
-    <div class="col s12">
-        <h2>Attendees ({{attendees|length }})</h2>
-    </div>
-    {% if attendees|length > 0 %}
-    <div class="col s12">
-        <ul class="collection">
-            {% for attendee in attendees %}
-            <li class="collection-item avatar z-depth-2">
-                <img src="{{ attendee.user_imgUrl }}" alt="" class="circle">
-                <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
-            </li>
-            {% endfor %}
-    </div>
-    {% else %}
-    <div class="col s12 center-align">
-        <h3>No attendees</h3>
-    </div>
-    <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
-    </div>
-    {% endif %}
-</div>
-
-<!-- questions and anwers -->
-<div class="row">
-    <hr>
-    <div class="col s12">
-        <h2>Questions and Answers</h2>
-    </div>
-    {% if questions_answers|length > 0 %}
-    {% for qa in questions_answers %}
-
-    <div class="col s12">
-        <div class="row">
-            <div class="col s12 m6">
-                <p class="z-depth-4 qa-container"><span class="question">Q. </span>
-                    {{ qa.question.capitalize()}}
-                </p>
-
-            </div>
-            {% if qa.answered == True %}
-            <div class="col s11 offset-s1 m6 offset-m3">
-                <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
-            </div>
-            {% elif qa.answered == False and admin == True %}
-            <div class="col s12">
-                <div id="btn-answer-question" class="btn btn-send margin-top">Answer question</div>
-                <!-- answer quetion form -->
-                <form id="answer-question" class="hide" action="" method="post">
-                    <div class="input-field col s12">
-                        <textarea id="answer" name="answer" class="materialize-textarea"></textarea>
-                        <label for="answer">Write your answer</label>
-                    </div>
-                    <button class="btn btn-send" type="submit">submit</button>
-                </form>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <div class="col s12 center-align">
-        <h3>There are no questions asked</h3>
-    </div>
-    <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}">
-    </div>
-    {% if admin == False %}
-    <div class="col s12 center-align">
-        <div class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</div>
-    </div>
-    {% endif %}
-    {% endif %}
-</div>
-
-<!-- modal cancel confirmation -->
-<div id="cancel-confirmation" class="modal">
-    <div class="row modal-content">
-        <div class="col s12 center-align">
-            <h3>Cancel event</h3>
-            <p>Are you sure you want to cancel this event?</p>
-        </div>
-        <form id="form-cancel-event" class="col s12" method="POST" action="{{ url_for('events.cancel_event', event_id=event._id) }}">
-            <button class="btn btn-send" type="submit">submit</button>
-            <button class="btn btn-send modal-close">cancel</button>
-        </form>
-    </div>
-
-</div>
-
-<!-- modal ask a question -->
-<div id="ask-question" class="modal">
-    <div class="row modal-content">
+    <!-- event details -->
+    <div class="row">
+        <hr>
         <div class="col s12">
-            <h3>Ask a question</h3>
+            <h2>Details</h2>
         </div>
-        <form class="col s12">
-            <div class="input-field col s12">
-                <textarea id="question" name="question" class="materialize-textarea"></textarea>
-                <label for="question">Write your question</label>
-            </div>
-            <button class="btn btn-send" type="submit">submit</button>
-            <button class="btn btn-send modal-close">cancel</button>
-        </form>
+        <div class="col s12 m6">
+            <p class="margin-bottom">{{ event.event_description }}</p>
+            <p class="p-separator">
+                <i class="far fa-calendar-alt"></i>
+                {% if event.is_endtime == "true" %}
+                {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
+                {{event.date_end.strftime('%H:%M')}}
+                {% else %}
+                {{ event.date_start.strftime('%a %d %B %Y @ %H:%M') }}
+                {% endif %}
+            </p>
+            <p>
+                {% if event.event_type == "in person" %}
+                <i class="fas fa-map-marker-alt"></i> {{ event.event_location.capitalize() }}
+                {% else %}
+                <i class="fas fa-video"></i> {{ event.event_type.capitalize() }}
+                {% endif %}
+            </p>
+
+        </div>
+        <div class="col s12 m6 map-container">
+            <img class="responsive-img"
+                src="https://maps.googleapis.com/maps/api/staticmap?center={{event.event_location}}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ event.event_location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
+                alt="google static map for {{ event.event_title }}">
+
+        </div>
     </div>
 
-</div>
-{% endblock %}
+    <!-- Attendees -->
+    <div class="row">
+        <hr>
+        <div class="col s12">
+            <h2>Attendees ({{attendees|length }})</h2>
+        </div>
+        {% if attendees|length > 0 %}
+        <div class="col s12">
+            <ul class="collection">
+                {% for attendee in attendees %}
+                <li class="collection-item avatar z-depth-2">
+                    <img src="{{ attendee.user_imgUrl }}" alt="" class="circle">
+                    <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
+                </li>
+                {% endfor %}
+        </div>
+        {% else %}
+        <div class="col s12 center-align">
+            <h3>No attendees</h3>
+        </div>
+        <div class="col s4 offset-s4">
+            <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- questions and anwers -->
+    <div class="row">
+        <hr>
+        <div class="col s12">
+            <h2>Questions and Answers</h2>
+        </div>
+        {% if questions_answers|length > 0 %}
+        {% for qa in questions_answers %}
+
+        <div class="col s12">
+            <div class="row">
+                <div class="col s12 m6">
+                    <p class="z-depth-4 qa-container"><span class="question">Q. </span>
+                        {{ qa.question.capitalize()}}
+                    </p>
+
+                </div>
+                {% if qa.answered == True %}
+                <div class="col s11 offset-s1 m6 offset-m3">
+                    <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
+                </div>
+                {% elif qa.answered == False and admin == True %}
+                <div class="col s12">
+                    <div id="btn-answer-question" class="btn btn-send margin-top">Answer question</div>
+                    <!-- answer quetion form -->
+                    <form id="answer-question" class="hide" action="" method="post">
+                        <div class="input-field col s12">
+                            <textarea id="answer" name="answer" class="materialize-textarea"></textarea>
+                            <label for="answer">Write your answer</label>
+                        </div>
+                        <button class="btn btn-send" type="submit">submit</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col s12 center-align">
+            <h3>There are no questions asked</h3>
+        </div>
+        <div class="col s4 offset-s4">
+            <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}">
+        </div>
+        {% if admin == False %}
+        <div class="col s12 center-align">
+            <div class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- modal cancel confirmation -->
+    <div id="cancel-confirmation" class="modal">
+        <div class="row modal-content">
+            <div class="col s12 center-align">
+                <h2>Cancel event confirmation</h2>
+                <hr class="breakline">
+                <p>Are you sure you want to cancel this event?</p>
+            </div>
+            <form id="form-cancel-event" class="col s12 center-align center-align p-separator" method="POST"
+                action="{{ url_for('events.cancel_event', event_id=event._id) }}">
+                <button class="btn btn-send margin-top" type="submit">submit</button>
+                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- modal ask a question -->
+    <div id="ask-question" class="modal">
+        <div class="row modal-content">
+            <div class="col s12">
+                <h3>Ask a question</h3>
+            </div>
+            <form class="col s12">
+                <div class="input-field col s12">
+                    <textarea id="question" name="question" class="materialize-textarea"></textarea>
+                    <label for="question">Write your question</label>
+                </div>
+                <button class="btn btn-send" type="submit">submit</button>
+                <button class="btn btn-send modal-close">cancel</button>
+            </form>
+        </div>
+
+    </div>
+    {% endblock %}
