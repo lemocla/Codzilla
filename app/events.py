@@ -80,13 +80,12 @@ def add_event(group_id=None):
         flash("Event successfully added!")
 
         if group_id:
-            Group.append_event_list(group_id, "events", new.inserted_id)
+            Group.add_to_list(group_id, "events", new.inserted_id)
             return redirect(url_for('groups.group', group_id=group_id))
         else:
             if request.form.get('group') is not None:
                 gp = Group.find_group_by_name(request.form.get('group'))
-                Group.append_event_list(gp["_id"], "events", new.inserted_id)
-            flash("Event successfully added!")
+                Group.add_to_list(gp["_id"], "events", new.inserted_id)
             return redirect(url_for('users.my_events'))
 
     if (group_id):
@@ -116,11 +115,59 @@ def edit_event(event_id, group_id=None):
         return redirect(url_for('login'))
 
     if request.method == "POST":
-        print("we are in post")
+        # date time to ISO format
+        start_string = (f'{request.form.get("date_start")}T'
+                        f'{request.form.get("time_start")}:00')
+
+        if validators.check_box(request.form.get("is_endtime")) == "true":
+            end_string = (f'{request.form.get("date_start")}T'
+                          f'{request.form.get("time_end")}:00')
+        else:
+            end_string = start_string
+
+        date_start = datetime.strptime(start_string, '%d/%m/%YT%H:%M:%S')
+        date_end = datetime.strptime(end_string, '%d/%m/%YT%H:%M:%S')
+
+        update = {"event_title": request.form.get("event_title"),
+                  "event_type": request.form.get("event_type"),
+                  "event_category": request.form.get("event_category"),
+                  "group": request.form.get("group"),
+                  "date_start": date_start,
+                  "is_endtime": validators.check_box(request.form.get(
+                                "is_endtime")),
+                  "date_end": date_end,
+                  "event_description": request.form.get("event_description"),
+                  "event_location": request.form.get("event_location"),
+                  "event_link": request.form.get("event_link"),
+                  "img_url": request.form.get("img_url"),
+                  "max_attendees": request.form.get("max_attendees"),
+                  "status": request.form.get("satus")}
+
+        current_group = event["group"]
+        Event.update_event(event_id, update)
+
+        if request.form.get('group') != current_group:
+            # Remove from event from list of events in group
+            if group_id:
+                print(f"origin from group and there's a group id {group_id}")
+                Group.remove_from_list(group_id, "events", event_id)
+            else:
+                gp_id = Group.find_group_by_name(current_group)["_id"]
+                print(f"look for the group because not from group id {gp_id}")
+                Group.remove_from_list(gp_id, "events", event_id)
+            # Add to new group if any
+            if request.form.get('group') is not None:
+                new_gp = Group.find_group_by_name(
+                         request.form.get('group'))["_id"]
+                print(f"should add to new group {new_gp}")
+                group_id = new_gp
+                Group.add_to_list(new_gp, "events", event_id)
+
+        flash("Event successfully edited!")
+
         if group_id:
             return redirect(url_for('groups.group', group_id=group_id))
         else:
-            print("we should redirect to my events")
             return redirect(url_for('users.my_events'))
 
     if (group_id):

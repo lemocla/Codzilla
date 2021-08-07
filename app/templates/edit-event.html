@@ -67,17 +67,10 @@
                         <select id="group" name="group" class="validate">
                             <option class="option-default" value="" disabled selected>Select group</option>
                             {% for gp in groups %}
-                            {% if group %}
-                            {% if group._id == gp._id %}
-                            <option class="option-default" value="" disabled>Select group</option>
-                            <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>
-                            {% endif %}
-                            {% else %}
                             {% if gp.group_name == event.group %}
                             <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>
                             {% else %}
                              <option value="{{ gp.group_name }}">{{ gp.group_name }}</option>
-                            {% endif %}
                             {% endif %}
                             {% endfor %}
                         </select>

@@ -53,6 +53,14 @@ class Event():
             print(e)
 
     @staticmethod
+    def update_event(event_id, info):
+        try:
+            mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                       {"$set": info})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
     def find_all_events():
         events = list(mongo.db.events.find(
                   {"date_start": {"$gte": datetime.today()}}).sort(

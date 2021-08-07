@@ -72,13 +72,22 @@ class Group():
         return groups
 
     @staticmethod
-    def append_event_list(group_id, field, value):
+    def add_to_list(group_id, field, value):
         """
         Update record
         """
         try:
             mongo.db.groups.update_one({"_id": ObjectId(group_id)},
                                        {"$push": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def remove_from_list(group_id, field, value):
+        try:
+            print(f"should pull {value} from {field} in {group_id}")
+            mongo.db.groups.update_one({"_id": ObjectId(group_id)},
+                                       {"$pull": {field: ObjectId(value)}})
         except Exception as e:
             print(e)
 
