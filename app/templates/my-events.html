@@ -95,7 +95,7 @@
                                 <a class="btn btn-send modal-trigger"
                                     href="#cancel-confirmation-{{ event._id }}">Cancel</a>
                                 {% else %}
-                                <a class="btn btn-send" href="">Delete</a>
+                                <a class="btn btn-send modal-trigger" href="#delete-confirmation-{{ event._id }}">Delete</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -112,14 +112,32 @@
                     <p>Are you sure you want to cancel the following event?</p>
                     <p><b>{{ event.event_title }}</b></p>
                 </div>
-
+                <!-- form cancel event -->
                 <form id="form-cancel-event" class="col s12 center-align p-separator" method="POST"
                     action="{{ url_for('events.cancel_event', event_id=event._id) }}">
-                    <button class="btn btn-send margin-top" type="submit">submit</button>
+                    <button class="btn btn-send margin-top" type="submit">confirm</button>
                     <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
                 </form>
             </div>
         </div>
+        <!-- modal delete confirmation -->
+        <div id="delete-confirmation-{{ event._id }}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12 center-align">
+                    <h2>Delete event confirmation</h2>
+                    <hr class="breakline">
+                    <p>Are you sure you want to delete the following event?</p>
+                    <p><b>{{ event.event_title }}</b></p>
+                </div>
+                <!-- form delete event -->
+                <form id="form-delete-event" class="col s12 center-align p-separator" method="POST"
+                    action="{{ url_for('events.delete_event', event_id=event._id) }}">
+                    <button class="btn btn-send margin-top" type="submit">confirm</button>
+                    <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+                </form>
+            </div>
+        </div>
+        <!--end section-->
     </div>
 
     {% endfor %}
