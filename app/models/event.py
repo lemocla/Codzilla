@@ -20,7 +20,7 @@ class Event():
         self.event_category = event_category
         self.event_type = event_type
         self.img_url = img_url if isinstance(img_url, str) else ""
-        self.group = group if isinstance(group, str) else ""
+        self.group = group
         self.attendees = attendees if isinstance(attendees, list) else []
         self.max_attendees = max_attendees if isinstance(
                              max_attendees, str) else ""

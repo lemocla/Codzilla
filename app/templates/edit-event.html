@@ -66,6 +66,7 @@
                     <div class="input-field col s12">
                         <select id="group" name="group" class="validate">
                             <option class="option-default" value="" disabled selected>Select group</option>
+                             <option value="">None</option>
                             {% for gp in groups %}
                             {% if gp.group_name == event.group %}
                             <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>

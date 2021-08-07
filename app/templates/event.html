@@ -19,7 +19,7 @@
             <div class="card-content">
                 <p class="date-time">
                     <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
-                    {% if event.is_endtime %}
+                    {% if event.is_endtime == "true" %}
                     {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
                     {{event.date_end.strftime('%I:%M')}}
                     {% else %}
@@ -80,7 +80,7 @@
         <p class="margin-bottom">{{ event.event_description }}</p>
         <p class="p-separator">
             <i class="far fa-calendar-alt"></i>
-            {% if event.is_endtime %}
+            {% if event.is_endtime == "true" %}
             {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
             {{event.date_end.strftime('%H:%M')}}
             {% else %}

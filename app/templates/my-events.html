@@ -54,7 +54,7 @@
                     <!-- event content -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
-                        {% if event.is_endtime %}
+                        {% if event.is_endtime == "true" %}
                         {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
                         {{event.date_end.strftime('%H:%M')}}
                         {% else %}
