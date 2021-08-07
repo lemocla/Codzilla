@@ -75,8 +75,15 @@
             <div class="card">
                 <div class="card-image">
                     <img src="{{ event.img_url }}">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest"><i
-                            class="far fa-star"></i></a>
+                    {% if session.email %}
+                    <a class="btn-floating halfway-fab btn-interest">
+                        <i class="far fa-star"></i>
+                    </a>
+                    {% else %}
+                    <a class="btn-floating halfway-fab btn-interest modal-trigger" href="#request-registration-modal">
+                        <i class="far fa-star"></i>
+                    </a>
+                    {% endif %}
                 </div>
                 <div class="card-content">
                     <p class="date-time">
@@ -116,7 +123,11 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
+                                {% if session.email %}
+                                <button class="btn btn-attend">Attend</button>
+                                {% else %}
+                                <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -125,6 +136,7 @@
         </div>
         {% endfor %}
         {% if events|length < total %}
+        <!-- end cell if more events to be displayed -->
         <div class="carousel-cell">
             <div class="card">
                 <div class="card-image last-card-image">
@@ -135,7 +147,8 @@
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s12 center-align">
-                                <a class="btn contact-btn" href="{{ url_for('main.browse_events_groups') }}">view all events</a>
+                                <a class="btn contact-btn" href="{{ url_for('main.browse_events_groups') }}">view all
+                                    events</a>
                             </div>
                         </div>
                     </div>
@@ -154,6 +167,26 @@
         <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">Sign up</a>
     </div>
     {% endif %}
+    <!-- modal request registration -->
+    <div id="request-registration-modal" class="modal">
+        <div class="row modal-content">
+        <!-- closing button -->
+        <i class="far fa-times-circle close-form modal-close"></i>
+        <!-- modal content -->
+            <div class="col s12 center-align">
+                <h2>Sign in or register</h2>
+                <hr class="breakline">
+                <p>Please sign in or register to access this feature</p>
+            </div>
+        <!-- modal footer -->
+            <div class="col s12 center-align border-top margin-top">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
+                <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
+                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+            </div>
+        </div>
+        <!-- end modal -->
+    </div>
 </div>
 
 <!-- How it works -->
