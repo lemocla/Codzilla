@@ -30,15 +30,17 @@ def search():
 @main.route("/home")
 def home():
     # Variables
-    events = Event.find_all_events()
+    events = Event.upcoming_events()
+    total = len(Event.find_all_active_events())
     users = User.find_all_users()
-    return render_template("home.html", events=events, users=users)
+    return render_template("home.html", events=events, users=users,
+                           total=total)
 
 
 # All events and groups
 @main.route("/browse_events_groups/")
 def browse_events_groups():
-    events = Event.find_all_events()
+    events = Event.find_all_active_events()
     groups = Group.find_all_groups()
     users = User.find_all_users()
     return render_template("browse-events-groups.html", events=events,

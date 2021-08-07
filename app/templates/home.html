@@ -94,7 +94,7 @@
                     </a>
                     <p class="organiser">
                         {{ event.event_category.capitalize() }}
-                        {% if event.group != "" %}
+                        {% if event.group %}
                         by {{ event.group.capitalize()  }}
                         {% else %}
                         {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
@@ -124,6 +124,25 @@
             </div>
         </div>
         {% endfor %}
+        {% if events|length < total %}
+        <div class="carousel-cell">
+            <div class="card">
+                <div class="card-image last-card-image">
+                    <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+                </div>
+                <div class="card-content">
+                    <p class="event-title center-align">There's more ...</p>
+                    <div class="card-action">
+                        <div class="row action-container">
+                            <div class="col s12 center-align">
+                                <a class="btn contact-btn" href="{{ url_for('main.browse_events_groups') }}">view all events</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     {% else %}
     <div class="col s6 offset-s3">

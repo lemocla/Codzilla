@@ -61,11 +61,19 @@ class Event():
             print(e)
 
     @staticmethod
-    def find_all_events():
+    def find_all_active_events():
         events = list(mongo.db.events.find(
-                  {"date_start": {"$gte": datetime.today()}}).sort(
-                  "date_start", 1))
+                  {"date_start": {"$gte": datetime.today()},
+                   "status": "active"}).sort("date_start", 1))
         return events
+
+    @staticmethod
+    def upcoming_events():
+        upcoming_events = list(mongo.db.events.find(
+                          {"date_start": {"$gte": datetime.today()},
+                           "status": "active"}).sort(
+                           "date_start", 1).limit(6))
+        return upcoming_events
 
     @staticmethod
     def search_events(query):

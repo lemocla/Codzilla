@@ -303,6 +303,9 @@ nav ul a:hover {
     font-size: 1.2rem;
 }
 
+.last-card-image{
+ padding: 0.75rem 3rem !important;
+}
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
     color: white;
     -webkit-transition: color .3s ease;

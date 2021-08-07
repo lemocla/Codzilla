@@ -76,7 +76,7 @@
                         <p class="event-title">{{ event.event_title.capitalize() }}</p>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
-                        {% if event.group != "" %}
+                        {% if event.group %}
                         by {{ event.group.capitalize()  }}
                         {% else %}
                         {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
