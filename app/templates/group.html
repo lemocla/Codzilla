@@ -109,36 +109,68 @@
                     </p>
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
-                            <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
-                                </p>
-                            </div>
                             {% if admin == True %}
-                             <div class="col s6 right-align">
-                                <a class="btn btn-send"
-                                href="{{ url_for('events.edit_event', event_id=event._id, group_id=group._id) }}">Edit</a>
+                            <div class="col s12 m5">
+                                {% else %}
+                                <div class="col s6 valign-wrapper">
+                                    {% endif %}
+                                    {% if event.status == "active" %}
+                                    <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }}
+                                        attendee(s)
+                                    </p>
+                                    {% else %}
+                                    <p class="left-align red-text text-darken-4 cancelled-cont">Cancelled</p>
+                                    {% endif %}
+                                </div>
+                                {% if admin == True %}
+                                <div class="col s12 m7 small-pd-top align-right-md">
+                                    <a class="btn btn-send mg-right"
+                                        href="{{ url_for('events.edit_event', event_id=event._id, group_id=group._id) }}">Edit</a>
+                                    {% if event.status == "active" %}
+                                    <a class="btn btn-send modal-trigger"
+                                        href="#cancel-confirmation-{{ event._id }}">Cancel</a>
+                                    {% else %}
+                                    <a class="btn btn-send" href="">Delete</a>
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                <div class="col s6 right-align">
+                                    <a class="btn btn-attend" href="#">Attend</a>
+                                </div>
+                                {% endif %}
                             </div>
-                            {% else %}
-                            <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- modal cancel confirmation -->
+            <div id="cancel-confirmation-{{ event._id }}" class="modal">
+                <div class="row modal-content">
+                    <div class="col s12 center-align">
+                        <h2>Cancel event confirmation</h2>
+                        <hr class="breakline">
+                        <p>Are you sure you want to cancel the following event?</p>
+                        <p><b>{{ event.event_title }}</b></p>
+                    </div>
+
+                    <form id="form-cancel-event" class="col s12 center-align p-separator" method="POST"
+                        action="{{ url_for('events.cancel_event', event_id=event._id) }}">
+                        <button class="btn btn-send margin-top" type="submit">submit</button>
+                        <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+                    </form>
+                </div>
+            </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <div class="col s12 center-align">
+            <h3>No upcoming events</h3>
+        </div>
+        <div class="col s4 offset-s4">
+            <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+        </div>
+        {% endif %}
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="col s12 center-align">
-        <h3>No upcoming events</h3>
-    </div>
-    <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
-    </div>
-    {% endif %}
-</div>
 </div>
 <hr>
 
