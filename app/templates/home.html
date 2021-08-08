@@ -71,15 +71,13 @@
     <div class="col s12 main-carousel">
 
         {% for event in events %}
-        <div class="carousel-cell" id="cell-{{event._id}}">
+        <div class="carousel-cell" id="card-{{event._id}}">
             <div class="card">
                 <div class="card-image">
                     <img src="{{ event.img_url }}">
+                    <!-- floating bookmark button -->
                     {% if session.email %}
-                    <!-- if event organiser not display -->
-                    <!-- if in user events-interested display blue -->
                     {% if event.created_by == user._id %}
-
                     {% else%}
                     {% if event._id in events_interest %}
                     <a class="btn-floating halfway-fab btn-interested" data-status="active" data-user="{{ user._id }}"
@@ -89,12 +87,12 @@
                         data-event="{{ event._id}}"><i class="far fa-star"></i></a>
                     {% endif %}
                     {% endif %}
-
                     {% else %}
                     <a class="btn-floating halfway-fab btn-interest modal-trigger" href="#request-registration-modal">
                         <i class="far fa-star"></i>
                     </a>
                     {% endif %}
+                    <!-- end floating button -->
                 </div>
                 <div class="card-content">
                     <p class="date-time">
@@ -134,6 +132,7 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align btn-container">
+                            <!-- dynamic event actions -->
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}
 
@@ -152,6 +151,7 @@
                                 {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
                                 {% endif %}
+                            <!-- end event actions -->
                             </div>
                         </div>
                     </div>

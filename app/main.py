@@ -33,7 +33,10 @@ def home():
     events = Event.upcoming_events()
     total = len(Event.find_all_active_events())
     users = User.find_all_users()
-    user = User.check_existing_user(session["email"].lower())
+    if session.get("email"):
+        user = User.check_existing_user(session["email"].lower())
+    else:
+        user = None
     if user:
         events_attending = list(user["events_attending"])
         events_interest = list(user["events_interest"])
@@ -55,8 +58,25 @@ def browse_events_groups():
     events = Event.find_all_active_events()
     groups = Group.find_all_groups()
     users = User.find_all_users()
+
+    if session.get("email"):
+        user = User.check_existing_user(session["email"].lower())
+    else:
+        user = None
+
+    if user:
+        events_attending = list(user["events_attending"])
+        events_interest = list(user["events_interest"])
+        events_organised = list(user["events_organised"])
+    else:
+        events_attending = []
+        events_interest = []
+        events_organised = []
     return render_template("browse-events-groups.html", events=events,
-                           groups=groups, users=users)
+                           groups=groups, users=users, user=user,
+                           events_attending=events_attending,
+                           events_interest=events_interest,
+                           events_organised=events_organised)
 
 
 """"
