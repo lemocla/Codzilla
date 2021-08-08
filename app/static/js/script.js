@@ -418,7 +418,12 @@
           //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
           if (response == "success") {
             // If response if success, refresh cell containing the event
+            if ($(location).attr("pathname") == "/my_groups") {
+              window.location.hash = '#view-group-following';
+              location.reload();
+            } else {
             $(`#card-${group_id}`).load(location.href + ` #card-${group_id}`);
+            }
           }
         },
         error: function (error) {

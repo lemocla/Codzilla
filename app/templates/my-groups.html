@@ -40,20 +40,11 @@
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}"
+                    alt="group image cover for {{ group.group_name }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <!-- floating navigation -->
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-trigger btn"
-                        data-target="{{ group._id }}" data-beloworigin="true">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </a>
-                    <ul id="{{ group._id}}" class='dropdown-content z-depth-5'>
-                        <li><a href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a></li>
-                        <li><a class="modal-trigger" id="{{group._id}}" data-target="delete-group-modal"
-                                href="#delete-group-modal">Delete</a></li>
-                    </ul>
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
                         <p class="event-title">{{ group.group_name.capitalize() }}</p>
                     </a>
@@ -69,18 +60,38 @@
                             <div class="col s6 right-align">
                                 <a class="btn btn-send"
                                     href="{{ url_for('groups.edit_group', group_id=group._id)}}">Edit</a>
+                                <a class="btn btn-send modal-trigger"
+                                    href="#delete-confirmation-{{ group._id }}">Delete</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!-- modal delete confirmation -->
+        <div id="delete-confirmation-{{ group._id }}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12 center-align">
+                    <h2>Delete group confirmation</h2>
+                    <hr class="breakline">
+                    <p>Are you sure you want to delete the following group?</p>
+                    <p><b>{{ group.group_name }}</b></p>
+                </div>
+                <!-- form delete event -->
+                <form class="col s12 center-align p-separator" method="POST"
+                    action="{{ url_for('groups.delete_group', group_id=group._id) }}">
+                    <button class="btn btn-send margin-top" type="submit">confirm</button>
+                    <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+                </form>
+            </div>
+        </div>
+        <!--end section-->
     </div>
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}"
+            alt="Illustration group around computer">
     </div>
     <div class="col s12 center-align">
         <h3>You don't own any groups</h3>
@@ -95,10 +106,11 @@
     </div>
     {% if groups_following|length > 0 %}
     {% for group in groups_following %}
-    <div class="col s12">
+    <div class="col s12" id="card-{{ group._id }}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}"
+                    alt="group image cover for {{ group.group_name }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -106,16 +118,22 @@
                         <p class="event-title">{{ group.group_name.capitalize() }}</p>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
-
                     <p class="gp-description">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
-                                    member(s)</p>
+                                <p>
+                                    <i class="fas fa-user-circle attendees"></i>
+                                    {{ group.group_members|length }} member(s)
+                                </p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Unfollow</a>
+                                <!-- group members action -->
+                                <button class="btn btn-following" data-user="{{ user._id }}"
+                                    data-group="{{ group._id}}">Following</button>
+                                <button class="btn btn-unfollow hide" data-user="{{ user._id }}"
+                                    data-group="{{ group._id}}">Unfollow</button>
+                                <!-- end group action -->
                             </div>
                         </div>
                     </div>
@@ -123,10 +141,12 @@
             </div>
         </div>
     </div>
+
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}"
+            alt="Illustration group around computer">
     </div>
     <div class="col s12 center-align">
         <h3>You don't follow any groups </h3>
