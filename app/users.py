@@ -286,3 +286,37 @@ def remove_interest():
         User.remove_from_list(user_id, "events_interest", event_id)
         message = "success"
     return jsonify(message)
+
+
+@users.route("/follow", methods=['GET', 'POST'])
+def follow():
+    # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
+    resp = request.form.to_dict(flat=False)
+    user_id = resp["user_id"][0]
+    group_id = resp["group_id"][0]
+    user = User.find_user_by_id(user_id)
+
+    if user:
+        # Add group to user group_following
+        User.append_list(user_id, "group_following", group_id)
+        # Add user to group group_members
+        Group.add_to_list(group_id, "group_members", user_id)
+        message = "success"
+    return jsonify(message)
+
+
+@users.route("/unfollow", methods=['GET', 'POST'])
+def unfollow():
+    # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
+    resp = request.form.to_dict(flat=False)
+    user_id = resp["user_id"][0]
+    group_id = resp["group_id"][0]
+    user = User.find_user_by_id(user_id)
+
+    if user:
+        # Add group to user group_following
+        User.remove_from_list(user_id, "group_following", group_id)
+        # Remove user to group group_members
+        Group.remove_from_list(group_id, "group_members", user_id)
+        message = "success"
+    return jsonify(message)

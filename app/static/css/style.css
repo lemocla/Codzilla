@@ -75,14 +75,16 @@ h3 {
     margin-bottom: 1.5rem;
 }
 
-.btn.btn-attend {
+.btn.btn-attend,
+.btn.btn-follow {
     background-color: #e7e7e08a;
     color: var(--black);
     font-weight: 600;
     border: 1px solid #6e6e6e6b;
 }
 
-.btn.btn-unattend {
+.btn.btn-unattend,
+.btn.btn-unfollow {
     position: absolute;
     top: 58px;
     right: 0;
@@ -148,6 +150,9 @@ h3 {
 .btn.btn-attend:hover,
 .btn.btn-attending:hover,
 .btn.btn-unattend:hover,
+.btn.btn-follow:hover,
+.btn.btn-following:hover,
+.btn.btn-unfollow:hover,
 .btn-interest {
     font-weight: bold;
     font-size: 1.1rem;
@@ -621,7 +626,8 @@ label {
 }
 
 .btn.btn-send,
-.btn.btn-attending {
+.btn.btn-attending,
+.btn.btn-following {
     background-color: var(--blue);
 }
 

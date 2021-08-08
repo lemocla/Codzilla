@@ -68,15 +68,20 @@ def browse_events_groups():
         events_attending = list(user["events_attending"])
         events_interest = list(user["events_interest"])
         events_organised = list(user["events_organised"])
+        followed = list(user["group_following"])
+        owned = list(user["group_owned"])
     else:
         events_attending = []
         events_interest = []
         events_organised = []
+        owned = []
+        followed = []
     return render_template("browse-events-groups.html", events=events,
                            groups=groups, users=users, user=user,
                            events_attending=events_attending,
                            events_interest=events_interest,
-                           events_organised=events_organised)
+                           events_organised=events_organised,
+                           owned=owned, followed=followed)
 
 
 """"
