@@ -217,7 +217,7 @@
       })
     });
 
-      // Checkboxes edit event
+    // Checkboxes edit event
     $('#edit_event input[type=checkbox]').each(function () {
       if (($(this).attr('data-value') == "true") || ($(this).attr('data-value') == "True")) {
         $(this).prop('checked', true);
@@ -228,18 +228,54 @@
       }
     });
 
-        // Change display on event type
-    if ($('#event_type').val() == "in person"){
-        $("#link_container").addClass("hide");
-        $("#location_container").removeClass("hide");
-        $("input#event_location").prop("required", true);
-        $("label[for='event_location']").append('<span class="required"> *</span>');
-      } 
-      else if ($('#event_type').val() == "online event") {
-        $("#link_container").removeClass("hide");
-        $("#location_container").addClass("hide");
-        $("#event_location").removeAttr("required");
-        $("label[for='event_location'] span").remove();
-      }
+    // Change display on event type
+    if ($('#event_type').val() == "in person") {
+      $("#link_container").addClass("hide");
+      $("#location_container").removeClass("hide");
+      $("input#event_location").prop("required", true);
+      $("label[for='event_location']").append('<span class="required"> *</span>');
+    } else if ($('#event_type').val() == "online event") {
+      $("#link_container").removeClass("hide");
+      $("#location_container").addClass("hide");
+      $("#event_location").removeAttr("required");
+      $("label[for='event_location'] span").remove();
+    }
 
+    //Attend 
+    $(".btn.btn-attend").click(function () {
+      $(this).removeClass("btn-attend").addClass("btn-attending");
+      $(this).text("attending");
+      if ($(this).attr("data-status") == "active") {
+        user_id = $(this).attr("data-user");
+        event_id = $(this).attr("data-event");
+        console.log(user_id);
+        console.log(event_id);
+        test = "test";
+        $.ajax({
+          url: `/attend`,
+          type: 'POST',
+          data: {"user_id": `${user_id}`, "event_id": `${event_id}`},
+          dataType: "json",
+          success: function (response) {
+            $(this).removeClass("btn-attend").addClass("response");
+          },
+          error: function (error) {
+            console.log(error)
+          }
+        });
+      }
+    });
+    /*
+    $.ajax({
+        url: `/delete-group-modal/${group_id}`,
+        data: group_id,
+        type: 'POST',
+        success: function (response) {
+          $('#modal-group-name').text(response)
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });*/
+    //
   });

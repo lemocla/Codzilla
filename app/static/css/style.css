@@ -588,7 +588,8 @@ label {
     display: none;
 }
 
-.btn.btn-send {
+.btn.btn-send,
+.btn.btn-attending {
     background-color: var(--blue);
 }
 

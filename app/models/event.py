@@ -93,3 +93,14 @@ class Event():
     def find_one_event(event_id):
         event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
         return event
+
+    @staticmethod
+    def add_to_list(user_id, field, value):
+        """
+        Update record
+        """
+        try:
+            mongo.db.events.update_one({"_id": ObjectId(user_id)},
+                                       {"$push": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)

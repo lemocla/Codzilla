@@ -124,7 +124,13 @@
                             </div>
                             <div class="col s6 right-align">
                                 {% if session.email %}
-                                <button class="btn btn-attend">Attend</button>
+                                {% if event._id in events_attending %}
+                                <button class="btn btn-attending">Attending</button>
+                                {% else %}
+                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}" 
+                                data-event="{{ event._id}}">Attend</button>
+                                {% endif %}
+                                
                                 {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
                                 {% endif %}

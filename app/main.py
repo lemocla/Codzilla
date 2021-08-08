@@ -1,7 +1,7 @@
 import os
 from . import mail
 from flask import (flash, render_template, redirect,
-                   request, url_for, Blueprint)
+                   session, request, url_for, Blueprint)
 # flask mail
 from flask_mail import Message
 from app.models.event import Event
@@ -33,8 +33,20 @@ def home():
     events = Event.upcoming_events()
     total = len(Event.find_all_active_events())
     users = User.find_all_users()
+    user = User.check_existing_user(session["email"].lower())
+    if user:
+        events_attending = list(user["events_attending"])
+        events_interest = list(user["events_interest"])
+        events_organised =list(user["events_organised"])
+    else:
+        events_attending = []
+        events_interest = []
+        events_organised = []
     return render_template("home.html", events=events, users=users,
-                           total=total)
+                           total=total, user=user,
+                           events_attending=events_attending,
+                           events_interest=events_interest,
+                           events_organised=events_organised)
 
 
 # All events and groups
