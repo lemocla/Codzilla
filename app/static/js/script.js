@@ -258,8 +258,14 @@
           success: function (response) {
             //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
             if (response == "success") {
-              // If response if success, refresh cell containing the event
-              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+              // If response if success, refresh page cell containing the event
+              console.log($(location).attr("pathname"))
+              if ($(location).attr("pathname") == "/my_events") {
+                window.location.hash = '#view-events-attending';
+                location.reload();
+              } else {
+                $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+              }
             }
           },
           error: function (error) {
@@ -289,7 +295,12 @@
           //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
           if (response == "success") {
             // If response if success, refresh cell containing the event
-            $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            if ($(location).attr("pathname") == "/my_events") {
+              window.location.hash = '#view-events-attending';
+              location.reload();
+            } else {
+              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            }
           }
         },
         error: function (error) {
@@ -314,7 +325,12 @@
           //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
           if (response == "success") {
             // If response if success, refresh cell containing the event
-            $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            if ($(location).attr("pathname") == "/my_events") {
+              window.location.hash = '#view-events-interested';
+              location.reload();
+            } else {
+              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            }
           }
         },
         error: function (error) {
@@ -339,7 +355,12 @@
           //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
           if (response == "success") {
             // If response if success, refresh cell containing the event
-            $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            if ($(location).attr("pathname") == "/my_events") {
+              window.location.hash = '#view-events-interested';
+              location.reload();
+            } else {
+              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
+            }
           }
         },
         error: function (error) {
@@ -350,29 +371,29 @@
 
     //Follow group
     $(".btn-follow").click(function () {
-    if ($(this).attr("data-status") == "active") {
-      group_id = $(this).attr("data-group");
-      user_id = $(this).attr("data-user");
-      $.ajax({
-        url: `/follow`,
-        type: 'POST',
-        data: {
-          "user_id": `${user_id}`,
-          "group_id": `${group_id}`
-        },
-        dataType: "json",
-        success: function (response) {
-          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-          if (response == "success") {
-            // If response if success, refresh cell containing the event
-            $(`#card-${group_id}`).load(location.href + ` #card-${group_id}`);
+      if ($(this).attr("data-status") == "active") {
+        group_id = $(this).attr("data-group");
+        user_id = $(this).attr("data-user");
+        $.ajax({
+          url: `/follow`,
+          type: 'POST',
+          data: {
+            "user_id": `${user_id}`,
+            "group_id": `${group_id}`
+          },
+          dataType: "json",
+          success: function (response) {
+            //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+            if (response == "success") {
+              // If response if success, refresh cell containing the event
+              $(`#card-${group_id}`).load(location.href + ` #card-${group_id}`);
+            }
+          },
+          error: function (error) {
+            console.log(error)
           }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
-    }
+        });
+      }
     });
 
     // Display unfollow button

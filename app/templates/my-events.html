@@ -15,7 +15,7 @@
     <div class="col s12">
         <ul class="tabs">
             <li class="tab col s4 btn-tab"><a class="active" href="#view-events-organised">Organiser</a></li>
-            <li class="tab col s4 btn-tab"><a href="#view-events-attending">Participant</a></li>
+            <li id="attending" class="tab col s4 btn-tab"><a href="#view-events-attending">Participant</a></li>
             <li class="tab col s4 btn-tab"><a href="#view-events-interested">Interested</a></li>
         </ul>
     </div>
@@ -83,7 +83,8 @@
                                 <a class="btn btn-send modal-trigger"
                                     href="#cancel-confirmation-{{ event._id }}">Cancel</a>
                                 {% else %}
-                                <a class="btn btn-send modal-trigger" href="#delete-confirmation-{{ event._id }}">Delete</a>
+                                <a class="btn btn-send modal-trigger"
+                                    href="#delete-confirmation-{{ event._id }}">Delete</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -131,7 +132,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+            alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You dont't have any organised events</h3>
@@ -154,8 +156,15 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
-                            class="far fa-star"></i></a>
+                    <!-- floating bookmark button -->
+                    {% if event._id in user["events_interest"] %}
+                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% else %}
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% endif %}
+                    <!-- end floating button -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
@@ -188,7 +197,17 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
+                                <!-- dynamic event actions -->
+                                {% if event._id in user["events_attending"] %}
+                                <button class="btn btn-attending" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attending</button>
+                                <button class="btn btn-unattend hide" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Unattend</button>
+                                {% else %}
+                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attend</button>
+                                {% endif %}
+                                <!-- end event action -->
                             </div>
                         </div>
                     </div>
@@ -199,7 +218,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+            alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You are not attending any events</h3>
@@ -223,8 +243,15 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
-                            class="far fa-star"></i></a>
+                    <!-- floating bookmark button -->
+                    {% if event._id in user["events_interest"] %}
+                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% else %}
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% endif %}
+                    <!-- end floating button -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
@@ -257,7 +284,17 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align">
-                                <a class="btn btn-attend" href="#">Attend</a>
+                                <!-- dynamic event actions -->
+                                {% if event._id in user["events_attending"] %}
+                                <button class="btn btn-attending" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attending</button>
+                                <button class="btn btn-unattend hide" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Unattend</button>
+                                {% else %}
+                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attend</button>
+                                {% endif %}
+                                <!-- end event action -->
                             </div>
                         </div>
                     </div>
@@ -268,7 +305,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+            alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You haven't got any events bookmarked as interesting</h3>
