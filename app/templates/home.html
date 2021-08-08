@@ -76,9 +76,20 @@
                 <div class="card-image">
                     <img src="{{ event.img_url }}">
                     {% if session.email %}
-                    <a class="btn-floating halfway-fab btn-interest">
-                        <i class="far fa-star"></i>
-                    </a>
+                    <!-- if event organiser not display -->
+                    <!-- if in user events-interested display blue -->
+                    {% if event.created_by == user._id %}
+
+                    {% else%}
+                    {% if event._id in events_interest %}
+                    <a class="btn-floating halfway-fab btn-interested" data-status="active" data-user="{{ user._id }}"
+                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% else %}
+                    <a class="btn-floating halfway-fab btn-interest" data-status="active" data-user="{{ user._id }}"
+                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    {% endif %}
+                    {% endif %}
+
                     {% else %}
                     <a class="btn-floating halfway-fab btn-interest modal-trigger" href="#request-registration-modal">
                         <i class="far fa-star"></i>
@@ -125,19 +136,19 @@
                             <div class="col s6 right-align btn-container">
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}
-                                 
-                                 {% else%}
+
+                                {% else%}
                                 {% if event._id in events_attending %}
-                                <button class="btn btn-attending" data-user="{{ user._id }}" 
-                                data-event="{{ event._id}}">Attending</button>
-                                <button class="btn btn-unattend hide" data-user="{{ user._id }}" 
-                                data-event="{{ event._id}}">Unattend</button>
+                                <button class="btn btn-attending" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attending</button>
+                                <button class="btn btn-unattend hide" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Unattend</button>
                                 {% else %}
-                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}" 
-                                data-event="{{ event._id}}">Attend</button>
+                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
+                                    data-event="{{ event._id}}">Attend</button>
                                 {% endif %}
                                 {% endif %}
-                                
+
                                 {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
                                 {% endif %}
@@ -183,15 +194,15 @@
     <!-- modal request registration -->
     <div id="request-registration-modal" class="modal">
         <div class="row modal-content">
-        <!-- closing button -->
-        <i class="far fa-times-circle close-form modal-close"></i>
-        <!-- modal content -->
+            <!-- closing button -->
+            <i class="far fa-times-circle close-form modal-close"></i>
+            <!-- modal content -->
             <div class="col s12 center-align">
                 <h2>Sign in or register</h2>
                 <hr class="breakline">
                 <p>Please sign in or register to access this feature</p>
             </div>
-        <!-- modal footer -->
+            <!-- modal footer -->
             <div class="col s12 center-align border-top margin-top">
                 <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
                 <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>

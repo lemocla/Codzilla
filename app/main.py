@@ -37,7 +37,7 @@ def home():
     if user:
         events_attending = list(user["events_attending"])
         events_interest = list(user["events_interest"])
-        events_organised =list(user["events_organised"])
+        events_organised = list(user["events_organised"])
     else:
         events_attending = []
         events_interest = []
