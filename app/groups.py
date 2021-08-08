@@ -22,10 +22,31 @@ def group(group_id):
                 admin = True
             else:
                 admin = False
+        user = User.check_existing_user(session["email"].lower())
     else:
         admin = False
+        user = None
+
+    if user:
+        events_attending = list(user["events_attending"])
+        events_interest = list(user["events_interest"])
+        events_organised = list(user["events_organised"])
+        followed = list(user["group_following"])
+        owned = list(user["group_owned"])
+    else:
+        events_attending = []
+        events_interest = []
+        events_organised = []
+        owned = []
+        followed = []
+
     return render_template("group.html", group=group, events=events,
-                           users=users, admin=admin)
+                           users=users, admin=admin, user=user,
+                           events_attending=events_attending,
+                           events_organised=events_organised,
+                           events_interest=events_interest,
+                           followed=followed, owned=owned,
+                           admins=admins)
 
 
 @groups.route("/add_group", methods=["GET", "POST"])
