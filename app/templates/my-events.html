@@ -35,22 +35,10 @@
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}">
+                <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for {{event.event_title}}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-
-                    <!-- foating navigation -->
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn center-align dropdown-trigger btn"
-                        data-target="{{ event._id }}" data-beloworigin="true">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </a>
-                    <!-- dropdown menu -->
-                    <ul id="{{ event._id}}" class='dropdown-content z-depth-5'>
-                        <li><a href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a></li>
-                        <li><a href="#">Delete</a></li>
-                    </ul>
-
                     <!-- event content -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
@@ -80,7 +68,7 @@
                     </p>
                     <div class="card-action">
                         <div class="row action-container">
-                            <div class="col s12 m5 l7">
+                            <div class="col s12 m5">
                                 {% if event.status == "active" %}
                                 <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
                                 </p>
@@ -88,7 +76,7 @@
                                 <p class="left-align red-text text-darken-4 cancelled-cont">Cancelled</p>
                                 {% endif %}
                             </div>
-                            <div class="col s12 m7 l5 small-pd-top align-right-md">
+                            <div class="col s12 m7 small-pd-top align-right-md">
                                 <a class="btn btn-send mg-right"
                                     href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
                                 {% if event.status == "active" %}
@@ -143,7 +131,7 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You dont't have any organised events</h3>
@@ -162,7 +150,7 @@
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}">
+                <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for {{event.event_title}}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -182,7 +170,8 @@
                         {% if event.group != "" %}
                         by {{ event.group.capitalize()  }}
                         {% else %}
-                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
+                        {% set creator = users|selectattr("_id", "equalto", event.created_by )|first %}
+                        by {{ creator.first_name.capitalize()  }} {{creator.last_name.capitalize() }}
                         {% endif %}
                     </p>
                     <p class="location">
@@ -210,7 +199,7 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You are not attending any events</h3>
@@ -230,7 +219,7 @@
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}">
+                <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for {{event.event_title}}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -250,7 +239,8 @@
                         {% if event.group != "" %}
                         by {{ event.group.capitalize()  }}
                         {% else %}
-                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
+                        {% set creator = users|selectattr("_id", "equalto", event.created_by )|first %}
+                        by {{ creator.first_name.capitalize()  }} {{creator.last_name.capitalize() }}
                         {% endif %}
                     </p>
                     <p class="location">
@@ -278,7 +268,7 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You haven't got any events bookmarked as interesting</h3>

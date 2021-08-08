@@ -220,10 +220,11 @@ def my_events():
     organising = list(Event.find_events_by_id(user["events_organised"]))
     attending = list(Event.find_events_by_id(user["events_attending"]))
     interesting = list(Event.find_events_by_id(user["events_interest"]))
+    users = list(User.find_all_users())
     return render_template("my-events.html", user=user,
                            organising=organising,
                            attending=attending,
-                           interesting=interesting)
+                           interesting=interesting, users=users)
 
 
 @users.route("/attend", methods=['GET', 'POST'])
