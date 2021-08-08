@@ -1,6 +1,5 @@
 from flask import (flash, render_template, redirect,
-                   request, url_for, session, Blueprint,
-                   jsonify)
+                   request, url_for, session, Blueprint)
 from bson.objectid import ObjectId
 from app import mongo
 from datetime import datetime
@@ -20,14 +19,21 @@ def event(event_id):
     attendees = list(User.find_users_by_id(event["attendees"]))
     questions_answers = list(mongo.db.questions_answers.find(
                              {"event_id": ObjectId(event_id)}))
-    if owner:
-        admin = True
+    if session:
+        user = User.check_existing_user(session["email"].lower())
+        if owner["_id"] == user["_id"]:
+            admin = True
+        else:
+            admin = False
     else:
+        user = None
         admin = False
+
     return render_template("event.html", event=event,
                            admin=admin, owner=owner,
                            attendees=attendees,
-                           questions_answers=questions_answers)
+                           questions_answers=questions_answers,
+                           user=user)
 
 
 # https://koenwoortman.com/python-flask-multiple-routes-for-one-function/
