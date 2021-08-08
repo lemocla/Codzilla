@@ -271,3 +271,18 @@ def bookmark_interest():
         User.append_list(user_id, "events_interest", event_id)
         message = "success"
     return jsonify(message)
+
+
+@users.route("/remove_interest", methods=['GET', 'POST'])
+def remove_interest():
+    # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
+    resp = request.form.to_dict(flat=False)
+    user_id = resp["user_id"][0]
+    event_id = resp["event_id"][0]
+    user = User.find_user_by_id(user_id)
+
+    if user:
+        # Remove event from user events_interest
+        User.remove_from_list(user_id, "events_interest", event_id)
+        message = "success"
+    return jsonify(message)

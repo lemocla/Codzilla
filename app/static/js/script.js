@@ -322,5 +322,30 @@
         }
       });
     });
+    
+  // Remove interest
+      $(".btn-interested").click(function () {
+      event_id = $(this).attr("data-event");
+      user_id = $(this).attr("data-user");
+      $.ajax({
+        url: `/remove_interest`,
+        type: 'POST',
+        data: {
+          "user_id": `${user_id}`,
+          "event_id": `${event_id}`
+        },
+        dataType: "json",
+        success: function (response) {
+          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+          if (response == "success") {
+            // If response if success, refresh cell containing the event
+            $(`#cell-${event_id}`).load(location.href + ` #cell-${event_id}`);
+          }
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      });
+    });
     //
   });
