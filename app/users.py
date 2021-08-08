@@ -234,7 +234,25 @@ def attend():
     event_id = resp["event_id"][0]
     user = User.find_user_by_id(user_id)
     if user:
+        # Add to user events attending
         User.append_list(user_id, "events_attending", event_id)
+        # Add to event attendees
         Event.add_to_list(event_id, "attendees", user_id)
+        message = "success"
+    return jsonify(message)
+
+
+@users.route("/unattend", methods=['GET', 'POST'])
+def unattend():
+    # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
+    resp = request.form.to_dict(flat=False)
+    user_id = resp["user_id"][0]
+    event_id = resp["event_id"][0]
+    user = User.find_user_by_id(user_id)
+    if user:
+        # remove from user events attending
+        User.remove_from_list(user_id, "events_attending", event_id)
+        # remove from events attendees
+        Event.remove_from_list(event_id, "attendees", user_id)
         message = "success"
     return jsonify(message)

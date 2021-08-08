@@ -128,7 +128,10 @@
                                  
                                  {% else%}
                                 {% if event._id in events_attending %}
-                                <button class="btn btn-attending">Attending</button>
+                                <button class="btn btn-attending" data-user="{{ user._id }}" 
+                                data-event="{{ event._id}}">Attending</button>
+                                <button class="btn btn-unattend hide" data-user="{{ user._id }}" 
+                                data-event="{{ event._id}}">Unattend</button>
                                 {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}" 
                                 data-event="{{ event._id}}">Attend</button>

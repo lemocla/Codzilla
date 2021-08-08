@@ -104,3 +104,12 @@ class Event():
                                        {"$push": {field: ObjectId(value)}})
         except Exception as e:
             print(e)
+
+    @staticmethod
+    def remove_from_list(event_id, field, value):
+        print(f"should pull {value} from {field} in {event_id}")
+        try:
+            mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                       {"$pull": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)

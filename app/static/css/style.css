@@ -82,6 +82,16 @@ h3 {
     border: 1px solid #6e6e6e6b;
 }
 
+.btn.btn-unattend{
+position: absolute;
+top: 58px;
+    right: 0;
+    background-color: #e7e7e0e7;
+    color: var(--black);
+    font-weight: 600;
+    border: 1px solid #6e6e6e6b;
+}
+
 .btn-interest {
     background-color: var(--ivory);
     color: var(--black);
@@ -128,6 +138,8 @@ h3 {
 .contact-btn:hover,
 .btn.btn-send:hover,
 .btn.btn-attend:hover,
+.btn.btn-attending:hover,
+.btn.btn-unattend:hover,
 .btn-interest {
     font-weight: bold;
     font-size: 1.1rem;
@@ -161,6 +173,7 @@ h3 {
 .password-visible:hover {
     font-size: 1.35rem !important;
 }
+
 
 /*---------[ Margins ]---------*/
 
