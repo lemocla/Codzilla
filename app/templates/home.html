@@ -71,7 +71,7 @@
     <div class="col s12 main-carousel">
 
         {% for event in events %}
-        <div class="carousel-cell">
+        <div class="carousel-cell" id="cell-{{event._id}}">
             <div class="card">
                 <div class="card-image">
                     <img src="{{ event.img_url }}">
@@ -104,8 +104,8 @@
                         {% if event.group %}
                         by {{ event.group.capitalize()  }}
                         {% else %}
-                        {% set user = users|selectattr("_id", "equalto", event.created_by )|first %}
-                        by {{ user.first_name.capitalize()  }} {{user.last_name.capitalize() }}
+                        {% set creator = users|selectattr("_id", "equalto", event.created_by )|first %}
+                        by {{ creator.first_name.capitalize()  }} {{creator.last_name.capitalize() }}
                         {% endif %}
                     </p>
                     <p class="location p-loc-home">
@@ -122,13 +122,17 @@
                                     {{ event.attendees|length }} attendee(s)
                                 </p>
                             </div>
-                            <div class="col s6 right-align">
+                            <div class="col s6 right-align btn-container">
                                 {% if session.email %}
+                                {% if event.created_by == user._id %}
+                                 
+                                 {% else%}
                                 {% if event._id in events_attending %}
                                 <button class="btn btn-attending">Attending</button>
                                 {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}" 
                                 data-event="{{ event._id}}">Attend</button>
+                                {% endif %}
                                 {% endif %}
                                 
                                 {% else %}

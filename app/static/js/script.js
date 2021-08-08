@@ -243,21 +243,24 @@
 
     //Attend 
     $(".btn.btn-attend").click(function () {
-      $(this).removeClass("btn-attend").addClass("btn-attending");
-      $(this).text("attending");
       if ($(this).attr("data-status") == "active") {
         user_id = $(this).attr("data-user");
         event_id = $(this).attr("data-event");
-        console.log(user_id);
-        console.log(event_id);
-        test = "test";
+        // Ajax requestion to python function attend
         $.ajax({
           url: `/attend`,
           type: 'POST',
-          data: {"user_id": `${user_id}`, "event_id": `${event_id}`},
+          data: {
+            "user_id": `${user_id}`,
+            "event_id": `${event_id}`
+          },
           dataType: "json",
           success: function (response) {
-            $(this).removeClass("btn-attend").addClass("response");
+            //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+            if (response == "success") {
+              // If response if success, refresh cell containing the event
+              $(`#cell-${event_id}`).load(location.href + ` #cell-${event_id}`);
+            }
           },
           error: function (error) {
             console.log(error)
@@ -265,17 +268,5 @@
         });
       }
     });
-    /*
-    $.ajax({
-        url: `/delete-group-modal/${group_id}`,
-        data: group_id,
-        type: 'POST',
-        success: function (response) {
-          $('#modal-group-name').text(response)
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      });*/
-    //
+
   });

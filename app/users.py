@@ -228,16 +228,13 @@ def my_events():
 
 @users.route("/attend", methods=['GET', 'POST'])
 def attend():
-    # user = User.find_user_by_id(user_id)
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
     event_id = resp["event_id"][0]
-    print(user_id)
-    print(event_id)
     user = User.find_user_by_id(user_id)
     if user:
         User.append_list(user_id, "events_attending", event_id)
         Event.add_to_list(event_id, "attendees", user_id)
-        message = "btn.btn-attending"
+        message = "success"
     return jsonify(message)
