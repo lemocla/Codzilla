@@ -13,7 +13,8 @@
 <div class="row">
     <div class="s12 card horizontal card-summary" id="card-{{event._id}}">
         <div class="card-image">
-            <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for event {{event.event_title}}">
+            <img class="horizontal-card-img" src="{{ event.img_url }}"
+                alt="cover image for event {{event.event_title}}">
         </div>
         <div class="card-stacked">
             <div class="card-content event-card-content">
@@ -182,7 +183,7 @@
     </div>
 
     <!-- questions and anwers -->
-    <div class="row">
+    <div class="row" id="questions_answers_container">
         <hr>
         <div class="col s12">
             <h2>Questions and Answers</h2>
@@ -195,6 +196,7 @@
                     <p class="z-depth-4 qa-container"><span class="question">Q. </span>
                         {{ qa.question.capitalize()}}
                     </p>
+                    <a class="modal-trigger" href="#edit_question">Edit</a>
                 </div>
                 {% if qa.answered == True %}
                 <div class="col s11 offset-s1 m6 offset-m3">
@@ -272,17 +274,18 @@
             <div class="col s12">
                 <h3>Ask a question</h3>
             </div>
-            <form class="col s12">
+            <form class="col s12" method="POST" action="{{ url_for('events.add_question', event_id=event._id) }}">
                 <div class="input-field col s12">
                     <textarea id="question" name="question" class="materialize-textarea"></textarea>
                     <label for="question">Write your question</label>
                 </div>
-                <button class="btn btn-send" type="submit">submit</button>
+                <button id="send-question" class="btn btn-send" type="submit">submit</button>
                 <button class="btn btn-send modal-close">cancel</button>
             </form>
         </div>
-
     </div>
+
+
     <!-- modal request registration -->
     <div id="request-registration-modal" class="modal">
         <div class="row modal-content">

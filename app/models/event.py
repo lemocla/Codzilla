@@ -7,7 +7,7 @@ class Event():
     def __init__(self, event_title, event_location, event_link, date_start,
                  date_end, is_endtime, event_description, event_category,
                  event_type, img_url, max_attendees, status, created_by,
-                 group=None, attendees=None, _id=None):
+                 group=None, attendees=None, questions_answers=None, _id=None):
         self._id = _id
         self.event_title = event_title
         self.event_location = event_location if isinstance(
@@ -22,6 +22,8 @@ class Event():
         self.img_url = img_url if isinstance(img_url, str) else ""
         self.group = group
         self.attendees = attendees if isinstance(attendees, list) else []
+        self.questions_answers = questions_answers if isinstance(
+                                 questions_answers, list) else []
         self.max_attendees = max_attendees if isinstance(
                              max_attendees, str) else ""
         self.status = status
@@ -41,6 +43,7 @@ class Event():
                 'group': self.group,
                 'attendees': self.attendees,
                 'max_attendees': self.max_attendees,
+                'questions_answers': self.questions_answers,
                 'status': self.status,
                 'created_by': self.created_by}
         return info
@@ -95,12 +98,12 @@ class Event():
         return event
 
     @staticmethod
-    def add_to_list(user_id, field, value):
+    def add_to_list(event_id, field, value):
         """
         Update record
         """
         try:
-            mongo.db.events.update_one({"_id": ObjectId(user_id)},
+            mongo.db.events.update_one({"_id": ObjectId(event_id)},
                                        {"$push": {field: ObjectId(value)}})
         except Exception as e:
             print(e)
@@ -111,5 +114,26 @@ class Event():
         try:
             mongo.db.events.update_one({"_id": ObjectId(event_id)},
                                        {"$pull": {field: ObjectId(value)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def add_object_to_array(event_id, field, value):
+        """
+        Add an object to an array in events collection
+        """
+        try:
+            mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                       {"$push": {field: value}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def update_object_in_array(event_id, qa_id, set_col):
+        try:
+            mongo.db.events.update_one(
+                {"_id": ObjectId(event_id),
+                 "questions_answers._id": ObjectId(qa_id)},
+                {"$set": set_col})
         except Exception as e:
             print(e)

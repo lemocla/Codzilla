@@ -17,8 +17,7 @@ def event(event_id):
     event = Event.find_one_event(event_id)
     owner = User.find_user_by_id(event["created_by"])
     attendees = list(User.find_users_by_id(event["attendees"]))
-    questions_answers = list(mongo.db.questions_answers.find(
-                             {"event_id": ObjectId(event_id)}))
+    questions_answers = list(event["questions_answers"])
     if session:
         user = User.check_existing_user(session["email"].lower())
         if owner["_id"] == user["_id"]:
