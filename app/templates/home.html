@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block styles %}
- <!-- flickity -->
-  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<!-- flickity -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 {% endblock %}
 {% block title %}Homepage{% endblock %}
 
@@ -27,7 +27,8 @@
     </div>
 
     <div class="col s12 m6">
-        <img class="responsive-img banner-image" src="{{ url_for('static', filename='images/support-team.svg')}}" alt="illustration of a group of people around a computer">>
+        <img class="responsive-img banner-image" src="{{ url_for('static', filename='images/support-team.svg')}}"
+            alt="illustration of a group of people around a computer">>
     </div>
 </div>
 
@@ -39,7 +40,8 @@
         <hr class="breakline">
         <div class="row">
             <div class="col l4 hide-on-med-and-down">
-                <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}" alt="illustration with a lady asking a question">
+                <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}"
+                    alt="illustration with a lady asking a question">
             </div>
             <div class="col l8">
                 <p>Do you want to meet with fellow coders to expand your skills, network or portfollio? Look no further,
@@ -84,11 +86,11 @@
                     {% if event.created_by == user._id %}
                     {% else%}
                     {% if event._id in events_interest %}
-                    <a class="btn-floating halfway-fab btn-interested" data-status="active" data-user="{{ user._id }}"
-                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <button class="btn-floating halfway-fab btn-interested" data-status="active" data-user="{{ user._id }}"
+                        data-event="{{ event._id}}"><i class="far fa-star"></i></button>
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest" data-status="active" data-user="{{ user._id }}"
-                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <button class="btn-floating halfway-fab btn-interest" data-status="active" data-user="{{ user._id }}"
+                        data-event="{{ event._id}}"><i class="far fa-star"></i></button>
                     {% endif %}
                     {% endif %}
                     {% else %}
@@ -136,7 +138,7 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align btn-container">
-                            <!-- dynamic event actions -->
+                                <!-- dynamic event actions -->
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}
 
@@ -155,7 +157,7 @@
                                 {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
                                 {% endif %}
-                            <!-- end event actions -->
+                                <!-- end event actions -->
                             </div>
                         </div>
                     </div>
@@ -168,7 +170,8 @@
         <div class="carousel-cell">
             <div class="card">
                 <div class="card-image last-card-image">
-                    <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration of a person adding event to calendar">
+                    <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+                        alt="illustration of a person adding event to calendar">
                 </div>
                 <div class="card-content">
                     <p class="event-title center-align">There's more ...</p>
@@ -187,7 +190,8 @@
     </div>
     {% else %}
     <div class="col s6 offset-s3">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" alt="illustration for for events found">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+            alt="illustration for for events found">
     </div>
     <div class="col s12 center-align">
         <h3>Sorry there are no coming events</h3>
@@ -195,26 +199,6 @@
         <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">Sign up</a>
     </div>
     {% endif %}
-    <!-- modal request registration -->
-    <div id="request-registration-modal" class="modal">
-        <div class="row modal-content">
-            <!-- closing button -->
-            <i class="far fa-times-circle close-form modal-close"></i>
-            <!-- modal content -->
-            <div class="col s12 center-align">
-                <h2>Sign in or register</h2>
-                <hr class="breakline">
-                <p>Please sign in or register to access this feature</p>
-            </div>
-            <!-- modal footer -->
-            <div class="col s12 center-align border-top margin-top">
-                <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
-                <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
-                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
-            </div>
-        </div>
-        <!-- end modal -->
-    </div>
 </div>
 
 <!-- How it works -->
@@ -258,14 +242,36 @@
             </div>
             <div class="col m4 img-event">
                 <img class="responsive-img banner-image"
-                    src="{{ url_for('static', filename='images/undraw_events.svg')}}" alt="illustration of a person adding event to calendar">
+                    src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+                    alt="illustration of a person adding event to calendar">
             </div>
         </div>
     </div>
 </div>
 
+<!-- modal request registration -->
+<div id="request-registration-modal" class="modal">
+    <div class="row modal-content">
+        <!-- closing button -->
+        <i class="far fa-times-circle close-form modal-close"></i>
+        <!-- modal content -->
+        <div class="col s12 center-align">
+            <h2>Sign in or register</h2>
+            <hr class="breakline">
+            <p>Please sign in or register to access this feature</p>
+        </div>
+        <!-- modal footer -->
+        <div class="col s12 center-align border-top margin-top">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
+            <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
+
 {% endblock %}
 {% block scripts %}
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
- <script src="{{ url_for('static', filename='js/flickity.js')}}"></script>
+<script src="{{ url_for('static', filename='js/flickity.js')}}"></script>
 {% endblock %}

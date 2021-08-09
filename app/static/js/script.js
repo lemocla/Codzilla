@@ -214,132 +214,69 @@
       $("label[for='event_location'] span").remove();
     }
 
-    //Attend 
+    //Set location hash prior event and group action 
+    $('.btn-tab').click(function () {
+      window.location.hash = $(this).children("a").attr("href");
+      console.log("test" + $(this).children("a").attr("href"))
+    });
+
+    // Function calling python function 
+    function actionGroupEvent(user_id, target_id, action) {
+      // Ajax requestion to python function attend
+      $.ajax({
+        url: `${action}`,
+        type: 'POST',
+        data: {
+          "user_id": `${user_id}`,
+          "event_id": `${target_id}`
+        },
+        dataType: "json",
+        success: function (response) {
+          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+          if (response == "success") {
+            location.reload();
+          }
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      });
+    }
+
+    // Attend 
     $(".btn.btn-attend").click(function () {
       if ($(this).attr("data-status") == "active") {
         user_id = $(this).attr("data-user");
         event_id = $(this).attr("data-event");
-        // Ajax requestion to python function attend
-        $.ajax({
-          url: `/attend`,
-          type: 'POST',
-          data: {
-            "user_id": `${user_id}`,
-            "event_id": `${event_id}`
-          },
-          dataType: "json",
-          success: function (response) {
-            //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-            if (response == "success") {
-              // If response if success, refresh page cell containing the event
-              console.log($(location).attr("pathname"))
-              if ($(location).attr("pathname") == "/my_events") {
-                window.location.hash = '#view-events-attending';
-                location.reload();
-              } else {
-                $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
-              }
-            }
-          },
-          error: function (error) {
-            console.log(error)
-          }
-        });
+        actionGroupEvent(user_id, event_id, "/attend")
       }
     });
-    //
+
+    // Attending
     $(".btn.btn-attending").click(function () {
       event_id = $(this).attr("data-event");
       $(`.btn.btn-unattend[data-event=${event_id}]`).toggleClass("hide");
     });
-    //
+
+    // Unattend
     $(".btn.btn-unattend").click(function () {
       event_id = $(this).attr("data-event");
       user_id = $(this).attr("data-user");
-      $.ajax({
-        url: `/unattend`,
-        type: 'POST',
-        data: {
-          "user_id": `${user_id}`,
-          "event_id": `${event_id}`
-        },
-        dataType: "json",
-        success: function (response) {
-          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-          if (response == "success") {
-            // If response if success, refresh cell containing the event
-            if ($(location).attr("pathname") == "/my_events") {
-              window.location.hash = '#view-events-attending';
-              location.reload();
-            } else {
-              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
-            }
-          }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
+      actionGroupEvent(user_id, event_id, "/unattend")
     });
-    // Toggle interest bookmarked
 
+    // Toggle interest bookmarked
     $(".btn-interest").click(function () {
       event_id = $(this).attr("data-event");
       user_id = $(this).attr("data-user");
-      $.ajax({
-        url: `/bookmark_interest`,
-        type: 'POST',
-        data: {
-          "user_id": `${user_id}`,
-          "event_id": `${event_id}`
-        },
-        dataType: "json",
-        success: function (response) {
-          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-          if (response == "success") {
-            // If response if success, refresh cell containing the event
-            if ($(location).attr("pathname") == "/my_events") {
-              window.location.hash = '#view-events-interested';
-              location.reload();
-            } else {
-              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
-            }
-          }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
+      actionGroupEvent(user_id, event_id, "/bookmark_interest")
     });
 
     // Remove interest
     $(".btn-interested").click(function () {
       event_id = $(this).attr("data-event");
       user_id = $(this).attr("data-user");
-      $.ajax({
-        url: `/remove_interest`,
-        type: 'POST',
-        data: {
-          "user_id": `${user_id}`,
-          "event_id": `${event_id}`
-        },
-        dataType: "json",
-        success: function (response) {
-          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-          if (response == "success") {
-            // If response if success, refresh cell containing the event
-            if ($(location).attr("pathname") == "/my_events") {
-              window.location.hash = '#view-events-interested';
-              location.reload();
-            } else {
-              $(`#card-${event_id}`).load(location.href + ` #card-${event_id}`);
-            }
-          }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
+      actionGroupEvent(user_id, event_id, "/remove_interest")
     });
 
     //Follow group
@@ -347,25 +284,7 @@
       if ($(this).attr("data-status") == "active") {
         group_id = $(this).attr("data-group");
         user_id = $(this).attr("data-user");
-        $.ajax({
-          url: `/follow`,
-          type: 'POST',
-          data: {
-            "user_id": `${user_id}`,
-            "group_id": `${group_id}`
-          },
-          dataType: "json",
-          success: function (response) {
-            //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-            if (response == "success") {
-              // If response if success, refresh cell containing the event
-              $(`#card-${group_id}`).load(location.href + ` #card-${group_id}`);
-            }
-          },
-          error: function (error) {
-            console.log(error)
-          }
-        });
+        actionGroupEvent(user_id, group_id, "/follow")
       }
     });
 
@@ -379,34 +298,8 @@
     $(".btn-unfollow").click(function () {
       group_id = $(this).attr("data-group");
       user_id = $(this).attr("data-user");
-      $.ajax({
-        url: `/unfollow`,
-        type: 'POST',
-        data: {
-          "user_id": `${user_id}`,
-          "group_id": `${group_id}`
-        },
-        dataType: "json",
-        success: function (response) {
-          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
-          if (response == "success") {
-            // If response if success, refresh cell containing the event
-            if ($(location).attr("pathname") == "/my_groups") {
-              window.location.hash = '#view-group-following';
-              location.reload();
-            } else {
-            $(`#card-${group_id}`).load(location.href + ` #card-${group_id}`);
-            }
-          }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
+      actionGroupEvent(user_id, group_id, "/unfollow")
     });
+
     //
-
-
-
-
   });
