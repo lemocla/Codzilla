@@ -9,14 +9,15 @@
   <meta name="Description" content="Codzilla brings coders together for social, networking and collaborative events">
   <meta name="keywords" content="event, meetup, coding meetup, coding event, networking, tech meetup">
   <meta name="author" content="Claire Lemonnier">
-  <!--Google maps-->
 
-  <!-- flickity -->
-  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  {% block styles %}
+  {% endblock %}
+  <!-- Font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     type="text/css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
- 
+  <!-- Materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
   <title>{% block title %}{% endblock %}</title>
 </head>
@@ -31,12 +32,32 @@
         {% if session.email %}
         <!-- Navigation user not in session -->
         <ul class="right">
-          <li><a class="nav-item" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i></a></li>
-          <li><a class="nav-item" href=""><i class="fas fa-bell"></i></a></li>
-          <li><a class="nav-item" href="{{ url_for('events.add_event') }}"><i class="far fa-calendar-plus"></i></a></li>
-          <li><a class="nav-item" href="{{ url_for('main.browse_events_groups') }}"><i class="fas fa-search"></i></a></li>
-          <li><a class="nav-item dropdown-trigger" data-target="profile" data-beloworigin="true" href=""><i
-                class="fas fa-user"></i></a></li>
+          <li>
+            <a class="nav-item" href="{{ url_for('main.home') }}" aria-label="Go to homepage">
+              <i class="fas fa-home" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" href="" aria-label="Go to notification page">
+              <i class="fas fa-bell" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" href="{{ url_for('events.add_event') }}" aria-label="Go to add event page">
+              <i class="far fa-calendar-plus" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li><a class="nav-item" href="{{ url_for('main.browse_events_groups') }}"
+              aria-label="Go browse all groups and events">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <button class="nav-item dropdown-trigger" data-target="profile" data-beloworigin="true"
+              aria-label="View dropdown menu for user">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </button>
+          </li>
         </ul>
 
         <ul id="profile" class='dropdown-content z-depth-5'>
@@ -48,7 +69,7 @@
 
         {% else %}
         <!-- Navigation user not in session -->
-       
+
         <a href="#" data-target="mobile" data-beloworigin="true" class="dropdown-trigger hide-on-large-only right"><i
             class="nav-btn fas fa-bars"></i></a>
 
@@ -106,20 +127,14 @@
   </footer>
 
   <!--scripts-->
-  
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
- <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtOeM5h3VBhXqbIiC2KIaHCfsb3v2JVWk&libraries=places">
-</script>
-
+  {% block scripts %}
+  {% endblock %}
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>
-  
+
 </body>
 
 </html>

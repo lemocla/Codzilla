@@ -168,7 +168,7 @@ h3 {
 .btn-floating.btn-interested:hover {
     font-weight: bold;
     font-size: 1.1rem;
-     background-color: var(--blue);
+    background-color: var(--blue);
     transform: scale(1.1);
 }
 
@@ -283,6 +283,11 @@ nav ul a:hover {
     transform: scaleY(1.08);
     filter: brightness(50%);
     font-weight: 600;
+}
+
+button.nav-item.dropdown-trigger {
+    border: none;
+    background-color: transparent;
 }
 
 /*---------[ flashes ]------------*/

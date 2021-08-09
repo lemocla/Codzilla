@@ -15,153 +15,159 @@
         <div class="row">
             <!-- form -->
             {% if group %}
-            <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event', group_id=group._id) }}">
-            {% else %}
-            <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event') }}">
-            {% endif %}
-                <!-- event title -->
-                <div class="row">
-                    <div class="div input-field col s12">
-                        <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
-                            class="validate" required>
-                        <label for="event_title">Event title</label>
+            <form class="cols s12" id="add_event" method="POST"
+                action="{{ url_for('events.add_event', group_id=group._id) }}">
+                {% else %}
+                <form class="cols s12" id="add_event" method="POST" action="{{ url_for('events.add_event') }}">
+                    {% endif %}
+                    <!-- event title -->
+                    <div class="row">
+                        <div class="div input-field col s12">
+                            <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
+                                class="validate" required>
+                            <label for="event_title">Event title</label>
+                        </div>
                     </div>
-                </div>
-                <!-- type and categories -->
-                <div class="row">
-                    <!-- type -->
-                    <div class="input-field col s12 m6">
-                        <select id="event_type" name="event_type" class="validate" required>
-                            <option class="option-default" value="" disabled selected>Select your option</option>
-                            {% for type in types %}
-                            <option value="{{ type.type_name }}">{{ type.type_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="event_type">Event type</label>
+                    <!-- type and categories -->
+                    <div class="row">
+                        <!-- type -->
+                        <div class="input-field col s12 m6">
+                            <select id="event_type" name="event_type" class="validate" required>
+                                <option class="option-default" value="" disabled selected>Select your option</option>
+                                {% for type in types %}
+                                <option value="{{ type.type_name }}">{{ type.type_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="event_type">Event type</label>
+                        </div>
+                        <!-- category -->
+                        <div class="input-field col s12 m6">
+                            <select id="event_category" name="event_category" class="validate" required>
+                                <option class="option-default" value="" disabled selected>Select your option</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="event_category">Category</label>
+                        </div>
                     </div>
-                    <!-- category -->
-                    <div class="input-field col s12 m6">
-                        <select id="event_category" name="event_category" class="validate" required>
-                            <option class="option-default" value="" disabled selected>Select your option</option>
-                            {% for cat in categories %}
-                            <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="event_category">Category</label>
-                    </div>
-                </div>
 
-                <!-- group  -->
+                    <!-- group  -->
 
-                {% if groups|length > 0 %}
-                <div class="row">
-                    <div class="input-field col s12">
-                        <select id="group" name="group" class="validate">
-                            <option class="option-default" value="" disabled selected>Select group</option>
-                            {% for gp in groups %}
-                            {% if group %}
-                            {% if group._id == gp._id %}
-                            <option class="option-default" value="" disabled>Select group</option>
-                            <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>
-                            {% endif %}
-                            {% else %}
+                    {% if groups|length > 0 %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="group" name="group" class="validate">
+                                <option class="option-default" value="" disabled selected>Select group</option>
+                                {% for gp in groups %}
+                                {% if group %}
+                                {% if group._id == gp._id %}
+                                <option class="option-default" value="" disabled>Select group</option>
+                                <option value="{{ gp.group_name }}" selected>{{ gp.group_name }}</option>
+                                {% endif %}
+                                {% else %}
 
-                            <option value="{{ gp.group_name }}">{{ gp.group_name }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                        <label for="group">Select group if any</label>
+                                <option value="{{ gp.group_name }}">{{ gp.group_name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label for="group">Select group if any</label>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
 
 
-                <!-- date -->
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="date_start" name="date_start" type="text" class="datepicker validate" required>
-                        <label for="date_start">Select date</label>
+                    <!-- date -->
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="date_start" name="date_start" type="text" class="datepicker validate" required>
+                            <label for="date_start">Select date</label>
+                        </div>
+                        <!-- time -->
+                        <div class="input-field col s6">
+                            <input id="time_start" name="time_start" type="text" class="timepicker validate" required>
+                            <label for="time_start">Select time</label>
+                        </div>
                     </div>
-                    <!-- time -->
-                    <div class="input-field col s6">
-                        <input id="time_start" name="time_start" type="text" class="timepicker validate" required>
-                        <label for="time_start">Select time</label>
-                    </div>
-                </div>
 
-                <!-- endtime checkbox -->
-                <div class="row">
-                    <p class="col s12">
-                        <label>
-                            <input id="is_endtime" type="checkbox" class="filled-in" name="is_endtime" />
-                            <span>Add an end date and time</span>
-                        </label>
-                    </p>
-                </div>
+                    <!-- endtime checkbox -->
+                    <div class="row">
+                        <p class="col s12">
+                            <label>
+                                <input id="is_endtime" type="checkbox" class="filled-in" name="is_endtime" />
+                                <span>Add an end date and time</span>
+                            </label>
+                        </p>
+                    </div>
 
-                <!-- end time -->
-                <div id="end_time_container" class="row hide">
-                    <div class="input-field col s6">
-                        <input id="time_end" name="time_end" type="text" class="timepicker validate">
-                        <label for="time_end">Select end time</label>
+                    <!-- end time -->
+                    <div id="end_time_container" class="row hide">
+                        <div class="input-field col s6">
+                            <input id="time_end" name="time_end" type="text" class="timepicker validate">
+                            <label for="time_end">Select end time</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- event description -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
-                            class="materialize-textarea validate" required></textarea>
-                        <label for="event_description">Event description</label>
+                    <!-- event description -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
+                                class="materialize-textarea validate" required></textarea>
+                            <label for="event_description">Event description</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- location -->
-                <div id="location_container" class="row">
-                    <div class="input-field col s12">
-                        <input class="controls" id="event_location" type="text" name="event_location">
-                        <label for="event_location">Event location</label>
+                    <!-- location -->
+                    <div id="location_container" class="row">
+                        <div class="input-field col s12">
+                            <input class="controls" id="event_location" type="text" name="event_location">
+                            <label for="event_location">Event location</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- event link -->
-                <div id="link_container" class="row hide">
-                    <div class="input-field col s12">
-                        <input id="event_link" type="text" name="event_link">
-                        <label for="event_link">Event link</label>
+                    <!-- event link -->
+                    <div id="link_container" class="row hide">
+                        <div class="input-field col s12">
+                            <input id="event_link" type="text" name="event_link">
+                            <label for="event_link">Event link</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- maximum of attendees -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="max_attendees" type="text" name="max_attendees" pattern="^(?![0])([0-9]){1,3}$">
-                        <label for="max_attendees">Maximum number of attendees (1-100)</label>
-                        <p class="error-text hide" for="max_attendees"></p>
+                    <!-- maximum of attendees -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="max_attendees" type="text" name="max_attendees" pattern="^(?![0])([0-9]){1,3}$">
+                            <label for="max_attendees">Maximum number of attendees (1-100)</label>
+                            <p class="error-text hide" for="max_attendees"></p>
+                        </div>
                     </div>
-                </div>
-                <!-- cover image -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-image prefix"></i>
-                        <textarea id="img_url" name="img_url" class="materialize-textarea validate"></textarea>
-                        <label for="img_url">Add a cover image</label>
+                    <!-- cover image -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-image prefix"></i>
+                            <textarea id="img_url" name="img_url" class="materialize-textarea validate"></textarea>
+                            <label for="img_url">Add a cover image</label>
+                        </div>
                     </div>
-                </div>
 
-                <!-- buttons -->
-                <div class="row">
-                    <div class="col s6 right-align margin-top">
-                        <button class="btn btn-send" type="submit">Submit</button>
+                    <!-- buttons -->
+                    <div class="row">
+                        <div class="col s6 right-align margin-top">
+                            <button class="btn btn-send" type="submit">Submit</button>
+                        </div>
+                        <div class="col s6 left-align margin-top">
+                            <a class="btn btn-send" href="#">Cancel</a>
+                        </div>
                     </div>
-                    <div class="col s6 left-align margin-top">
-                        <a class="btn btn-send" href="#">Cancel</a>
-                    </div>
-                </div>
-            </form>
+                </form>
         </div>
     </div>
 
 </div>
 
 {% endblock  %}
+{% block scripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtOeM5h3VBhXqbIiC2KIaHCfsb3v2JVWk&libraries=places">
+</script>
+<script src="{{ url_for('static', filename='js/googlemaps.js')}}"></script>
+{% endblock %}

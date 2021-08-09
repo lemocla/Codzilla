@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% block styles %}
+ <!-- flickity -->
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+{% endblock %}
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
@@ -12,8 +16,8 @@
         <form id="search-home" action="{{ url_for('main.search') }}" method="POST">
             <div class="input-field col s12 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
-                <input id="search-home" name="search" type="text" class="validate">
-                <label for="search-home">search by location, topic, key words...</label>
+                <input id="search" name="search" type="text" class="validate">
+                <label for="search">search by location, topic, key words...</label>
             </div>
             <div class="col s12 center-align">
                 <button class="btn contact-btn" type=submit name="submit">search</button>
@@ -260,4 +264,8 @@
     </div>
 </div>
 
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+ <script src="{{ url_for('static', filename='js/flickity.js')}}"></script>
 {% endblock %}
