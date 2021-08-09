@@ -239,3 +239,32 @@ def delete_event(event_id):
         Event.delete_event(event_id)
         flash("Event succesfully deleted!")
         return redirect(url_for('users.my_events'))
+
+
+@events.route("/add_question/<event_id>)", methods=["GET", "POST"])
+def add_question(event_id):
+    if not session:
+        return redirect(url_for('login'))
+
+    user = User.check_existing_user(session["email"])
+
+    if request.method == "POST":
+        question = {"question": request.form.get("question"),
+                    "asked_by": user["_id"],
+                    "answered": False,
+                    "_id": ObjectId()}
+
+        Event.add_object_to_array(event_id, "questions_answers", question)
+        return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.route("/edit_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+def edit_question(event_id, qa_id):
+    if not session:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        question = {"questions_answers.$.question": request.form.get("question")}
+
+        Event.update_object_in_array(event_id, qa_id, question)
+        return redirect(url_for('events.event', event_id=event_id))

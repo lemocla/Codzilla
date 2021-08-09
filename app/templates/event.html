@@ -217,6 +217,24 @@
                 {% endif %}
             </div>
         </div>
+        <!-- edit a question -->
+        <div id="edit_question" class="modal">
+            <div class="row modal-content">
+                <div class="col s12">
+                    <h3>Edit you question</h3>
+                </div>
+                <form class="col s12" method="POST"
+                    action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
+                    <div class="input-field col s12">
+                        <textarea id="edit_question" name="question"
+                            class="materialize-textarea">{{ qa.question }}</textarea>
+                        <label for="edit_question">Edit your question</label>
+                    </div>
+                    <button id="edit-question" class="btn btn-send" type="submit">submit</button>
+                    <button class="btn btn-send modal-close">cancel</button>
+                </form>
+            </div>
+        </div>
         {% endfor %}
         {% else %}
         <div class="col s12 center-align">
