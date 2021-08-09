@@ -102,7 +102,8 @@ def complete_profile(email):
                    "profile_completed": True}
 
         User.edit_user(user["_id"], profile)
-        flash("Profile successfully completed")
+
+        flash("Congratulations, profile successfully completed!")
         return redirect(url_for("auth.profile_completed",
                                 email=session["email"]))
 
@@ -145,8 +146,9 @@ def login():
             # check if passowrd matches
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
-
+                flash("Welcome back! You have successfully logged in.")
                 session["email"] = request.form.get("email").lower()
+
                 return redirect(url_for("auth.profile_completed",
                                 email=session["email"]))
             else:

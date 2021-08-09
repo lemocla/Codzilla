@@ -2,29 +2,45 @@
 {% block title %}Profile completed{% endblock %}
 
 {% block content %}
+
 <div class="row head-container">
     <div class="col s12">
-        <h1 class="center-align">Welcome {{ name }}!</h1>
+        <h1 class="center-align">Hello {{ name }}!</h1>
         <hr class="breakline">
     </div>
-    <div class="col s12 flashes center-align">
-     <p>Congratulations! You have completed your profile.</p>
+    <div class="col s12">
+        <div class="col s12 center-align flashes">
+            <!-- flash message welcoming user -->
+            {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endwith %}
+        </div>
     </div>
 </div>
 
 <div class="row">
-<div class="col s12 center-align margin-bottom">
-<h2>What would you like to do next?</h2></div>
-<div class="col s12 center-align"><a href="{{ url_for('main.browse_events_groups') }}" class="btn contact-btn btn-width">Browse events</a></div>
-<div class="col s12 center-align"><a href="{{ url_for('events.add_event') }}" class="btn contact-btn btn-width">Add an event</a></div>
-<div class="col s12 center-align"><a href="{{ url_for('main.home') }}" class="btn contact-btn btn-width">Go to homepage</a></div>
+    <div class="col s12 center-align margin-bottom">
+        <h2>What would you like to do next?</h2>
+    </div>
+    <!-- link to other sections of website -->
+    <div class="col s12 center-align">
+        <a href="{{ url_for('main.browse_events_groups') }}" class="btn contact-btn btn-width">Browse events</a>
+    </div>
+    <div class="col s12 center-align">
+        <a href="{{ url_for('events.add_event') }}" class="btn contact-btn btn-width">Add an event</a>
+    </div>
+    <div class="col s12 center-align">
+        <a href="{{ url_for('main.home') }}" class="btn contact-btn btn-width">Go to homepage</a>
+    </div>
+    <!-- illustration -->
+    <div class="row">
+        <div class="col s12 center align margin-top">
+            <img class="responsive-img" src="{{ url_for('static', filename='images/banner.png')}}"
+                alt="group in cafe illustration">
+        </div>
+    </div>
+</div>
 
-
-<div class="row">
-<div class="col s12 center align margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/banner.png')}}"
-            alt="group in cafe illustration">
-</div>
-</div>
-</div>
 {% endblock %}
