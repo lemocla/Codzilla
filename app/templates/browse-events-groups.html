@@ -56,7 +56,7 @@
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}">
+                <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for event {{event.event_title}}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -77,11 +77,6 @@
                         <i class="far fa-star"></i>
                     </a>
                     {% endif %}
-                    <!-- end floating button -->
-                    <!--
-                    <a class="btn-floating halfway-fab waves-effect waves-light btn-interest hor-card-btn"><i
-                            class="far fa-star"></i></a>
-                    -->
                     <p class="date-time">
                         <!-- https://support.sendwithus.com/jinja/jinja_time/ -->
                         {% if event.is_endtime %}
@@ -150,7 +145,7 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" alt="illustration for no results found">
     </div>
     {% endif %}
 </div>
@@ -173,7 +168,7 @@
     <div class="col s12" id="card-{{ group._id }}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}" alt="group image cover for {{ group.group_name }}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -224,7 +219,7 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" alt="illustration for no results found">
     </div>
     {% endif %}
 </div>

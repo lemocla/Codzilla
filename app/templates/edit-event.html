@@ -60,7 +60,6 @@
                 </div>
 
                 <!-- group  -->
-
                 {% if groups|length > 0 %}
                 <div class="row">
                     <div class="input-field col s12">
@@ -80,9 +79,7 @@
                 </div>
                 {% endif %}
 
-
                 <!-- date -->
-                
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="date_start" name="date_start" value="{{ event.date_start.strftime('%d/%m/%Y') }}" type="text" class="datepicker validate" required>
