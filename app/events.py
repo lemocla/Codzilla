@@ -8,6 +8,7 @@ from app.models.user import User
 from app.models.group import Group
 from app.models.questions_answers import Question
 from app.validators import validators
+from app.models.notifications import Notification
 
 # Blueprint
 events = Blueprint("events", __name__)
@@ -329,3 +330,15 @@ def delete_answer(event_id, qa_id):
             print("no answers so can delete")
             Question.delete_one_question(qa_id)
         return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.context_processor
+def new_notifications():
+    if session:
+        user = User.check_existing_user(session["email"].lower())
+        notifications = list(Notification.get_notifications_for_user(
+                         user["_id"]))
+        read = list(Notification.get_read_notification(user["_id"]))
+        new = len(notifications) - len(read)
+        print(new)
+        return dict(new=str(new))

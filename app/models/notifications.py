@@ -61,18 +61,19 @@ class Notification():
         mongo.db.notifications.delete_one({"_id": ObjectId(notification_id)})
 
     @staticmethod
-    def get_unread_notification(user_id):
-        unread = mongo.db.notifications.find(
-                       {"users": ObjectId(user_id)}, {"read_by": {
-                        "$not": ObjectId(user_id)}})
-        return unread
+    def get_read_notification(user_id):
+        read = mongo.db.notifications.find(
+                {"users": ObjectId(user_id)},
+                {"read_by": ObjectId(user_id)})
+        print(read)
+        return read
 
     @staticmethod
     def add_user_to_read_by(notification_id, user_id):
         try:
-            mongo.db.users.update_one({"_id": ObjectId(notification_id)},
-                                      {"$push": {
-                                       "read_by": ObjectId(user_id)}})
+            mongo.db.notifications.update_one(
+             {"_id": ObjectId(notification_id)},
+             {"$push": {"read_by": ObjectId(user_id)}})
         except Exception as e:
             print(e)
 

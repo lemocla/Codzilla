@@ -159,7 +159,7 @@ $(document).ready(function () {
     });
   });
 
- 
+
   // Event form
 
   // Change display on event type
@@ -299,4 +299,13 @@ $(document).ready(function () {
   });
 
   // 
+  $(".collapsible-header").click(function () {
+    // Ajax requestion to python function to add to read_by
+    if ($(this).attr("data-status") == "not read") {
+      console.log("call is happening")
+      user_id = $(this).attr("data-user");
+      notification_id = $(this).attr("data-notification");
+      actionGroupEvent(user_id, notification_id, "/mark_as_read")
+    }
+  });
 });

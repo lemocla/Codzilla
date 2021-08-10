@@ -358,10 +358,24 @@ def remove_notification(notification_id, user_id):
     return redirect(request.referrer)
 
 
+@users.route("/mark_as_read", methods=["GET", "POST"])
+def mark_as_read():
+    resp = request.form.to_dict(flat=False)
+    user_id = resp["user_id"][0]
+    notification_id = resp["target_id"][0]
+    Notification.add_user_to_read_by(notification_id, user_id)
+    new_notifications()
+    message = "success"
+    return message
+
+
 @users.context_processor
-def new_notification():
+def new_notifications():
     if session:
         user = User.check_existing_user(session["email"].lower())
-        unread = list(Notification.get_unread_notification(user["_id"]))
-        new = len(unread)
+        notifications = list(Notification.get_notifications_for_user(
+                         user["_id"]))
+        read = list(Notification.get_read_notification(user["_id"]))
+        new = len(notifications) - len(read)
+        print(new)
         return dict(new=str(new))

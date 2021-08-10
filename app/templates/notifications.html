@@ -16,8 +16,14 @@
     <div class="col s12 m10 offset-m1 l8 offset-l2">
         <ul class="collapsible z-depth-3">
             {% for notification in notifications %}
+            {% if user._id in notification.read_by %}
+            {% set status = "read" %}
+            {% else %}
+            {% set status = "not read" %}
+            {% endif %}
             <li>
-                <div class="collapsible-header">
+                <div class="collapsible-header" data-user="{{ user._id }}" data-notification="{{ notification._id }}"
+                 data-status="{{ status }}">
                     <h2 class="notification-subject"><i class="far fa-envelope"></i>
                         {{ notification.subject.capitalize() }} <i class="fas fa-caret-down"></i></h2>
                     {% if user._id not in notification.read_by %}
