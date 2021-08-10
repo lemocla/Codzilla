@@ -47,8 +47,12 @@
     </div>
     {% else %}
     <!-- No notifications messages-->
-    <div class="col s12">
-        <p>You don't have any notifications</p>
+    <div class="col s12 center-align">
+        <h3>You don't have any notifications.</h3>
+    </div>
+    <div class="col s6 offset-s3 m6 offset-m3 margin-top">
+            <img class="responsive-img" src="{{ url_for('static', filename='images/email.png')}}"
+            alt="illustration of user opening messages">
     </div>
     {% endif %}
 </div>
