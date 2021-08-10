@@ -35,7 +35,9 @@
                             {% elif notification.action == "view question" %}
                             <a href="#" class="btn btn-send">view question</a>
                             {% endif %}
+                            <form class="inline-form" method="POST" action="{{ url_for('users.remove_notification', user_id=user._id, notification_id=notification._id) }}">
                             <button class="btn btn-send">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

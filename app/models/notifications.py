@@ -28,8 +28,13 @@ class Notification():
 
     @staticmethod
     def get_notifications_for_user(user_id):
-        events = mongo.db.notifications.find({"users": ObjectId(user_id)})
-        return events
+        notification = mongo.db.notifications.find({"users": ObjectId(user_id)})
+        return notification
+
+    @staticmethod
+    def find_one_notification(notification_id):
+        notification = mongo.db.notifications.find_one({"_id": ObjectId(notification_id)})
+        return notification
 
     @staticmethod
     def insert_notification(col):
@@ -37,6 +42,19 @@ class Notification():
             mongo.db.notifications.insert_one(col)
         except Exception as e:
             print(e)
+
+    @staticmethod
+    def remove_one_notification(notification_id, user_id):
+        print(f"should pull {user_id} from users in {notification_id}")
+        try:
+            mongo.db.notifications.update_one({"_id": ObjectId(notification_id)},
+                                              {"$pull": {"users": ObjectId(user_id)}})
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def delete_notification(notification_id):
+        mongo.db.notifications.delete_one({"_id": ObjectId(notification_id)})
 
     @staticmethod
     def set_col_new_follower(user_id, group_id, users):

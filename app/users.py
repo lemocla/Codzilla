@@ -337,3 +337,16 @@ def notifications():
     notifications = list(Notification.get_notifications_for_user(user["_id"]))
     return render_template('notifications.html', user=user,
                            notifications=notifications)
+
+
+@users.route("/remove_notifications/<notification_id>/<user_id>", methods=["GET", "POST"])
+def remove_notification(notification_id, user_id):
+
+    notification = Notification.find_one_notification(notification_id)
+    if request.method == "POST":
+        Notification.remove_one_notification(notification_id, user_id)
+        if notification:
+            if len(notification["users"]) == 0:
+                Notification.delete_notification(notification_id)
+
+    return redirect(request.referrer)
