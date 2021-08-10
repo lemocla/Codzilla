@@ -68,5 +68,5 @@ class Notification():
                'notification_type': "new follower",
                'action': 'view group',
                'users': users,
-               'group_id': group_id}
+               'group_id': ObjectId(group_id)}
         return col

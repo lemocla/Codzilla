@@ -305,9 +305,12 @@ def follow():
         # Add user to group group_members
         Group.add_to_list(group_id, "group_members", user_id)
         # Notification
-        notification = Notification.set_col_new_follower(
-                       user_id, group_id, group["group_admin"])
-        Notification.insert_notification(notification)
+        for owner in group["group_admin"]:
+            owner_info = User.find_user_by_id(owner)
+            if owner_info["preferences"]["new_follower"] == "true":
+                notification = Notification.set_col_new_follower(
+                               user_id, group_id, group["group_admin"])
+                Notification.insert_notification(notification)
         message = "success"
     return jsonify(message)
 
@@ -345,8 +348,9 @@ def remove_notification(notification_id, user_id):
     notification = Notification.find_one_notification(notification_id)
     if request.method == "POST":
         Notification.remove_one_notification(notification_id, user_id)
+        print(f'list {notification["users"]} size {len(notification["users"])}')
         if notification:
-            if len(notification["users"]) == 0:
+            if len(notification["users"]) == 1:
                 Notification.delete_notification(notification_id)
 
     return redirect(request.referrer)
