@@ -116,24 +116,3 @@ class Event():
                                        {"$pull": {field: ObjectId(value)}})
         except Exception as e:
             print(e)
-
-    @staticmethod
-    def add_object_to_array(event_id, field, value):
-        """
-        Add an object to an array in events collection
-        """
-        try:
-            mongo.db.events.update_one({"_id": ObjectId(event_id)},
-                                       {"$push": {field: value}})
-        except Exception as e:
-            print(e)
-
-    @staticmethod
-    def update_object_in_array(event_id, qa_id, set_col):
-        try:
-            mongo.db.events.update_one(
-                {"_id": ObjectId(event_id),
-                 "questions_answers._id": ObjectId(qa_id)},
-                {"$set": set_col})
-        except Exception as e:
-            print(e)

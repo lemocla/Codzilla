@@ -6,6 +6,7 @@ from datetime import datetime
 from app.models.event import Event
 from app.models.user import User
 from app.models.group import Group
+from app.models.questions_answers import Question
 from app.validators import validators
 
 # Blueprint
@@ -17,7 +18,7 @@ def event(event_id):
     event = Event.find_one_event(event_id)
     owner = User.find_user_by_id(event["created_by"])
     attendees = list(User.find_users_by_id(event["attendees"]))
-    questions_answers = list(event["questions_answers"])
+    questions_answers = Question.find_all_questions_answers(event_id)
     if session:
         user = User.check_existing_user(session["email"].lower())
         if owner["_id"] == user["_id"]:
@@ -249,12 +250,12 @@ def add_question(event_id):
     user = User.check_existing_user(session["email"])
 
     if request.method == "POST":
-        question = {"question": request.form.get("question"),
-                    "asked_by": user["_id"],
-                    "answered": False,
-                    "_id": ObjectId()}
+        question = Question(question=request.form.get("question"),
+                            asked_by=user["_id"],
+                            event_id=ObjectId(event_id),
+                            answered=False)
 
-        Event.add_object_to_array(event_id, "questions_answers", question)
+        question.insert_into_database()
         return redirect(url_for('events.event', event_id=event_id))
 
 
@@ -264,7 +265,24 @@ def edit_question(event_id, qa_id):
         return redirect(url_for('login'))
 
     if request.method == "POST":
-        question = {"questions_answers.$.question": request.form.get("question")}
+        question = {"question": request.form.get("question")}
+        Question.update_qa(qa_id, question)
 
-        Event.update_object_in_array(event_id, qa_id, question)
+        return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.route("/delete_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+def delete_question(event_id, qa_id):
+    if not session:
+        return redirect(url_for('login'))
+
+    question = Question.find_one_qa(qa_id)
+    if request.method == "POST":
+        if question["answered"] is True:
+            print("update the question to none")
+            update = {"question": None}
+            Question.update_qa(qa_id, update)
+        else:
+            print("no answers so can delete")
+            Question.delete_one_question(qa_id)
         return redirect(url_for('events.event', event_id=event_id))

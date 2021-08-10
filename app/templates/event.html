@@ -170,6 +170,7 @@
                     <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
                 </li>
                 {% endfor %}
+            </ul>
         </div>
         {% else %}
         <div class="col s12 center-align">
@@ -192,12 +193,18 @@
         {% for qa in questions_answers %}
         <div class="col s12">
             <div class="row">
+                <!-- question -->
+                {% if qa.question %}
                 <div class="col s12 m6">
                     <p class="z-depth-4 qa-container"><span class="question">Q. </span>
                         {{ qa.question.capitalize()}}
                     </p>
-                    <a class="modal-trigger" href="#edit_question">Edit</a>
+                    <a class="modal-trigger" href="#edit_question_{{ qa._id}}">Edit</a>
+                    <a class="modal-trigger" href="#delete_question_{{ qa._id}}">Delete</a>
                 </div>
+
+                {% endif %}
+                <!-- answer -->
                 {% if qa.answered == True %}
                 <div class="col s11 offset-s1 m6 offset-m3">
                     <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
@@ -217,8 +224,9 @@
                 {% endif %}
             </div>
         </div>
+
         <!-- edit a question -->
-        <div id="edit_question" class="modal">
+        <div id="modal_edit_question_{{ qa._id}}" class="modal">
             <div class="row modal-content">
                 <div class="col s12">
                     <h3>Edit you question</h3>
@@ -226,15 +234,33 @@
                 <form class="col s12" method="POST"
                     action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
                     <div class="input-field col s12">
-                        <textarea id="edit_question" name="question"
+                        <textarea id="edit_question_{{ qa._id}}" name="question"
                             class="materialize-textarea">{{ qa.question }}</textarea>
-                        <label for="edit_question">Edit your question</label>
+                        <label for="edit_question_{{ qa._id}}">Edit your question</label>
                     </div>
-                    <button id="edit-question" class="btn btn-send" type="submit">submit</button>
+                    <button id="edit-question_{{ qa._id}}" class="btn btn-send" type="submit">submit</button>
                     <button class="btn btn-send modal-close">cancel</button>
                 </form>
             </div>
         </div>
+
+        <!-- modal delete confirmation question -->
+        <div id="delete_question_{{ qa._id}}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12 center-align">
+                    <h2>Delete question confirmation</h2>
+                    <hr class="breakline">
+                    <p>Are you sure you want to delete your question? {{ qa.question}}</p>
+                </div>
+                <!-- form delete question -->
+                <form id="form-delete-question_{{ qa._id}}" class="col s12 center-align center-align p-separator"
+                    method="POST" action="{{ url_for('events.delete_question', event_id=event._id, qa_id=qa._id) }}">
+                    <button class="btn btn-send margin-top" type="submit">confirm</button>
+                    <button class="btn btn-send margin-top modal-close">cancel</button>
+                </form>
+            </div>
+        </div>
+
         {% endfor %}
         {% else %}
         <div class="col s12 center-align">
@@ -247,7 +273,7 @@
         {% endif %}
         {% if admin == False %}
         <div class="col s12 center-align">
-            <div class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</div>
+            <a class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</a>
         </div>
         {% endif %}
     </div>
@@ -322,5 +348,6 @@
                 <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
             </div>
         </div>
-        <!-- end modal -->
-        {% endblock %}
+    </div>
+    <!-- end modal -->
+    {% endblock %}
