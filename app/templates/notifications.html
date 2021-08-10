@@ -20,7 +20,9 @@
                 <div class="collapsible-header">
                     <h2 class="notification-subject"><i class="far fa-envelope"></i>
                         {{ notification.subject.capitalize() }} <i class="fas fa-caret-down"></i></h2>
+                    {% if user._id not in notification.read_by %}
                     <span class="new badge"></span>
+                    {% endif %}
                 </div>
                 <div class="collapsible-body">
                     <p>{{ notification.message}}</p>
@@ -50,7 +52,7 @@
     <div class="col s12 center-align">
         <h3>You don't have any notifications.</h3>
     </div>
-    <div class="col s6 offset-s3 m6 offset-m3 margin-top">
+    <div class="col s6 offset-s3 m6 offset-m3 l4 offset-l4 margin-top">
             <img class="responsive-img" src="{{ url_for('static', filename='images/email.png')}}"
             alt="illustration of user opening messages">
     </div>

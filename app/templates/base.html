@@ -30,6 +30,7 @@
         <a href="{{ url_for('main.home') }}" class="brand-logo left">codzilla</a>
 
         {% if session.email %}
+        
         <!-- Navigation user not in session -->
         <ul class="right">
           <li>
@@ -40,6 +41,9 @@
           <li>
             <a class="nav-item" href="{{ url_for('users.notifications') }}" aria-label="Go to notification page">
               <i class="fas fa-bell" aria-hidden="true"></i>
+              {% if new %}
+              <span class="btn-floating new-notification">{{ new }}</span>
+              {% endif %}
             </a>
           </li>
           <li>

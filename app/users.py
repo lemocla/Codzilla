@@ -342,15 +342,26 @@ def notifications():
                            notifications=notifications)
 
 
-@users.route("/remove_notifications/<notification_id>/<user_id>", methods=["GET", "POST"])
+@users.route("/remove_notifications/<notification_id>/<user_id>",
+             methods=["GET", "POST"])
 def remove_notification(notification_id, user_id):
 
     notification = Notification.find_one_notification(notification_id)
     if request.method == "POST":
         Notification.remove_one_notification(notification_id, user_id)
-        print(f'list {notification["users"]} size {len(notification["users"])}')
+        print(f'list {notification["users"]} '
+              f'size {len(notification["users"])}')
         if notification:
             if len(notification["users"]) == 1:
                 Notification.delete_notification(notification_id)
 
     return redirect(request.referrer)
+
+
+@users.context_processor
+def new_notification():
+    if session:
+        user = User.check_existing_user(session["email"].lower())
+        unread = list(Notification.get_unread_notification(user["_id"]))
+        new = len(unread)
+        return dict(new=str(new))
