@@ -67,6 +67,12 @@ h3 {
     font-size: 1.4rem !important;
 }
 
+.notification-subject {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    font-size: 1.3rem;
+}
+
 /*--------[ buttons ]---------*/
 
 .btn.contact-btn {
@@ -518,6 +524,19 @@ button.nav-item.dropdown-trigger {
     text-transform: uppercase;
     font-weight: 700;
     padding-left: 0 !important;
+}
+
+/*---------[ notifications ] ----*/
+
+.collapsible-body {
+    padding: 1rem 2rem;
+    background-color: #e7e7e038;
+}
+
+.btn-gp-collapsible {
+    margin-top: 1.3rem;
+    padding-top: 1.2rem !important;
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 
 /*---------[ faq ]------------*/

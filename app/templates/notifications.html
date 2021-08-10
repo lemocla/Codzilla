@@ -3,9 +3,51 @@
 
 {% block content %}
 <div class="row head-container">
-<div class="col s12">
-<h1 class="center-align">Notifications</h1>
-<hr class="breakline">
+    <div class="col s12">
+        <h1 class="center-align">Notifications</h1>
+        <hr class="breakline">
+    </div>
 </div>
+
+
+<div class="row">
+    <!-- Notifications messages -->
+    {% if notifications|length > 0 %}
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+        <ul class="collapsible z-depth-3">
+            {% for notification in notifications %}
+            <li>
+                <div class="collapsible-header">
+                    <h2 class="notification-subject"><i class="far fa-envelope"></i>
+                        {{ notification.subject.capitalize() }} <i class="fas fa-caret-down"></i></h2>
+                    <span class="new badge"></span>
+                </div>
+                <div class="collapsible-body">
+                    <p>{{ notification.message}}</p>
+                    <div class="row">
+                        <div class="col s12 btn-gp-collapsible">
+                            {% if notification.action == "view event" %}
+                            <a href="#" class="btn btn-send">view event</a>
+                            {% elif notification.action == "view group" %}
+                            <a href="#" class="btn btn-send">view group</a>
+                            {% elif notification.action == "view answer" %}
+                            <a href="#" class="btn btn-send">view answer</a>
+                            {% elif notification.action == "view question" %}
+                            <a href="#" class="btn btn-send">view question</a>
+                            {% endif %}
+                            <button class="btn btn-send">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <!-- No notifications messages-->
+    <div class="col s12">
+        <p>You don't have any notifications</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

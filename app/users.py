@@ -6,6 +6,7 @@ from app.validators import validators
 from app.models.user import User
 from app.models.group import Group
 from app.models.event import Event
+from app.models.notifications import Notification
 
 # Blueprint
 users = Blueprint("users", __name__)
@@ -328,4 +329,6 @@ def notifications():
     if not session:
         return redirect(url_for('login'))
     user = User.check_existing_user(session["email"].lower())
-    return render_template('notifications.html', user=user)
+    notifications = list(Notification.get_notifications_for_user(user["_id"]))
+    return render_template('notifications.html', user=user,
+                           notifications=notifications)

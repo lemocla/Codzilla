@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
   // Materialize side bar
   $('.sidenav').sidenav({
     edge: "right"
@@ -8,11 +7,13 @@ $(document).ready(function () {
   // Materialize drop down functionality
   $('.dropdown-trigger').dropdown();
 
+  // Materialize collapsible 
+  $('.collapsible').collapsible();
 
-  // Tabs
+  // Materialize tabs
   $('.tabs').tabs();
 
-  // Modals  
+  // Materialize modals  
   $('.modal').modal();
 
   // Materialize date picker
