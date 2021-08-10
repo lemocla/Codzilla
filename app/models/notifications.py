@@ -1,5 +1,7 @@
 from app import mongo
 from bson.objectid import ObjectId
+from app.models.user import User
+from app.models.group import Group
 
 
 class Notification():
@@ -28,3 +30,25 @@ class Notification():
     def get_notifications_for_user(user_id):
         events = mongo.db.notifications.find({"users": ObjectId(user_id)})
         return events
+
+    @staticmethod
+    def insert_notification(col):
+        try:
+            mongo.db.notifications.insert_one(col)
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def set_col_new_follower(user_id, group_id, users):
+        follower = User.find_user_by_id(user_id)
+        group = Group.find_one_group(group_id)
+
+        col = {'subject': 'You have a new follower',
+               'message': (f'{follower["first_name"]} {follower["last_name"]} '
+                           f'started following your group '
+                           f'{group["group_name"]}'),
+               'notification_type': "new follower",
+               'action': 'view group',
+               'users': users,
+               'group_id': group_id}
+        return col

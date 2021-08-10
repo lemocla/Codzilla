@@ -225,7 +225,7 @@ $(document).ready(function () {
       type: 'POST',
       data: {
         "user_id": `${user_id}`,
-        "event_id": `${target_id}`
+        "target_id": `${target_id}`
       },
       dataType: "json",
       success: function (response) {

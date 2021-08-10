@@ -233,7 +233,7 @@ def attend():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    event_id = resp["event_id"][0]
+    event_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
     if user:
         # Add to user events attending
@@ -249,7 +249,7 @@ def unattend():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    event_id = resp["event_id"][0]
+    event_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
     if user:
         # remove from user events attending
@@ -265,7 +265,7 @@ def bookmark_interest():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    event_id = resp["event_id"][0]
+    event_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
 
     if user:
@@ -280,7 +280,7 @@ def remove_interest():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    event_id = resp["event_id"][0]
+    event_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
 
     if user:
@@ -295,14 +295,19 @@ def follow():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    group_id = resp["group_id"][0]
+    group_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
+    group = Group.find_one_group(group_id)
 
     if user:
         # Add group to user group_following
         User.append_list(user_id, "group_following", group_id)
         # Add user to group group_members
         Group.add_to_list(group_id, "group_members", user_id)
+        # Notification
+        notification = Notification.set_col_new_follower(
+                       user_id, group_id, group["group_admin"])
+        Notification.insert_notification(notification)
         message = "success"
     return jsonify(message)
 
@@ -312,7 +317,7 @@ def unfollow():
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
-    group_id = resp["group_id"][0]
+    group_id = resp["target_id"][0]
     user = User.find_user_by_id(user_id)
 
     if user:
