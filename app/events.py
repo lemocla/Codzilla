@@ -286,3 +286,46 @@ def delete_question(event_id, qa_id):
             print("no answers so can delete")
             Question.delete_one_question(qa_id)
         return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.route("/answer_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+def answer_question(event_id, qa_id):
+    if not session:
+        return redirect(url_for('login'))
+    event = Event.find_one_event(event_id)
+
+    if request.method == "POST":
+        answer = {"answer": request.form.get("answer"),
+                  "answered_by": event["created_by"],
+                  "answered": True}
+        Question.update_qa(qa_id, answer)
+
+        return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.route("/edit_answer/<event_id>/<qa_id>)", methods=["GET", "POST"])
+def edit_answer(event_id, qa_id):
+    if not session:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        answer = {"answer": request.form.get("answer")}
+        Question.update_qa(qa_id, answer)
+
+        return redirect(url_for('events.event', event_id=event_id))
+
+
+@events.route("/delete_answer/<event_id>/<qa_id>)", methods=["GET", "POST"])
+def delete_answer(event_id, qa_id):
+    if not session:
+        return redirect(url_for('login'))
+
+    question = Question.find_one_qa(qa_id)
+    if request.method == "POST":
+        if question["question"] is not None:
+            update = {"answer": None, "answered": False}
+            Question.update_qa(qa_id, update)
+        elif question["question"] is None:
+            print("no answers so can delete")
+            Question.delete_one_question(qa_id)
+        return redirect(url_for('events.event', event_id=event_id))

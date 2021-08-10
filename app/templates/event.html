@@ -199,8 +199,16 @@
                     <p class="z-depth-4 qa-container"><span class="question">Q. </span>
                         {{ qa.question.capitalize()}}
                     </p>
+                    {% if session %}
+                    {% if admin == False %}
                     <a class="modal-trigger" href="#edit_question_{{ qa._id}}">Edit</a>
                     <a class="modal-trigger" href="#delete_question_{{ qa._id}}">Delete</a>
+                    {% else %}
+                    {% if qa.answered == False and admin == True %}
+                    <a class="modal-trigger" href="#answer_question_{{ qa._id}}">Answer</a>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
                 </div>
 
                 {% endif %}
@@ -208,20 +216,15 @@
                 {% if qa.answered == True %}
                 <div class="col s11 offset-s1 m6 offset-m3">
                     <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
-                </div>
-                {% elif qa.answered == False and admin == True %}
-                <div class="col s12">
-                    <div id="btn-answer-question" class="btn btn-send margin-top">Answer question</div>
-                    <!-- answer quetion form -->
-                    <form id="answer-question" class="hide" action="" method="post">
-                        <div class="input-field col s12">
-                            <textarea id="answer" name="answer" class="materialize-textarea"></textarea>
-                            <label for="answer">Write your answer</label>
-                        </div>
-                        <button class="btn btn-send" type="submit">submit</button>
-                    </form>
+                    {% if session %}
+                    {% if admin == True %}
+                    <a class="modal-trigger" href="#modal_edit_answer_{{ qa._id}}">Edit</a>
+                    <a class="modal-trigger" href="#modal_delete_answer_{{ qa._id}}">Delete</a>
+                    {% endif %}
+                    {% endif %}
                 </div>
                 {% endif %}
+
             </div>
         </div>
 
@@ -229,7 +232,8 @@
         <div id="modal_edit_question_{{ qa._id}}" class="modal">
             <div class="row modal-content">
                 <div class="col s12">
-                    <h3>Edit you question</h3>
+                    <h2>Edit you question</h2>
+                    <hr class="breakline">
                 </div>
                 <form class="col s12" method="POST"
                     action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
@@ -253,13 +257,71 @@
                     <p>Are you sure you want to delete your question? {{ qa.question}}</p>
                 </div>
                 <!-- form delete question -->
-                <form id="form-delete-question_{{ qa._id}}" class="col s12 center-align center-align p-separator"
-                    method="POST" action="{{ url_for('events.delete_question', event_id=event._id, qa_id=qa._id) }}">
+                <form id="form-delete-question_{{ qa._id}}" class="col s12 center-align p-separator" method="POST"
+                    action="{{ url_for('events.delete_question', event_id=event._id, qa_id=qa._id) }}">
                     <button class="btn btn-send margin-top" type="submit">confirm</button>
                     <button class="btn btn-send margin-top modal-close">cancel</button>
                 </form>
             </div>
         </div>
+
+        <!-- modal answer a question -->
+        <div id="answer_question_{{ qa._id}}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12 center align">
+                    <h2>Delete question confirmation</h2>
+                    <hr class="breakline">
+                </div>
+                <!-- answer question form -->
+                <form id="form-answer-{{ qa._id}}" class="col s12 center-align" method="POST"
+                    action="{{ url_for('events.answer_question', event_id=event._id, qa_id=qa._id) }}">
+                    <div class="input-field col s12">
+                        <textarea id="answer_{{ qa_answer}}" name="answer" class="materialize-textarea"></textarea>
+                        <label for="answer_{{ qa_answer}}">Write your answer</label>
+                    </div>
+                    <button class="btn btn-send" type="submit">submit</button>
+                    <button class="btn btn-send modal-close">cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- modal edit answer -->
+        <div id="modal_edit_answer_{{ qa._id}}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12">
+                    <h2>Edit your answer</h2>
+                    <hr class="breakline">
+                </div>
+                <form class="col s12" method="POST"
+                    action="{{ url_for('events.edit_answer', event_id=event._id, qa_id=qa._id) }}">
+                    <div class="input-field col s12">
+                        <textarea id="edit_answer_{{ qa._id}}" name="answer"
+                            class="materialize-textarea">{{ qa.answer }}</textarea>
+                        <label for="edit_answer_{{ qa._id}}">Edit your answer</label>
+                    </div>
+                    <button class="btn btn-send" type="submit">submit</button>
+                    <button class="btn btn-send modal-close">cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- modal delete confirmation question -->
+        <div id="modal_delete_answer_{{ qa._id}}" class="modal">
+            <div class="row modal-content">
+                <div class="col s12 center-align">
+                    <h2>Delete answer confirmation</h2>
+                    <hr class="breakline">
+                    <p>Are you sure you want to delete your answer?</p>
+                </div>
+                <!-- form delete question -->
+                <form id="form-delete-answer_{{ qa._id}}" class="col s12 center-align p-separator" method="POST"
+                    action="{{ url_for('events.delete_answer', event_id=event._id, qa_id=qa._id) }}">
+                    <button class="btn btn-send margin-top" type="submit">confirm</button>
+                    <button class="btn btn-send margin-top modal-close">cancel</button>
+                </form>
+            </div>
+        </div>
+
 
         {% endfor %}
         {% else %}
@@ -271,10 +333,12 @@
                 alt="Illustration of a user asking question">
         </div>
         {% endif %}
+        {% if session %}
         {% if admin == False %}
         <div class="col s12 center-align">
             <a class="btn btn-send margin-top modal-trigger" href="#ask-question">Ask a question</a>
         </div>
+        {% endif %}
         {% endif %}
     </div>
 
