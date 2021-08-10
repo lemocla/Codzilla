@@ -321,3 +321,11 @@ def unfollow():
         Group.remove_from_list(group_id, "group_members", user_id)
         message = "success"
     return jsonify(message)
+
+
+@users.route("/notifications", methods=["GET", "POST"])
+def notifications():
+    if not session:
+        return redirect(url_for('login'))
+    user = User.check_existing_user(session["email"].lower())
+    return render_template('notifications.html', user=user)

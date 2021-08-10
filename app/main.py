@@ -143,3 +143,9 @@ def accessibility():
 @main.route("/faq")
 def faq():
     return render_template("faq.html")
+
+
+# Privacy page
+@main.route("/privacy")
+def privacy():
+    return render_template('privacy.html')

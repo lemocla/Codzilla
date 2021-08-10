@@ -38,7 +38,7 @@
             </a>
           </li>
           <li>
-            <a class="nav-item" href="" aria-label="Go to notification page">
+            <a class="nav-item" href="{{ url_for('users.notifications') }}" aria-label="Go to notification page">
               <i class="fas fa-bell" aria-hidden="true"></i>
             </a>
           </li>
@@ -113,7 +113,7 @@
             <li><a class="footer-text" href="{{ url_for('auth.login') }}">Log in</a></li>
             <li><a class="footer-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>
             <li><a class="footer-text" href="{{ url_for('main.faq') }}">F.A.Q</a></li>
-            <li><a class="footer-text" href="#!">Privacy</a></li>
+            <li><a class="footer-text" href="{{ url_for( 'main.privacy' )}}">Privacy</a></li>
             <li><a class="footer-text" href="{{ url_for('main.accessibility') }}">Accessibility</a></li>
           </ul>
         </div>
