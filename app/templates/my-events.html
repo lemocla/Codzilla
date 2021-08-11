@@ -179,7 +179,9 @@
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group != "" %}
+                        {% if event.group is not none %}
                         by {{ event.group.capitalize()  }}
+                        {% endif %}
                         {% else %}
                         {% set creator = users|selectattr("_id", "equalto", event.created_by )|first %}
                         by {{ creator.first_name.capitalize()  }} {{creator.last_name.capitalize() }}

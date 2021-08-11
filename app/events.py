@@ -159,6 +159,28 @@ def edit_event(event_id, group_id=None):
             else:
                 group_id = None
 
+        # Notifications
+        send_to = []
+        for attendee in event["attendees"]:
+            att = User.find_user_by_id(attendee)
+            if att["preferences"]["event_update"] == "true":
+                send_to.append(ObjectId(att["_id"]))
+
+            if date_start != event["date_start"]:
+                print("date has changed - notification")
+                notification = Notification.set_col_update(
+                               send_to, event_id, "date", date_start)
+
+                Notification.insert_notification(notification)
+
+            if(request.form.get("event_location") != event[
+               "event_location"]):
+                print("location has changed - notification")
+                notification = Notification.set_col_update(
+                               send_to, event_id, "location",
+                               request.form.get("event_location"))
+                Notification.insert_notification(notification)
+
         update = {"event_title": request.form.get("event_title"),
                   "event_type": request.form.get("event_type"),
                   "event_category": request.form.get("event_category"),
@@ -203,6 +225,19 @@ def cancel_event(event_id):
         return redirect(url_for('login'))
 
     if request.method == "POST":
+        # Notifications
+        send_to = []
+        event = Event.find_one_event(event_id)
+        for attendee in event["attendees"]:
+            att = User.find_user_by_id(attendee)
+            if att["preferences"]["event_update"] == "true":
+                send_to.append(ObjectId(att["_id"]))
+
+        print("event cancelled - notification")
+        notification = Notification.set_col_cancellation(
+                               send_to, event_id)
+        Notification.insert_notification(notification)
+
         status = {"status": "cancelled"}
         Event.update_event(event_id, status)
         flash("Event succesfully cancelled!")

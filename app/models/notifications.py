@@ -134,14 +134,42 @@ class Notification():
         admin = User.find_user_by_id(event["created_by"])
         print(event)
         print(admin)
-        col = {'subject': f'{admin["first_name"]} {admin["last_name"]} '
-                          f'answered your question',
+        col = {'subject': (f'{admin["first_name"]} {admin["last_name"]} '
+                           f'answered your question'),
                'message': (f'{admin["first_name"]} {admin["last_name"]} '
                            f'answered your question about '
                            f'{event["event_title"]}'),
                'notification_type': "event answer",
                'action': 'view answer',
                'users': [ObjectId(user_id)],
+               'event_id': ObjectId(event_id),
+               'read_by': []}
+        return col
+
+    @staticmethod
+    def set_col_cancellation(attendees, event_id):
+        event = Event.find_one_event(event_id)
+        col = {'subject': 'Event cancellation notification',
+               'message': (f'Your event - {event["event_title"]} - '
+                           f'has been cancelled'),
+               'notification_type': "event cancellation",
+               'action': '',
+               'users': attendees,
+               'event_id': ObjectId(event_id),
+               'read_by': []}
+        return col
+
+    @staticmethod
+    def set_col_update(attendees, event_id, field_name, field_value):
+
+        event = Event.find_one_event(event_id)
+        col = {'subject': (f"One of your event's - {field_name} - has "
+                           f"been updated"),
+               'message': (f'Your event - {event["event_title"]} {field_name} -'
+                           f' has been moved to {field_value}'),
+               'notification_type': "event update",
+               'action': 'view event',
+               'users': attendees,
                'event_id': ObjectId(event_id),
                'read_by': []}
         return col
