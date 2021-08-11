@@ -301,11 +301,36 @@ $(document).ready(function () {
   // 
   $(".collapsible-header").click(function () {
     // Ajax requestion to python function to add to read_by
-    if ($(this).attr("data-status") == "not read") {
-      console.log("call is happening")
+    if ($(this).attr("data-status") === "not read") {
+
       user_id = $(this).attr("data-user");
       notification_id = $(this).attr("data-notification");
-      actionGroupEvent(user_id, notification_id, "/mark_as_read")
+      $(this).attr("data-status", "read");
+      $('span.badge').addClass("hide");
+
+      $.ajax({
+        url: "/mark_as_read",
+        type: 'POST',
+        data: {
+          "user_id": `${user_id}`,
+          "target_id": `${notification_id}`
+        },
+        success: function (response) {
+          //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+          if (response == "success") {
+            val = $('.new-notification').text()
+            newval = parseInt(val) - 1;
+            if (newval > 0) {
+              $('.new-notification').text(newval);
+            } else {
+              $('.new-notification').addClass('hide');
+            }
+          }
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      });
     }
   });
 });

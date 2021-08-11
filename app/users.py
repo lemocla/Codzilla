@@ -240,6 +240,13 @@ def attend():
         User.append_list(user_id, "events_attending", event_id)
         # Add to event attendees
         Event.add_to_list(event_id, "attendees", user_id)
+        # Notification
+        event = Event.find_one_event(event_id)
+        event_admin = User.find_user_by_id(event["created_by"])
+        if event_admin["preferences"]["new_participant"] == "true":
+            notification = Notification.set_col_new_participant(
+                           user_id, event_id, event_admin["_id"])
+            Notification.insert_notification(notification)
         message = "success"
     return jsonify(message)
 
@@ -364,7 +371,6 @@ def mark_as_read():
     user_id = resp["user_id"][0]
     notification_id = resp["target_id"][0]
     Notification.add_user_to_read_by(notification_id, user_id)
-    new_notifications()
     message = "success"
     return message
 
@@ -377,5 +383,7 @@ def new_notifications():
                          user["_id"]))
         read = list(Notification.get_read_notification(user["_id"]))
         new = len(notifications) - len(read)
+        print(len(notifications))
+        print(len(read))
         print(new)
         return dict(new=str(new))

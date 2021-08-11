@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col s12 btn-gp-collapsible">
                             {% if notification.action == "view event" %}
-                            <a href="#" class="btn btn-send">view event</a>
+                            <a href="/event/{{ notification.event_id }}" class="btn btn-send">view event</a>
                             {% elif notification.action == "view group" %}
                             <a href="/group/{{ notification.group_id }}" class="btn btn-send">view group</a>
                             {% elif notification.action == "view answer" %}

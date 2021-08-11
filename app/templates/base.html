@@ -41,8 +41,10 @@
           <li>
             <a class="nav-item" href="{{ url_for('users.notifications') }}" aria-label="Go to notification page">
               <i class="fas fa-bell" aria-hidden="true"></i>
+              {% if session.email %}
               {% if new != "0" %}
               <span class="btn-floating new-notification">{{ new }}</span>
+              {% endif %}
               {% endif %}
             </a>
           </li>

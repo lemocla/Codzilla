@@ -11,6 +11,7 @@ from time import time
 from app.validators import validators
 # Classes
 from app.models.user import User
+from app.models.notifications import Notification
 
 
 # Blueprint
@@ -282,3 +283,19 @@ def reset_password(token):
         return redirect(url_for('auth.login'))
 
     return render_template("reset-password.html")
+
+
+@auth.context_processor
+def new_notifications():
+    if "email" in session:
+        user = User.check_existing_user(session["email"].lower())
+        notifications = list(Notification.get_notifications_for_user(
+                         user["_id"]))
+        read = list(Notification.get_read_notification(user["_id"]))
+        new = len(notifications) - len(read)
+        print(len(notifications))
+        print(len(read))
+        print(new)
+        return dict(new=str(new))
+    else:
+        return dict(new="")

@@ -2,11 +2,13 @@ from app import mongo
 from bson.objectid import ObjectId
 from app.models.user import User
 from app.models.group import Group
+from app.models.event import Event
 
 
 class Notification():
     def __init__(self, subject, message, notification_type, action,
-                 users=None, event_id=None, group_id=None, _id=None):
+                 users=None, event_id=None, group_id=None,
+                 read_by=None, _id=None):
         self._id = _id
         self.subject = subject
         self.message = message
@@ -15,6 +17,7 @@ class Notification():
         self.users = users if isinstance(users, list) else []
         self.event_id = event_id
         self.group_id = group_id
+        self.read_by = read_by if isinstance(read_by, list) else []
 
     def get_notification_info(self):
         info = {'subject': self.subject,
@@ -23,7 +26,8 @@ class Notification():
                 'action': self.action,
                 'users': self.users,
                 'event_id': self.event_id,
-                'group_id': self.group_id}
+                'group_id': self.group_id,
+                'read_by': self.read_by}
         return info
 
     @staticmethod
@@ -63,7 +67,6 @@ class Notification():
     @staticmethod
     def get_read_notification(user_id):
         read = mongo.db.notifications.find(
-                {"users": ObjectId(user_id)},
                 {"read_by": ObjectId(user_id)})
         print(read)
         return read
@@ -89,5 +92,22 @@ class Notification():
                'notification_type': "new follower",
                'action': 'view group',
                'users': users,
-               'group_id': ObjectId(group_id)}
+               'group_id': ObjectId(group_id),
+               'read_by': []}
+        return col
+
+    @staticmethod
+    def set_col_new_participant(user_id, event_id, event_admin):
+        attendee = User.find_user_by_id(user_id)
+        event = Event.find_one_event(event_id)
+
+        col = {'subject': 'You have new participant',
+               'message': (f'{attendee["first_name"]} {attendee["last_name"]} '
+                           f'will attend '
+                           f'{event["event_title"]}'),
+               'notification_type': "new participant",
+               'action': 'view event',
+               'users': [ObjectId(event_admin)],
+               'event_id': ObjectId(event_id),
+               'read_by': []}
         return col
