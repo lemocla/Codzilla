@@ -256,6 +256,15 @@ def add_question(event_id):
                             event_id=ObjectId(event_id),
                             answered=False)
 
+        # notification
+        event = Event.find_one_event(event_id)
+        event_admin = User.find_user_by_id(event["created_by"])
+
+        if event_admin["preferences"]["event_question"] == "true":
+            notification = Notification.set_col_question(
+                            user["_id"], event_id, event_admin["_id"])
+            Notification.insert_notification(notification)
+
         question.insert_into_database()
         return redirect(url_for('events.event', event_id=event_id))
 
@@ -299,6 +308,16 @@ def answer_question(event_id, qa_id):
         answer = {"answer": request.form.get("answer"),
                   "answered_by": event["created_by"],
                   "answered": True}
+
+        # notification
+        event = Event.find_one_event(event_id)
+        qa = Question.find_one_qa(qa_id)
+        user = User.find_user_by_id(qa["asked_by"])
+        if user["preferences"]["query_answered"] == "true":
+            notification = Notification.set_col_answer(
+                           user["_id"], event["_id"])
+            Notification.insert_notification(notification)
+
         Question.update_qa(qa_id, answer)
 
         return redirect(url_for('events.event', event_id=event_id))

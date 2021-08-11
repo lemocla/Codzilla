@@ -111,3 +111,37 @@ class Notification():
                'event_id': ObjectId(event_id),
                'read_by': []}
         return col
+
+    @staticmethod
+    def set_col_question(user_id, event_id, event_admin):
+        attendee = User.find_user_by_id(user_id)
+        event = Event.find_one_event(event_id)
+
+        col = {'subject': 'You received a question about your event',
+               'message': (f'{attendee["first_name"]} {attendee["last_name"]} '
+                           f'asked a question about '
+                           f'{event["event_title"]}'),
+               'notification_type': "event question",
+               'action': 'view question',
+               'users': [ObjectId(event_admin)],
+               'event_id': ObjectId(event_id),
+               'read_by': []}
+        return col
+
+    @staticmethod
+    def set_col_answer(user_id, event_id):
+        event = Event.find_one_event(event_id)
+        admin = User.find_user_by_id(event["created_by"])
+        print(event)
+        print(admin)
+        col = {'subject': f'{admin["first_name"]} {admin["last_name"]} '
+                          f'answered your question',
+               'message': (f'{admin["first_name"]} {admin["last_name"]} '
+                           f'answered your question about '
+                           f'{event["event_title"]}'),
+               'notification_type': "event answer",
+               'action': 'view answer',
+               'users': [ObjectId(user_id)],
+               'event_id': ObjectId(event_id),
+               'read_by': []}
+        return col

@@ -39,9 +39,9 @@
                             {% elif notification.action == "view group" %}
                             <a href="/group/{{ notification.group_id }}" class="btn btn-send">view group</a>
                             {% elif notification.action == "view answer" %}
-                            <a href="#" class="btn btn-send">view answer</a>
+                            <a href="/event/{{ notification.event_id }}#questions_answers_container" class="btn btn-send">view answer</a>
                             {% elif notification.action == "view question" %}
-                            <a href="#" class="btn btn-send">view question</a>
+                            <a href="/event/{{ notification.event_id }}#questions_answers_container" class="btn btn-send">view question</a>
                             {% endif %}
                             <form class="inline-form" method="POST" action="{{ url_for('users.remove_notification', user_id=user._id, notification_id=notification._id) }}">
                             <button class="btn btn-send">Delete</button>
