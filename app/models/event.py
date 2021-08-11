@@ -88,6 +88,11 @@ class Event():
         return results
 
     @staticmethod
+    def find_events_by_dates(isos, isoe):
+        events = mongo.db.events.find({"date_start": {'$gte': isos, '$lte': isoe}})
+        return events
+
+    @staticmethod
     def find_events_by_id(col):
         events = mongo.db.events.find({"_id": {"$in": col}})
         return events

@@ -10,6 +10,7 @@ from app.models.questions_answers import Question
 from app.validators import validators
 from app.models.notifications import Notification
 
+
 # Blueprint
 events = Blueprint("events", __name__)
 

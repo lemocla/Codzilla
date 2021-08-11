@@ -7,11 +7,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Message
 # encoding / decoding tokens
 import jwt
+from datetime import datetime, timedelta
+from bson.objectid import ObjectId
 from time import time
 from app.validators import validators
 # Classes
 from app.models.user import User
 from app.models.notifications import Notification
+from app.models.event import Event
 
 
 # Blueprint
@@ -147,8 +150,33 @@ def login():
             # check if passowrd matches
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
+
                 flash("Welcome back! You have successfully logged in.")
                 session["email"] = request.form.get("email").lower()
+
+                # notifications
+                initial_date = datetime.now()
+
+                end_check = initial_date + timedelta(days=2)
+
+                iso_start = initial_date.strftime('%Y-%m-%dT%H:%M:%S')
+                iso_end = end_check.strftime('%Y-%m-%dT%H:%M:%S')
+
+                isos = datetime.strptime(iso_start, '%Y-%m-%dT%H:%M:%S')
+                isoe = datetime.strptime(iso_end, '%Y-%m-%dT%H:%M:%S')
+
+                events = list(Event.find_events_by_dates(isos, isoe))
+
+                if len(events) > 0:
+                    for event in events:
+                        send_to = []
+                        for attendee in event["attendees"]:
+                            att = User.find_user_by_id(attendee)
+                            if att["preferences"]["event_reminder"] == "true":
+                                send_to.append(ObjectId(att["_id"]))
+
+                        notification = Notification.set_col_reminder(send_to, event["_id"])
+                        Notification.insert_notification(notification)
 
                 return redirect(url_for("auth.profile_completed",
                                 email=session["email"]))
@@ -293,9 +321,7 @@ def new_notifications():
                          user["_id"]))
         read = list(Notification.get_read_notification(user["_id"]))
         new = len(notifications) - len(read)
-        print(len(notifications))
-        print(len(read))
-        print(new)
+
         return dict(new=str(new))
     else:
         return dict(new="")

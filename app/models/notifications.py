@@ -165,9 +165,24 @@ class Notification():
         event = Event.find_one_event(event_id)
         col = {'subject': (f"One of your event's - {field_name} - has "
                            f"been updated"),
-               'message': (f'Your event - {event["event_title"]} {field_name} -'
-                           f' has been moved to {field_value}'),
+               'message': (f'Your event - {event["event_title"]} - '
+                           f'{field_name} has been moved to {field_value}'),
                'notification_type': "event update",
+               'action': 'view event',
+               'users': attendees,
+               'event_id': ObjectId(event_id),
+               'read_by': []}
+        return col
+
+    @staticmethod
+    def set_col_reminder(attendees, event_id):
+
+        event = Event.find_one_event(event_id)
+        event_title = event["event_title"]
+        col = {'subject': f"Reminder: {event_title} is happening soon",
+               'message': (f'Your event - {event["event_title"]} is happening'
+                           f'on {event["date_start"]}'),
+               'notification_type': "event reminder",
                'action': 'view event',
                'users': attendees,
                'event_id': ObjectId(event_id),
