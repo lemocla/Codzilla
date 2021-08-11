@@ -4,7 +4,6 @@ from flask import (flash, render_template, redirect,
 from app.models.group import Group
 from app.models.event import Event
 from app.models.user import User
-from app.models.notifications import Notification
 
 
 # Blueprint
@@ -109,15 +108,3 @@ def delete_group(group_id):
     Group.delete_one_group(group_id)
     flash("Your group has been successfully deleted")
     return redirect(url_for('users.my_groups'))
-
-
-@groups.context_processor
-def new_notifications():
-    if session:
-        user = User.check_existing_user(session["email"].lower())
-        notifications = list(Notification.get_notifications_for_user(
-                         user["_id"]))
-        read = list(Notification.get_read_notification(user["_id"]))
-        new = len(notifications) - len(read)
-        print(new)
-        return dict(new=str(new))

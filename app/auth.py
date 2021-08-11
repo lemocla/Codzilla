@@ -15,6 +15,7 @@ from app.validators import validators
 from app.models.user import User
 from app.models.notifications import Notification
 from app.models.event import Event
+from app.models.group import Group
 
 
 # Blueprint
@@ -106,6 +107,17 @@ def complete_profile(email):
                    "profile_completed": True}
 
         User.edit_user(user["_id"], profile)
+
+        # Add group
+        if request.form.get("group"):
+            new_group = Group(group_name=request.form.get("group"),
+                              group_city=request.form.get("city"),
+                              group_country=request.form.get("country"),
+                              group_description="",
+                              img_url="",
+                              group_admin=[user["_id"]])
+            new = new_group.insert_into_database()
+            User.append_list(user["_id"], "group_owned", new.inserted_id)
 
         flash("Congratulations, profile successfully completed!")
         return redirect(url_for("auth.profile_completed",
@@ -311,17 +323,3 @@ def reset_password(token):
         return redirect(url_for('auth.login'))
 
     return render_template("reset-password.html")
-
-
-@auth.context_processor
-def new_notifications():
-    if "email" in session:
-        user = User.check_existing_user(session["email"].lower())
-        notifications = list(Notification.get_notifications_for_user(
-                         user["_id"]))
-        read = list(Notification.get_read_notification(user["_id"]))
-        new = len(notifications) - len(read)
-
-        return dict(new=str(new))
-    else:
-        return dict(new="")

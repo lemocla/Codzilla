@@ -373,17 +373,3 @@ def mark_as_read():
     Notification.add_user_to_read_by(notification_id, user_id)
     message = "success"
     return message
-
-
-@users.context_processor
-def new_notifications():
-    if session:
-        user = User.check_existing_user(session["email"].lower())
-        notifications = list(Notification.get_notifications_for_user(
-                         user["_id"]))
-        read = list(Notification.get_read_notification(user["_id"]))
-        new = len(notifications) - len(read)
-        print(len(notifications))
-        print(len(read))
-        print(new)
-        return dict(new=str(new))
