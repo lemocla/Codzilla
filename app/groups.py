@@ -4,6 +4,7 @@ from flask import (flash, render_template, redirect,
 from app.models.group import Group
 from app.models.event import Event
 from app.models.user import User
+from app.validators import validators
 
 
 # Blueprint
@@ -62,11 +63,16 @@ def add_group():
                       img_url=request.form.get("img_url"),
                       group_admin=[user["_id"]])
     if request.method == "POST":
-        new = new_group.insert_into_database()
-        print(new)
-        User.append_list(user["_id"], "group_owned", new.inserted_id)
-        flash("Group successfully added!")
-        return redirect(url_for('users.my_groups'))
+        check = validators.check_img_url(request.form.get("img_url"))
+        if check:
+            new = new_group.insert_into_database()
+        
+            User.append_list(user["_id"], "group_owned", new.inserted_id)
+            flash("Group successfully added!")
+            return redirect(url_for('users.my_groups'))
+        else:
+            flash("Invalid url image")
+            return redirect(url_for('groups.add_group', user=user))
     return render_template("add_group.html", user=user)
 
 
@@ -86,9 +92,14 @@ def edit_group(group_id):
                      "group_description": request.form.get(
                                           "group_description"),
                      "img_url": request.form.get("img_url")}
-        Group.update_group(group_id, edit_info)
-        flash("Group successfully edited!")
-        return redirect(url_for('users.my_groups'))
+        check = validators.check_img_url(request.form.get("img_url"))
+        if check:
+            Group.update_group(group_id, edit_info)
+            flash("Group successfully edited!")
+            return redirect(url_for('users.my_groups'))
+        else:
+            flash("Invalid url image")
+            return redirect(url_for('groups.edit_group', group_id=group_id))
 
     return render_template("edit_group.html", user=user, group=group,
                            group_id=group_id)

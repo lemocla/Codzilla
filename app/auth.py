@@ -106,23 +106,29 @@ def complete_profile(email):
                                      request.form.get("new_follower"))},
                    "profile_completed": True}
 
-        User.edit_user(user["_id"], profile)
+        check = validators.check_img_url(request.form.get("user-img"))
+        if check:
+            User.edit_user(user["_id"], profile)
 
-        # Add group
-        if request.form.get("group"):
-            new_group = Group(group_name=request.form.get("group"),
-                              group_city=request.form.get("city"),
-                              group_country=request.form.get("country"),
-                              group_description="",
-                              img_url="",
-                              group_admin=[user["_id"]])
-            new = new_group.insert_into_database()
-            User.append_list(user["_id"], "group_owned", new.inserted_id)
+            # Add group
+            if request.form.get("group"):
+                new_group = Group(group_name=request.form.get("group"),
+                                  group_city=request.form.get("city"),
+                                  group_country=request.form.get("country"),
+                                  group_description="",
+                                  img_url="",
+                                  group_admin=[user["_id"]])
+                new = new_group.insert_into_database()
+                User.append_list(user["_id"], "group_owned", new.inserted_id)
 
-        flash("Congratulations, profile successfully completed!")
-        return redirect(url_for("auth.profile_completed",
-                                email=session["email"]))
-
+            flash("Congratulations, profile successfully completed!")
+            return redirect(url_for("auth.profile_completed",
+                                    email=session["email"]))
+        else:
+            flash("We couldn't complete your profile, please "
+                  "provide a valid url.")
+            return redirect(url_for('auth.complete_profile',
+                            email=session["email"]))
     return render_template(
             "complete-profile.html", email=email, name=fname)
 

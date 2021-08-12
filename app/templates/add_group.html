@@ -9,6 +9,18 @@
     </div>
 </div>
 
+<!-- flash messages -->
+<div class="row">
+    <div class="col s12 center-align flashes">
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+    </div>
+</div>
+
+<!-- form -->
 <div class="row valign-wrapper">
     <div class="col s12 m8 offset-m2 l6">
         <div class="row">
@@ -47,7 +59,8 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-image prefix"></i>
-                        <textarea id="group_img_url" class="materialize-textarea validate" name="img_url" data-input="img"></textarea>
+                        <textarea id="group_img_url" class="materialize-textarea validate" name="img_url"
+                            data-input="img"></textarea>
                         <label for="img_url">Add a cover image</label>
                         <p class="error-text hide" data-error="group_img_url"></p>
                     </div>
@@ -66,7 +79,8 @@
     </div>
     <!-- Image large screen only -->
     <div class="col l6 hide-on-med-and-down">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}" alt="Illustration of a group of people around a computer">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}"
+            alt="Illustration of a group of people around a computer">
     </div>
 </div>
 

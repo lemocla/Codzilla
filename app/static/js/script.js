@@ -54,7 +54,7 @@ $(document).ready(function () {
     checkUrl = ["https:", "http:"];
     checkUrlValid = [];
     //Check url valid 
-    checkVal = ["svg", "png", "jpg", "jpeg", ".tiff", "webp", "bmp", "heif"]
+    checkVal = ["svg", "png", "jpg", "jpeg", "tiff", "webp", "bmp", "heif"]
     checkArray = [];
     // check for img extension 
     $.each(checkVal, function (key, value) {

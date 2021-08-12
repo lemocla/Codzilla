@@ -81,21 +81,27 @@ def add_event(group_id=None):
                     max_attendees=request.form.get("max_attendees"),
                     status="active",
                     created_by=user["_id"])
+    
+        check = validators.check_img_url(request.form.get("img_url"))
+        if check:
+            new = new_event.insert_into_database()
 
-        new = new_event.insert_into_database()
+            User.append_list(user["_id"], "events_organised", new.inserted_id)
+            flash("Event successfully added!")
 
-        User.append_list(user["_id"], "events_organised", new.inserted_id)
-        flash("Event successfully added!")
-
-        if group_id:
-            Group.add_to_list(group_id, "events", new.inserted_id)
-            return redirect(url_for('groups.group', group_id=group_id))
+            if group_id:
+                Group.add_to_list(group_id, "events", new.inserted_id)
+                return redirect(url_for('groups.group', group_id=group_id))
+            else:
+                if request.form.get('group') is not None:
+                    gp = Group.find_group_by_name(request.form.get('group'))
+                    Group.add_to_list(gp["_id"], "events", new.inserted_id)
+                return redirect(url_for('users.my_events'))
         else:
-            if request.form.get('group') is not None:
-                gp = Group.find_group_by_name(request.form.get('group'))
-                Group.add_to_list(gp["_id"], "events", new.inserted_id)
-            return redirect(url_for('users.my_events'))
-
+            flash("Invalid url image")
+            return redirect(url_for('events.add_event', user=user, types=types,
+                                    categories=categories, groups=groups,))
+    # Templates
     if (group_id):
         group = Group.find_one_group(group_id)
         return render_template("add-event.html", user=user,
@@ -137,8 +143,6 @@ def edit_event(event_id, group_id=None):
         date_end = datetime.strptime(end_string, '%d/%m/%YT%H:%M:%S')
 
         current_group = event["group"]
-        print(f"current_group {current_group}")
-        print(f"value from request {request.form.get('group')}")
 
         if request.form.get('group') != current_group:
             # Remove from event from list of events in group
@@ -148,7 +152,6 @@ def edit_event(event_id, group_id=None):
             else:
                 if current_group:
                     gp_id = Group.find_group_by_name(current_group)["_id"]
-                    print(f"look for the group because not from group id {gp_id}")
                     Group.remove_from_list(gp_id, "events", event_id)
             # Add to new group if any
             if request.form.get('group'):
@@ -159,28 +162,6 @@ def edit_event(event_id, group_id=None):
                 Group.add_to_list(new_gp, "events", event_id)
             else:
                 group_id = None
-
-        # Notifications
-        send_to = []
-        for attendee in event["attendees"]:
-            att = User.find_user_by_id(attendee)
-            if att["preferences"]["event_update"] == "true":
-                send_to.append(ObjectId(att["_id"]))
-
-            if date_start != event["date_start"]:
-                print("date has changed - notification")
-                notification = Notification.set_col_update(
-                               send_to, event_id, "date", date_start)
-
-                Notification.insert_notification(notification)
-
-            if(request.form.get("event_location") != event[
-               "event_location"]):
-                print("location has changed - notification")
-                notification = Notification.set_col_update(
-                               send_to, event_id, "location",
-                               request.form.get("event_location"))
-                Notification.insert_notification(notification)
 
         update = {"event_title": request.form.get("event_title"),
                   "event_type": request.form.get("event_type"),
@@ -197,14 +178,43 @@ def edit_event(event_id, group_id=None):
                   "max_attendees": request.form.get("max_attendees"),
                   "status": request.form.get("status")}
 
-        Event.update_event(event_id, update)
-        flash("Event successfully edited!")
+        check = validators.check_img_url(request.form.get("img_url"))
 
-        if group_id:
-            return redirect(url_for('groups.group', group_id=group_id))
+        if check:
+            # Notifications
+            send_to = []
+            for attendee in event["attendees"]:
+                att = User.find_user_by_id(attendee)
+                if att["preferences"]["event_update"] == "true":
+                    send_to.append(ObjectId(att["_id"]))
+
+                if date_start != event["date_start"]:
+                    print("date has changed - notification")
+                    notification = Notification.set_col_update(
+                                   send_to, event_id, "date", date_start)
+
+                    Notification.insert_notification(notification)
+
+                if(request.form.get("event_location") != event[
+                   "event_location"]):
+                    print("location has changed - notification")
+                    notification = Notification.set_col_update(
+                                   send_to, event_id, "location",
+                                   request.form.get("event_location"))
+                    Notification.insert_notification(notification)
+
+            Event.update_event(event_id, update)
+            flash("Event successfully edited!")
+
+            if group_id:
+                return redirect(url_for('groups.group', group_id=group_id))
+            else:
+                return redirect(url_for('users.my_events'))
         else:
-            return redirect(url_for('users.my_events'))
+            flash("Invalid Url image")
+            return redirect(url_for('events.edit_event', event_id=event_id))
 
+    # Templates
     if (group_id):
         group = Group.find_one_group(group_id)
         return render_template("edit-event.html", user=user,

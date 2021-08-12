@@ -49,10 +49,14 @@ def edit_info(user_id):
                      "city": request.form.get("city"),
                      "country": request.form.get("country")}
 
-        User.edit_user(user_id, pers_info)
-        flash("Your profile has been updated!")
-        return redirect(url_for("users.profile", user=user))
-
+        check = validators.check_img_url(request.form.get("user-img"))
+        if check:
+            User.edit_user(user_id, pers_info)
+            flash("Your profile has been updated!")
+            return redirect(url_for("users.profile", user=user))
+        else:
+            flash("We couldn't edit profile, please provide a valid image url")
+            return redirect(url_for("users.profile", user=user))
     return render_template("profile.html", user=user)
 
 

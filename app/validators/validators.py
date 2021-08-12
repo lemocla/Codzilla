@@ -2,6 +2,7 @@ from app import mongo
 from flask import (flash, jsonify, Blueprint)
 from werkzeug.security import check_password_hash
 import re
+import urllib
 
 
 # Blueprint
@@ -57,3 +58,31 @@ def check_password(email, check):
     else:
         message = "no match"
     return jsonify(message)
+
+
+def check_img_url(url):
+    # https://stackoverflow.com/questions/12474406/python-how-to-get-the-content-type-of-an-url/36882727
+    # https://stackoverflow.com/questions/29537298/python-3-urllib-request-urlopen
+    req = urllib.request.Request(url)
+    try:
+        response = urllib.request.urlopen(req)
+    except urllib.error.URLError as e:
+        print(e)
+        check_value = False
+    else:
+        info = response.info()
+        print(response.getcode())
+        print(info.get_content_type())      # -> text/html
+        print(info.get_content_maintype())  # -> text
+        print(info.get_content_subtype())
+
+        if response.getcode() != 200:
+            check_value = False
+
+        else:
+            if info.get_content_maintype() == "image":
+                check_value = True
+            else:
+                check_value = False
+
+        return check_value
