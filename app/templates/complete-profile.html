@@ -25,8 +25,10 @@
         action="{{ url_for('auth.complete_profile', email=email )}}">
         <div class="row">
             <div class="input-field col s12">
-                <input id="user-img" name="user-img" type="text" class="validate" minlenght="1">
+                <i class="fas fa-image prefix"></i>
+                <textarea id="user-img" name="user-img" class="materialize-textarea validate" data-input="img"></textarea>
                 <label for="user-img">Image URL</label>
+                <p class="error-text hide" data-error="user-img"></p>
             </div>
         </div>
         <div class="row">

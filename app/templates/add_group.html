@@ -43,11 +43,13 @@
                         <label for="group_description">Group description</label>
                     </div>
                 </div>
-
+                <!-- Group image cover -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="group_img_url" type="text" name="img_url" minlenght="3" maxlength="1500">
+                        <i class="fas fa-image prefix"></i>
+                        <textarea id="group_img_url" class="materialize-textarea validate" name="img_url" data-input="img"></textarea>
                         <label for="img_url">Add a cover image</label>
+                        <p class="error-text hide" data-error="group_img_url"></p>
                     </div>
                 </div>
 

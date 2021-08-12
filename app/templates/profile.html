@@ -176,9 +176,10 @@
                     {% endif %}
                 </div>
                 <div class="input-field col s12 m10">
-                    <input id="user-img" name="user-img" value="{{ user.user_imgUrl }}" type="text" class="validate"
-                        minlenght="1">
+                    <textarea id="user-img" class="materialize-textarea validate" name="user-img"
+                       data-input="img">{{ user.user_imgUrl }}</textarea>
                     <label for="user-img">Image URL</label>
+                    <p class="error-text hide" data-error="user-img"></p>
                 </div>
             </div>
             <!-- First name -->

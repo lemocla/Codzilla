@@ -48,6 +48,7 @@ $(document).ready(function () {
       src = targetImg.attr("src");
     } else {
       src = targetImg.val();
+      console.log("src= " + src)
     }
     //Check if url 
     checkUrl = ["https:", "http:"];
@@ -100,9 +101,9 @@ $(document).ready(function () {
   });
 
   //Check imgage url in forms 
-  $("#img_url").change(function () {
+  $("textarea[data-input=img]").change(function () {
     if ($(this).val() != "") {
-      checkImgUrl($(this), true, "event");
+      checkImgUrl($(this), true, "");
     } else {
       $(`p[data-error=${$(this).attr("id")}]`).addClass("hide");
     }
