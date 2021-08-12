@@ -777,6 +777,7 @@ label {
 
     .card-summary.card.horizontal .card-image {
         max-width: 50% !important;
+        width: 50%;
     }
 
     .hor-card-btn {

@@ -7,18 +7,23 @@
     <div class="col s12 l8 offset-l2">
         <h1 class="center-align">{{ group.group_name.capitalize() }}</h1>
         <hr class="breakline">
-         <!-- Back button -->
-    <button class="back-btn">
-        <i class="far fa-arrow-alt-circle-left"></i>
-    </button>
+        <!-- Back button -->
+        <button class="back-btn">
+            <i class="far fa-arrow-alt-circle-left"></i>
+        </button>
     </div>
 </div>
 
 <div class="row">
     <div class="s12 card horizontal card-summary" id="card-{{ group._id }}">
         <div class="card-image">
+            {% if group.img_url == "" or group.img_url is none %}
+            <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
+                width="368px" height="173px" alt="default event cover image">
+            {% else %}
             <img class="horizontal-card-img" src="{{ group.img_url }}" data-default="group"
-                alt="group image cover for {{ group.group_name }}">
+             width="368px" height="173px" alt="group image cover for {{ group.group_name }}">
+            {% endif %}
         </div>
         <div class="card-stacked">
             <div class="card-content">
@@ -101,8 +106,13 @@
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event"
+                {% if event.img_url == "" or event.img_url is none %}
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
+                    width="368px" height="184px" alt="default event cover image">
+                {% else %}
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
                     alt="event cover image for {{event.event_title}}">
+                {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -260,10 +270,14 @@
     {% if users|length > 0 %}
     <div class="col s12">
         <ul class="collection">
-            {% for user in users %}
+            {% for memb in users %}
             <li class="collection-item avatar z-depth-2">
-                <img src="{{ user.user_imgUrl }}" data-default="avatar" alt="profile image" class="circle">
-                <span class="title">{{ user.first_name }} {{ user.last_name }} </span>
+                {% if memb.user_img_url == "" or memb.user_img_url is none %}
+                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110px" height="110px" data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                {% else %}
+                <img src="{{ memb.user_imgUrl }}" width="110px" height="110px" data-default="avatar" alt="profile image" class="circle">
+                {% endif %}
+                <span class="title">{{ memb.first_name }} {{ memb.last_name }} </span>
             </li>
             {% endfor %}
     </div>

@@ -40,8 +40,13 @@
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}"
+                            {% if group.img_url == "" or group.img_url is none %}
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
+                    width="368px" height="173px" alt="default event cover image">
+                {% else %}
+                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368px" height="173px"
                     data-default="group" alt="group image cover for {{ group.group_name }}">
+                    {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -109,8 +114,13 @@
     <div class="col s12" id="card-{{ group._id }}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}"
+                            {% if group.img_url == "" or group.img_url is none %}
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
+                    width="368px" height="173px" alt="default event cover image">
+                {% else %}
+                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368px" height="173px"
                     data-default="group" alt="group image cover for {{ group.group_name }}">
+                    {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">

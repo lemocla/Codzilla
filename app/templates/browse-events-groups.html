@@ -56,24 +56,31 @@
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" alt="cover image for event {{event.event_title}}">
+                {% if event.img_url == "" or event.img_url is none %}
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}" width="368px" height="184px"
+                    alt="default event cover image">
+                {% else %}
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
+                    alt="cover image for event {{event.event_title}}">
+                {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                                        <!-- floating bookmark button -->
+                    <!-- floating bookmark button -->
                     {% if session.email %}
                     {% if event.created_by == user._id %}
                     {% else%}
                     {% if event._id in events_interest %}
-                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active" data-user="{{ user._id }}"
-                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active" data-user="{{ user._id }}"
-                        data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
                     {% endif %}
                     {% endif %}
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger" href="#request-registration-modal">
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger"
+                        href="#request-registration-modal">
                         <i class="far fa-star"></i>
                     </a>
                     {% endif %}
@@ -112,7 +119,7 @@
                                 </p>
                             </div>
                             <div class="col s6 right-align">
-                              <!-- dynamic event actions -->
+                                <!-- dynamic event actions -->
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}
 
@@ -145,7 +152,8 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" alt="illustration for no results found">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+            alt="illustration for no results found">
     </div>
     {% endif %}
 </div>
@@ -168,8 +176,13 @@
     <div class="col s12" id="card-{{ group._id }}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" alt="group image cover for {{ group.group_name }}"
-                >
+                {% if group.img_url == "" or group.img_url is none %}
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
+                    width="368px" height="173px" alt="default event cover image">
+                {% else %}
+                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368px"
+                    height="173px" alt="group image cover for {{ group.group_name }}">
+                {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -186,12 +199,12 @@
                                     member(s)</p>
                             </div>
                             <div class="col s6 right-align">
-                            <!-- group action -->
-                            {% if session.email %}
-                            
-                            {% if group._id in owned  %}
-                                    
-                            {% else%}
+                                <!-- group action -->
+                                {% if session.email %}
+
+                                {% if group._id in owned  %}
+
+                                {% else%}
                                 {% if group._id in followed %}
                                 <button class="btn btn-following" data-user="{{ user._id }}"
                                     data-group="{{ group._id}}">Following</button>
@@ -203,10 +216,10 @@
                                 {% endif %}
                                 {% endif %}
 
-                            {% else %}
+                                {% else %}
                                 <a class="btn btn-follow modal-trigger" href="#request-registration-modal">Follow</a>
-                            {% endif %}
-                            <!-- end group action -->
+                                {% endif %}
+                                <!-- end group action -->
                             </div>
                         </div>
                     </div>
@@ -220,27 +233,28 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" alt="illustration for no results found">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+            alt="illustration for no results found">
     </div>
     {% endif %}
 </div>
-    <!-- modal request registration -->
-    <div id="request-registration-modal" class="modal">
-        <div class="row modal-content">
-            <!-- closing button -->
-            <i class="far fa-times-circle close-form modal-close"></i>
-            <!-- modal content -->
-            <div class="col s12 center-align">
-                <h2>Sign in or register</h2>
-                <hr class="breakline">
-                <p>Please sign in or register to access this feature</p>
-            </div>
-            <!-- modal footer -->
-            <div class="col s12 center-align border-top margin-top">
-                <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
-                <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
-                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
-            </div>
+<!-- modal request registration -->
+<div id="request-registration-modal" class="modal">
+    <div class="row modal-content">
+        <!-- closing button -->
+        <i class="far fa-times-circle close-form modal-close"></i>
+        <!-- modal content -->
+        <div class="col s12 center-align">
+            <h2>Sign in or register</h2>
+            <hr class="breakline">
+            <p>Please sign in or register to access this feature</p>
         </div>
-        <!-- end modal -->
-{% endblock %}
+        <!-- modal footer -->
+        <div class="col s12 center-align border-top margin-top">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
+            <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+        </div>
+    </div>
+    <!-- end modal -->
+    {% endblock %}
