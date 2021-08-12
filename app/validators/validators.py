@@ -3,6 +3,7 @@ from flask import (flash, jsonify, Blueprint)
 from werkzeug.security import check_password_hash
 import re
 
+
 # Blueprint
 validators = Blueprint("validators", __name__)
 

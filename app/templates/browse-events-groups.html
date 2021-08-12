@@ -56,7 +56,7 @@
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ event.img_url }}" alt="cover image for event {{event.event_title}}">
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" alt="cover image for event {{event.event_title}}">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
@@ -168,7 +168,8 @@
     <div class="col s12" id="card-{{ group._id }}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
-                <img class="horizontal-card-img" src="{{ group.img_url }}" alt="group image cover for {{ group.group_name }}">
+                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" alt="group image cover for {{ group.group_name }}"
+                >
             </div>
             <div class="card-stacked">
                 <div class="card-content">

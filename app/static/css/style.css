@@ -369,6 +369,11 @@ button.nav-item.dropdown-trigger {
     padding: 0.7rem 3rem !important;
 }
 
+.card .card-image img {
+    object-fit: cover;
+    max-height: 184px;
+}
+
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
     color: white;
     -webkit-transition: color .3s ease;

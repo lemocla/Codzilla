@@ -13,7 +13,7 @@
 <div class="row">
     <div class="s12 card horizontal card-summary" id="card-{{event._id}}">
         <div class="card-image">
-            <img class="horizontal-card-img" src="{{ event.img_url }}"
+            <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event"
                 alt="cover image for event {{event.event_title}}">
         </div>
         <div class="card-stacked">
@@ -166,7 +166,7 @@
             <ul class="collection">
                 {% for attendee in attendees %}
                 <li class="collection-item avatar z-depth-2">
-                    <img src="{{ attendee.user_imgUrl }}" alt="profile image for attendee" class="circle">
+                    <img src="{{ attendee.user_imgUrl }}" data-default="avatar" alt="profile image for attendee" class="circle">
                     <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
                 </li>
                 {% endfor %}

@@ -80,7 +80,11 @@
         <div class="carousel-cell" id="card-{{event._id}}">
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ event.img_url }}" alt="event cover image for {{ event.event_title }}">
+                    {% if event.img_url == "" or event.img_url is none %}
+                    <img src="{{ url_for('static', filename='images/event_default.png')}}"  alt="default event cover image">
+                    {% else %}
+                    <img src="{{ event.img_url }}" data-default="event" alt="event cover image for {{ event.event_title }}">
+                    {% endif %}
                     <!-- floating bookmark button -->
                     {% if session.email %}
                     {% if event.created_by == user._id %}

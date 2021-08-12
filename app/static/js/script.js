@@ -36,6 +36,51 @@ $(document).ready(function () {
   // Materialize form select
   $('select').formSelect();
 
+  // Default images for groups 
+  $("img[data-default=group]").each(function () {
+  // Check if image is loaded
+  //https://www.techiedelight.com/check-whether-image-is-loaded-with-javascript/
+    window.addEventListener("load", event => {
+      var image = document.querySelector('img');
+      var isLoaded = image.complete && image.naturalHeight !== 0;
+      console.log(isLoaded);
+    });
+    //Check for error and update src attribute to default image
+    $(this).on('error', function () {
+      console.log(`this src ${$(this).attr('src')} is not displayed`)
+      $(this).attr('src', '/static/images/group_default.png')
+    })
+  });
+
+  // Default images for events
+  $("img[data-default=event]").each(function () {
+  // Check if image is loaded
+    window.addEventListener("load", event => {
+      var image = document.querySelector('img');
+      var isLoaded = image.complete && image.naturalHeight !== 0;
+      console.log(isLoaded);
+    });
+    //Check for error and update src attribute to default image
+    $(this).on('error', function () {
+      console.log(`this src ${$(this).attr('src')} is not displayed`)
+      $(this).attr('src', '/static/images/event_default.png')
+    })
+  });
+
+  // Default images for avatars
+  $("img[data-default=avatar]").each(function () {
+  // Check if image is loaded
+    window.addEventListener("load", event => {
+      var image = document.querySelector('img');
+      var isLoaded = image.complete && image.naturalHeight !== 0;
+      console.log(isLoaded);
+    });
+    //Check for error and update src attribute to default image
+    $(this).on('error', function () {
+      console.log(`this src ${$(this).attr('src')} is not displayed`)
+      $(this).attr('src', '/static/images/avatar_default.png')
+    })
+  });
 
 
   // Add asterix to labels for required fields 
