@@ -38,65 +38,75 @@ $(document).ready(function () {
 
   // Back to previous page
   $(".back-btn").click(function () {
-      window.history.back()
-      console.log("back")
+    window.history.back()
+    console.log("back")
   })
+
+  // Function to check group image
+  function checkImgUrl(targetImg, formData, value) {
+    if (!formData) {
+      src = targetImg.attr("src");
+    } else {
+      src = targetImg.val();
+    }
+    //Check if url 
+    checkUrl = ["https:", "http:"];
+    checkUrlValid = [];
+    //Check url valid 
+    checkVal = ["svg", "png", "jpg", "jpeg", ".tiff", "webp", "bmp", "heif"]
+    checkArray = [];
+    // check for img extension 
+    $.each(checkVal, function (key, value) {
+      checkArray.push(src.includes(value));
+      checkUrlValid.push(src.includes(value));
+    })
+    // check image display on load
+    if (!formData) {
+      // Default image value if url invalid
+      if (!checkUrlValid.includes(true)) {
+        targetImg.attr('src', `/static/images/${value}_default.png`);
+      } else {
+        if (!checkArray.includes(true)) {
+          // Default image value if url valid but no image extension
+          targetImg.attr('src', `/static/images/${value}_default.png`);
+        }
+      }
+    } else {
+      // Display error on form imput 
+      errorMsg = "Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg..."
+      if (!checkUrlValid.includes(true)) {
+        $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
+      } else {
+        if (!checkArray.includes(true)) {
+          $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
+        }
+      }
+    }
+  }
 
   // Default images for groups 
   $("img[data-default=group]").each(function () {
-    // Check if image is loaded
-    //https://www.techiedelight.com/check-whether-image-is-loaded-with-javascript/
-    window.addEventListener("load", event => {
-      var image = document.querySelector('img');
-      var isLoaded = image.complete && image.naturalHeight !== 0;
-      console.log(isLoaded);
-      if (isLoaded == false){
-      $(this).attr('src', '/static/images/group_default.png')
-      }
-    });
-    //Check for error and update src attribute to default image
-    $(this).on('error', function () {
-      console.log(`this src ${$(this).attr('src')} is not displayed`)
-      $(this).attr('src', '/static/images/group_default.png')
-    })
+    checkImgUrl($(this), false, "group");
   });
 
   // Default images for events
   $("img[data-default=event]").each(function () {
-    // Check if image is loaded
-    window.addEventListener("load", event => {
-      var image = document.querySelector('img');
-      var isLoaded = image.complete;
-      console.log(isLoaded);
-      if (isLoaded == false){
-      //$(this).attr('src', '/static/images/event_default.png')
-      }
-    });
-    //Check for error and update src attribute to default image
-    $(this).on('error', function () {
-      console.log(`this src ${$(this).attr('src')} is not displayed`)
-      $(this).attr('src', '/static/images/event_default.png')
-    })
+    checkImgUrl($(this), false, "event");
   });
 
   // Default images for avatars
   $("img[data-default=avatar]").each(function () {
-    // Check if image is loaded
-    window.addEventListener("load", event => {
-      var image = document.querySelector('img');
-      var isLoaded = image.complete && image.naturalHeight !== 0;
-      console.log(isLoaded);
-      if (isLoaded == false){
-      $(this).attr('src', '/static/images/avatar_default.png')
-      }
-    });
-    //Check for error and update src attribute to default image
-    $(this).on('error', function () {
-      console.log(`this src ${$(this).attr('src')} is not displayed`)
-      $(this).attr('src', '/static/images/avatar_default.png')
-    })
+    checkImgUrl($(this), false, "avatar");
   });
 
+  //Check imgage url in forms 
+  $("#img_url").change(function () {
+    if ($(this).val() != "") {
+      checkImgUrl($(this), true, "event");
+    } else {
+      $(`p[data-error=${$(this).attr("id")}]`).addClass("hide");
+    }
+  })
 
   // Add asterix to labels for required fields 
   $("[required]").each(function () {
