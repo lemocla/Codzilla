@@ -36,14 +36,23 @@ $(document).ready(function () {
   // Materialize form select
   $('select').formSelect();
 
+  // Back to previous page
+  $(".back-btn").click(function () {
+      window.history.back()
+      console.log("back")
+  })
+
   // Default images for groups 
   $("img[data-default=group]").each(function () {
-  // Check if image is loaded
-  //https://www.techiedelight.com/check-whether-image-is-loaded-with-javascript/
+    // Check if image is loaded
+    //https://www.techiedelight.com/check-whether-image-is-loaded-with-javascript/
     window.addEventListener("load", event => {
       var image = document.querySelector('img');
       var isLoaded = image.complete && image.naturalHeight !== 0;
       console.log(isLoaded);
+      if (isLoaded == false){
+      $(this).attr('src', '/static/images/group_default.png')
+      }
     });
     //Check for error and update src attribute to default image
     $(this).on('error', function () {
@@ -54,11 +63,14 @@ $(document).ready(function () {
 
   // Default images for events
   $("img[data-default=event]").each(function () {
-  // Check if image is loaded
+    // Check if image is loaded
     window.addEventListener("load", event => {
       var image = document.querySelector('img');
-      var isLoaded = image.complete && image.naturalHeight !== 0;
+      var isLoaded = image.complete;
       console.log(isLoaded);
+      if (isLoaded == false){
+      //$(this).attr('src', '/static/images/event_default.png')
+      }
     });
     //Check for error and update src attribute to default image
     $(this).on('error', function () {
@@ -69,11 +81,14 @@ $(document).ready(function () {
 
   // Default images for avatars
   $("img[data-default=avatar]").each(function () {
-  // Check if image is loaded
+    // Check if image is loaded
     window.addEventListener("load", event => {
       var image = document.querySelector('img');
       var isLoaded = image.complete && image.naturalHeight !== 0;
       console.log(isLoaded);
+      if (isLoaded == false){
+      $(this).attr('src', '/static/images/avatar_default.png')
+      }
     });
     //Check for error and update src attribute to default image
     $(this).on('error', function () {

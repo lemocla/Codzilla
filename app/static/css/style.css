@@ -310,6 +310,21 @@ button.nav-item.dropdown-trigger {
     top: 5px;
 }
 
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 2.6rem;
+    color: var(--darkgray);
+    background: transparent;
+    border: none;
+    font-size: 2.8rem;
+}
+
+.back-btn:hover, .back-btn:focus {
+    transform: scale(1.1);
+    background-color: inherit;
+}
+
 /*---------[ flashes ]------------*/
 
 .flashes {
@@ -323,6 +338,7 @@ button.nav-item.dropdown-trigger {
 .head-container,
 .home-container {
     margin-top: 4rem;
+    position: relative;
 }
 
 .home-container h1 {

@@ -7,6 +7,10 @@
     <div class="col s12 l8 offset-l2">
         <h1 class="center-align">{{ event.event_title }}</h1>
         <hr class="breakline">
+            <!-- back button -->
+    <button class="back-btn">
+        <i class="far fa-arrow-alt-circle-left"></i>
+    </button>
     </div>
 </div>
 
@@ -166,7 +170,8 @@
             <ul class="collection">
                 {% for attendee in attendees %}
                 <li class="collection-item avatar z-depth-2">
-                    <img src="{{ attendee.user_imgUrl }}" data-default="avatar" alt="profile image for attendee" class="circle">
+                    <img src="{{ attendee.user_imgUrl }}" data-default="avatar" alt="profile image for attendee"
+                        class="circle">
                     <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
                 </li>
                 {% endfor %}
