@@ -526,6 +526,10 @@ button.nav-item.dropdown-trigger {
 
 /*---------[ groups]-------*/
 
+.col-head{
+position: relative;
+width: 100%;
+}
 .section-container {
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--darkgray) !important;

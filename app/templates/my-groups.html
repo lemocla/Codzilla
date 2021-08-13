@@ -57,13 +57,13 @@
 
                     <p class="gp-description">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
-                        <div class="row action-container valign-wrapper">
-                            <div class="col s16 valign-wrapper">
+                        <div class="row action-container">
+                            <div class="col s12 m6 valign-wrapper">
                                 <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
                                     member(s)</p>
                             </div>
-                            <div class="col s6 right-align">
-                                <a class="btn btn-send"
+                            <div class="col s12 m6 small-pd-top align-right-md">
+                                <a class="btn btn-send mg-right"
                                     href="{{ url_for('groups.edit_group', group_id=group._id)}}">Edit</a>
                                 <a class="btn btn-send modal-trigger"
                                     href="#delete-confirmation-{{ group._id }}">Delete</a>
@@ -129,6 +129,7 @@
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
                     <p class="gp-description">{{ group.group_description.capitalize() }}</p>
+                    <!-- Actions buttons -->
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
