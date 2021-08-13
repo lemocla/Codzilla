@@ -274,9 +274,21 @@ View live project here [link to deployed link]
 
 # **FEATURES**
 
-  - ## **Existing features**
+  - ## **Implemented features** 
 
-  - ## **Features left to implement**
+   Existing features as well as features left to implement can be found [here](documentation/features.md)
+
+   [include screnshots]
+
+  - ## **Features left to implement**   
+
+    - Further authentication on registration by asking the user to confirm his email address
+    - Add email notifications and amend user preferences settings accordingly 
+    - Allow group owners to add co-admin to their group 
+    - Allow users to share events on social media 
+    - Implement a discussion feature on group so that users can exchange 
+    - Upload, store and retrieve images for group and event cover as well as for profile image 
+
 
 # **TECHNOLOGY USED**
 
@@ -292,8 +304,11 @@ View live project here [link to deployed link]
   - ## **Libraries frameworks and other technologies**
     - Flask
     - Heroku 
+    - Jquery 
     - PyMongo 
     - Jinja
+    - Urrlib 
+    - Sendgrid and flask mail
 
 
 # **TESTING** 
@@ -316,6 +331,7 @@ View live project here [link to deployed link]
 
   - ## **Interesting issues and know bugs**
     - #### **Interesting issues**
+    
     - #### **Known bugs**
 
 # **DEPLOYMENT**
