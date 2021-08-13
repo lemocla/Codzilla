@@ -14,19 +14,19 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row section-container">
     <div class="s12 card horizontal card-summary" id="card-{{ group._id }}">
         <div class="card-image">
             {% if group.img_url == "" or group.img_url is none %}
             <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
                 width="368" height="173" alt="default event cover image">
             {% else %}
-            <img class="horizontal-card-img" src="{{ group.img_url }}" data-default="group"
-             width="368" height="173" alt="group image cover for {{ group.group_name }}">
+            <img class="horizontal-card-img" src="{{ group.img_url }}" data-default="group" width="368" height="173"
+                alt="group image cover for {{ group.group_name }}">
             {% endif %}
         </div>
         <div class="card-stacked">
-            <div class="card-content">
+            <div class="card-content event-card-content">
                 <p class="event-title">{{ group.group_name.capitalize() }}</p>
                 <ul class="fa-ul">
                     <li class="list-item"><span class="fa-li"><i class="fas fa-map-marker-alt list-icon"></i></span>
@@ -42,17 +42,19 @@
                         {{ group.group_members|length }} members
                     </li>
                 </ul>
+                <!-- Action buttons -->
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
+                        <!-- Admin buttons -->
                         {% if admin == True %}
-                        <div class="col s6 right-align remove-pd">
-                            <a class="btn btn-send"
+                        <div class="col s12 remove-pd">
+                            <a class="btn btn-send mg-right"
                                 href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a>
                             <a class="btn btn-send modal-trigger" href="#group-delete-confirmation">Delete</a>
                         </div>
                         {% else %}
-                        <div class="col s12 right-align remove-pd">
-                            <!-- group action -->
+                        <div class="col s12 remove-pd">
+                            <!-- User group action -->
                             {% if session.email %}
                             {% if group._id in followed %}
                             <button class="btn btn-following" data-user="{{ user._id }}"
@@ -76,23 +78,23 @@
         </div>
     </div>
 </div>
-<hr>
+
 
 <!-- Description -->
-<div class="row">
+<div class="row section-container">
     <div class="col s12">
-        <h2>Description</h2>
+        <h2 class="h2-page">Description</h2>
     </div>
     <div class="col s12">
         <p>{{ group.group_description }}</p>
     </div>
 </div>
-<hr>
+
 
 <!-- Upcoming events -->
-<div class="row">
+<div class="row section-container">
     <div class="col s12">
-        <h2>Upcoming events</h2>
+        <h2 class="h2-page">Upcoming events</h2>
     </div>
     {% if admin == True %}
     <div class="col s12">
@@ -248,22 +250,22 @@
         </div>
         {% endfor %}
         {% else %}
+        <!-- No upcoming events -->
+        <div class="col s4 offset-s4">
+            <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+                alt="illustration add to calendar">
+        </div>
         <div class="col s12 center-align">
             <h3>No upcoming events</h3>
         </div>
-        <div class="col s4 offset-s4">
-            <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
-                alt="illustration add to calendar">
-        </div>
         {% endif %}
     </div>
-
-<hr>
+</div>
 
 <!-- Members -->
 <div class="row">
     <div class="col s12">
-        <h2>Members ({{ group.group_members|length }})</h2>
+        <h2 class="h2-page">Members ({{ group.group_members|length }})</h2>
     </div>
     {% if users|length > 0 %}
     <div class="col s12">
@@ -271,9 +273,11 @@
             {% for memb in users %}
             <li class="collection-item avatar z-depth-2">
                 {% if memb.user_img_url == "" or memb.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110" data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
+                    data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
                 {% else %}
-                <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar" alt="profile image" class="circle">
+                <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar" alt="profile image"
+                    class="circle">
                 {% endif %}
                 <span class="title">{{ memb.first_name }} {{ memb.last_name }} </span>
             </li>
@@ -281,12 +285,13 @@
         </ul>
     </div>
     {% else %}
-    <div class="col s12 center-align">
-        <h3>No members</h3>
-    </div>
+    <!-- No members -->
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+        <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
             alt="Illustration for no events">
+    </div>
+        <div class="col s12 center-align">
+        <h3>No members</h3>
     </div>
     {% endif %}
 </div>

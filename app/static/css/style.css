@@ -320,8 +320,8 @@ button.nav-item.dropdown-trigger {
 
 .back-btn {
     position: absolute;
-    left: 0.5rem;
-    top: -1rem;
+    left: 0;
+    top: -15px;
     color: var(--darkgray);
     background: transparent;
     border: none;
@@ -352,7 +352,7 @@ button.nav-item.dropdown-trigger {
 
 .head-container,
 .home-container {
-    margin-top: 4rem;
+    margin-top: 4.75rem;
     position: relative;
 }
 
@@ -528,7 +528,7 @@ button.nav-item.dropdown-trigger {
 
 .section-container {
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e0e0e0 !important;
+    border-bottom: 1px solid var(--darkgray) !important;
 }
 
 .card-summary {
