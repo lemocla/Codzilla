@@ -9,12 +9,12 @@
         <hr class="breakline">
         <!-- back button -->
         <button class="back-btn">
-            <i class="far fa-arrow-alt-circle-left"></i>
+            <i class="fas fa-angle-left"></i>
         </button>
     </div>
 </div>
 
-<div class="row">
+<div class="row section-container">
     <div class="s12 card horizontal card-summary" id="card-{{event._id}}">
         <div class="card-image">
             {% if event.img_url == "" or event.img_url is none %}
@@ -101,16 +101,17 @@
                                 <!-- end event action -->
                             </div>
                             <div class="col s6 remove-pd">
+                                <div class="btn-container">
                                 <!-- floating bookmark button -->
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}
                                 {% else%}
                                 {% if event._id in user["events_interest"] %}
-                                <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
+                                <a class="btn-floating halfway-fab btn-interested hor-event" data-status="active"
                                     data-user="{{ user._id }}" data-event="{{ event._id}}"><i
                                         class="far fa-star"></i></a>
                                 {% else %}
-                                <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
+                                <a class="btn-floating halfway-fab btn-interest hor-event" data-status="active"
                                     data-user="{{ user._id }}" data-event="{{ event._id}}"><i
                                         class="far fa-star"></i></a>
                                 {% endif %}
@@ -122,6 +123,7 @@
                                 </a>
                                 {% endif %}
                                 <!-- end floating button -->
+                                </div>
                             </div>
                             {% endif %}
                         </div>
@@ -131,17 +133,16 @@
         </div>
 
     </div>
-
+</div>
     <!-- Event details -->
-    <div class="row">
-        <hr>
-        <div class="col s12">
-            <h2>Details</h2>
-        </div>
+    <div class="row section-container">
+        <!--<hr>-->
+
         <div class="col s12 m6">
+            <h2 class="h2-page">Details</h2>
             <p class="margin-bottom">{{ event.event_description }}</p>
             <p class="p-separator">
-                <i class="far fa-calendar-alt"></i>
+                <i class="far fa-calendar-alt li-page"></i>
                 {% if event.is_endtime == "true" %}
                 {{ event.date_start.strftime('%a %d %B %Y - %H:%M') }} to
                 {{event.date_end.strftime('%H:%M')}}
@@ -151,18 +152,33 @@
             </p>
             <p>
                 {% if event.event_type == "in person" %}
-                <i class="fas fa-map-marker-alt"></i> {{ event.event_location.capitalize() }}
+                <i class="fas fa-map-marker-alt li-page"></i> {{ event.event_location.capitalize() }}
                 {% else %}
-                <i class="fas fa-video"></i> {{ event.event_type.capitalize() }}
-                {% endif %}
+                <i class="fas fa-video li-page"></i> {{ event.event_type.capitalize() }}
             </p>
+                {% if event._id in user["events_attending"] %}
+                    {% if event.event_link == "" or event.event_link is none %}
+                        {% set link_info = "link not yet available" %}
+                        {% else %}
+                        {% set link_info = event.event_link %}
+                    {% endif %}
+                    <p>
+                    <i class="fas fa-link li-page"></i> {{ link_info }}
+                    </p>
+                {% else %}
+                <p>
+                <i class="fas fa-link li-page"></i> Link available to participant only
+                </p>
+                {% endif %}
+                {% endif %}
+            
 
         </div>
         {% if event.event_type == "in person" %}
         <div class="col s12 m6 map-container">
-            {% set location0 = event.event_location|replace(" ", "_") -%}
-            {% set location = location0|replace(",", "") -%}
-            <img class="responsive-img"
+            {% set location0 = event.event_location|replace(", ", ",") -%}
+            {% set location = location0|replace(" ", "+") -%}
+            <img class="responsive-img z-depth-3 border-grey"
                 src="https://maps.googleapis.com/maps/api/staticmap?center={{ location }}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
                 alt="google static map for event">
         </div>
@@ -170,10 +186,10 @@
     </div>
 
     <!-- Attendees -->
-    <div class="row">
-        <hr>
+    <div class="row section-container">
+        <!--<hr>-->
         <div class="col s12">
-            <h2>Attendees ({{attendees|length }})</h2>
+            <h2 class="h2-page">Attendees ({{attendees|length }})</h2>
         </div>
         {% if attendees|length > 0 %}
         <div class="col s12">
@@ -205,9 +221,9 @@
 
     <!-- Questions and anwers -->
     <div class="row" id="questions_answers_container">
-        <hr>
+        <!--<hr>-->
         <div class="col s12">
-            <h2>Questions and Answers</h2>
+            <h2 class="h2-page">Questions and Answers</h2>
         </div>
         {% if questions_answers|length > 0 %}
         {% for qa in questions_answers %}
@@ -221,11 +237,11 @@
                     </p>
                     {% if session %}
                     {% if admin == False %}
-                    <a class="modal-trigger" href="#edit_question_{{ qa._id}}">Edit</a>
-                    <a class="modal-trigger" href="#delete_question_{{ qa._id}}">Delete</a>
+                    <a class="modal-trigger qa_link mg-left" href="#edit_question_{{ qa._id}}"><i class="far fa-edit"></i> edit</a>
+                    <a class="modal-trigger qa_link mg-left" href="#delete_question_{{ qa._id}}"><i class="far fa-trash-alt"></i> delete</a>
                     {% else %}
                     {% if qa.answered == False and admin == True %}
-                    <a class="modal-trigger" href="#answer_question_{{ qa._id}}">Answer</a>
+                    <a class="modal-trigger qa_link mg-left" href="#answer_question_{{ qa._id}}"><i class="far fa-comment-dots"></i> answer</a>
                     {% endif %}
                     {% endif %}
                     {% endif %}
@@ -297,8 +313,8 @@
                     <p class="z-depth-4 qa-container"><span class="question">A. </span>{{ qa.answer.capitalize()}}</p>
                     {% if session %}
                     {% if admin == True %}
-                    <a class="modal-trigger" href="#modal_edit_answer_{{ qa._id}}">Edit</a>
-                    <a class="modal-trigger" href="#modal_delete_answer_{{ qa._id}}">Delete</a>
+                    <a class="modal-trigger qa_link mg-left" href="#modal_edit_answer_{{ qa._id}}"><i class="far fa-edit"></i> edit</a>
+                    <a class="modal-trigger qa_link mg-left" href="#modal_delete_answer_{{ qa._id}}"><i class="far fa-trash-alt"></i> delete</a>
                     {% endif %}
                     {% endif %}
                 </div>
@@ -433,5 +449,5 @@
         </div>
     </div>
     <!-- end modal -->
-</div>
+
 {% endblock %}

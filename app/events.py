@@ -23,8 +23,11 @@ def event(event_id):
     questions_answers = Question.find_all_questions_answers(event_id)
     if session:
         user = User.check_existing_user(session["email"].lower())
-        if owner["_id"] == user["_id"]:
-            admin = True
+        if owner:
+            if owner["_id"] == user["_id"]:
+                admin = True
+            else:
+                admin = False
         else:
             admin = False
     else:

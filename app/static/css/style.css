@@ -73,6 +73,10 @@ h3 {
     font-size: 1.3rem;
 }
 
+.h2-page {
+    margin-top: 1rem;
+}
+
 /*--------[ buttons ]---------*/
 
 .btn.contact-btn {
@@ -219,6 +223,10 @@ h3 {
     margin-right: 0.75rem !important;
 }
 
+.mg-left {
+    margin-left: 1rem !important;
+}
+
 .remove-mg-top {
     margin-top: 0 !important;
 }
@@ -312,18 +320,24 @@ button.nav-item.dropdown-trigger {
 
 .back-btn {
     position: absolute;
-    left: 0;
-    top: 2.6rem;
+    left: 0.5rem;
+    top: -1rem;
     color: var(--darkgray);
     background: transparent;
     border: none;
-    font-size: 2.8rem;
+    font-size: 2.5rem;
 }
 
 .back-btn:hover,
 .back-btn:focus {
     transform: scale(1.1);
     background-color: inherit;
+}
+
+/*---------[ borders ]------------*/
+
+.border-grey {
+    border: 1px solid #6e6e6e6b;
 }
 
 /*---------[ flashes ]------------*/
@@ -495,16 +509,27 @@ button.nav-item.dropdown-trigger {
     text-align: center;
 }
 
+.hor-event {
+    right: 0 !important;
+    bottom: 0 !important;
+    top: unset !important;
+}
+
 .gp-description {
     margin-top: 0.75rem !important;
 }
 
 .btn-action-event {
-  left: 0;
-  right:unset;
+    left: 0;
+    right: unset;
 }
 
 /*---------[ groups]-------*/
+
+.section-container {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0 !important;
+}
 
 .card-summary {
     box-shadow: none !important;
@@ -550,12 +575,17 @@ button.nav-item.dropdown-trigger {
     padding-top: 20px;
 }
 
+.btn-container {
+    position: relative;
+}
+
 .map-container {
-    padding-right: 0 !important;
+    margin-top: 1.25rem !important;
 }
 
 .qa-container {
     padding: 1rem !important;
+    border: 1px solid #e0e0e0;
 }
 
 .qa-container .question {
@@ -566,6 +596,20 @@ button.nav-item.dropdown-trigger {
     text-transform: uppercase;
     font-weight: 700;
     padding-left: 0 !important;
+}
+
+.li-page {
+    color: var(--fuchsia);
+    font-size: 1.2rem;
+    padding-right: 0.5rem;
+}
+
+.qa_link {
+    color: var(--blue);
+}
+
+.qa-link i {
+    font-size: 1.2rem;
 }
 
 /*---------[ notifications ] ----*/
@@ -734,6 +778,14 @@ label {
 
 /*---------[ Media queries ]---------*/
 
+@media only screen and (max-width: 600px) {
+    .event-card-content {
+        padding-bottom: 0 !important;
+        padding-left: 10.5px !important;
+    }
+}
+
+
 @media only screen and (min-width: 600px) {
 
     nav {
@@ -771,6 +823,13 @@ label {
         margin-left: 1rem;
     }
 
+    .back-btn {
+        position: absolute;
+        left: 0;
+        top: 2.6rem;
+        font-size: 2.8rem;
+    }
+
     .card.horizontal {
         flex-direction: row !important;
     }
@@ -794,6 +853,12 @@ label {
         right: 16px !important;
         bottom: unset !important;
         top: 8px !important;
+    }
+
+    .map-container {
+        padding-right: 0 !important;
+        margin-top: 1.25rem !important;
+        margin-bottom: 0.75rem;
     }
 
     .profile-img {
@@ -824,6 +889,10 @@ label {
 
     body {
         background-position: right 20px;
+    }
+
+    .head-container {
+        margin-top: 8.25rem
     }
 
     nav {
