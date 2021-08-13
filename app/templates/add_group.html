@@ -37,14 +37,14 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_city" type="text" name="group_city" value="{{ user.city }}" minlength="3"
-                            maxlength="250" class="validate" required>
+                            maxlength="250" class="validate" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                         <label for="group_city">City</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_country" type="text" value="{{ user.country }}" name="group_country"
-                            minlength="3" maxlength="250" class="validate" required>
+                            minlength="3" maxlength="250" class="validate" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                         <label for="group_country">Country</label>
                     </div>
                 </div>

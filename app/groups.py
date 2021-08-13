@@ -56,17 +56,23 @@ def add_group():
     if not session["email"]:
         return redirect(url_for('login'))
     user = User.check_existing_user(session["email"])
-    new_group = Group(group_name=request.form.get("group_name"),
-                      group_city=request.form.get("group_city"),
-                      group_country=request.form.get("group_country"),
-                      group_description=request.form.get("group_description"),
-                      img_url=request.form.get("img_url"),
-                      group_admin=[user["_id"]])
+
     if request.method == "POST":
+
+        new_group = Group(
+                    group_name=request.form.get("group_name").lower(),
+                    group_city=request.form.get("group_city").lower(),
+                    group_country=request.form.get("group_country").lower(),
+                    group_description=request.form.get(
+                                      "group_description").lower(),
+                    img_url=request.form.get("img_url"),
+                    group_admin=[user["_id"]])
+
         check = validators.check_img_url(request.form.get("img_url"))
+
         if check:
             new = new_group.insert_into_database()
-        
+
             User.append_list(user["_id"], "group_owned", new.inserted_id)
             flash("Group successfully added!")
             return redirect(url_for('users.my_groups'))
@@ -86,11 +92,12 @@ def edit_group(group_id):
     group = Group.find_one_group(group_id)
 
     if request.method == "POST":
-        edit_info = {"group_name": request.form.get("group_name"),
-                     "group_city": request.form.get("group_city"),
-                     "group_country": request.form.get("group_country"),
+        edit_info = {"group_name": request.form.get("group_name").lower(),
+                     "group_city": request.form.get("group_city").lower(),
+                     "group_country": request.form.get(
+                                      "group_country").lower(),
                      "group_description": request.form.get(
-                                          "group_description"),
+                                          "group_description").lower(),
                      "img_url": request.form.get("img_url")}
         check = validators.check_img_url(request.form.get("img_url"))
         if check:

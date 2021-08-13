@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_name" type="text" name="group_name" value="{{ group.group_name }}" minlength="3" maxlength="250"
-                            class="validate" required>
+                            class="validate" data-check="{{ group.group_name }}" required>
                         <label for="group_name">Edit group name</label>
                         <p class="error-text hide" data-error="group_name"></p>
                     </div>
@@ -36,14 +36,14 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_city" type="text" name="group_city" value="{{ group.group_city }}" minlength="3"
-                            maxlength="250" class="validate" required>
+                            maxlength="250" class="validate" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                         <label for="group_city">Edit city</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_country" type="text" value="{{ group.group_country }}" name="group_country"
-                            minlength="3" maxlength="250" class="validate" required>
+                            minlength="3" maxlength="250" pattern="^[a-zA-Z-_. ]{1,32}$" class="validate" required>
                         <label for="group_country">Edit country</label>
                     </div>
                 </div>

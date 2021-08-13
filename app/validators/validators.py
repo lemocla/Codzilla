@@ -1,6 +1,7 @@
 from app import mongo
-from flask import (flash, jsonify, Blueprint)
+from flask import (flash, request, jsonify, Blueprint)
 from werkzeug.security import check_password_hash
+from app.models.group import Group
 import re
 import urllib
 
@@ -67,12 +68,16 @@ def check_img_url(url):
     if not url or url is None:
         check_value = True
         return check_value
-    
+
     if url and "http" not in url:
         check_value = False
         return check_value
-    
-    req = urllib.request.Request(url)
+
+    # https://medium.com/@speedforcerun/python-crawler-http-error-403-forbidden-1623ae9ba0f
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 "
+               "(KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3"}
+
+    req = urllib.request.Request(url=url, headers=headers)
     try:
         response = urllib.request.urlopen(req)
     except urllib.error.HTTPError as e:
@@ -98,3 +103,28 @@ def check_img_url(url):
                 check_value = False
 
         return check_value
+
+
+# check if group name is unique
+@validators.route("/check_name", methods=['GET', 'POST'])
+def check_name():
+    resp = request.form.to_dict(flat=False)
+    group_name = resp["group_name"][0].lower()
+    existing = resp["existing"][0]
+    print(group_name)
+    if existing != "none":
+        if existing.lower() != group_name:
+            match = Group.find_group_by_name(group_name)
+            if match:
+                check = 'match'
+            else:
+                check = 'no match'
+        else:
+            check = 'no match'
+    else:
+        match = Group.find_group_by_name(group_name)
+        if match:
+            check = 'match'
+        else:
+            check = 'no match'
+    return jsonify(check)

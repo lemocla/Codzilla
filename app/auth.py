@@ -111,8 +111,8 @@ def complete_profile(email):
             User.edit_user(user["_id"], profile)
 
             # Add group
-            if request.form.get("group"):
-                new_group = Group(group_name=request.form.get("group"),
+            if request.form.get("group_name"):
+                new_group = Group(group_name=request.form.get("group_name"),
                                   group_city=request.form.get("city"),
                                   group_country=request.form.get("country"),
                                   group_description="",

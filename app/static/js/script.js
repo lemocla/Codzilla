@@ -36,13 +36,6 @@ $(document).ready(function () {
   // Materialize form select
   $('select').formSelect();
 
-  // Back to previous page
-  /*
-  $(".back-btn").click(function () {
-    window.history.back()
-    console.log("back")
-  })*/
-
     // Back to previous page
   $("button[data-action=back]").click(function () {
     window.history.back()
@@ -281,7 +274,36 @@ $(document).ready(function () {
 
 
   // Event form
-
+$("#group_name").change(function(){
+      groupName = $("#group_name").val();
+      dataCheck = $("#group_name").attr("data-check");
+      if (dataCheck != null){
+       existing = dataCheck
+      }
+      else {
+        existing = "none"
+      }
+      console.log(existing)
+      console.log(typeof(dataCheck))
+      console.log(groupName)
+      $.ajax({
+      url: "/check_name",
+      data: {"group_name": groupName, "existing": existing},
+      type: 'POST',
+      success: function (response) {
+        console.log(response)
+        if(response == "match"){
+          $('p[data-error=group_name]').html("Group name already exists, please choose a different one.").removeClass('hide');
+        }
+        else if (response === "no match") {
+           $('p[data-error=group_name]').html("").addClass('hide');
+        } 
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+})
   // Change display on event type
   
   $('#event_type').change(function () {
@@ -458,4 +480,5 @@ $(document).ready(function () {
       });
     }
   });
+
 });
