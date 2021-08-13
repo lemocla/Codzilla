@@ -13,12 +13,14 @@ $(document).ready(function () {
             const places = searchBox.getPlaces();
             const place = places["0"];
             //
+            input.setAttribute("data-place", "selected");
             if (place.types[0] == "premise" || place.types[0] == "street_address")
                 input.value = place.formatted_address;
             else {
                 input.value = place.name + ", " + place.formatted_address;
             }
         })
+        
     });
 
 });

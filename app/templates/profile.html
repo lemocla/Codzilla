@@ -27,10 +27,10 @@
         <div class="row valign-wrapper">
             <div class="col s3">
                 {% if user.user_img_url == "" or user.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110px" height="110px"
+                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
                     data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
                 {% else %}
-                <img src="{{user.user_imgUrl}}" width="110px" height="110px" data-default="avatar"
+                <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar"
                     alt="user profile image" class="circle responsive-img profile-img">
                 {% endif %}
             </div>
@@ -55,7 +55,7 @@
 
         <!-- Preferences -->
         <h2>My preferences</h2>
-        <form id="form-edit-preferences" method="post" method="POST"
+        <form id="form-edit-preferences" method="POST"
             action="{{ url_for('users.edit_preferences', user_id=user._id) }}">
             <div class="row">
                 <div class="col s12">
@@ -63,7 +63,7 @@
                         <div class="col s12">
                             <h3>As an attendee</h3>
                         </div>
-                        <div class="col m9 s7" for="event_reminder">Event reminder</div>
+                        <div class="col m9 s7" data-label="event_reminder">Event reminder</div>
                         <div class="col m3 s5 switch">
                             <label for="event_reminder">
                                 Off
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m9 s7" for="event_update">Events postponed / cancelled</div>
+                        <div class="col m9 s7" data-label="event_update">Events postponed / cancelled</div>
                         <div class="col m3 s5 switch">
                             <label for="event_update">
                                 Off
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m9 s7" for="query_answered">Answer to my questions</div>
+                        <div class="col m9 s7" data-label="query_answered">Answer to my questions</div>
                         <div class="col m3 s5 switch">
                             <label for="query_answered">
                                 Off
@@ -102,7 +102,7 @@
                         <div class="col s12">
                             <h3>As an organiser</h3>
                         </div>
-                        <div class="col m9 s7" for="new_participant">New participants to my events</div>
+                        <div class="col m9 s7" data-label="new_participant">New participants to my events</div>
                         <div class="col m3 s5 switch">
                             <label for="new_participant">
                                 Off
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m9 s7" for="event_question">Questions to my events</div>
+                        <div class="col m9 s7" data-label="event_question">Questions to my events</div>
                         <div class="col m3 s5 switch">
                             <label for="event_question">
                                 Off
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m9 s7" for="new_follower">New followers to my groups</div>
+                        <div class="col m9 s7" data-label="new_follower">New followers to my groups</div>
                         <div class="col m3 s5 switch">
                             <label for="new_follower">
                                 Off
@@ -162,16 +162,16 @@
         <hr class="breakline">
 
         <!-- form-->
-        <form id="form-edit-info" class="modal-forms" method="post"
+        <form id="form-edit-info" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_info', user_id=user._id) }}">
             <!-- Image Url-->
             <div class="row">
                 <div class="col s12 m2 center-align">
                     {% if user.user_img_url == "" or user.user_img_url is none %}
-                    <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="60px" height="60px"
+                    <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="60" height="60"
                         data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
                     {% else %}
-                    <img src="{{user.user_imgUrl}}" width="60px" height="60px" data-default="avatar"
+                    <img src="{{user.user_imgUrl}}" width="60" height="60" data-default="avatar"
                         alt="user profile image" class="circle responsive-img profile-img">
                     {% endif %}
                 </div>
@@ -186,36 +186,36 @@
             <div class="row">
                 <div class="input-field col s12">
                     <input id="fname" name="fname" value="{{ user.first_name }}" type="text" class="validate"
-                        minlenght="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
                     <label for="fname">First name</label>
-                    <p class="error-text hide" for="fname"></p>
+                    <p class="error-text hide" data-error="fname"></p>
                 </div>
             </div>
             <!-- Last name -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="lname" name="lname" value="{{ user.last_name }}" type="text" class="validate"
-                        minlenght="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
                     <label for="lname">Last name</label>
-                    <p class="error-text hide" for="lname"></p>
+                    <p class="error-text hide" data-error="lname"></p>
                 </div>
             </div>
             <!-- City -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="city" name="city" value="{{ user.city }}" type="text" class="validate" minlenght="1"
+                    <input id="city" name="city" value="{{ user.city }}" type="text" class="validate" minlength="1"
                         maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
                     <label for="city">City</label>
-                    <p class="error-text hide" for="city"></p>
+                    <p class="error-text hide" data-error="city"></p>
                 </div>
             </div>
             <!-- Country -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="country" name="country" value="{{ user.country }}" type="text" class="validate"
-                        minlenght="1" maxlength="32" pattern="^[a-zA-Z._- ]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z._- ]{1,32}$" required>
                     <label for="country">Country</label>
-                    <p class="error-text hide" for="country"></p>
+                    <p class="error-text hide" data-error="country"></p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -237,7 +237,7 @@
         <h2 class="center-align">Change your email</h2>
         <hr class="breakline">
         <!-- form -->
-        <form id="form-edit-email" class="modal-forms" method="post" method="POST"
+        <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_email', user_id=user._id) }}">
             <div class="row">
                 <div class="input-field col s12">
@@ -257,7 +257,7 @@
                     <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
                         maxlength="50" class="validate" required>
                     <label for="confirm-email">Confirm your new email</label>
-                    <p class="error-text hide" for="confirm-email"></p>
+                    <p class="error-text hide" data-error="confirm-email"></p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -284,40 +284,40 @@
         <p id="message-error" class="center-align flashes hide"></p>
 
         <!-- form-->
-        <form id="form-edit-password" class="modal-forms" method="post" method="POST"
+        <form id="form-edit-password" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_password', user_id=user._id) }}">
             <div class="row">
                 <div class="input-field col s12">
                     <!-- https://regex101.com/ -->
                     <i class="password-visible far fa-eye" data-target="current-pwd"></i>
-                    <input id="current-pwd" type="password" name="current-pwd" minlenght="8" maxlength="32"
+                    <input id="current-pwd" type="password" name="current-pwd" minlength="8" maxlength="32"
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="current-pwd">Current password</label>
-                    <p class="error-text hide" for="current-pwd"></p>
+                    <p class="error-text hide" data-for="current-pwd"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <!-- https://regex101.com/ -->
                     <i class="password-visible far fa-eye" data-target="password"></i>
-                    <input id="password" type="password" name="password" minlenght="8" maxlength="32"
+                    <input id="password" type="password" name="password" minlength="8" maxlength="32"
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="password">New Password</label>
                     <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.</p>
-                    <p class="error-text hide" for="password"></p>
+                    <p class="error-text hide" data-error="password"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="password-visible far fa-eye" data-target="conf-new-pwd"></i>
                     <input id="conf-new-pwd" type="password" name="conf-new-pwd" data-target="password"
-                        data-check="check" minlenght="8" maxlength="32"
+                        data-check="check" minlength="8" maxlength="32"
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="conf-new-pwd">Confirm new password</label>
-                    <p class="error-text hide" for="conf-new-pwd"></p>
+                    <p class="error-text hide" data-error="conf-new-pwd"></p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -344,8 +344,7 @@
         <!-- Buttons -->
         <div class="row">
             <div class="col s12 center-align margin-top">
-                <a href="{{ url_for('users.delete_account', user_id=user._id) }}"" class=" btn btn-send modal-close"
-                    type="submit" name="submit">Delete</a>
+                <a href="{{ url_for('users.delete_account', user_id=user._id) }}" class=" btn btn-send modal-close">Delete</a>
                 <button class="btn btn-send modal-close" type="button">Cancel</button>
             </div>
         </div>

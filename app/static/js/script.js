@@ -183,10 +183,10 @@ $(document).ready(function () {
         errorMsg = errorMsg + " Only the special characters - . _ are accepted. Digits are not accepted";
       }
       // display message
-      $(`p[for=${this.id}]`).html(errorMsg).removeClass("hide");
+      $(`p[data-error=${this.id}]`).html(errorMsg).removeClass("hide");
     } else if ($(this).is(":valid") && $(`p[for=${this.id}]`).length > 0) {
       // hide field if valid
-      $(`p[for=${this.id}]`).addClass("hide").html("");
+      $(`p[data-error=${this.id}]`).addClass("hide").html("");
     }
   });
 
@@ -209,10 +209,10 @@ $(document).ready(function () {
       // fetch label text and build error message
       let errorMsg = `Please make sure that both ${label}s match.`;
       // display message
-      $(`p[for=${this.id}]`).html(errorMsg).removeClass("hide");
+      $(`p[data-error=${this.id}]`).html(errorMsg).removeClass("hide");
     } else {
       // hide field if valid
-      $(`p[for=${this.id}]`).addClass("hide").html("");
+      $(`p[data-error=${this.id}]`).addClass("hide").html("");
     }
   });
 
@@ -276,6 +276,7 @@ $(document).ready(function () {
   // Event form
 
   // Change display on event type
+  
   $('#event_type').change(function () {
     option = $(this).val()
     if (option == "in person") {
@@ -283,11 +284,13 @@ $(document).ready(function () {
       $("#location_container").removeClass("hide");
       $("input#event_location").prop("required", true)
       $("label[for='event_location']").append('<span class="required"> *</span>');
+      $("#event_link").val(null)
     } else if (option == "online event") {
       $("#link_container").removeClass("hide");
       $("#location_container").addClass("hide");
       $("#event_location").removeAttr("required");
       $("label[for='event_location'] span").remove();
+      $("#event_location").val(null)
     }
   });
 
@@ -315,6 +318,7 @@ $(document).ready(function () {
   if ($('#event_type').val() == "in person") {
     $("#link_container").addClass("hide");
     $("#location_container").removeClass("hide");
+    $("#event_link").val(null)
     $("input#event_location").prop("required", true);
     $("label[for='event_location']").append('<span class="required"> *</span>');
   } else if ($('#event_type').val() == "online event") {
@@ -322,6 +326,7 @@ $(document).ready(function () {
     $("#location_container").addClass("hide");
     $("#event_location").removeAttr("required");
     $("label[for='event_location'] span").remove();
+    $("#event_location").val(null)
   }
 
   //Set location hash prior event and group action 

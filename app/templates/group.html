@@ -19,10 +19,10 @@
         <div class="card-image">
             {% if group.img_url == "" or group.img_url is none %}
             <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                width="368px" height="173px" alt="default event cover image">
+                width="368" height="173" alt="default event cover image">
             {% else %}
             <img class="horizontal-card-img" src="{{ group.img_url }}" data-default="group"
-             width="368px" height="173px" alt="group image cover for {{ group.group_name }}">
+             width="368" height="173" alt="group image cover for {{ group.group_name }}">
             {% endif %}
         </div>
         <div class="card-stacked">
@@ -108,9 +108,9 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368px" height="184px" alt="default event cover image">
+                    width="368" height="184" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="event cover image for {{event.event_title}}">
                 {% endif %}
             </div>
@@ -222,7 +222,7 @@
                         <p><b>{{ event.event_title }}</b></p>
                     </div>
                     <!-- form cancel event -->
-                    <form id="form-cancel-event" class="col s12 center-align p-separator" method="POST"
+                    <form class="col s12 center-align p-separator" method="POST"
                         action="{{ url_for('events.cancel_event', event_id=event._id) }}">
                         <button class="btn btn-send margin-top" type="submit">confirm</button>
                         <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
@@ -239,7 +239,7 @@
                         <p><b>{{ event.event_title }}</b></p>
                     </div>
                     <!-- form delete event-->
-                    <form id="form-delete-event" class="col s12 center-align p-separator" method="POST"
+                    <form class="col s12 center-align p-separator" method="POST"
                         action="{{ url_for('events.delete_event', event_id=event._id) }}">
                         <button class="btn btn-send margin-top" type="submit">confirm</button>
                         <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
@@ -259,7 +259,7 @@
         </div>
         {% endif %}
     </div>
-</div>
+
 <hr>
 
 <!-- Members -->
@@ -273,13 +273,14 @@
             {% for memb in users %}
             <li class="collection-item avatar z-depth-2">
                 {% if memb.user_img_url == "" or memb.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110px" height="110px" data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110" data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
                 {% else %}
-                <img src="{{ memb.user_imgUrl }}" width="110px" height="110px" data-default="avatar" alt="profile image" class="circle">
+                <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar" alt="profile image" class="circle">
                 {% endif %}
                 <span class="title">{{ memb.first_name }} {{ memb.last_name }} </span>
             </li>
             {% endfor %}
+        </ul>
     </div>
     {% else %}
     <div class="col s12 center-align">
@@ -299,8 +300,8 @@
             <hr class="breakline">
             <p>Are you sure you want to delete this group?</p>
         </div>
-        <!-- form delete event -->
-        <form id="form-delete-event" class="col s12 center-align center-align p-separator" method="POST"
+        <!-- form delete group -->
+        <form class="col s12 center-align center-align p-separator" method="POST"
             action="{{ url_for('groups.delete_group', group_id=group._id) }}">
             <button class="btn btn-send margin-top" type="submit">confirm</button>
             <a href="#" class="btn btn-send margin-top modal-close">cancel</a>

@@ -81,10 +81,10 @@
             <div class="card">
                 <div class="card-image">
                     {% if event.img_url == "" or event.img_url is none %}
-                    <img src="{{ url_for('static', filename='images/event_default.png')}}" width=368px height=184px alt="default event cover image"
+                    <img src="{{ url_for('static', filename='images/event_default.png')}}" width="368" height="184" alt="default event cover image"
                     >
                     {% else %}
-                    <img src="{{ event.img_url }}" data-default="event" width=368px height=184px alt="event cover image for {{ event.event_title }}">
+                    <img src="{{ event.img_url }}" data-default="event" width="368" height="184" alt="event cover image for {{ event.event_title }}">
                     {% endif %}
                     <!-- floating bookmark button -->
                     {% if session.email %}

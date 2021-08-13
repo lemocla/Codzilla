@@ -63,9 +63,21 @@ def check_password(email, check):
 def check_img_url(url):
     # https://stackoverflow.com/questions/12474406/python-how-to-get-the-content-type-of-an-url/36882727
     # https://stackoverflow.com/questions/29537298/python-3-urllib-request-urlopen
+
+    if not url or url is None:
+        check_value = True
+        return check_value
+    
+    if url and "http" not in url:
+        check_value = False
+        return check_value
+    
     req = urllib.request.Request(url)
     try:
         response = urllib.request.urlopen(req)
+    except urllib.error.HTTPError as e:
+        print(e)
+        check_value = False
     except urllib.error.URLError as e:
         print(e)
         check_value = False

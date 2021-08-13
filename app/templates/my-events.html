@@ -38,9 +38,9 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368px" height="184px" alt="default event cover image">
+                    width="368" height="184" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="event cover image for {{event.event_title}}">
                 {% endif %}
             </div>
@@ -109,7 +109,7 @@
                     <p><b>{{ event.event_title }}</b></p>
                 </div>
                 <!-- form cancel event -->
-                <form id="form-cancel-event" class="col s12 center-align p-separator" method="POST"
+                <form id="form-cancel-event-{{ event._id }}" class="col s12 center-align p-separator" method="POST"
                     action="{{ url_for('events.cancel_event', event_id=event._id) }}">
                     <button class="btn btn-send margin-top" type="submit">confirm</button>
                     <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
@@ -126,7 +126,7 @@
                     <p><b>{{ event.event_title }}</b></p>
                 </div>
                 <!-- form delete event -->
-                <form id="form-delete-event" class="col s12 center-align p-separator" method="POST"
+                <form id="form-delete-event-{{ event._id }}" class="col s12 center-align p-separator" method="POST"
                     action="{{ url_for('events.delete_event', event_id=event._id) }}">
                     <button class="btn btn-send margin-top" type="submit">confirm</button>
                     <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
@@ -161,9 +161,9 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368px" height="184px" alt="default event cover image">
+                    width="368" height="184" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event"
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="event cover image for {{event.event_title}}">
                 {% endif %}
             </div>
@@ -258,9 +258,9 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368px" height="184px" alt="default event cover image">
+                    width="368" height="184" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event"
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="event cover image for {{event.event_title}}">
                 {% endif %}
             </div>

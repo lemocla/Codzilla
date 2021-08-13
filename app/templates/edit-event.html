@@ -45,7 +45,7 @@
                         <!-- type -->
                         <div class="input-field col s12 m6">
                             <select id="event_type" name="event_type" class="validate" required>
-                                <option class="option-default" value="" disabled selected>Select your option</option>
+                                <option class="option-default" value="" disabled>Select your option</option>
                                 {% for type in types %}
                                 {% if type.type_name == event.event_type %}
                                 <option value="{{ type.type_name }}" selected>{{ type.type_name }}</option>
@@ -59,7 +59,7 @@
                         <!-- category -->
                         <div class="input-field col s12 m6">
                             <select id="event_category" name="event_category" class="validate" required>
-                                <option class="option-default" value="" disabled selected>Select your option</option>
+                                <option class="option-default" value="" disabled>Select your option</option>
                                 {% for cat in categories %}
                                 {% if cat.category_name == event.event_category %}
                                 <option value="{{ cat.category_name }}" selected>{{ cat.category_name }}</option>
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select id="group" name="group" class="validate">
-                                <option class="option-default" value="" disabled selected>Select group</option>
+                                <option class="option-default" value="" {% if event.group is none %} selected {% endif %} disabled>Select group</option>
                                 <option value="">None</option>
                                 {% for gp in groups %}
                                 {% if gp.group_name == event.group %}
@@ -159,7 +159,7 @@
                             <input id="max_attendees" type="text" name="max_attendees" pattern="^(?![0])([0-9]){1,3}$"
                                 value="{{ event.max_attendees }}">
                             <label for="max_attendees">Maximum number of attendees (1-100)</label>
-                            <p class="error-text hide" for="max_attendees"></p>
+                            <p class="error-text hide" data-error="max_attendees"></p>
                         </div>
                     </div>
                     <!-- cover image -->
@@ -176,7 +176,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select id="status" name="status" class="validate">
-                                <option class="option-default" value="" disabled selected>Please select</option>
+                                <option class="option-default" value="" disabled>Please select</option>
                                 {% for status in event_status %}
                                 {% if status.status == event.status %}
                                 <option value="{{ status.status }}" selected>{{ status.status }}</option>

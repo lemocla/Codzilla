@@ -28,15 +28,15 @@
             <form class="cols s12" id="add_group" method="POST" action="{{ url_for('groups.add_group') }}">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="group_name" type="text" name="group_name" minlenght="3" maxlength="250"
+                        <input id="group_name" type="text" name="group_name" minlength="3" maxlength="250"
                             class="validate" required>
                         <label for="group_name">Group name</label>
-                        <p class="error-text hide" for="email"></p>
+                        <p class="error-text hide" data-error="group_name"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="group_city" type="text" name="group_city" value="{{ user.city }}" minlenght="3"
+                        <input id="group_city" type="text" name="group_city" value="{{ user.city }}" minlength="3"
                             maxlength="250" class="validate" required>
                         <label for="group_city">City</label>
                     </div>
@@ -44,13 +44,13 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="group_country" type="text" value="{{ user.country }}" name="group_country"
-                            minlenght="3" maxlength="250" class="validate" required>
+                            minlength="3" maxlength="250" class="validate" required>
                         <label for="group_country">Country</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="group_description" name="group_description" minlenght="3" maxlength="1500"
+                        <textarea id="group_description" name="group_description" minlength="3" maxlength="1500"
                             class="materialize-textarea validate" required></textarea>
                         <label for="group_description">Group description</label>
                     </div>
@@ -61,7 +61,7 @@
                         <i class="fas fa-image prefix"></i>
                         <textarea id="group_img_url" class="materialize-textarea validate" name="img_url"
                             data-input="img"></textarea>
-                        <label for="img_url">Add a cover image</label>
+                        <label for="group_img_url">Add a cover image</label>
                         <p class="error-text hide" data-error="group_img_url"></p>
                     </div>
                 </div>

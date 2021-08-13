@@ -35,18 +35,18 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="city" name="city" type="text" class="validate" minlenght="1" maxlength="32"
+                <input id="city" name="city" type="text" class="validate" minlength="1" maxlength="32"
                     pattern="^[a-zA-Z-_. ]{1,32}$" required>
                 <label for="city">City</label>
-                <p class="error-text hide" for="city"></p>
+                <p class="error-text hide" data-error="city"></p>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="country" name="country" type="text" class="validate" minlenght="1" maxlength="32"
+                <input id="country" name="country" type="text" class="validate" minlength="1" maxlength="32"
                     pattern="^[a-zA-Z-_. ]{1,32}$" required>
                 <label for="country">Country</label>
-                <p class="error-text hide" for="country"></p>
+                <p class="error-text hide" data-error="country"></p>
 
             </div>
         </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="input-field col s12">
 
-                <input id="group" name="group" type="text" class="validate" minlenght="1" maxlength="32">
+                <input id="group" name="group" type="text" class="validate" minlength="1" maxlength="32">
                 <label for="group">Group name</label>
             </div>
         </div>
@@ -74,7 +74,7 @@
                     <div class="col s12">
                         <h3>As an attendee</h3>
                     </div>
-                    <div class="col m9 s7" for="event_reminder">Event reminder</div>
+                    <div class="col m9 s7" data-label="event_reminder">Event reminder</div>
                     <div class="col m3 s5 switch">
                         <label for="event_reminder">
                             Off
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col m9 s7" for="event_update">Events postponed / cancelled</div>
+                    <div class="col m9 s7" data-label="event_update">Events postponed / cancelled</div>
                     <div class="col m3 s5 switch">
                         <label for="event_update">
                             Off
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col m9 s7" for="query_answered">Answer to my questions</div>
+                    <div class="col m9 s7" data-label="query_answered">Answer to my questions</div>
                     <div class="col m3 s5 switch">
                         <label for="query_answered">
                             Off
@@ -111,7 +111,7 @@
                     <div class="col s12">
                         <h3>As an organiser</h3>
                     </div>
-                    <div class="col m9 s7" for="new_participant">New participants to my events</div>
+                    <div class="col m9 s7" data-label="new_participant">New participants to my events</div>
                     <div class="col m3 s5 switch">
                         <label for="new_participant">
                             Off
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col m9 s7" for="event_question">Questions to my events</div>
+                    <div class="col m9 s7" data-label="event_question">Questions to my events</div>
                     <div class="col m3 s5 switch">
                         <label for="event_question">
                             Off
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col m9 s7" for="new_follower">New followers to my groups</div>
+                    <div class="col m9 s7" data-label="new_follower">New followers to my groups</div>
                     <div class="col m3 s5 switch">
                         <label for="new_follower">
                             Off

@@ -30,13 +30,13 @@
                     <div class="input-field col s12">
                         <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                         <label for="email">Email</label>
-                        <p class="error-text hide" for="email"></p>
+                        <p class="error-text hide" data-error="email"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="password-visible far fa-eye" data-target="password"></i>
-                        <input id="password" type="password" name="password" minlenght="8" maxlength="32"
+                        <input id="password" type="password" name="password" minlength="8" maxlength="32"
                             class="validate" required>
                         <label for="password">Password</label>
                         <p class="helper-text">Forgotten your password? <a href="#reset-modal" class="hyperlink modal-trigger"
@@ -69,7 +69,7 @@
         <hr class="breakline">
         <p>Enter your email and press submit to receive your link to reset your password</p>
         <!-- form -->
-        <form id="form-edit-email" class="modal-forms" method="post" method="POST"
+        <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('auth.password_reset_request') }}">
 
             <div class="row">

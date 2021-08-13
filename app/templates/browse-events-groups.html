@@ -57,10 +57,10 @@
         <div class="div card horizontal hoverable">
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
-                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}" width="368px" height="184px"
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}" width="368" height="184"
                     alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
+                <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="cover image for event {{event.event_title}}">
                 {% endif %}
             </div>
@@ -178,10 +178,10 @@
             <div class="card-image">
                 {% if group.img_url == "" or group.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                    width="368px" height="173px" alt="default event cover image">
+                    width="368" height="173" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368px"
-                    height="173px" alt="group image cover for {{ group.group_name }}">
+                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368"
+                    height="173" alt="group image cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -256,5 +256,6 @@
             <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
         </div>
     </div>
+</div>
     <!-- end modal -->
     {% endblock %}

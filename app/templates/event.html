@@ -19,9 +19,9 @@
         <div class="card-image">
             {% if event.img_url == "" or event.img_url is none %}
             <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                width="368px" height="184px" alt="default event cover image">
+                width="368" height="184" alt="default event cover image">
             {% else %}
-            <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368px" height="184px"
+            <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                 alt="cover image for event {{event.event_title}}">
             {% endif %}
         </div>
@@ -130,7 +130,7 @@
 
     </div>
 
-    <!-- event details -->
+    <!-- Event details -->
     <div class="row">
         <hr>
         <div class="col s12">
@@ -156,12 +156,15 @@
             </p>
 
         </div>
+        {% if event.event_type == "in person" %}
         <div class="col s12 m6 map-container">
+            {% set location0 = event.event_location|replace(" ", "_") -%}
+            {% set location = location0|replace(",", "") -%}
             <img class="responsive-img"
-                src="https://maps.googleapis.com/maps/api/staticmap?center={{event.event_location}}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ event.event_location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
-                alt="google static map for {{ event.event_title }}">
-
+                src="https://maps.googleapis.com/maps/api/staticmap?center={{ location }}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
+                alt="google static map for event">
         </div>
+        {% endif %}
     </div>
 
     <!-- Attendees -->
@@ -176,10 +179,12 @@
                 {% for attendee in attendees %}
                 <li class="collection-item avatar z-depth-2">
                     {% if attendee.user_img_url == "" or attendee.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110px" height="110px" data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
-                {% else %}
-                <img src="{{ attendee.user_imgUrl }}" width="110px" height="110px" data-default="avatar" alt="profile image" class="circle">
-                {% endif %}
+                    <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
+                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                    {% else %}
+                    <img src="{{ attendee.user_imgUrl }}" width="110" height="110" data-default="avatar"
+                        alt="profile image" class="circle">
+                    {% endif %}
                     <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
                 </li>
                 {% endfor %}
@@ -196,7 +201,7 @@
         {% endif %}
     </div>
 
-    <!-- questions and anwers -->
+    <!-- Questions and anwers -->
     <div class="row" id="questions_answers_container">
         <hr>
         <div class="col s12">
@@ -224,6 +229,65 @@
                     {% endif %}
                 </div>
 
+                <!-- Edit a question -->
+                <div id="modal_edit_question_{{ qa._id}}" class="modal">
+                    <div class="row modal-content">
+                        <div class="col s12">
+                            <h2>Edit you question</h2>
+                            <hr class="breakline">
+                        </div>
+                        <form class="col s12" method="POST"
+                            action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
+                            <div class="input-field col s12">
+                                <textarea id="edit_question_{{ qa._id}}" name="question"
+                                    class="materialize-textarea">{{ qa.question }}</textarea>
+                                <label for="edit_question_{{ qa._id}}">Edit your question</label>
+                            </div>
+                            <button id="edit-question_{{ qa._id}}" class="btn btn-send" type="submit">submit</button>
+                            <button class="btn btn-send modal-close">cancel</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal delete confirmation question -->
+                <div id="delete_question_{{ qa._id}}" class="modal">
+                    <div class="row modal-content">
+                        <div class="col s12 center-align">
+                            <h2>Delete question confirmation</h2>
+                            <hr class="breakline">
+                            <p>Are you sure you want to delete your question? {{ qa.question}}</p>
+                        </div>
+                        <!-- form delete question -->
+                        <form id="form-delete-question_{{ qa._id}}" class="col s12 center-align p-separator"
+                            method="POST"
+                            action="{{ url_for('events.delete_question', event_id=event._id, qa_id=qa._id) }}">
+                            <button class="btn btn-send margin-top" type="submit">confirm</button>
+                            <button class="btn btn-send margin-top modal-close">cancel</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal answer a question -->
+                <div id="answer_question_{{ qa._id}}" class="modal">
+                    <div class="row modal-content">
+                        <div class="col s12 center align">
+                            <h2>Answer the question</h2>
+                            <hr class="breakline">
+                        </div>
+                        <!-- answer question form -->
+                        <form id="form-answer-{{ qa._id}}" class="col s12 center-align" method="POST"
+                            action="{{ url_for('events.answer_question', event_id=event._id, qa_id=qa._id) }}">
+                            <div class="input-field col s12">
+                                <textarea id="answer_{{ qa.answer}}" name="answer"
+                                    class="materialize-textarea"></textarea>
+                                <label for="answer_{{ qa.answer}}">Write your answer</label>
+                            </div>
+                            <button class="btn btn-send" type="submit">submit</button>
+                            <button class="btn btn-send modal-close">cancel</button>
+                        </form>
+                    </div>
+                </div>
+
                 {% endif %}
                 <!-- answer -->
                 {% if qa.answered == True %}
@@ -236,106 +300,47 @@
                     {% endif %}
                     {% endif %}
                 </div>
+
+                <!-- Modal edit answer -->
+                <div id="modal_edit_answer_{{ qa._id}}" class="modal">
+                    <div class="row modal-content">
+                        <div class="col s12">
+                            <h2>Edit your answer</h2>
+                            <hr class="breakline">
+                        </div>
+                        <form class="col s12" method="POST"
+                            action="{{ url_for('events.edit_answer', event_id=event._id, qa_id=qa._id) }}">
+                            <div class="input-field col s12">
+                                <textarea id="edit_answer_{{ qa._id}}" name="answer"
+                                    class="materialize-textarea">{{ qa.answer }}</textarea>
+                                <label for="edit_answer_{{ qa._id}}">Edit your answer</label>
+                            </div>
+                            <button class="btn btn-send" type="submit">submit</button>
+                            <button class="btn btn-send modal-close">cancel</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal delete answer question -->
+                <div id="modal_delete_answer_{{ qa._id}}" class="modal">
+                    <div class="row modal-content">
+                        <div class="col s12 center-align">
+                            <h2>Delete answer confirmation</h2>
+                            <hr class="breakline">
+                            <p>Are you sure you want to delete your answer?</p>
+                        </div>
+                        <!-- Form delete question -->
+                        <form id="form-delete-answer_{{ qa._id}}" class="col s12 center-align p-separator" method="POST"
+                            action="{{ url_for('events.delete_answer', event_id=event._id, qa_id=qa._id) }}">
+                            <button class="btn btn-send margin-top" type="submit">confirm</button>
+                            <button class="btn btn-send margin-top modal-close">cancel</button>
+                        </form>
+                    </div>
+                </div>
                 {% endif %}
 
             </div>
         </div>
-
-        <!-- edit a question -->
-        <div id="modal_edit_question_{{ qa._id}}" class="modal">
-            <div class="row modal-content">
-                <div class="col s12">
-                    <h2>Edit you question</h2>
-                    <hr class="breakline">
-                </div>
-                <form class="col s12" method="POST"
-                    action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
-                    <div class="input-field col s12">
-                        <textarea id="edit_question_{{ qa._id}}" name="question"
-                            class="materialize-textarea">{{ qa.question }}</textarea>
-                        <label for="edit_question_{{ qa._id}}">Edit your question</label>
-                    </div>
-                    <button id="edit-question_{{ qa._id}}" class="btn btn-send" type="submit">submit</button>
-                    <button class="btn btn-send modal-close">cancel</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- modal delete confirmation question -->
-        <div id="delete_question_{{ qa._id}}" class="modal">
-            <div class="row modal-content">
-                <div class="col s12 center-align">
-                    <h2>Delete question confirmation</h2>
-                    <hr class="breakline">
-                    <p>Are you sure you want to delete your question? {{ qa.question}}</p>
-                </div>
-                <!-- form delete question -->
-                <form id="form-delete-question_{{ qa._id}}" class="col s12 center-align p-separator" method="POST"
-                    action="{{ url_for('events.delete_question', event_id=event._id, qa_id=qa._id) }}">
-                    <button class="btn btn-send margin-top" type="submit">confirm</button>
-                    <button class="btn btn-send margin-top modal-close">cancel</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- modal answer a question -->
-        <div id="answer_question_{{ qa._id}}" class="modal">
-            <div class="row modal-content">
-                <div class="col s12 center align">
-                    <h2>Delete question confirmation</h2>
-                    <hr class="breakline">
-                </div>
-                <!-- answer question form -->
-                <form id="form-answer-{{ qa._id}}" class="col s12 center-align" method="POST"
-                    action="{{ url_for('events.answer_question', event_id=event._id, qa_id=qa._id) }}">
-                    <div class="input-field col s12">
-                        <textarea id="answer_{{ qa_answer}}" name="answer" class="materialize-textarea"></textarea>
-                        <label for="answer_{{ qa_answer}}">Write your answer</label>
-                    </div>
-                    <button class="btn btn-send" type="submit">submit</button>
-                    <button class="btn btn-send modal-close">cancel</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- modal edit answer -->
-        <div id="modal_edit_answer_{{ qa._id}}" class="modal">
-            <div class="row modal-content">
-                <div class="col s12">
-                    <h2>Edit your answer</h2>
-                    <hr class="breakline">
-                </div>
-                <form class="col s12" method="POST"
-                    action="{{ url_for('events.edit_answer', event_id=event._id, qa_id=qa._id) }}">
-                    <div class="input-field col s12">
-                        <textarea id="edit_answer_{{ qa._id}}" name="answer"
-                            class="materialize-textarea">{{ qa.answer }}</textarea>
-                        <label for="edit_answer_{{ qa._id}}">Edit your answer</label>
-                    </div>
-                    <button class="btn btn-send" type="submit">submit</button>
-                    <button class="btn btn-send modal-close">cancel</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- modal delete confirmation question -->
-        <div id="modal_delete_answer_{{ qa._id}}" class="modal">
-            <div class="row modal-content">
-                <div class="col s12 center-align">
-                    <h2>Delete answer confirmation</h2>
-                    <hr class="breakline">
-                    <p>Are you sure you want to delete your answer?</p>
-                </div>
-                <!-- form delete question -->
-                <form id="form-delete-answer_{{ qa._id}}" class="col s12 center-align p-separator" method="POST"
-                    action="{{ url_for('events.delete_answer', event_id=event._id, qa_id=qa._id) }}">
-                    <button class="btn btn-send margin-top" type="submit">confirm</button>
-                    <button class="btn btn-send margin-top modal-close">cancel</button>
-                </form>
-            </div>
-        </div>
-
-
         {% endfor %}
         {% else %}
         <div class="col s12 center-align">
@@ -353,6 +358,23 @@
         </div>
         {% endif %}
         {% endif %}
+    </div>
+
+    <!-- Modal ask a question -->
+    <div id="ask-question" class="modal">
+        <div class="row modal-content">
+            <div class="col s12">
+                <h3>Ask a question</h3>
+            </div>
+            <form class="col s12" method="POST" action="{{ url_for('events.add_question', event_id=event._id) }}">
+                <div class="input-field col s12">
+                    <textarea id="question" name="question" class="materialize-textarea"></textarea>
+                    <label for="question">Write your question</label>
+                </div>
+                <button id="send-question" class="btn btn-send" type="submit">submit</button>
+                <button class="btn btn-send modal-close">cancel</button>
+            </form>
+        </div>
     </div>
 
     <!-- modal cancel confirmation -->
@@ -389,24 +411,6 @@
         </div>
     </div>
 
-    <!-- modal ask a question -->
-    <div id="ask-question" class="modal">
-        <div class="row modal-content">
-            <div class="col s12">
-                <h3>Ask a question</h3>
-            </div>
-            <form class="col s12" method="POST" action="{{ url_for('events.add_question', event_id=event._id) }}">
-                <div class="input-field col s12">
-                    <textarea id="question" name="question" class="materialize-textarea"></textarea>
-                    <label for="question">Write your question</label>
-                </div>
-                <button id="send-question" class="btn btn-send" type="submit">submit</button>
-                <button class="btn btn-send modal-close">cancel</button>
-            </form>
-        </div>
-    </div>
-
-
     <!-- modal request registration -->
     <div id="request-registration-modal" class="modal">
         <div class="row modal-content">
@@ -427,4 +431,5 @@
         </div>
     </div>
     <!-- end modal -->
-    {% endblock %}
+</div>
+{% endblock %}

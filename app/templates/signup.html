@@ -24,23 +24,23 @@
                 <form id="signup" method="POST" action="{{ url_for('auth.signup') }}">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="fname" name="fname" type="text" class="validate" minlenght="1" maxlength="32"
+                            <input id="fname" name="fname" type="text" class="validate" minlength="1" maxlength="32"
                                 pattern="^[a-zA-Z-_. ]{1,32}$" required>
                             <label for="fname">First name</label>
-                            <p class="error-text hide" for="fname"></p>
+                            <p class="error-text hide" data-error="fname"></p>
                         </div>
                         <div class="input-field col s6">
-                            <input id="lname" name="lname" type="text" class="validate" minlenght="1" maxlength="32"
+                            <input id="lname" name="lname" type="text" class="validate" minlength="1" maxlength="32"
                                 pattern="^[a-zA-Z-_. ]{1,32}$" required>
                             <label for="lname">Last name</label>
-                            <p class="error-text hide" for="lname"></p>
+                            <p class="error-text hide" data-error="lname"></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                             <label for="email">Email</label>
-                            <p class="error-text hide" for="email"></p>
+                            <p class="error-text hide" data-error="email"></p>
                         </div>
                     </div>
                     <div class="row">
@@ -48,14 +48,14 @@
                         <div class="input-field col s12">
                             <!-- https://regex101.com/ -->
                             <i class="password-visible far fa-eye" data-target="password"></i>
-                            <input id="password" type="password" name="password" minlenght="8" maxlength="32"
+                            <input id="password" type="password" name="password" minlength="8" maxlength="32"
                                 pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                                 class="validate" required>
                             <label for="password">Password</label>
                             <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.
                             </p>
 
-                            <p class="error-text hide" for="password"></p>
+                            <p class="error-text hide" data-error="password"></p>
                         </div>
                     </div>
                     <div class="row">
@@ -66,7 +66,7 @@
                 </form>
 
                 <div class="col s12 center-align">
-                    <p">Already have an account? <a class="hyperlink" href="{{ url_for('auth.login') }}">Please sign-in</a>.
+                    <p>Already have an account? <a class="hyperlink" href="{{ url_for('auth.login') }}">Please sign-in</a>.
                         </p>
                 </div>
             </div>
