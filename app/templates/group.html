@@ -45,15 +45,13 @@
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
                         {% if admin == True %}
-                        <div class="col s6">
+                        <div class="col s6 right-align remove-pd">
                             <a class="btn btn-send"
                                 href="{{ url_for('groups.edit_group', group_id=group._id) }}">Edit</a>
-                        </div>
-                        <div class="col s6">
                             <a class="btn btn-send modal-trigger" href="#group-delete-confirmation">Delete</a>
                         </div>
                         {% else %}
-                        <div class="col s12">
+                        <div class="col s12 right-align remove-pd">
                             <!-- group action -->
                             {% if session.email %}
                             {% if group._id in followed %}

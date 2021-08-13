@@ -78,15 +78,17 @@
                             </div>
                             {% endif %}
                             {% else %}
-                            <div class="col s6">
+                            <div class="col s6 remove-pd">
                                 <!-- dynamic event actions -->
                                 {% if session.email %}
 
                                 {% if event._id in user["events_attending"] %}
+                                
                                 <button class="btn btn-attending" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Attending</button>
-                                <button class="btn btn-unattend hide" data-user="{{ user._id }}"
+                                <button class="btn btn-unattend btn-action-event hide" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Unattend</button>
+                               
                                 {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Attend</button>
@@ -98,7 +100,7 @@
                                 {% endif %}
                                 <!-- end event action -->
                             </div>
-                            <div class="col s6">
+                            <div class="col s6 remove-pd">
                                 <!-- floating bookmark button -->
                                 {% if session.email %}
                                 {% if event.created_by == user._id %}

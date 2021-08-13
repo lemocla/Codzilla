@@ -320,7 +320,8 @@ button.nav-item.dropdown-trigger {
     font-size: 2.8rem;
 }
 
-.back-btn:hover, .back-btn:focus {
+.back-btn:hover,
+.back-btn:focus {
     transform: scale(1.1);
     background-color: inherit;
 }
@@ -388,6 +389,7 @@ button.nav-item.dropdown-trigger {
 .card .card-image img {
     object-fit: cover;
     max-height: 184px;
+    width: 100% !important;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
@@ -495,6 +497,11 @@ button.nav-item.dropdown-trigger {
 
 .gp-description {
     margin-top: 0.75rem !important;
+}
+
+.btn-action-event {
+  left: 0;
+  right:unset;
 }
 
 /*---------[ groups]-------*/
@@ -717,6 +724,7 @@ label {
 
 .page-footer {
     background-color: var(--ivory);
+    margin-top: 4rem;
 }
 
 .footer-text {
@@ -773,6 +781,7 @@ label {
 
     .card.horizontal .card-image {
         max-width: 40% !important;
+        width: 40%;
     }
 
     .card-summary.card.horizontal .card-image {
