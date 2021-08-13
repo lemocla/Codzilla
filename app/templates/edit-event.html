@@ -196,7 +196,7 @@
                             <button class="btn btn-send" type="submit">Submit</button>
                         </div>
                         <div class="col s6 left-align margin-top">
-                            <a class="btn btn-send" href="#">Cancel</a>
+                            <a class="btn btn-send" href="{{ url_for('events.event', event_id=event._id) }}">Cancel</a>
                         </div>
                     </div>
                 </form>

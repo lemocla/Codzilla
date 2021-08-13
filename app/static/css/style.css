@@ -104,20 +104,24 @@ h3 {
     border: 1px solid #6e6e6e6b;
 }
 
+
 .btn-interest {
     background-color: var(--ivory);
     color: var(--black);
     font-weight: 600;
     border: 1px solid var(--darkgray);
     text-align: center;
+    box-shadow: 0px 0px 5px var(--black);
+    ;
 }
 
 .btn-interested {
     background-color: var(--blue);
     color: #ffffff;
     font-weight: 600;
-    border: 1px solid var(--darkgray);
+    border: 1px solid var(--darkgray) !important;
     text-align: center;
+    box-shadow: 0px 1px 5px var(--darkgray);
 }
 
 .btn-floating i {
@@ -162,24 +166,23 @@ h3 {
 .btn.btn-unattend:hover,
 .btn.btn-follow:hover,
 .btn.btn-following:hover,
-.btn.btn-unfollow:hover,
-.btn-interest {
-    font-weight: bold;
-    font-size: 1.1rem;
+.btn.btn-unfollow:hover {
+    transform: scale(1.06);
+    box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.164) inset;
 }
 
 .btn-floating:hover {
-    font-weight: bold;
-    font-size: 1.1rem;
     background-color: var(--ivory);
     transform: scale(1.1);
+    /*box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.164) inset;*/
 }
 
 .btn-floating.btn-interested:hover {
-    font-weight: bold;
-    font-size: 1.1rem;
+    /*font-weight: bold;
+    font-size: 1.1rem;*/
     background-color: var(--blue);
     transform: scale(1.1);
+    /*box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.164) inset;*/
 }
 
 .close-form:hover {
@@ -204,6 +207,10 @@ h3 {
     font-size: 1.35rem !important;
 }
 
+.btn-home {
+    top: -45px !important;
+    right: 0px !important;
+}
 
 /*---------[ Margins ]---------*/
 
@@ -269,6 +276,8 @@ nav {
 
 nav ul a {
     cursor: default !important;
+    -webkit-transition: none;
+    transition: none;
 }
 
 nav .brand-logo {
@@ -526,10 +535,11 @@ button.nav-item.dropdown-trigger {
 
 /*---------[ groups]-------*/
 
-.col-head{
-position: relative;
-width: 100%;
+.col-head {
+    position: relative;
+    width: 100%;
 }
+
 .section-container {
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--darkgray) !important;

@@ -37,7 +37,14 @@ $(document).ready(function () {
   $('select').formSelect();
 
   // Back to previous page
+  /*
   $(".back-btn").click(function () {
+    window.history.back()
+    console.log("back")
+  })*/
+
+    // Back to previous page
+  $("button[data-action=back]").click(function () {
     window.history.back()
     console.log("back")
   })
