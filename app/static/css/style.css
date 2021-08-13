@@ -320,7 +320,7 @@ button.nav-item.dropdown-trigger {
 
 .back-btn {
     position: absolute;
-    left: 0;
+    left: -5px;
     top: -15px;
     color: var(--darkgray);
     background: transparent;
@@ -829,7 +829,6 @@ label {
 
     .back-btn {
         position: absolute;
-        left: 0;
         top: 2.6rem;
         font-size: 2.8rem;
     }

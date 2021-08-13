@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="row head-container">
-    <div class="col s12 l8 offset-l2 col-head">
+    <div class="col s12 col-head">
         <h1 class="center-align">{{ event.event_title }}</h1>
         <hr class="breakline">
         <!-- back button -->
@@ -156,22 +156,28 @@
             {% else %}
             <i class="fas fa-video li-page"></i> {{ event.event_type.capitalize() }}
         </p>
-        {% if event._id in user["events_attending"] %}
-        {% if event.event_link == "" or event.event_link is none %}
-        {% set link_info = "link not yet available" %}
+        {% if user %}
+            {% if event._id in user["events_attending"] %}
+                {% if event.event_link == "" or event.event_link is none %}
+                    {% set link_info = "link not yet available" %}
+                {% else %}
+                    {% set link_info = event.event_link %}
+                {% endif %}
+                <p>
+                    <i class="fas fa-link li-page"></i> {{ link_info }}
+                </p>
+            {% else %}
+                <p>
+                    <i class="fas fa-link li-page"></i> Link available to participants only
+                </p>
+            {% endif %}
+           
         {% else %}
-        {% set link_info = event.event_link %}
+             <p>
+                <i class="fas fa-link li-page"></i> Link available to participants only
+                </p>
         {% endif %}
-        <p>
-            <i class="fas fa-link li-page"></i> {{ link_info }}
-        </p>
-        {% else %}
-        <p>
-            <i class="fas fa-link li-page"></i> Link available to participant only
-        </p>
-        {% endif %}
-        {% endif %}
-
+         {% endif %}
 
     </div>
     {% if event.event_type == "in person" %}
