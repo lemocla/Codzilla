@@ -15,7 +15,7 @@
     {% if notifications|length > 0 %}
     <div class="col s12 m10 offset-m1 l8 offset-l2">
         <ul class="collapsible z-depth-3">
-            {% for notification in notifications %}
+            {% for notification in notifications|sort(attribute='_id', reverse = True) %}
             {% if user._id in notification.read_by %}
             {% set status = "read" %}
             {% else %}

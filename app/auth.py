@@ -187,14 +187,24 @@ def login():
                 if len(events) > 0:
                     for event in events:
                         send_to = []
-                        for attendee in event["attendees"]:
-                            att = User.find_user_by_id(attendee)
-                            if att["preferences"]["event_reminder"] == "true":
-                                send_to.append(ObjectId(att["_id"]))
-
-                        notification = Notification.set_col_reminder(
-                                      send_to, event["_id"])
-                        Notification.insert_notification(notification)
+                        # Check if attendee already notified
+                        already_notified = list(Notification.already_notified(
+                                            event["_id"], user["_id"]))
+                        if len(already_notified) == 0:
+                            for attendee in event["attendees"]:
+                                att = User.find_user_by_id(attendee)
+                                """
+                                Create notification if match attendee &
+                                event reminder preference is true
+                                """
+                                if att["_id"] == user["_id"] and user[
+                                   "preferences"]["event_reminder"] == "true":
+                                    send_to.append(ObjectId(user["_id"]))
+                                    notification = (
+                                        Notification.set_col_reminder(
+                                         send_to, event["_id"]))
+                                    Notification.insert_notification(
+                                     notification)
 
                 # redirects to profile completed or complete your profile
                 if user["profile_completed"] is True:

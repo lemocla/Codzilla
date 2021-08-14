@@ -188,3 +188,11 @@ class Notification():
                'event_id': ObjectId(event_id),
                'read_by': []}
         return col
+
+    @staticmethod
+    def already_notified(event_id, user_id):
+        notified = mongo.db.notifications.find(
+                   {"event_id": ObjectId(event_id),
+                    "notification_type": "event reminder",
+                    "users": ObjectId(user_id)})
+        return notified
