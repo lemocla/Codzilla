@@ -44,8 +44,8 @@
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
                     width="368" height="173" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173"
-                    data-default="group" alt="group image cover for {{ group.group_name }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173" data-default="group"
+                    alt="group image cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -76,7 +76,8 @@
         <!-- modal delete confirmation -->
         <div id="delete-confirmation-{{ group._id }}" class="modal">
             <div class="row modal-content">
-                <div class="col s12 center-align">
+                <div class="col s12 center-align margin-bottom">
+                    <i class="far fa-times-circle close-form modal-close"></i>
                     <h2>Delete group confirmation</h2>
                     <hr class="breakline">
                     <p>Are you sure you want to delete the following group?</p>
@@ -85,7 +86,7 @@
                 <!-- form delete event -->
                 <form class="col s12 center-align p-separator" method="POST"
                     action="{{ url_for('groups.delete_group', group_id=group._id) }}">
-                    <button class="btn btn-send margin-top" type="submit">confirm</button>
+                    <button class="btn btn-send margin-top mg-right" type="submit">confirm</button>
                     <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
                 </form>
             </div>
@@ -118,8 +119,8 @@
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
                     width="368" height="173" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173"
-                    data-default="group" alt="group image cover for {{ group.group_name }}">
+                <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173" data-default="group"
+                    alt="group image cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
