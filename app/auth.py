@@ -48,21 +48,19 @@ def signup():
                     request.form.get("fname"), request.form.get("lname")))
 
         if valid:
-            try:
-                new_user = User(first_name=request.form.get("fname").lower(),
-                                last_name=request.form.get("lname").lower(),
-                                email=request.form.get("email").lower(),
-                                password=generate_password_hash(
-                                         request.form.get("password")))
-                new_user.insert_into_database()
+            new_user = User(first_name=request.form.get("fname").lower(),
+                            last_name=request.form.get("lname").lower(),
+                            email=request.form.get("email").lower(),
+                            password=request.form.get("password"))
 
-                flash("Sign up successful!")
-                session['email'] = request.form['email'].lower()
+            new_user.insert_into_database()
 
-                return redirect(url_for("auth.complete_profile",
-                                        email=session["email"]))
-            except Exception as e:
-                print(e)
+            flash("Sign up successful!")
+            session['email'] = request.form['email'].lower()
+
+            return redirect(url_for("auth.complete_profile",
+                                    email=session["email"]))
+
         else:
             return redirect(url_for("auth.signup"))
 
@@ -80,11 +78,10 @@ def complete_profile(email):
     Flash message to inform user of successful completion
     Redirect to complete profile completed page
     """
-    if not session["email"]:
-        redirect(url_for("login.html"))
-
-    # Get the first name for session user from MongoDB
     user = User.check_existing_user(email)
+    if not user:
+        return redirect(url_for("auth.login"))
+    # Get the first name for session user from MongoDB
     fname = User.check_existing_user(email)["first_name"].capitalize()
 
     if request.method == "POST":
@@ -126,7 +123,7 @@ def complete_profile(email):
                                     email=session["email"]))
         else:
             flash("We couldn't complete your profile, please "
-                  "provide a valid url.")
+                  "provide a valid image url.")
             return redirect(url_for('auth.complete_profile',
                             email=session["email"]))
     return render_template(
@@ -161,15 +158,17 @@ def login():
 
     if request.method == "POST":
 
-        existing_user = User.check_existing_user(
-                        request.form.get("email").lower())
+        user = User.check_existing_user(request.form.get("email").lower())
 
-        if existing_user:
+        if user:
+
+            pwd = request.form.get("password")
+            existing_user_pwd = user["password"]
+
             # check if passowrd matches
-            if check_password_hash(existing_user["password"],
-                                   request.form.get("password")):
+            if check_password_hash(existing_user_pwd, pwd):
 
-                flash("Welcome back! You have successfully logged in.")
+                # put user in session
                 session["email"] = request.form.get("email").lower()
 
                 # notifications
@@ -193,19 +192,27 @@ def login():
                             if att["preferences"]["event_reminder"] == "true":
                                 send_to.append(ObjectId(att["_id"]))
 
-                        notification = Notification.set_col_reminder(send_to, event["_id"])
+                        notification = Notification.set_col_reminder(
+                                      send_to, event["_id"])
                         Notification.insert_notification(notification)
 
-                return redirect(url_for("auth.profile_completed",
-                                email=session["email"]))
+                # redirects to profile completed or complete your profile
+                if user["profile_completed"] is True:
+                    return redirect(url_for("auth.profile_completed",
+                                    email=user["email"]))
+                if user["profile_completed"] is False:
+                    return redirect(url_for("auth.complete_profile",
+                                    email=user["email"]))
             else:
                 flash("Incorrect password")
                 return redirect(url_for("auth.login"))
 
         else:
             # username doesn't exist
+            print("user don't exist")
             flash("Incorrect email and/or password")
             return redirect(url_for("auth.login"))
+
     return render_template("login.html")
 
 

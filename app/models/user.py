@@ -27,7 +27,7 @@ class User():
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
         self.city = city if isinstance(city, str) else str("")
         self.country = country if isinstance(country, str) else str("")
         self.user_imgUrl = user_imgUrl if isinstance(user_imgUrl,
@@ -72,7 +72,7 @@ class User():
         info = {"first_name": self.first_name.lower(),
                 "last_name": self.last_name.lower(),
                 "email": self.email.lower(),
-                "password": generate_password_hash(self.password),
+                "password": self.password,
                 "city": self.city,
                 "country": self.country,
                 "user_imgUrl": self.user_imgUrl,
