@@ -102,7 +102,7 @@
     </div>
     {% endif %}
     {% if events|length > 0 %}
-    {% for event in events %}
+    {% for event in events|sort(attribute='date_start') %}
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">

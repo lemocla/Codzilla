@@ -3,6 +3,7 @@ from flask import render_template, session
 from app import create_app
 from app.models.user import User
 from app.models.notifications import Notification
+from datetime import datetime
 
 
 app = create_app()

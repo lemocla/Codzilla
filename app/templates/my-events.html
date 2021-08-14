@@ -32,7 +32,7 @@
     </div>
 
     {% if organising|length > 0 %}
-    {% for event in organising %}
+    {% for event in organising|sort(attribute='date_start') %}
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
@@ -155,7 +155,7 @@
         <h2>As a participant</h2>
     </div>
     {% if attending|length > 0 %}
-    {% for event in attending %}
+    {% for event in attending|sort(attribute='date_start') %}
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">
@@ -252,7 +252,7 @@
         <h2>Events I'm interested in</h2>
     </div>
     {% if interesting|length > 0 %}
-    {% for event in interesting %}
+    {% for event in interesting|sort(attribute='date_start') %}
     <div class="col s12 margin-top">
         <div class="div card horizontal hoverable">
             <div class="card-image">

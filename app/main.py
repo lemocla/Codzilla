@@ -16,14 +16,35 @@ main = Blueprint("main", __name__)
 # Search
 @main.route("/search", methods=["GET", "POST"])
 def search():
+    if session:
+        user = User.check_existing_user(session["email"])
+    else:
+        user = None
     query = request.form.get("search")
     events = list(Event.search_events(query))
     groups = list(Group.search_groups(query))
     users = User.find_all_users()
+
+    if user:
+        events_attending = list(user["events_attending"])
+        events_interest = list(user["events_interest"])
+        events_organised = list(user["events_organised"])
+        followed = list(user["group_following"])
+        owned = list(user["group_owned"])
+    else:
+        events_attending = []
+        events_interest = []
+        events_organised = []
+        owned = []
+        followed = []
+
     return render_template("browse-events-groups.html",
                            events=events, groups=groups,
-                           query=query,
-                           users=users, search=True)
+                           query=query, user=user,
+                           users=users, events_attending=events_attending,
+                           events_interest=events_interest,
+                           events_organised=events_organised,
+                           owned=owned, followed=followed, search=True)
 
 
 # Homepage

@@ -84,12 +84,15 @@ class Event():
 
     @staticmethod
     def search_events(query):
-        results = mongo.db.events.find({"$text": {"$search": query}})
+        results = mongo.db.events.find({
+                 "date_start": {"$gte": datetime.today()},
+                 "$text": {"$search": query}})
         return results
 
     @staticmethod
     def find_events_by_dates(isos, isoe):
-        events = mongo.db.events.find({"date_start": {'$gte': isos, '$lte': isoe}})
+        events = mongo.db.events.find(
+                 {"date_start": {'$gte': isos, '$lte': isoe}})
         return events
 
     @staticmethod
