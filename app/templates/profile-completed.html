@@ -8,17 +8,20 @@
         <h1 class="center-align">Hello {{ name }}!</h1>
         <hr class="breakline">
     </div>
-    <div class="col s12">
-        <div class="col s12 center-align flashes">
-            <!-- flash message welcoming user -->
-            {% with messages = get_flashed_messages() %}
-            {% for message in messages %}
-            <p>{{ message }}</p>
-            {% endfor %}
-            {% endwith %}
-        </div>
+</div>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages() %}
+{% if messages|length > 0 %}
+<div class="row flashes">
+    <div class="col s12 center-align">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
     </div>
 </div>
+{% endif %}
+{% endwith %}
 
 <div class="row">
     <div class="col s12 center-align margin-bottom">

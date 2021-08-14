@@ -14,6 +14,19 @@
     </div>
 </div>
 
+<!-- Flash messages -->
+{% with messages = get_flashed_messages() %}
+{% if messages|length > 0 %}
+<div class="row flashes">
+    <div class="col s12 center-align">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
 <div class="row section-container">
     <div class="s12 card horizontal card-summary" id="card-{{ group._id }}">
         <div class="card-image">
