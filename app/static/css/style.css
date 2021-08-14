@@ -186,8 +186,7 @@ h3 {
 }
 
 .close-form:hover {
-    font-weight: bold;
-    font-size: 2.2rem;
+    transform: scale(1.1);
 }
 
 .btn-width {
@@ -222,6 +221,12 @@ h3 {
     margin-top: 2rem;
 }
 
+.small-mg-top{
+margin-top: 1rem;
+}
+.small-mg-bottom{
+margin-bottom: 1rem;
+}
 .small-pd-top {
     padding-top: 1rem !important;
 }
@@ -664,11 +669,15 @@ button.nav-item.dropdown-trigger {
 }
 
 /*--------[ profile page ]---------*/
+.profile-container {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--darkgray) !important;
+}
 
 .profile-img {
     height: 100% !important;
-    max-width: 80px !important;
-    max-height: 80px !important;
+    max-width: 70px !important;
+    max-height: 70px !important;
     border: 1px solid var(--ivory);
     object-fit: cover;
 }
@@ -676,10 +685,12 @@ button.nav-item.dropdown-trigger {
 .profile-name {
     font-weight: 700;
     text-transform: capitalize;
+    margin-top: 1rem;
 }
 
 .profile-icon {
     padding-right: 1rem;
+    font-size: 1.7rem;
 }
 
 /*------------[ Modals ]------------*/
@@ -687,6 +698,15 @@ button.nav-item.dropdown-trigger {
 .modal {
     top: 5% !important;
     max-height: 90%;
+}
+
+.content-profile {
+    padding: 45px 25px !important;
+}
+
+.modal-content p {
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .close-form {

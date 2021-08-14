@@ -9,152 +9,163 @@
         <hr class="breakline">
     </div>
 </div>
+
 <!-- Flash messages -->
+{% with messages = get_flashed_messages() %}
+{% if messages|length > 0 %}
 <div class="row flashes">
     <div class="col s12 center-align">
-        {% with messages = get_flashed_messages() %}
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
-        {% endwith %}
     </div>
 </div>
+{% endif %}
+{% endwith %}
+
 <div class="row">
-    <div class="col 12 s12 l8 offset-l2">
-        <h2>Personal information</h2>
-
+    <div class="col 12 s12 l8 offset-l2 ">
         <!-- Personal information-->
-        <div class="row valign-wrapper">
-            <div class="col s3">
-                {% if user.user_img_url == "" or user.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
-                    data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
-                {% else %}
-                <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar"
-                    alt="user profile image" class="circle responsive-img profile-img">
-                {% endif %}
-            </div>
-            <div class="col s9 ">
-                <h3 class="profile-name"><i class="fas fa-user profile-icon"></i>{{ user.first_name }}
-                    {{user.last_name}}</h3>
-                <p><i class="fas fa-map-marker-alt profile-icon"></i> {{ user.city}}, {{user.country}}</p>
-            </div>
-        </div>
-        <button id="edit-personal-info" data-target="personal-info-modal"
-            class="btn modal-trigger btn-send">Edit</button>
-        <hr class="margin-top">
-
-        <!-- Account settings -->
-        <h2>Account settings</h2>
-        <p id="user_email"><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
-        <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
-        <button id="edit-email" data-target="email-modal" class="btn modal-trigger btn-send">Edit email</button>
-        <button class="btn modal-trigger btn-send" data-target="password-modal" id="edit-password">Edit
-            password</button>
-        <hr class="margin-top">
-
-        <!-- Preferences -->
-        <h2>My preferences</h2>
-        <form id="form-edit-preferences" method="POST"
-            action="{{ url_for('users.edit_preferences', user_id=user._id) }}">
-            <div class="row">
-                <div class="col s12">
-                    <div class="row">
-                        <div class="col s12">
-                            <h3>As an attendee</h3>
-                        </div>
-                        <div class="col m9 s7" data-label="event_reminder">Event reminder</div>
-                        <div class="col m3 s5 switch">
-                            <label for="event_reminder">
-                                Off
-                                <input type="checkbox" id="event_reminder"
-                                    value="{{ user.preferences['event_reminder'] }}" name="event_reminder">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m9 s7" data-label="event_update">Events postponed / cancelled</div>
-                        <div class="col m3 s5 switch">
-                            <label for="event_update">
-                                Off
-                                <input type="checkbox" id="event_update" value="{{ user.preferences['event_update'] }}"
-                                    name="event_update">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m9 s7" data-label="query_answered">Answer to my questions</div>
-                        <div class="col m3 s5 switch">
-                            <label for="query_answered">
-                                Off
-                                <input type="checkbox" id="query_answered"
-                                    value="{{ user.preferences['query_answered'] }}" name="query_answered">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <h3>As an organiser</h3>
-                        </div>
-                        <div class="col m9 s7" data-label="new_participant">New participants to my events</div>
-                        <div class="col m3 s5 switch">
-                            <label for="new_participant">
-                                Off
-                                <input type="checkbox" id="new_participant"
-                                    value="{{ user.preferences['new_participant'] }}" name="new_participant">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m9 s7" data-label="event_question">Questions to my events</div>
-                        <div class="col m3 s5 switch">
-                            <label for="event_question">
-                                Off
-                                <input type="checkbox" id="event_question"
-                                    value="{{ user.preferences['event_question'] }}" name="event_question">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m9 s7" data-label="new_follower">New followers to my groups</div>
-                        <div class="col m3 s5 switch">
-                            <label for="new_follower">
-                                Off
-                                <input type="checkbox" id="new_follower" value="{{ user.preferences['new_follower'] }}"
-                                    name="new_follower">
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-
+        <div class="row profile-container">
+                <h2 class="margin-bottom">Personal information</h2>
+            <div class="row valign-wrapper">
+                <div class="col s3 left-align">
+                    {% if user.user_img_url == "" or user.user_img_url is none %}
+                    <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
+                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                    {% else %}
+                    <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar"
+                        alt="user profile image" class="circle responsive-img profile-img">
+                    {% endif %}
+                </div>
+                <div class="col s9 ">
+                    <h3 class="profile-name"><i class="fas fa-user profile-icon"></i>{{ user.first_name }}
+                        {{user.last_name}}</h3>
+                    <p><i class="fas fa-map-marker-alt profile-icon"></i> {{ user.city}}, {{user.country}}</p>
                 </div>
             </div>
-            <button class="btn btn-send" id="save-preferences">Save preferences</button>
-        </form>
-        <!-- Delete profile -->
+                <button id="edit-personal-info" data-target="personal-info-modal"
+                    class="btn modal-trigger btn-send">Edit</button>
+        </div>
+        
+        <!-- Account settings -->
+        <div class="row profile-container">
+            <h2 class="margin-bottom">Account settings</h2>
+            <p id="user_email"><i class="fas fa-envelope profile-icon"></i> {{ user.email}}</p>
+            <p><i class="fas fa-unlock-alt profile-icon"></i> ************</p>
+            <button id="edit-email" data-target="email-modal"
+                class="btn modal-trigger margin-top btn-send mg-right">Edit
+                email</button>
+            <button class="btn modal-trigger btn-send margin-top" data-target="password-modal" id="edit-password">Edit
+                password</button>
+        </div>
 
-        <hr class="margin-top">
-        <h2>Additional actions</h2>
-        <button class="btn modal-trigger btn-send" data-target="delete-modal" type="submit" id="delete-profile">Delete
-            account</button>
+        <!-- Preferences -->
+        <div class="row profile-container">
+            <h2>My preferences</h2>
+            <form id="form-edit-preferences" method="POST"
+                action="{{ url_for('users.edit_preferences', user_id=user._id) }}">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12">
+                                <h3>As an attendee</h3>
+                            </div>
+                            <div class="col m9 s7" data-label="event_reminder">Event reminder</div>
+                            <div class="col m3 s5 switch">
+                                <label for="event_reminder">
+                                    Off
+                                    <input type="checkbox" id="event_reminder"
+                                        value="{{ user.preferences['event_reminder'] }}" name="event_reminder">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m9 s7" data-label="event_update">Events postponed / cancelled</div>
+                            <div class="col m3 s5 switch">
+                                <label for="event_update">
+                                    Off
+                                    <input type="checkbox" id="event_update"
+                                        value="{{ user.preferences['event_update'] }}" name="event_update">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m9 s7" data-label="query_answered">Answer to my questions</div>
+                            <div class="col m3 s5 switch">
+                                <label for="query_answered">
+                                    Off
+                                    <input type="checkbox" id="query_answered"
+                                        value="{{ user.preferences['query_answered'] }}" name="query_answered">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h3>As an organiser</h3>
+                            </div>
+                            <div class="col m9 s7" data-label="new_participant">New participants to my events</div>
+                            <div class="col m3 s5 switch">
+                                <label for="new_participant">
+                                    Off
+                                    <input type="checkbox" id="new_participant"
+                                        value="{{ user.preferences['new_participant'] }}" name="new_participant">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m9 s7" data-label="event_question">Questions to my events</div>
+                            <div class="col m3 s5 switch">
+                                <label for="event_question">
+                                    Off
+                                    <input type="checkbox" id="event_question"
+                                        value="{{ user.preferences['event_question'] }}" name="event_question">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m9 s7" data-label="new_follower">New followers to my groups</div>
+                            <div class="col m3 s5 switch">
+                                <label for="new_follower">
+                                    Off
+                                    <input type="checkbox" id="new_follower"
+                                        value="{{ user.preferences['new_follower'] }}" name="new_follower">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="btn btn-send" id="save-preferences">Save preferences</button>
+            </form>
+        </div>
+
+        <!-- Delete profile -->
+        <div class="row">
+            <!--<hr class="margin-top">-->
+            <h2 class="margin-bottom">Additional actions</h2>
+            <button class="btn modal-trigger btn-send" data-target="delete-modal" type="submit"
+                id="delete-profile">Delete
+                account</button>
+        </div>
     </div>
 </div>
-
 
 <!-- Modal personal information -->
 <div id="personal-info-modal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content content-profile">
         <!--Modal content -->
         <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
             data-target="personal-info-modal"></i>
@@ -177,7 +188,7 @@
                 </div>
                 <div class="input-field col s12 m10">
                     <textarea id="user-img" class="materialize-textarea validate" name="user-img"
-                       data-input="img">{{ user.user_imgUrl }}</textarea>
+                        data-input="img">{{ user.user_imgUrl }}</textarea>
                     <label for="user-img">Image URL</label>
                     <p class="error-text hide" data-error="user-img"></p>
                 </div>
@@ -219,10 +230,10 @@
                 </div>
             </div>
             <!-- Buttons -->
-            <div class="row">
-                <div class="col s12 center-align margin-top">
-                    <button class="btn btn-send " type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send modal-close" type="button">Close</button>
+            <div class="row margin-top">
+                <div class="col s12 center-align border-top">
+                    <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
+                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
                 </div>
             </div>
         </form>
@@ -239,6 +250,7 @@
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_email', user_id=user._id) }}">
+            <!-- Current email -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="current-email" type="email" name="current-email" value="{{ user.email }}" maxlength="50"
@@ -246,12 +258,14 @@
                     <label for="current-email">current-email</label>
                 </div>
             </div>
+            <!-- New email -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                     <label for="email">New email</label>
                 </div>
             </div>
+            <!-- Confirm new email -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
@@ -261,10 +275,10 @@
                 </div>
             </div>
             <!-- Buttons -->
-            <div class="row">
-                <div class="col s12 center-align margin-top">
-                    <button class="btn btn-send modal-close" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send modal-close" type="button">Close</button>
+            <div class="row margin-top">
+                <div class="col s12 center-align border-top">
+                    <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
+                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
                 </div>
             </div>
         </form>
@@ -283,9 +297,10 @@
         <!-- Error messages-->
         <p id="message-error" class="center-align flashes hide"></p>
 
-        <!-- form-->
+        <!-- Form-->
         <form id="form-edit-password" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_password', user_id=user._id) }}">
+            <!-- Current password -->
             <div class="row">
                 <div class="input-field col s12">
                     <!-- https://regex101.com/ -->
@@ -297,6 +312,7 @@
                     <p class="error-text hide" data-for="current-pwd"></p>
                 </div>
             </div>
+            <!-- New password -->
             <div class="row">
                 <div class="input-field col s12">
                     <!-- https://regex101.com/ -->
@@ -305,10 +321,12 @@
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="password">New Password</label>
-                    <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.</p>
+                    <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.
+                    </p>
                     <p class="error-text hide" data-error="password"></p>
                 </div>
             </div>
+            <!-- Confirm new password -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="password-visible far fa-eye" data-target="conf-new-pwd"></i>
@@ -321,17 +339,17 @@
                 </div>
             </div>
             <!-- Buttons -->
-            <div class="row">
-                <div class="col s12 center-align margin-top">
-                    <button class="btn btn-send" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send modal-close" type="button">Close</button>
+            <div class="row margin-top">
+                <div class="col s12 center-align border-top">
+                    <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
+                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Delete profiel  -->
+<!-- Delete profile  -->
 <div id="delete-modal" class="modal">
     <div class="modal-content">
         <!--Modal content -->
@@ -342,13 +360,13 @@
             All your events and groups for which you are sole admin will be deleted.
         </p>
         <!-- Buttons -->
-        <div class="row">
+        <div class="row border-top margin-top">
             <div class="col s12 center-align margin-top">
-                <a href="{{ url_for('users.delete_account', user_id=user._id) }}" class=" btn btn-send modal-close">Delete</a>
-                <button class="btn btn-send modal-close" type="button">Cancel</button>
+                <a href="{{ url_for('users.delete_account', user_id=user._id) }}"
+                    class=" btn btn-send margin-top modal-close">Delete</a>
+                <button class="btn btn-send margin-top modal-close" type="button">Cancel</button>
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}
