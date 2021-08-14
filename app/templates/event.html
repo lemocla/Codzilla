@@ -3,6 +3,12 @@
 
 {% block content %}
 
+{% if event.max_attendees %}
+{% set max = "/" ~ event.max_attendees %}
+{% else %}
+{% set max = "" %}
+{% endif %}
+
 <div class="row head-container">
     <div class="col s12 col-head">
         <h1 class="center-align">{{ event.event_title }}</h1>
@@ -90,13 +96,20 @@
                                     data-event="{{ event._id}}">Unattend</button>
 
                                 {% else %}
+                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                                <p class="p-full">Full</p>
+                                {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Attend</button>
                                 {% endif %}
-
+                                {% endif %}
 
                                 {% else %}
+                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                                <p class="p-full">Full</p>
+                                {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
+                                {% endif %}
                                 {% endif %}
                                 <!-- end event action -->
                             </div>
@@ -195,7 +208,7 @@
 <div class="row section-container">
     <!--<hr>-->
     <div class="col s12">
-        <h2 class="h2-page">Attendees ({{attendees|length }})</h2>
+        <h2 class="h2-page">Attendees ({{attendees|length }}{{max}})</h2>
     </div>
     {% if attendees|length > 0 %}
     <div class="col s12">
@@ -244,7 +257,8 @@
                 </p>
                 {% if session %}
                 {% if admin == False %}
-                <a class="modal-trigger qa_link mg-left" href="#modal_edit_question_{{ qa._id}}"><i class="far fa-edit"></i>
+                <a class="modal-trigger qa_link mg-left" href="#modal_edit_question_{{ qa._id}}"><i
+                        class="far fa-edit"></i>
                     edit</a>
                 <a class="modal-trigger qa_link mg-left" href="#delete_question_{{ qa._id}}"><i
                         class="far fa-trash-alt"></i> delete</a>
@@ -275,7 +289,7 @@
                         <div class="col s12 margin-top">
                             <button id="edit-question_{{ qa._id}}" class="btn btn-send mg-right"
                                 type="submit">submit</button>
-                           <a href="#" class="btn btn-send modal-close">cancel</a>
+                            <a href="#" class="btn btn-send modal-close">cancel</a>
                         </div>
                     </form>
                 </div>
@@ -288,7 +302,7 @@
                         <i class="far fa-times-circle close-form modal-close" data-group="close-modal"></i>
                         <h2>Delete question confirmation</h2>
                         <hr class="breakline">
-                        <p>Are you sure you want to delete your question?</p> 
+                        <p>Are you sure you want to delete your question?</p>
                         <p>{{ qa.question}}</p>
                     </div>
                     <!-- form delete question -->
@@ -410,7 +424,8 @@
             <h2>Ask a question</h2>
             <hr class="breakline">
         </div>
-        <form class="col s12 center-align" method="POST" action="{{ url_for('events.add_question', event_id=event._id) }}">
+        <form class="col s12 center-align" method="POST"
+            action="{{ url_for('events.add_question', event_id=event._id) }}">
             <div class="input-field col s12">
                 <textarea id="question" name="question" class="materialize-textarea"></textarea>
                 <label for="question">Write your question</label>

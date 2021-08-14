@@ -52,13 +52,17 @@
     {% endif %}
     {% if events|length > 0 %}
     {% for event in events|selectattr("status", "equalto", "active")|sort(attribute='date_start')%}
-    
+    {% if event.max_attendees %}
+    {% set max = "/" ~ event.max_attendees %}
+    {% else %}
+    {% set max = "" %}
+    {% endif %}
     <div class="col s12" id="card-{{event._id}}">
         <div class="div card horizontal hoverable">
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
-                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}" width="368" height="184"
-                    alt="default event cover image">
+                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
+                    width="368" height="184" alt="default event cover image">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="cover image for event {{event.event_title}}">
@@ -115,7 +119,8 @@
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }} attendee(s)
+                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }}{{ max }}
+                                    attendee(s)
                                 </p>
                             </div>
                             <div class="col s6 right-align">
@@ -130,13 +135,21 @@
                                 <button class="btn btn-unattend hide" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Unattend</button>
                                 {% else %}
+                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                                <p class="p-full">Full</p>
+                                {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
                                     data-event="{{ event._id}}">Attend</button>
                                 {% endif %}
                                 {% endif %}
+                                {% endif %}
 
                                 {% else %}
+                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                                <p class="p-full">Full</p>
+                                {% else %}
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
+                                {% endif %}
                                 {% endif %}
                                 <!-- end event action -->
                             </div>
@@ -180,8 +193,8 @@
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
                     width="368" height="173" alt="default event cover image">
                 {% else %}
-                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368"
-                    height="173" alt="group image cover for {{ group.group_name }}">
+                <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368" height="173"
+                    alt="group image cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -256,5 +269,5 @@
         </div>
     </div>
 </div>
-    <!-- end modal -->
-    {% endblock %}
+<!-- end modal -->
+{% endblock %}

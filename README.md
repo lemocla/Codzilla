@@ -2,13 +2,14 @@
 
 ## **Introduction** 
 
-[include screenshots of project on responsive devices]
+![screenshots of project on responsive devices](/documentation/screenshots/responsive_design.png)
 
 Codizilla -  an online meetup-planning platform - was created for educational purposes only as part of the Code Institute’s full stack development course.
 
 Using the principles of UX design, this fully responsive and interactive website was developed using HTML, CSS, JavaScript, Python, Flask and MongoDB. 
 
-View live project here [link to deployed link]
+[View live project here](https://codzilla-app.herokuapp.com/)
+
 
 ## **Table of content** 
 

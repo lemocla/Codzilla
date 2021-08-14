@@ -221,12 +221,14 @@ h3 {
     margin-top: 2rem;
 }
 
-.small-mg-top{
-margin-top: 1rem;
+.small-mg-top {
+    margin-top: 1rem;
 }
-.small-mg-bottom{
-margin-bottom: 1rem;
+
+.small-mg-bottom {
+    margin-bottom: 1rem;
 }
+
 .small-pd-top {
     padding-top: 1rem !important;
 }
@@ -560,6 +562,13 @@ button.nav-item.dropdown-trigger {
 
 .card-content.fa-ul.li {
     font-size: 1.4rem;
+}
+
+.p-full {
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .collection {
