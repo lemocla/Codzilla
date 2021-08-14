@@ -56,10 +56,13 @@ $(document).ready(function () {
     //Check url valid 
     checkVal = ["svg", "png", "jpg", "jpeg", "tiff", "webp", "bmp", "heif"]
     checkArray = [];
+    // check for url extension
+    $.each(checkUrl, function (key, value) {
+      checkUrlValid.push(src.includes(value));
+    })
     // check for img extension 
     $.each(checkVal, function (key, value) {
       checkArray.push(src.includes(value));
-      checkUrlValid.push(src.includes(value));
     })
     // check image display on load
     if (!formData) {
@@ -102,6 +105,7 @@ $(document).ready(function () {
 
   //Check imgage url in forms 
   $("textarea[data-input=img]").change(function () {
+    console.log("in form")
     if ($(this).val() != "") {
       checkImgUrl($(this), true, "");
     } else {
@@ -411,9 +415,11 @@ $("#group_name").change(function(){
 
   // Toggle interest bookmarked
   $(".btn-interest").click(function () {
+  if ($(this).attr("data-status") == "active") {
     event_id = $(this).attr("data-event");
     user_id = $(this).attr("data-user");
     actionGroupEvent(user_id, event_id, "/bookmark_interest")
+  }
   });
 
   // Remove interest
@@ -445,7 +451,7 @@ $("#group_name").change(function(){
     actionGroupEvent(user_id, group_id, "/unfollow")
   });
 
-  // 
+  // Notifications
   $(".collapsible-header").click(function () {
     // Ajax requestion to python function to add to read_by
     if ($(this).attr("data-status") === "not read") {
