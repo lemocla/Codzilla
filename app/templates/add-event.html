@@ -18,6 +18,7 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
+        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
     </div>
 </div>
 
@@ -37,6 +38,7 @@
                             <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
                                 class="validate" required>
                             <label for="event_title">Event title</label>
+                            <p class="error-text hide" data-error="event_title">Please enter a valid event title between 3 and 250 characters.</p>
                         </div>
                     </div>
                     <!-- type and categories -->
@@ -90,14 +92,18 @@
 
                     <!-- date -->
                     <div class="row">
+                        <!--https://regex101.com/library/jZ4kA4-->
                         <div class="input-field col s6">
-                            <input id="date_start" name="date_start" type="text" class="datepicker validate" required>
+                            <input id="date_start" name="date_start" type="text" class="datepicker validate" required 
+                            regex="^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$">
                             <label for="date_start">Select date</label>
+                            <p class="error-text hide" data-error="date_start">Please select a valid date</p>
                         </div>
                         <!-- time -->
                         <div class="input-field col s6">
-                            <input id="time_start" name="time_start" type="text" class="timepicker validate" required>
+                            <input id="time_start" name="time_start" type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$" required>
                             <label for="time_start">Select time</label>
+                            <p class="error-text hide" data-error="time_start">Please select a valid time</p>
                         </div>
                     </div>
 
@@ -112,10 +118,12 @@
                     </div>
 
                     <!-- end time -->
+                    <!--https://stackoverflow.com/questions/7536755/regular-expression-for-matching-hhmm-time-format/7536768-->
                     <div id="end_time_container" class="row hide">
                         <div class="input-field col s6">
-                            <input id="time_end" name="time_end" type="text" class="timepicker validate">
+                            <input id="time_end" name="time_end" type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$">
                             <label for="time_end">Select end time</label>
+                             <p class="error-text hide" data-error="time_end">Please select a valid time</p>
                         </div>
                     </div>
 
@@ -125,6 +133,7 @@
                             <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
                                 class="materialize-textarea validate" required></textarea>
                             <label for="event_description">Event description</label>
+                            <p class="error-text hide" data-error="event_description">Enter a description betweeen 3 and 1500 characters</p>
                         </div>
                     </div>
 
@@ -133,15 +142,16 @@
                         <div class="input-field col s12">
                             <input class="controls" id="event_location" data-place="search" type="text" name="event_location">
                             <label for="event_location">Event location</label>
-                            <p class="error-text hide" data-error="event_location"></p>
+                            <p id="location_error" class="error-text hide" data-error="event_location">Please select a valid address</p>
                         </div>
                     </div>
 
                     <!-- event link -->
                     <div id="link_container" class="row hide">
                         <div class="input-field col s12">
-                            <input id="event_link" type="text" name="event_link">
+                            <input id="event_link" type="text" name="event_link" pattern="^https.*$">
                             <label for="event_link">Event link</label>
+                             <p class="error-text hide" data-error="event_link">Please enter a valid link</p>
                         </div>
                     </div>
 
@@ -150,7 +160,7 @@
                         <div class="input-field col s12">
                             <input id="max_attendees" type="text" name="max_attendees" pattern="^(?![0])([0-9]){1,3}$">
                             <label for="max_attendees">Maximum number of attendees (1-100)</label>
-                            <p class="error-text hide" data-error="max_attendees"></p>
+                            <p class="error-text hide" data-error="max_attendees">Enter number between 1 and 100</p>
                         </div>
                     </div>
                     <!-- cover image -->
@@ -159,7 +169,7 @@
                             <i class="fas fa-image prefix"></i>
                             <textarea id="img_url" name="img_url" data-input="img" class="materialize-textarea validate"></textarea>
                             <label for="img_url">Add a cover image</label>
-                            <p class="error-text hide" data-error="img_url"></p>
+                            <p class="error-text hide" data-error="img_url">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
                         </div>
                     </div>
 

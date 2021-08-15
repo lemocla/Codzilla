@@ -11,15 +11,15 @@
 
 <!-- Complete profile form-->
 <div class="row">
-
-    <form class="col s12 l8 offset-l2" method="POST"
+    <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
+    <form id="complete-profile" class="col s12 l8 offset-l2" method="POST"
         action="{{ url_for('auth.complete_profile', email=email )}}">
         <div class="row">
             <div class="input-field col s12">
                 <i class="fas fa-image prefix"></i>
                 <textarea id="user-img" name="user-img" class="materialize-textarea validate" data-input="img"></textarea>
                 <label for="user-img">Image URL</label>
-                <p class="error-text hide" data-error="user-img"></p>
+                <p class="error-text hide" data-error="user-img">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
             </div>
         </div>
         <div class="row">
@@ -27,7 +27,7 @@
                 <input id="city" name="city" type="text" class="validate" minlength="1" maxlength="32"
                     pattern="^[a-zA-Z-_. ]{1,32}$" required>
                 <label for="city">City</label>
-                <p class="error-text hide" data-error="city"></p>
+                <p class="error-text hide" data-error="city">Please enter a valid city between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
             </div>
         </div>
         <div class="row">
@@ -35,7 +35,7 @@
                 <input id="country" name="country" type="text" class="validate" minlength="1" maxlength="32"
                     pattern="^[a-zA-Z-_. ]{1,32}$" required>
                 <label for="country">Country</label>
-                <p class="error-text hide" data-error="country"></p>
+                <p class="error-text hide" data-error="country">Please enter a valid country between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits</p>
 
             </div>
         </div>
@@ -46,9 +46,9 @@
                     add a group</p>
             </div>
             <div class="input-field col s12">
-                <input id="group_name" name="group_name" type="text" class="validate" minlength="1" maxlength="32">
+                <input id="group_name" name="group_name" type="text" class="validate" minlength="1" maxlength="250">
                 <label for="group_name">Group name</label>
-                <p class="error-text hide" data-error="group_name"></p>
+                <p class="error-text hide" data-error="group_name">Leave blank or enter a valid last group name up to 250 characters.</p>
             </div>
         </div>
         <!-- Notification preferences -->

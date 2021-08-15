@@ -295,8 +295,8 @@
                     <form class="col s12 center-align" method="POST"
                         action="{{ url_for('events.edit_question', event_id=event._id, qa_id=qa._id) }}">
                         <div class="input-field col s12">
-                            <textarea id="edit_question_{{ qa._id}}" name="question"
-                                class="materialize-textarea">{{ qa.question }}</textarea>
+                            <textarea id="edit_question_{{ qa._id}}" name="question" minlength="3" maxlength="500"
+                                class="materialize-textarea validate">{{ qa.question }}</textarea>
                             <label for="edit_question_{{ qa._id}}">Edit your question</label>
                         </div>
                         <div class="col s12 margin-top">
@@ -339,7 +339,7 @@
                     <form id="form-answer-{{ qa._id}}" class="col s12 center-align" method="POST"
                         action="{{ url_for('events.answer_question', event_id=event._id, qa_id=qa._id) }}">
                         <div class="input-field col s12">
-                            <textarea id="answer_{{ qa.answer}}" name="answer" class="materialize-textarea"></textarea>
+                            <textarea id="answer_{{ qa.answer}}" name="answer" class="materialize-textarea validate" minlength="3" maxlength="500"></textarea>
                             <label for="answer_{{ qa.answer}}">Write your answer</label>
                         </div>
                         <div class="col s12 margin-top">
@@ -376,8 +376,8 @@
                     <form class="col s12 center-align" method="POST"
                         action="{{ url_for('events.edit_answer', event_id=event._id, qa_id=qa._id) }}">
                         <div class="input-field col s12">
-                            <textarea id="edit_answer_{{ qa._id}}" name="answer"
-                                class="materialize-textarea">{{ qa.answer }}</textarea>
+                            <textarea id="edit_answer_{{ qa._id}}" name="answer" minlength="3" maxlength="500"
+                                class="materialize-textarea validate">{{ qa.answer }}</textarea>
                             <label for="edit_answer_{{ qa._id}}">Edit your answer</label>
                         </div>
                         <div class="col s12 margin-top">
@@ -440,7 +440,7 @@
         <form class="col s12 center-align" method="POST"
             action="{{ url_for('events.add_question', event_id=event._id) }}">
             <div class="input-field col s12">
-                <textarea id="question" name="question" class="materialize-textarea"></textarea>
+                <textarea id="question" name="question" class="materialize-textarea validate" minlength="3" maxlength="500"></textarea>
                 <label for="question">Write your question</label>
             </div>
             <div class="col s12 margin-top">

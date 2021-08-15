@@ -17,6 +17,7 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
+        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
     </div>
 </div>
 
@@ -31,7 +32,7 @@
                         <input id="group_name" type="text" name="group_name" minlength="3" maxlength="250"
                             class="validate" required>
                         <label for="group_name">Group name</label>
-                        <p class="error-text hide" data-error="group_name"></p>
+                        <p class="error-text hide" data-error="group_name">Enter a group name up to 250 characters</p>
                     </div>
                 </div>
                 <div class="row">
@@ -39,6 +40,7 @@
                         <input id="group_city" type="text" name="group_city" value="{{ user.city }}" minlength="3"
                             maxlength="250" class="validate" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                         <label for="group_city">City</label>
+                         <p class="error-text hide" data-error="group_city">Please enter a valid city between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                     </div>
                 </div>
                 <div class="row">
@@ -46,6 +48,7 @@
                         <input id="group_country" type="text" value="{{ user.country }}" name="group_country"
                             minlength="3" maxlength="250" class="validate" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                         <label for="group_country">Country</label>
+                         <p class="error-text hide" data-error="group_country">Please enter a valid country between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                     </div>
                 </div>
                 <div class="row">
@@ -53,6 +56,8 @@
                         <textarea id="group_description" name="group_description" minlength="3" maxlength="1500"
                             class="materialize-textarea validate" required></textarea>
                         <label for="group_description">Group description</label>
+                         <p class="error-text hide" data-error="group_description">Enter a group name up to 1500 characters</p>
+                        
                     </div>
                 </div>
                 <!-- Group image cover -->
@@ -62,7 +67,7 @@
                         <textarea id="group_img_url" class="materialize-textarea validate" name="img_url"
                             data-input="img"></textarea>
                         <label for="group_img_url">Add a cover image</label>
-                        <p class="error-text hide" data-error="group_img_url"></p>
+                        <p class="error-text hide" data-error="group_img_url">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
                     </div>
                 </div>
 

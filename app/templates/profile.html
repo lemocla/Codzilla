@@ -171,7 +171,7 @@
             data-target="personal-info-modal"></i>
         <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
-
+        <p id="invalid-data" class="flashes center-align hide">Correct invalid information and submit again</p>
         <!-- form-->
         <form id="form-edit-info" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_info', user_id=user._id) }}">
@@ -180,7 +180,7 @@
                 <div class="col s12 m2 center-align">
                     {% if user.user_img_url == "" or user.user_img_url is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="60" height="60"
-                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
+                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img-modal">
                     {% else %}
                     <img src="{{user.user_imgUrl}}" width="60" height="60" data-default="avatar"
                         alt="user profile image" class="circle responsive-img profile-img">
@@ -190,43 +190,43 @@
                     <textarea id="user-img" class="materialize-textarea validate" name="user-img"
                         data-input="img">{{ user.user_imgUrl }}</textarea>
                     <label for="user-img">Image URL</label>
-                    <p class="error-text hide" data-error="user-img"></p>
+                    <p class="error-text hide" data-error="user-img">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
                 </div>
             </div>
             <!-- First name -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="fname" name="fname" value="{{ user.first_name }}" type="text" class="validate"
-                        minlength="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="fname">First name</label>
-                    <p class="error-text hide" data-error="fname"></p>
+                    <p class="error-text hide" data-error="fname">Please enter a valid first name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Last name -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="lname" name="lname" value="{{ user.last_name }}" type="text" class="validate"
-                        minlength="1" maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="lname">Last name</label>
-                    <p class="error-text hide" data-error="lname"></p>
+                    <p class="error-text hide" data-error="lname">Please enter a valid last name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- City -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="city" name="city" value="{{ user.city }}" type="text" class="validate" minlength="1"
-                        maxlength="32" pattern="^[a-zA-Z._-]{1,32}$" required>
+                        maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="city">City</label>
-                    <p class="error-text hide" data-error="city"></p>
+                    <p class="error-text hide" data-error="city">Please enter a valid city between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Country -->
             <div class="row">
                 <div class="input-field col s12">
                     <input id="country" name="country" value="{{ user.country }}" type="text" class="validate"
-                        minlength="1" maxlength="32" pattern="^[a-zA-Z._- ]{1,32}$" required>
+                        minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="country">Country</label>
-                    <p class="error-text hide" data-error="country"></p>
+                    <p class="error-text hide" data-error="country">Please enter a valid country between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -247,6 +247,7 @@
         <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="email-modal"></i>
         <h2 class="center-align">Change your email</h2>
         <hr class="breakline">
+        <p id="invalid-data margin-bottom" class="flashes center-align hide">Correct invalid information and submit again</p>
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_email', user_id=user._id) }}">
@@ -263,6 +264,7 @@
                 <div class="input-field col s12">
                     <input id="email" type="email" name="email" maxlength="50" class="validate" required>
                     <label for="email">New email</label>
+                    <p class="error-text hide" data-error="email">Please enter a valid email address</p>
                 </div>
             </div>
             <!-- Confirm new email -->
@@ -271,7 +273,7 @@
                     <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
                         maxlength="50" class="validate" required>
                     <label for="confirm-email">Confirm your new email</label>
-                    <p class="error-text hide" data-error="confirm-email"></p>
+                    <p class="error-text hide" data-error="confirm-email">Please make sure that both emails match.</p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -293,7 +295,7 @@
         <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="password-modal"></i>
         <h2 class="center-align">Change your password</h2>
         <hr class="breakline">
-
+        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
         <!-- Error messages-->
         <p id="message-error" class="center-align flashes hide"></p>
 
@@ -309,7 +311,7 @@
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="current-pwd">Current password</label>
-                    <p class="error-text hide" data-for="current-pwd"></p>
+                    <p class="error-text hide" data-error="current-pwd">Current password is incorrect</p>
                 </div>
             </div>
             <!-- New password -->
@@ -323,7 +325,7 @@
                     <label for="password">New Password</label>
                     <p class="helper-text">Eight or more characters with a mix of letters, numbers and symbols.
                     </p>
-                    <p class="error-text hide" data-error="password"></p>
+                    <p class="error-text hide" data-error="password">Please enter a valid password.</p>
                 </div>
             </div>
             <!-- Confirm new password -->
@@ -335,7 +337,7 @@
                         pattern="^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@\-?~$%*^()~+=._])(?=\S+$).{8,32}$"
                         class="validate" required>
                     <label for="conf-new-pwd">Confirm new password</label>
-                    <p class="error-text hide" data-error="conf-new-pwd"></p>
+                    <p class="error-text hide" data-error="conf-new-pwd">Please make sure that both passwords match</p>
                 </div>
             </div>
             <!-- Buttons -->
