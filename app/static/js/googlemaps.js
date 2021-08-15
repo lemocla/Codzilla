@@ -14,32 +14,38 @@ $(document).ready(function () {
             const places = searchBox.getPlaces();
             const place = places["0"];
             //
-            input.setAttribute("data-place", "selected");
+            
             if (place.types[0] == "premise" || place.types[0] == "street_address") {
                 input.value = place.formatted_address;
                 input.setAttribute("data-place", "selected");
-                $(`p[data-error=event_location]`).addClass("hide").html("");
+                $(`p[data-error=event_location]`).addClass("hide");
 
             } else {
                 input.value = place.name + ", " + place.formatted_address;
                 input.setAttribute("data-place", "selected");
-                $(`p[data-error=event_location]`).addClass("hide").html("");
+                $(`p[data-error=event_location]`).addClass("hide");
             }
             //
+            
+            if(input.getAttribute("data-place") === "search"){
+                document.getElementById("location_error").classList.removeClass("hide")
+            }
         })
     });
 
     //controls pac-target-input
-    $('#event_location').change(function () {
+    $('#event_location').focusout(function () {
         console.log("focus out happening")
-        if ($(this).attr("data-place") == "search") {
-            let errorMsg = "Please select a valid address";
+        if ($(this).attr("data-place") === "search") {
+            
             // display message
-            $(`p[data-error=event_location]`).html(errorMsg).removeClass("hide");
+            console.log("data is search")
+            $("[data-error=event_location]").removeClass("hide");
         }
-        if ($(this).attr("data-place") == "selected") {
+        if ($(this).attr("data-place") === "selected") {
             // hide field if valid
-            $(`p[data-error=event_location]`).addClass("hide").html("");
+             console.log("data is selected")
+            $("[data-error=event_location]").addClass("hide");
         }
     });
 

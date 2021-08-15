@@ -36,13 +36,32 @@ $(document).ready(function () {
   // Materialize form select
   $('select').formSelect();
 
-    // Back to previous page
+  // Back to previous page
   $("button[data-action=back]").click(function () {
     window.history.back()
     console.log("back")
   })
 
-  // Function to check group image
+  // Add asterix to labels for required fields 
+  $("[required]").each(function () {
+    $('label[for=' + this.id + ']').append('<span class="required"> *</span>');
+  });
+
+  // Toggle password visibility
+  //https://www.w3schools.com/howto/howto_js_toggle_password.asp
+  $(".password-visible").click(function () {
+    id = $(this).attr("data-target");
+    console.log(id)
+    if ($(`#${id}`).attr("type") == "password") {
+      $(`#${id}`).attr("type", "text");
+      $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+    } else if ($(`#${id}`).attr("type") == "text") {
+      $(`#${id}`).attr("type", "password");
+      $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+    }
+  });
+
+  // Check images format function
   function checkImgUrl(targetImg, formData, value) {
     if (!formData) {
       src = targetImg.attr("src");
@@ -119,12 +138,12 @@ $(document).ready(function () {
 
   function validateMaterializeSelect() {
     let classValid = {
-      "border-bottom": "1px solid #4caf50",
-      "box-shadow": "0 1px 0 0 #4caf50"
+      "border-bottom": "1px solid #000",
+      "box-shadow": "none"
     };
     let classInvalid = {
-      "border-bottom": "1px solid #f44336",
-      "box-shadow": "0 1px 0 0 #f44336"
+      "border-bottom": "1px solid #000",
+      "box-shadow": "none"
     };
     if ($("select.validate").prop("required")) {
       $("select.validate").css({
@@ -147,7 +166,7 @@ $(document).ready(function () {
       } else {
         $(".select-wrapper input.select-dropdown").on("focusout", function () {
           if ($(this).parent(".select-wrapper").children("select").prop("required")) {
-            if ($(this).css("border-bottom") != "1px solid rgb(76, 175, 80)") {
+            if ($(this).css("border-bottom") != "1px solid rgb(0, 0, 0)") {
               $(this).parent(".select-wrapper").children("input").css(classInvalid);
             }
           }
@@ -156,26 +175,8 @@ $(document).ready(function () {
     });
   }
 
-  // Add asterix to labels for required fields 
-  $("[required]").each(function () {
-    $('label[for=' + this.id + ']').append('<span class="required"> *</span>');
-  });
-
-  // Toggle password visibility
-  //https://www.w3schools.com/howto/howto_js_toggle_password.asp
-  $(".password-visible").click(function () {
-    id = $(this).attr("data-target");
-    console.log(id)
-    if ($(`#${id}`).attr("type") == "password") {
-      $(`#${id}`).attr("type", "text");
-      $(this).removeClass('fa-eye').addClass('fa-eye-slash');
-    } else if ($(`#${id}`).attr("type") == "text") {
-      $(`#${id}`).attr("type", "password");
-      $(this).removeClass('fa-eye-slash').addClass('fa-eye');
-    }
-  });
-
   // Sign up form validation 
+  /*
   $("input").change(function () {
     //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
     if ($(this).is(":invalid") && $(`p[for=${this.id}]`).length > 0) {
@@ -184,7 +185,7 @@ $(document).ready(function () {
       let errorMsg = `Please enter a valid ${label}.`;
       // first and last name error messages
       if (($(this).attr("id") === "fname" || $(this).attr("id") === "lname")) {
-        errorMsg = errorMsg + " Only the special characters - . _ are accepted. Digits are not accepted";
+        errorMsg = errorMsg + "Only the special characters - . _ are accepted. Digits are not accepted";
       }
       // display message
       $(`p[data-error=${this.id}]`).html(errorMsg).removeClass("hide");
@@ -192,7 +193,38 @@ $(document).ready(function () {
       // hide field if valid
       $(`p[data-error=${this.id}]`).addClass("hide").html("");
     }
+  });*/
+
+  $("input").change(function () {
+    //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
+    if ($(this).is(":invalid")) {
+      // display message
+      $(`p[data-error=${this.id}]`).removeClass("hide");
+    } else if ($(this).is(":valid")) {
+      // hide field if valid
+      $(`p[data-error=${this.id}]`).addClass("hide");
+    }
   });
+
+  //Delete group modals
+/*
+  $('[data-target=delete-group-modal]').click(function () {
+    group_id = $(this).attr('id');
+    $('#delete-group-btn').attr('data-group', group_id)
+    $('#delete-group-btn').attr('href', `/delete-group/${group_id}`)
+    $.ajax({
+      url: `/delete-group-modal/${group_id}`,
+      data: group_id,
+      type: 'POST',
+      success: function (response) {
+        $('#modal-group-name').text(response)
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  });*/
+
 
   // Checkboxes profile page 
   $('#form-edit-preferences input[type=checkbox]').each(function () {
@@ -233,6 +265,9 @@ $(document).ready(function () {
     }
   });
 
+
+  // Check current password - edit profile/edit password
+
   /* Call python check password on user input
      https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php
      https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html
@@ -247,9 +282,11 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         if (response === "no match") {
-          $('#message-error').html("Current password is incorrect").removeClass('hide');
+          $('#message-error').html("Current password is incorrect").removeClass("hide");
+          $(`p[data-error=current-pwd]`).removeClass("hide");
         } else if (response === "match") {
           $('#message-error').html("").addClass('hide');
+          $(`p[data-error=current-pwd]`).addClass("hide");
         }
       },
       error: function (error) {
@@ -258,58 +295,44 @@ $(document).ready(function () {
     });
   });
 
-  //Delete group modals
-  $('[data-target=delete-group-modal]').click(function () {
-    group_id = $(this).attr('id');
-    $('#delete-group-btn').attr('data-group', group_id)
-    $('#delete-group-btn').attr('href', `/delete-group/${group_id}`)
+  // Make sure group name is unique
+
+  $("#group_name").change(function () {
+    groupName = $("#group_name").val();
+    dataCheck = $("#group_name").attr("data-check");
+    if (dataCheck != null) {
+      existing = dataCheck
+    } else {
+      existing = "none"
+    }
+    console.log(existing)
+    console.log(typeof (dataCheck))
+    console.log(groupName)
     $.ajax({
-      url: `/delete-group-modal/${group_id}`,
-      data: group_id,
-      type: 'POST',
-      success: function (response) {
-        $('#modal-group-name').text(response)
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  });
-
-
-  // Event form
-$("#group_name").change(function(){
-      groupName = $("#group_name").val();
-      dataCheck = $("#group_name").attr("data-check");
-      if (dataCheck != null){
-       existing = dataCheck
-      }
-      else {
-        existing = "none"
-      }
-      console.log(existing)
-      console.log(typeof(dataCheck))
-      console.log(groupName)
-      $.ajax({
       url: "/check_name",
-      data: {"group_name": groupName, "existing": existing},
+      data: {
+        "group_name": groupName,
+        "existing": existing
+      },
       type: 'POST',
       success: function (response) {
         console.log(response)
-        if(response == "match"){
+        if (response == "match") {
           $('p[data-error=group_name]').html("Group name already exists, please choose a different one.").removeClass('hide');
+        } else if (response === "no match") {
+          $('p[data-error=group_name]').html("Please enter a valid last name between 1 and 32 characters.").addClass('hide');
         }
-        else if (response === "no match") {
-           $('p[data-error=group_name]').html("").addClass('hide');
-        } 
       },
       error: function (error) {
         console.log(error);
       }
     });
-})
-  // Change display on event type
-  
+  })
+
+  // Event form
+
+  // Change display according to event type 
+
   $('#event_type').change(function () {
     option = $(this).val()
     if (option == "in person") {
@@ -361,6 +384,8 @@ $("#group_name").change(function(){
     $("label[for='event_location'] span").remove();
     $("#event_location").val(null)
   }
+
+  // Groups and events action 
 
   //Set location hash prior event and group action 
   $('.btn-tab').click(function () {
@@ -415,11 +440,11 @@ $("#group_name").change(function(){
 
   // Toggle interest bookmarked
   $(".btn-interest").click(function () {
-  if ($(this).attr("data-status") == "active") {
-    event_id = $(this).attr("data-event");
-    user_id = $(this).attr("data-user");
-    actionGroupEvent(user_id, event_id, "/bookmark_interest")
-  }
+    if ($(this).attr("data-status") == "active") {
+      event_id = $(this).attr("data-event");
+      user_id = $(this).attr("data-user");
+      actionGroupEvent(user_id, event_id, "/bookmark_interest")
+    }
   });
 
   // Remove interest
@@ -484,6 +509,104 @@ $("#group_name").change(function(){
           console.log(error)
         }
       });
+    }
+  });
+
+  function validate() {
+    let toValidate = $('p.error-text').length
+    console.log(toValidate)
+    let validated = $('p.error-text.hide').length
+    let valid = false;
+    console.log(validated)
+    if (toValidate === validated) {
+      valid = true
+      $("#invalid-data").addClass("hide")
+    } else {
+      valid = false;
+      $("#invalid-data").removeClass("hide")
+    }
+    return valid;
+  }
+
+  $("#signup").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+  $("#complete-profile").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+  $("#form-edit-info").submit(function (e) {
+    // validation code here
+    valid = validate();
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+$("#form-edit-email").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+  
+$("#form-edit-password").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+  
+  
+$("#add_group").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+$("#add_event").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+$("#edit_group").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+$("#edit_event").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
     }
   });
 
