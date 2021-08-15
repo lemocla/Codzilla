@@ -689,6 +689,8 @@ button.nav-item.dropdown-trigger {
     height: 100% !important;
     max-width: 70px !important;
     max-height: 70px !important;
+    width: 70px !important;
+    height: 70px !important;
     border: 1px solid var(--ivory);
     object-fit: cover;
 }
@@ -790,6 +792,42 @@ label {
     background-color: var(--blue);
 }
 
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #000;
+    /*box-shadow: 0 1px 0 0 #000;*/
+    box-shadow: none;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    /* box-shadow: 0 1px 0 0 #000;*/
+    box-shadow: none;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #000;
+}
+
+.datepicker-date-display {
+background-color: var(--ivory);
+color: var(--black);
+}
+
+.datepicker-date-display .year-text{
+color: var(--darkgray)
+}
+
+.timepicker-digital-display {
+background-color: var(--ivory);
+color: var(--black);
+}
+
+.text-primary, .timepicker-text-container{
+color: var(--black) !important
+}
 
 /*---------[ Error pages]-----*/
 
@@ -909,7 +947,16 @@ label {
         position: relative;
         max-width: 110px !important;
         max-height: 110px !important;
+        width: 110px !important;
+        height: 110px !important;
     }
+
+    .profile-img-modal {
+        position: relative;
+        width: 60px !important;
+        height: 60px !important;
+    }
+
 
     .resize {
         max-width: 70px !important;

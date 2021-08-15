@@ -2,6 +2,7 @@ from app import mongo
 from flask import (flash, request, jsonify, Blueprint)
 from werkzeug.security import check_password_hash
 from app.models.group import Group
+from app.models.user import User
 import re
 import urllib
 
@@ -49,6 +50,18 @@ def check_box(value):
     else:
         check_value = 'false'
     return check_value
+
+
+@validators.route('/check_email_exists', methods=['GET', 'POST'])
+def check_email_exists():
+    resp = request.form.to_dict(flat=False)
+    email = resp["email"][0].lower()
+    existing_email = User.check_existing_user(email)
+    if existing_email:
+        message = "match"
+    else:
+        message = "no match"
+    return jsonify(message)
 
 
 @validators.route('/check_password/<email>/<check>', methods=['GET', 'POST'])

@@ -207,23 +207,23 @@ $(document).ready(function () {
   });
 
   //Delete group modals
-/*
-  $('[data-target=delete-group-modal]').click(function () {
-    group_id = $(this).attr('id');
-    $('#delete-group-btn').attr('data-group', group_id)
-    $('#delete-group-btn').attr('href', `/delete-group/${group_id}`)
-    $.ajax({
-      url: `/delete-group-modal/${group_id}`,
-      data: group_id,
-      type: 'POST',
-      success: function (response) {
-        $('#modal-group-name').text(response)
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  });*/
+  /*
+    $('[data-target=delete-group-modal]').click(function () {
+      group_id = $(this).attr('id');
+      $('#delete-group-btn').attr('data-group', group_id)
+      $('#delete-group-btn').attr('href', `/delete-group/${group_id}`)
+      $.ajax({
+        url: `/delete-group-modal/${group_id}`,
+        data: group_id,
+        type: 'POST',
+        success: function (response) {
+          $('#modal-group-name').text(response)
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });*/
 
 
   // Checkboxes profile page 
@@ -295,8 +295,31 @@ $(document).ready(function () {
     });
   });
 
-  // Make sure group name is unique
+  // Make sure email is unique when changing email
+  $('input[data-check=new-email').change(function () {
+    email = $(this).val();
+    console.log(email)
+    $.ajax({
+      url: "/check_email_exists",
+      data: {
+        "email": email
+      },
+      type: 'POST',
+      success: function (response) {
+        if (response === "match") {
+          $('p[data-error=email]').html("Email already exists").removeClass("hide");
+          $(`p[data-error=email]`).removeClass("hide");
+        } else if (response === "no match") {
+          $(`p[data-error=email]`).addClass("hide");
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  });
 
+  // Make sure group name is unique
   $("#group_name").change(function () {
     groupName = $("#group_name").val();
     dataCheck = $("#group_name").attr("data-check");
@@ -555,26 +578,7 @@ $(document).ready(function () {
     }
   });
 
-$("#form-edit-email").submit(function (e) {
-    // validation code here
-    valid = validate()
-    console.log(valid)
-    if (!valid) {
-      e.preventDefault();
-    }
-  });
-  
-$("#form-edit-password").submit(function (e) {
-    // validation code here
-    valid = validate()
-    console.log(valid)
-    if (!valid) {
-      e.preventDefault();
-    }
-  });
-  
-  
-$("#add_group").submit(function (e) {
+  $("#form-edit-email").submit(function (e) {
     // validation code here
     valid = validate()
     console.log(valid)
@@ -583,7 +587,7 @@ $("#add_group").submit(function (e) {
     }
   });
 
-$("#add_event").submit(function (e) {
+  $("#form-edit-password").submit(function (e) {
     // validation code here
     valid = validate()
     console.log(valid)
@@ -592,7 +596,8 @@ $("#add_event").submit(function (e) {
     }
   });
 
-$("#edit_group").submit(function (e) {
+
+  $("#add_group").submit(function (e) {
     // validation code here
     valid = validate()
     console.log(valid)
@@ -601,7 +606,25 @@ $("#edit_group").submit(function (e) {
     }
   });
 
-$("#edit_event").submit(function (e) {
+  $("#add_event").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+  $("#edit_group").submit(function (e) {
+    // validation code here
+    valid = validate()
+    console.log(valid)
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+
+  $("#edit_event").submit(function (e) {
     // validation code here
     valid = validate()
     console.log(valid)

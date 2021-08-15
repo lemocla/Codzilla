@@ -80,7 +80,9 @@ def edit_email(user_id):
 
     if request.method == "POST":
 
-        if request.form.get("email") == request.form.get("confirm-email"):
+        check_existing = User.check_existing_user(request.form.get("email"))
+        if request.form.get("email") == request.form.get(
+           "confirm-email") and not user:
 
             User.edit_user(user_id, request.form.get("email"))
             flash("Your email has been updated successfully")
@@ -89,7 +91,13 @@ def edit_email(user_id):
             return redirect(url_for("users.profile", user=user))
 
         else:
-            flash("Make sure that new email and confirm email are the same.")
+            if check_existing:
+                flash_msg = ("Your email couldn't be updated. Email already"
+                             " exists.")
+            else:
+                flash_msg = ("Your email couldn't be updated. Make sure that "
+                             "both new and confirm email are the same.")
+            flash(flash_msg)
             return render_template("profile.html", user=user)
 
 
