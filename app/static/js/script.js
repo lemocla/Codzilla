@@ -100,9 +100,13 @@ $(document).ready(function () {
       if (!checkUrlValid.includes(true)) {
         $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
       } else {
-        if (!checkArray.includes(true)) {
-          $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
-        }
+        $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).addClass("hide");
+      }
+
+      if (!checkArray.includes(true)) {
+        $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
+      } else {
+        $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).addClass("hide");
       }
     }
   }
