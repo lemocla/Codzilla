@@ -267,6 +267,16 @@ nav {
     box-shadow: none;
 }
 
+.dropdown-trigger {
+    background-color: transparent;
+    border: none;
+}
+
+button:focus {
+    outline: none;
+    background-color: transparent;
+}
+
 .dropdown-content {
     min-width: 200px !important;
     max-width: 300px !important;
@@ -376,13 +386,14 @@ button.nav-item.dropdown-trigger {
 
 .home-container h1 {
     font-family: 'Tourney', cursive;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.85rem;
 }
 
-.home-container p {
+.p-home-container {
+    font-family: 'Open Sans', serif;
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 1.25rem;
+    margin: 1.75rem 0 1.25rem 0;
 }
 
 .home-container form {
@@ -440,15 +451,18 @@ button.nav-item.dropdown-trigger {
     padding-top: 5px;
     font-size: 1.3rem;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 .organiser {
     font-size: 1rem;
     padding-bottom: 7px;
+    text-transform: capitalize;
 }
 
 .location {
     font-size: 0.9rem;
+    text-transform: capitalize;
 }
 
 .p-loc-home {
@@ -535,6 +549,7 @@ button.nav-item.dropdown-trigger {
 
 .gp-description {
     margin-top: 0.75rem !important;
+    text-transform: capitalize;
 }
 
 .btn-action-event {
@@ -657,6 +672,11 @@ button.nav-item.dropdown-trigger {
 
 .inline-form {
     display: inline;
+}
+
+.notification-boby {
+    text-transform: capitalize;
+    font-weight: 500;
 }
 
 /*---------[ faq ]------------*/
@@ -792,19 +812,21 @@ label {
     background-color: var(--blue);
 }
 
-   /* valid color */
-   .input-field input[type=text].valid, textarea.materialize-textarea.valid {
-     border-bottom: 1px solid #000;
-     box-shadow: none;
-   }
+/* valid color */
+.input-field input[type=text].valid,
+textarea.materialize-textarea.valid {
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+}
 
-   /* invalid color */
-   .input-field input[type=text].invalid {
-     border-bottom: 1px solid #000;
-     box-shadow: none;
-   }
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+}
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     /*box-shadow: none !important;*/
     box-shadow: 0 1px 0 0 #000 !important;
 }
@@ -815,21 +837,22 @@ input:focus, textarea:focus {
 }
 
 .datepicker-date-display {
-background-color: var(--ivory);
-color: var(--black);
+    background-color: var(--ivory);
+    color: var(--black);
 }
 
-.datepicker-date-display .year-text{
-color: var(--darkgray)
+.datepicker-date-display .year-text {
+    color: var(--darkgray)
 }
 
 .timepicker-digital-display {
-background-color: var(--ivory);
-color: var(--black);
+    background-color: var(--ivory);
+    color: var(--black);
 }
 
-.text-primary, .timepicker-text-container{
-color: var(--black) !important
+.text-primary,
+.timepicker-text-container {
+    color: var(--black) !important
 }
 
 /*---------[ Error pages]-----*/

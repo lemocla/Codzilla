@@ -76,8 +76,8 @@
         {% else %}
         <!-- Navigation user not in session -->
 
-        <a href="#" data-target="mobile" data-beloworigin="true" class="dropdown-trigger hide-on-large-only right"><i
-            class="nav-btn fas fa-bars"></i></a>
+        <button data-target="mobile" data-beloworigin="true" aria-label="open dropdown menu" class="dropdown-trigger hide-on-large-only right">
+        <i class="nav-btn fas fa-bars" aria-hidden="true"></i></button>
 
         <ul class="right hide-on-med-and-down">
           <li><a class="nav-item nav-text" href="{{ url_for('main.home') }}">Home</a></li>
@@ -114,7 +114,7 @@
           <a class="btn contact-btn" href="{{ url_for('main.contact_us') }}">Contact us</a>
         </div>
         <div class="col l4 offset-l2 s12">
-          <h5 class="black-text">Useful links</h5>
+          <h2 class="black-text">Useful links</h2>
           <ul>
             <li><a class="footer-text" href="{{ url_for('auth.login') }}">Log in</a></li>
             <li><a class="footer-text" href="{{ url_for('auth.signup') }}">Sign up</a></li>

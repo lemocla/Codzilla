@@ -11,8 +11,8 @@
 <div class="row home-container">
     <div class="col s12 m6 center align">
         <h1>Hello World!</h1>
-        <p>Meet, connect and develop with fellow coders. </p>
-        <p>Find events near you!</p>
+        <h2 class="p-home-container">Meet, connect and develop with fellow coders. </h2>
+        <h2 class="p-home-container">Find events near you!</h2>
         <form id="search-home" action="{{ url_for('main.search') }}" method="POST">
             <div class="input-field col s12 center-align">
                 <i class="fas fa-search material-icons prefix"></i>
@@ -28,7 +28,7 @@
 
     <div class="col s12 m6">
         <img class="responsive-img banner-image" src="{{ url_for('static', filename='images/support-team.svg')}}"
-            alt="illustration of a group of people around a computer">
+        width="520" height="450" alt="illustration of a group of people around a computer">
     </div>
 </div>
 
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col l4 hide-on-med-and-down">
                 <img class="responsive-img" src="{{ url_for('static', filename='images/about-us.svg')}}"
-                    alt="illustration with a lady asking a question">
+                    width="520" height="450" alt="illustration with a lady asking a question">
             </div>
             <div class="col l8">
                 <p>Do you want to meet with fellow coders to expand your skills, network or portfollio? Look no further,
@@ -82,12 +82,12 @@
         {% else %}
         {% set max = "" %}
         {% endif %}
-        <div class="carousel-cell" id="card-{{event._id}}">
+        <div class="carousel-cell" id="card-{{event._id}}" aria-hidden="false">
             <div class="card">
                 <div class="card-image">
                     {% if event.img_url == "" or event.img_url is none %}
                     <img src="{{ url_for('static', filename='images/event_default.png')}}" width="368" height="184"
-                        alt="default event cover image">
+                        alt="default cover for event">
                     {% else %}
                     <img src="{{ event.img_url }}" data-default="event" width="368" height="184"
                         alt="event cover image for {{ event.event_title }}">
@@ -97,15 +97,15 @@
                     {% if event.created_by == user._id %}
                     {% else%}
                     {% if event._id in events_interest %}
-                    <button class="btn-floating halfway-fab btn-interested" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></button>
+                    <button class="btn-floating halfway-fab btn-interested" data-status="active" aria-label="Remove interest"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star" aria-hidden="true"></i></button>
                     {% else %}
-                    <button class="btn-floating halfway-fab btn-interest" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></button>
+                    <button class="btn-floating halfway-fab btn-interest" data-status="active" aria-label="Add interest"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star" aria-hidden="true"></i></button>
                     {% endif %}
                     {% endif %}
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest modal-trigger" href="#request-registration-modal">
+                    <a class="btn-floating halfway-fab btn-interest modal-trigger" aria-label="open request registration modal" href="#request-registration-modal">
                         <i class="far fa-star"></i>
                     </a>
                     {% endif %}
@@ -123,7 +123,7 @@
                     </p>
                     <!-- link to event page -->
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">
                         {{ event.event_category.capitalize() }}
@@ -156,16 +156,16 @@
                                 {% else%}
                                 <div class="btn-container">
                                     {% if event._id in events_attending %}
-                                    <button class="btn btn-attending" data-user="{{ user._id }}"
+                                    <button class="btn btn-attending" data-user="{{ user._id }}" aria-label="attending"
                                         data-event="{{ event._id}}">Attending</button>
                                     <button class="btn btn-unattend btn-home hide" data-user="{{ user._id }}"
-                                        data-event="{{ event._id}}">Unattend</button>
+                                        data-event="{{ event._id}}" aria-label="unattend">Unattend</button>
                                     {% else %}
                                     {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
                                     <p class="p-full">Full</p>
                                     {% else %}
                                     <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
-                                        data-event="{{ event._id}}">Attend</button>
+                                        data-event="{{ event._id}}" aria-label="attend">Attend</button>
                                     {% endif %}
                                     {% endif %}
 
@@ -265,7 +265,7 @@
             </div>
             <div class="col m4 img-event">
                 <img class="responsive-img banner-image"
-                    src="{{ url_for('static', filename='images/undraw_events.svg')}}"
+                    src="{{ url_for('static', filename='images/undraw_events.svg')}}" width="520" height="450"
                     alt="illustration of a person adding event to calendar">
             </div>
         </div>

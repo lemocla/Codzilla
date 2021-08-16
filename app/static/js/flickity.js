@@ -6,6 +6,8 @@ $(document).ready(function () {
       contain: true,
       pageDots: true
     });
+
+    $(".carousel-cell").attr("aria-hidden", "false");
     
     // Select cell on load if destination has been set (event actions)
     if (window.location.hash != ""){
