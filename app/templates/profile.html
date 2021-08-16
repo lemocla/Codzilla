@@ -183,7 +183,7 @@
                         data-default="avatar" alt="user profile image" class="circle responsive-img profile-img-modal">
                     {% else %}
                     <img src="{{user.user_imgUrl}}" width="60" height="60" data-default="avatar"
-                        alt="user profile image" class="circle responsive-img profile-img">
+                        alt="user profile image" class="circle responsive-img profile-img profile-img-modal">
                     {% endif %}
                 </div>
                 <div class="input-field col s12 m10">
@@ -233,7 +233,7 @@
             <div class="row margin-top">
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
+                    <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
                 </div>
             </div>
         </form>
@@ -262,7 +262,7 @@
             <!-- New email -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" type="email" name="email" data-check="new-email" maxlength="50" class="validate" required>
+                    <input id="email" type="email" name="email" data-verify="new-email" maxlength="50" class="validate" required>
                     <label for="email">New email</label>
                     <p class="error-text hide" data-error="email">Please enter a valid email address</p>
                 </div>
@@ -273,18 +273,17 @@
                     <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
                         maxlength="50" class="validate" required>
                     <label for="confirm-email">Confirm your new email</label>
-                    <p class="error-text hide" data-error="confirm-email">Please make sure that both emails match.</p>
+                    <p id="error-confirm-email" class="error-text hide" data-error="confirm-email">Please make sure that both emails match.</p>
                 </div>
             </div>
             <!-- Buttons -->
             <div class="row margin-top">
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
+                    <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 
@@ -344,7 +343,7 @@
             <div class="row margin-top">
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
-                    <button class="btn btn-send margin-top modal-close" type="button">Close</button>
+                    <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
                 </div>
             </div>
         </form>
@@ -372,3 +371,4 @@
     </div>
 </div>
 {% endblock %}
+

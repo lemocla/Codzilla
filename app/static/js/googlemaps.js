@@ -13,38 +13,32 @@ $(document).ready(function () {
 
             const places = searchBox.getPlaces();
             const place = places["0"];
-            //
-            
+            // Add address to input field and set data-place to selected
             if (place.types[0] == "premise" || place.types[0] == "street_address") {
                 input.value = place.formatted_address;
                 input.setAttribute("data-place", "selected");
-                $(`p[data-error=event_location]`).addClass("hide");
+                $("p[data-error=event_location]").addClass("hide");
 
             } else {
                 input.value = place.name + ", " + place.formatted_address;
                 input.setAttribute("data-place", "selected");
-                $(`p[data-error=event_location]`).addClass("hide");
+                $("p[data-error=event_location]").addClass("hide");
             }
-            //
-            
-            if(input.getAttribute("data-place") === "search"){
+            // Remove error message
+            if (input.getAttribute("data-place") === "search") {
                 document.getElementById("location_error").classList.removeClass("hide")
             }
         })
     });
 
-    //controls pac-target-input
+    //check if input field has been completed from places
     $('#event_location').focusout(function () {
-        console.log("focus out happening")
         if ($(this).attr("data-place") === "search") {
-            
             // display message
-            console.log("data is search")
             $("[data-error=event_location]").removeClass("hide");
         }
         if ($(this).attr("data-place") === "selected") {
             // hide field if valid
-             console.log("data is selected")
             $("[data-error=event_location]").addClass("hide");
         }
     });

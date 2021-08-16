@@ -22,18 +22,6 @@
     </div>
 </div>
 
-<!-- Flash messages -->
-{% with messages = get_flashed_messages() %}
-{% if messages|length > 0 %}
-<div class="row flashes">
-    <div class="col s12 center-align">
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
-{% endwith %}
 
 <!-- Events as an organiser  -->
 <div id="view-events-organised" class="row">
@@ -43,7 +31,15 @@
     <div class="col s12 m6 col-add-group">
         <a href="{{ url_for('events.add_event', group_id=None) }}" class="btn btn-send">Add an event</a>
     </div>
-
+    <!-- Flash messages -->
+        <div class="col s12 center-align flashes">
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+    </div>
+    <!-- Max attendees -->
     {% if organising|length > 0 %}
     {% for event in organising|sort(attribute='date_start') %}
     {% if event.max_attendees %}
