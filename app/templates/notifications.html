@@ -23,7 +23,7 @@
             {% endif %}
             <li>
                 <div class="collapsible-header" data-user="{{ user._id }}" data-notification="{{ notification._id }}"
-                 data-status="{{ status }}">
+                    data-status="{{ status }}">
                     <h2 class="notification-subject"><i class="far fa-envelope"></i>
                         {{ notification.subject.capitalize() }} <i class="fas fa-caret-down"></i></h2>
                     {% if user._id not in notification.read_by %}
@@ -39,12 +39,15 @@
                             {% elif notification.action == "view group" %}
                             <a href="/group/{{ notification.group_id }}" class="btn btn-send">view group</a>
                             {% elif notification.action == "view answer" %}
-                            <a href="/event/{{ notification.event_id }}#questions_answers_container" class="btn btn-send">view answer</a>
+                            <a href="/event/{{ notification.event_id }}#questions_answers_container"
+                                class="btn btn-send">view answer</a>
                             {% elif notification.action == "view question" %}
-                            <a href="/event/{{ notification.event_id }}#questions_answers_container" class="btn btn-send">view question</a>
+                            <a href="/event/{{ notification.event_id }}#questions_answers_container"
+                                class="btn btn-send">view question</a>
                             {% endif %}
-                            <form class="inline-form mg-left" method="POST" action="{{ url_for('users.remove_notification', user_id=user._id, notification_id=notification._id) }}">
-                            <button class="btn btn-send">Delete</button>
+                            <form class="inline-form mg-left" method="POST"
+                                action="{{ url_for('users.remove_notification', user_id=user._id, notification_id=notification._id) }}">
+                                <button class="btn btn-send">Delete</button>
                             </form>
                         </div>
                     </div>
@@ -56,10 +59,10 @@
     {% else %}
     <!-- No notifications messages-->
     <div class="col s12 center-align">
-        <h3>You don't have any notifications.</h3>
+        <h2 class="p-home-container">You don't have any notifications.</h2>
     </div>
     <div class="col s6 offset-s3 m6 offset-m3 l4 offset-l4 margin-top">
-            <img class="responsive-img" src="{{ url_for('static', filename='images/email.png')}}"
+        <img class="responsive-img" src="{{ url_for('static', filename='images/email.png')}}" width="520" height="450"
             alt="illustration of user opening messages">
     </div>
     {% endif %}

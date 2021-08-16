@@ -8,8 +8,8 @@
         <h1 class="center-align">Edit event</h1>
         <hr class="breakline">
         <!-- Back button -->
-        <button class="back-btn" data-action="back">
-            <i class="fas fa-angle-left"></i>
+        <button class="back-btn" data-action="back" aria-label="go back">
+            <i class="fas fa-angle-left" aria-hidden="true"></i>
         </button>
     </div>
 </div>
@@ -103,7 +103,7 @@
                     <!--https://regex101.com/library/jZ4kA4-->
                         <div class="input-field col s6">
                             <input id="date_start" name="date_start" value="{{ event.date_start.strftime('%d/%m/%Y') }}"
-                                type="text" class="datepicker validate" required regex="^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$">
+                                type="text" class="datepicker validate" required>
                             <label for="date_start">Select date</label>
                             <p class="error-text hide" data-error="date_start">Please select a valid date</p>
                         </div>

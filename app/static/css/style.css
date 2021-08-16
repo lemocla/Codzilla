@@ -77,6 +77,10 @@ h3 {
     margin-top: 1rem;
 }
 
+p {
+    text-transform: capitalize;
+}
+
 /*--------[ buttons ]---------*/
 
 .btn.contact-btn {
@@ -452,6 +456,7 @@ button.nav-item.dropdown-trigger {
     font-size: 1.3rem;
     font-weight: bold;
     text-transform: capitalize;
+    font-family: 'Open Sans', serif;
 }
 
 .organiser {

@@ -8,8 +8,8 @@
         <h1 class="center-align">{{ group.group_name.capitalize() }}</h1>
         <hr class="breakline">
         <!-- Back button -->
-        <button class="back-btn" data-action="back">
-            <i class="fas fa-angle-left"></i>
+        <button class="back-btn" data-action="back" aria-label="go back">
+            <i class="fas fa-angle-left" aria-hidden="true"></i>
         </button>
     </div>
 </div>
@@ -32,15 +32,15 @@
         <div class="card-image">
             {% if group.img_url == "" or group.img_url is none %}
             <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                width="368" height="173" alt="default event cover image">
+                width="368" height="173" alt="default event cover">
             {% else %}
             <img class="horizontal-card-img" src="{{ group.img_url }}" data-default="group" width="368" height="173"
-                alt="group image cover for {{ group.group_name }}">
+                alt="group cover for {{ group.group_name }}">
             {% endif %}
         </div>
         <div class="card-stacked">
             <div class="card-content event-card-content">
-                <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                <h2 class="event-title">{{ group.group_name.capitalize() }}</h2>
                 <ul class="fa-ul">
                     <li class="list-item"><span class="fa-li"><i class="fas fa-map-marker-alt list-icon"></i></span>
                         {{group.group_city}}, {{group.group_country}}
@@ -126,10 +126,10 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368" height="184" alt="default event cover image">
+                    width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
-                    alt="event cover image for {{event.event_title}}">
+                    alt="event cover for {{event.event_title}}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -140,16 +140,20 @@
                     {% else %}
                     {% if event._id in events_interest %}
                     <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                        aria-label="Remove interest" data-user="{{ user._id }}" data-event="{{ event._id}}">
+                        <i class="far fa-star" aria-hidden="true"></i>
+                    </a>
                     {% else %}
                     <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                        aria-label="Add interest" data-user="{{ user._id }}" data-event="{{ event._id}}">
+                        <i class="far fa-star" aria-hidden="true"></i>
+                    </a>
                     {% endif %}
                     {% endif %}
                     {% else %}
                     <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger"
-                        href="#request-registration-modal">
-                        <i class="far fa-star"></i>
+                        aria-label="open request registration modal" href="#request-registration-modal">
+                        <i class="far fa-star" aria-hidden="true"></i>
                     </a>
                     {% endif %}
                     <!-- end floating button -->
@@ -164,7 +168,7 @@
                     </p>
                     <!-- link to event page-->
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         by {{ event.group.capitalize()  }}
@@ -281,82 +285,83 @@
         <!-- No upcoming events -->
         <div class="col s4 offset-s4">
             <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
-                alt="illustration add to calendar">
+                width="520" height="450" alt="illustration add to calendar">
         </div>
         <div class="col s12 center-align">
             <h3>No upcoming events</h3>
         </div>
         {% endif %}
     </div>
-</div>
 
-<!-- Members -->
-<div class="row">
-    <div class="col s12">
-        <h2 class="h2-page">Members ({{ group.group_members|length }})</h2>
-    </div>
-    {% if users|length > 0 %}
-    <div class="col s12">
-        <ul class="collection">
-            {% for memb in users %}
-            <li class="collection-item avatar z-depth-2">
-                {% if memb.user_img_url == "" or memb.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
-                    data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
-                {% else %}
-                <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar" alt="profile image"
-                    class="circle">
-                {% endif %}
-                <span class="title">{{ memb.first_name }} {{ memb.last_name }} </span>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% else %}
-    <!-- No members -->
-    <div class="col s4 offset-s4">
-        <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
-            alt="Illustration for no events">
-    </div>
-    <div class="col s12 center-align">
-        <h3>No members</h3>
-    </div>
-    {% endif %}
-</div>
-<!-- modal delete confirmation -->
-<div id="group-delete-confirmation" class="modal">
-    <div class="row modal-content">
-        <div class="col s12 center-align margin-bottom">
-            <i class="far fa-times-circle close-form modal-close"></i>
-            <h2>Delete event confirmation</h2>
-            <hr class="breakline">
-            <p>Are you sure you want to delete this group?</p>
+
+    <!-- Members -->
+    <div class="row">
+        <div class="col s12">
+            <h2 class="h2-page">Members ({{ group.group_members|length }})</h2>
         </div>
-        <!-- form delete group -->
-        <form class="col s12 center-align center-align p-separator" method="POST"
-            action="{{ url_for('groups.delete_group', group_id=group._id) }}">
-            <button class="btn btn-send margin-top mg-right" type="submit">confirm</button>
-            <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
-        </form>
-    </div>
-</div>
-<!-- modal request registration -->
-<div id="request-registration-modal" class="modal">
-    <div class="row modal-content">
-        <!-- closing button -->
-        <i class="far fa-times-circle close-form modal-close"></i>
-        <!-- modal content -->
+        {% if users|length > 0 %}
+        <div class="col s12">
+            <ul class="collection">
+                {% for memb in users %}
+                <li class="collection-item avatar z-depth-2">
+                    {% if memb.user_img_url == "" or memb.user_img_url is none %}
+                    <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
+                        data-default="avatar" alt="default member profile avatar"
+                        class="circle responsive-img profile-img">
+                    {% else %}
+                    <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar"
+                        alt="member profile avatar {{memb.first_name}}" class="circle">
+                    {% endif %}
+                    <span class="title">{{ memb.first_name }} {{ memb.last_name }} </span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <!-- No members -->
+        <div class="col s4 offset-s4">
+            <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+                alt="Illustration for no events">
+        </div>
         <div class="col s12 center-align">
-            <h2>Sign in or register</h2>
-            <hr class="breakline">
-            <p>Please sign in or register to access to all Codzilla's features.</p>
+            <h3>No members</h3>
         </div>
-        <!-- modal footer -->
-        <div class="col s12 center-align border-top margin-top">
-            <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
-            <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
+        {% endif %}
+    </div>
+    <!-- modal delete confirmation -->
+    <div id="group-delete-confirmation" class="modal">
+        <div class="row modal-content">
+            <div class="col s12 center-align margin-bottom">
+                <i class="far fa-times-circle close-form modal-close"></i>
+                <h2>Delete event confirmation</h2>
+                <hr class="breakline">
+                <p>Are you sure you want to delete this group?</p>
+            </div>
+            <!-- form delete group -->
+            <form class="col s12 center-align center-align p-separator" method="POST"
+                action="{{ url_for('groups.delete_group', group_id=group._id) }}">
+                <button class="btn btn-send margin-top mg-right" type="submit">confirm</button>
+                <a href="#" class="btn btn-send margin-top modal-close">cancel</a>
+            </form>
         </div>
     </div>
-</div>
-<!-- end modal -->
-{% endblock %}
+    <!-- modal request registration -->
+    <div id="request-registration-modal" class="modal">
+        <div class="row modal-content">
+            <!-- closing button -->
+            <i class="far fa-times-circle close-form modal-close"></i>
+            <!-- modal content -->
+            <div class="col s12 center-align">
+                <h2>Sign in or register</h2>
+                <hr class="breakline">
+                <p>Please sign in or register to access to all Codzilla's features.</p>
+            </div>
+            <!-- modal footer -->
+            <div class="col s12 center-align border-top margin-top">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-send margin-top">sign in</a>
+                <a href="{{ url_for('auth.signup') }}" class="btn btn-send margin-top">register</a>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+    {% endblock %}

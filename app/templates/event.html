@@ -14,8 +14,8 @@
         <h1 class="center-align">{{ event.event_title }}</h1>
         <hr class="breakline">
         <!-- back button -->
-        <button class="back-btn" data-action="back">
-            <i class="fas fa-angle-left"></i>
+        <button class="back-btn" data-action="back" aria-label="go back">
+            <i class="fas fa-angle-left" aria-hidden="true"></i>
         </button>
     </div>
 </div>
@@ -38,10 +38,10 @@
         <div class="card-image">
             {% if event.img_url == "" or event.img_url is none %}
             <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                width="368" height="184" alt="default event cover image">
+                width="368" height="184" alt="default event cover">
             {% else %}
             <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
-                alt="cover image for event {{event.event_title}}">
+                alt="cover for group {{event.event_title}}">
             {% endif %}
         </div>
         <div class="card-stacked">
@@ -55,7 +55,7 @@
                     {{ event.date_start.strftime('%A %d %B %Y @ %H:%M') }}
                     {% endif %}
                 </p>
-                <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                <h2 class="event-title">{{ event.event_title.capitalize() }}</h2>
                 <p class="organiser">{{ event.event_category.capitalize() }}
                     {% if event.group %}
                     by {{ event.group.capitalize()  }}
@@ -73,93 +73,100 @@
 
                 <div class="card-action">
                     <div class="row action-container valign-wrapper">
-                        {% if admin == True %}
+                        <!-- card actions -->
                         {% if event.status == "cancelled" %}
-                        <div class="col s5 m4 left-align red-text text-darken-4 cancelled-cont">Cancelled</div>
-                        <div class="col s7 m8 right-align remove-pd">
+                        <div class="col s12 m4 left-align red-text text-darken-4 cancelled-cont">Cancelled</div>
+                        {% endif %}
+                        <!-- Admin action -->
+                        {% if admin == True %}
+                        <div class="col s12 m8 right-align remove-pd">
+                            <!-- edit events button -->
+                            {% if group %}
+                            <a class="btn btn-send mg-right"
+                                href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
                             {% else %}
-                            <div class="col s12 left-align remove-pd">
-                                {% endif %}
-                                <!-- edit events button -->
-                                {% if group %}
-                                <a class="btn btn-send mg-right"
-                                    href="{{ url_for('events.edit_event', event_id=event_id, group_id=group._id) }}">Edit</a>
-                                {% else %}
-                                <a class="btn btn-send mg-right"
-                                    href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
-                                {% endif %}
-                                <!-- cancel event button -->
-                                {% if event.status == "active" %}
-                                <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
-                                {% else %}
-                                <!-- delete event button  -->
-                                <a class="btn btn-send modal-trigger" href="#delete-confirmation">Delete</a>
-                            </div>
+                            <a class="btn btn-send mg-right"
+                                href="{{ url_for('events.edit_event', event_id=event._id) }}">Edit</a>
                             {% endif %}
+                            <!-- cancel event button -->
+                            {% if event.status == "active" %}
+                            <a class="btn btn-send modal-trigger" href="#cancel-confirmation">Cancel</a>
                             {% else %}
-                            <div class="col s6 remove-pd">
-                                <!-- dynamic event actions -->
-                                {% if session.email %}
-
-                                {% if event._id in user["events_attending"] %}
-
-                                <button class="btn btn-attending" data-user="{{ user._id }}"
-                                    data-event="{{ event._id}}">Attending</button>
-                                <button class="btn btn-unattend btn-action-event hide" data-user="{{ user._id }}"
-                                    data-event="{{ event._id}}">Unattend</button>
-
-                                {% else %}
-                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
-                                <p class="p-full">Full</p>
-                                {% else %}
-                                <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
-                                    data-event="{{ event._id}}">Attend</button>
-                                {% endif %}
-                                {% endif %}
-
-                                {% else %}
-                                {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
-                                <p class="p-full">Full</p>
-                                {% else %}
-                                <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
-                                {% endif %}
-                                {% endif %}
-                                <!-- end event action -->
-                            </div>
-                            <div class="col s6 remove-pd">
-                                <div class="btn-container">
-                                    <!-- floating bookmark button -->
-                                    {% if session.email %}
-                                    {% if event.created_by == user._id %}
-                                    {% else%}
-                                    {% if event._id in user["events_interest"] %}
-                                    <a class="btn-floating halfway-fab btn-interested hor-event" data-status="active"
-                                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i
-                                            class="far fa-star"></i></a>
-                                    {% else %}
-                                    <a class="btn-floating halfway-fab btn-interest hor-event" data-status="active"
-                                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i
-                                            class="far fa-star"></i></a>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% else %}
-                                    <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger"
-                                        href="#request-registration-modal">
-                                        <i class="far fa-star"></i>
-                                    </a>
-                                    {% endif %}
-                                    <!-- end floating button -->
-                                </div>
-                            </div>
+                            <!-- delete event button  -->
+                            <a class="btn btn-send modal-trigger" href="#delete-confirmation">Delete</a>
                             {% endif %}
                         </div>
-                    </div>
+                        {% endif %}
+                        <!-- User action -->
+                        {% if admin != True %}
+
+                        <!-- User in session  -->
+                        {% if session.email %}
+                        <div class="col s6 remove-pd">
+                            {% if event._id in user["events_attending"] %}
+
+                            <button class="btn btn-attending" data-user="{{ user._id }}"
+                                data-event="{{ event._id}}">Attending</button>
+                            <button class="btn btn-unattend btn-action-event hide" data-user="{{ user._id }}"
+                                data-event="{{ event._id}}">Unattend</button>
+
+                            {% else %}
+                            {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                            <p class="p-full">Full</p>
+                            {% else %}
+                            <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
+                                data-event="{{ event._id}}">Attend</button>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <!-- Floating button -->
+                        <div class="col s6 remove-pd">
+                            {% if event._id in user["events_interest"] %}
+                            <a class="btn-floating halfway-fab btn-interested hor-event" data-status="active"
+                                aria-label="Remove interest" data-user="{{ user._id }}" data-event="{{ event._id}}">
+                                <i class="far fa-star" aria-hidden="true"></i>
+                            </a>
+                            {% else %}
+                            <a class="btn-floating halfway-fab btn-interest hor-event" data-status="active"
+                                aria-label="Add interest" data-user="{{ user._id }}" data-event="{{ event._id}}">
+                                <i class="far fa-star" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <!-- User not in session -->
+                        {% else %}
+                        <div class="col s6 remove-pd">
+                            {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
+                            <p class="p-full">Full</p>
+                            {% else %}
+                            <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
+                            {% endif %}
+                        </div>
+                        <!-- Floating button -->
+                        <div class="col s6 remove-pd btn-container">
+                            <a class="btn-floating halfway-fab btn-interest hor-event modal-trigger"
+                                aria-label="open request registration modal" href="#request-registration-modal">
+                                <i class="far fa-star" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+                        {% endif %}
+                        <!-- end event action -->
+                    
+                    {% endif %}
+
+
+
+                    <!-- end card action-->
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
+</div>
+
+
 <!-- Event details -->
 <div class="row section-container">
     <!--<hr>-->
@@ -228,12 +235,12 @@
         <ul class="collection">
             {% for attendee in attendees %}
             <li class="collection-item avatar z-depth-2">
-                {% if attendee.user_img_url == "" or attendee.user_img_url is none %}
-                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
-                    data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
-                {% else %}
-                <img src="{{ attendee.user_imgUrl }}" width="110" height="110" data-default="avatar" alt="profile image"
-                    class="circle">
+                {% if attendee.user_img_url|length == 0 or attendee.user_img_url is none %}
+                <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="50" height="50"
+                    data-default="avatar" alt="default participant avatar" class="circle">
+                {% elif attendee.user_img_url|length > 0  %}
+                <img src="{{ attendee.user_imgUrl }}" width="50" height="50" data-default="avatar"
+                    alt="participant avatar" class="circle">
                 {% endif %}
                 <span class="title">{{ attendee.first_name }} {{ attendee.last_name }}</span>
             </li>
@@ -244,7 +251,7 @@
     <!-- No attendees-->
     <div class="col s4 offset-s4">
         <img class="responsive-img margin-top" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
-            alt="Illustration for no events">
+            width="520" height="450" alt="Illustration for no events">
     </div>
     <div class="col s12 center-align">
         <h3>No attendees</h3>
@@ -339,8 +346,9 @@
                     <form id="form-answer-{{ qa._id}}" class="col s12 center-align" method="POST"
                         action="{{ url_for('events.answer_question', event_id=event._id, qa_id=qa._id) }}">
                         <div class="input-field col s12">
-                            <textarea id="answer_{{ qa.answer}}" name="answer" class="materialize-textarea validate" minlength="3" maxlength="500"></textarea>
-                            <label for="answer_{{ qa.answer}}">Write your answer</label>
+                            <textarea id="answer_{{ qa._id}}" name="answer" class="materialize-textarea validate"
+                                minlength="3" maxlength="500"></textarea>
+                            <label for="answer_{{ qa._id}}">Write your answer</label>
                         </div>
                         <div class="col s12 margin-top">
                             <button class="btn btn-send mg-right" type="submit">submit</button>
@@ -440,7 +448,8 @@
         <form class="col s12 center-align" method="POST"
             action="{{ url_for('events.add_question', event_id=event._id) }}">
             <div class="input-field col s12">
-                <textarea id="question" name="question" class="materialize-textarea validate" minlength="3" maxlength="500"></textarea>
+                <textarea id="question" name="question" class="materialize-textarea validate" minlength="3"
+                    maxlength="500"></textarea>
                 <label for="question">Write your question</label>
             </div>
             <div class="col s12 margin-top">

@@ -62,7 +62,7 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368" height="184" alt="default event cover image">
+                    width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
                     alt="cover image for event {{event.event_title}}">
@@ -75,17 +75,17 @@
                     {% if event.created_by == user._id %}
                     {% else%}
                     {% if event._id in events_interest %}
-                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <a class="btn-floating halfway-fab btn-interested hor-card-btn" data-status="active" aria-label="Remove interest"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star" aria-hidden="true"></i></a>
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"
-                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star"></i></a>
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn" data-status="active"  aria-label="Add interest"
+                        data-user="{{ user._id }}" data-event="{{ event._id}}"><i class="far fa-star" aria-hidden="true"></i></a>
                     {% endif %}
                     {% endif %}
                     {% else %}
-                    <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger"
+                    <a class="btn-floating halfway-fab btn-interest hor-card-btn modal-trigger" aria-label="open request registration modal"
                         href="#request-registration-modal">
-                        <i class="far fa-star"></i>
+                        <i class="far fa-star" aria-hidden="true"></i>
                     </a>
                     {% endif %}
                     <p class="date-time">
@@ -99,7 +99,7 @@
                     </p>
                     <!-- link to event page -->
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group %}
@@ -130,16 +130,16 @@
 
                                 {% else%}
                                 {% if event._id in events_attending %}
-                                <button class="btn btn-attending" data-user="{{ user._id }}"
+                                <button class="btn btn-attending" data-user="{{ user._id }}" aria-label="attending"
                                     data-event="{{ event._id}}">Attending</button>
-                                <button class="btn btn-unattend hide" data-user="{{ user._id }}"
+                                <button class="btn btn-unattend hide" data-user="{{ user._id }}" aria-label="unattend"
                                     data-event="{{ event._id}}">Unattend</button>
                                 {% else %}
                                 {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
                                 <p class="p-full">Full</p>
                                 {% else %}
                                 <button class="btn btn-attend" data-status="active" data-user="{{ user._id }}"
-                                    data-event="{{ event._id}}">Attend</button>
+                                    data-event="{{ event._id}}" aria-label="attend">Attend</button>
                                 {% endif %}
                                 {% endif %}
                                 {% endif %}
@@ -165,7 +165,7 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}" width="520" height="450"
             alt="illustration for no results found">
     </div>
     {% endif %}
@@ -191,7 +191,7 @@
             <div class="card-image">
                 {% if group.img_url == "" or group.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                    width="368" height="173" alt="default event cover image">
+                    width="368" height="173" alt="default group cover">
                 {% else %}
                 <img class="horizontal-card-img" data-default="group" src="{{ group.img_url }}" width="368" height="173"
                     alt="group image cover for {{ group.group_name }}">
@@ -200,11 +200,11 @@
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
-                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                        <h3 class="event-title">{{ group.group_name.capitalize() }}</h3>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
 
-                    <p class="gp-description">{{ group.group_description.capitalize() }}</p>
+                    <p class="gp-description truncate">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
@@ -246,7 +246,7 @@
         <h3>No results found</h3>
     </div>
     <div class="col s4 offset-s4">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
+        <img class="responsive-img" width="520" height="450" src="{{ url_for('static', filename='images/home_noevents.svg')}}"
             alt="illustration for no results found">
     </div>
     {% endif %}

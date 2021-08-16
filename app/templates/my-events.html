@@ -32,7 +32,7 @@
         <a href="{{ url_for('events.add_event', group_id=None) }}" class="btn btn-send">Add an event</a>
     </div>
     <!-- Flash messages -->
-        <div class="col s12 center-align flashes">
+    <div class="col s12 center-align flashes">
         {% with messages = get_flashed_messages() %}
         {% for message in messages %}
         <p>{{ message }}</p>
@@ -52,10 +52,10 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368" height="184" alt="default event cover image">
+                    width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
-                    alt="event cover image for {{event.event_title}}">
+                    alt="event cover for {{event.event_title}}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -71,7 +71,7 @@
                         {% endif %}
                     </p>
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group %}
@@ -156,8 +156,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
-            alt="illustration add to calendar">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" width="520"
+            height="450" alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You dont't have any organised events</h3>
@@ -183,10 +183,10 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368" height="184" alt="default event cover image">
+                    width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
-                    alt="event cover image for {{event.event_title}}">
+                    alt="event cover for {{event.event_title}}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -210,7 +210,7 @@
                         {% endif %}
                     </p>
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group != "" %}
@@ -262,8 +262,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}"
-            alt="illustration add to calendar">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/undraw_events.svg')}}" width="520"
+            height="450" alt="illustration add to calendar">
     </div>
     <div class="col s12 center-align">
         <h3>You are not attending any events</h3>
@@ -290,10 +290,10 @@
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
-                    width="368" height="184" alt="default event cover image">
+                    width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
-                    alt="event cover image for {{event.event_title}}">
+                    alt="event cover for {{event.event_title}}">
                 {% endif %}
             </div>
             <div class="card-stacked">
@@ -317,7 +317,7 @@
                         {% endif %}
                     </p>
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
-                        <p class="event-title">{{ event.event_title.capitalize() }}</p>
+                        <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
                     <p class="organiser">{{ event.event_category.capitalize() }}
                         {% if event.group != "" and event.group %}

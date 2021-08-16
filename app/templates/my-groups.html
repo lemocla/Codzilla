@@ -42,20 +42,20 @@
             <div class="card-image">
                 {% if group.img_url == "" or group.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                    width="368" height="173" alt="default event cover image">
+                    width="368" height="173" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173" data-default="group"
-                    alt="group image cover for {{ group.group_name }}">
+                    alt="group cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
-                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                        <h3 class="event-title">{{ group.group_name.capitalize() }}</h3>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
 
-                    <p class="gp-description">{{ group.group_description.capitalize() }}</p>
+                    <p class="gp-description truncate">{{ group.group_description.capitalize() }}</p>
                     <div class="card-action">
                         <div class="row action-container">
                             <div class="col s12 m6 valign-wrapper">
@@ -96,8 +96,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}"
-            alt="illustration of a group of people around a computer">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}" width="520"
+            height="450" alt="illustration of a group of people around a computer">
     </div>
     <div class="col s12 center-align">
         <h3>You don't own any groups</h3>
@@ -117,19 +117,19 @@
             <div class="card-image">
                 {% if group.img_url == "" or group.img_url is none %}
                 <img class="horizontal-card-img" src="{{ url_for('static', filename='images/group_default.png')}}"
-                    width="368" height="173" alt="default event cover image">
+                    width="368" height="173" alt="default group cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ group.img_url }}" width="368" height="173" data-default="group"
-                    alt="group image cover for {{ group.group_name }}">
+                    alt="group cover for {{ group.group_name }}">
                 {% endif %}
             </div>
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="page-link" href="{{ url_for('groups.group', group_id=group._id)}}">
-                        <p class="event-title">{{ group.group_name.capitalize() }}</p>
+                        <h3 class="event-title">{{ group.group_name.capitalize() }}</h3>
                     </a>
                     <p class="location">{{ group.group_city.capitalize() }}, {{ group.group_country.capitalize() }}</p>
-                    <p class="gp-description">{{ group.group_description.capitalize() }}</p>
+                    <p class="gp-description truncate">{{ group.group_description.capitalize() }}</p>
                     <!-- Actions buttons -->
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
@@ -157,8 +157,8 @@
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}"
-            alt="Illustration of a group of people around a computer">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/support-team.svg')}}" width="520"
+            height="450" alt="Illustration of a group of people around a computer">
     </div>
     <div class="col s12 center-align">
         <h3>You don't follow any groups </h3>

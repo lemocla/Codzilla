@@ -42,8 +42,8 @@ def event(event_id):
 
 
 # https://koenwoortman.com/python-flask-multiple-routes-for-one-function/
-@events.route("/add-event/<group_id>)", methods=["GET", "POST"])
-@events.route("/add-event)", methods=["GET", "POST"])
+@events.route("/add-event/<group_id>", methods=["GET", "POST"])
+@events.route("/add-event", methods=["GET", "POST"])
 def add_event(group_id=None):
 
     user = User.check_existing_user(session["email"])
@@ -117,8 +117,8 @@ def add_event(group_id=None):
                                groups=groups)
 
 
-@events.route("/edit-event/<event_id>/<group_id>)", methods=["GET", "POST"])
-@events.route("/edit-event/<event_id>)", methods=["GET", "POST"])
+@events.route("/edit-event/<event_id>/<group_id>", methods=["GET", "POST"])
+@events.route("/edit-event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id, group_id=None):
 
     user = User.check_existing_user(session["email"])
@@ -232,7 +232,7 @@ def edit_event(event_id, group_id=None):
                                event_id=event_id, event=event)
 
 
-@events.route("/cancel-event/<event_id>)", methods=["GET", "POST"])
+@events.route("/cancel-event/<event_id>", methods=["GET", "POST"])
 def cancel_event(event_id):
 
     if not session["email"]:
@@ -259,7 +259,7 @@ def cancel_event(event_id):
                         event_id=event_id))
 
 
-@events.route("/delete-event/<event_id>)", methods=["GET", "POST"])
+@events.route("/delete-event/<event_id>", methods=["GET", "POST"])
 def delete_event(event_id):
 
     if not session["email"]:
@@ -292,7 +292,7 @@ def delete_event(event_id):
         return redirect(url_for('users.my_events'))
 
 
-@events.route("/add_question/<event_id>)", methods=["GET", "POST"])
+@events.route("/add_question/<event_id>", methods=["GET", "POST"])
 def add_question(event_id):
     if not session:
         return redirect(url_for('login'))
@@ -318,7 +318,7 @@ def add_question(event_id):
         return redirect(url_for('events.event', event_id=event_id))
 
 
-@events.route("/edit_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+@events.route("/edit_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def edit_question(event_id, qa_id):
     if not session:
         return redirect(url_for('login'))
@@ -330,7 +330,7 @@ def edit_question(event_id, qa_id):
         return redirect(url_for('events.event', event_id=event_id))
 
 
-@events.route("/delete_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+@events.route("/delete_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def delete_question(event_id, qa_id):
     if not session:
         return redirect(url_for('login'))
@@ -347,7 +347,7 @@ def delete_question(event_id, qa_id):
         return redirect(url_for('events.event', event_id=event_id))
 
 
-@events.route("/answer_question/<event_id>/<qa_id>)", methods=["GET", "POST"])
+@events.route("/answer_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def answer_question(event_id, qa_id):
     if not session:
         return redirect(url_for('login'))
@@ -372,7 +372,7 @@ def answer_question(event_id, qa_id):
         return redirect(url_for('events.event', event_id=event_id))
 
 
-@events.route("/edit_answer/<event_id>/<qa_id>)", methods=["GET", "POST"])
+@events.route("/edit_answer/<event_id>/<qa_id>", methods=["GET", "POST"])
 def edit_answer(event_id, qa_id):
     if not session:
         return redirect(url_for('login'))
@@ -384,7 +384,7 @@ def edit_answer(event_id, qa_id):
         return redirect(url_for('events.event', event_id=event_id))
 
 
-@events.route("/delete_answer/<event_id>/<qa_id>)", methods=["GET", "POST"])
+@events.route("/delete_answer/<event_id>/<qa_id>", methods=["GET", "POST"])
 def delete_answer(event_id, qa_id):
     if not session:
         return redirect(url_for('login'))

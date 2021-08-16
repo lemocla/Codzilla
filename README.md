@@ -237,7 +237,8 @@ Using the principles of UX design, this fully responsive and interactive website
 
     #### **Difference to design**
 
-    #### **Limitations** 
+      - The notification layout differs from wireframes and feature shorter messags without any imagery.
+      - Filters to search area were not implemented at this stage.
 
 - ## **Design** 
 
@@ -273,13 +274,15 @@ Using the principles of UX design, this fully responsive and interactive website
 
     - #### **Difference to design** 
 
+      Additional grey colours were used to add structure to the page.
+
 # **FEATURES**
 
   - ## **Implemented features** 
 
-   Existing features as well as features left to implement can be found [here](documentation/features.md)
+    Existing features as well as features left to implement can be found [here](documentation/features.md)
 
-   [include screnshots]
+    [include screnshots]
 
   - ## **Features left to implement**   
 
@@ -289,6 +292,7 @@ Using the principles of UX design, this fully responsive and interactive website
     - Allow users to share events on social media 
     - Implement a discussion feature on group so that users can exchange 
     - Upload, store and retrieve images for group and event cover as well as for profile image 
+    - Filter search results by location, topic and dates.
 
 
 # **TECHNOLOGY USED**
@@ -300,27 +304,45 @@ Using the principles of UX design, this fully responsive and interactive website
     - Python 
 
   - ## **Database**
-    - MongoDB
+    - MongoDB: document-oriented database to store data
 
   - ## **Libraries frameworks and other technologies**
-    - Flask
-    - Heroku 
-    - Jquery 
+    - Materialize: css framework to style page, forms and interactive elements 
+    - Font Awesome: used for icons
+    - Flickity: to display carousel on the homepage
+    - Jquery: to simplify Ajax, DOM manipulation and event handling
+    - Google places: to search and imput valid addresses
+    - Google static maps: to display static maps on event pages
+    - Flask: to render, route and display pages
+    - Jinja: to display information using templating.
+    - Werkzeug: to enable generation and checking of secure passwords.
+    - Heroku: to deploy the application
     - PyMongo 
-    - Jinja
-    - Urrlib 
-    - Sendgrid and flask mail
+    - [JWT](https://jwt.io/#libraries-io): JSON Web Token for to create and decode web tokens 
+    - Urrlib: to check validity and data type of image url 
+    - Sendgrid and flask mail: to send emails from contact form and reset password
+
+ - ## **Testing**
+    
+
 
 
 # **TESTING** 
 
+    Testing section can be found here 
  - ## **Intro** 
 
  - ## **Code validation** 
+
     - #### **W3C HTML Code Validator**
+      Each page for the website was run W3C Markup Validation Service by direct input and returned no errors.
+
+      The HTML validation for each pages can be found [here](documentation/html_validation.md)
+
     - #### **W3C CSS Jigsaw Validator**
     - #### **JSHint validator**
     - #### **Python 8**
+      Each python file was run 
 
  - ## **User stories** 
 
@@ -331,7 +353,10 @@ Using the principles of UX design, this fully responsive and interactive website
  - ## **Testing accessibility - wave report**
 
   - ## **Interesting issues and know bugs**
+
     - #### **Interesting issues**
+
+      - Validating url 
     
     - #### **Known bugs**
 
