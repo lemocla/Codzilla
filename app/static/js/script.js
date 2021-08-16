@@ -374,23 +374,24 @@ $(document).ready(function () {
   });
 
   // Function to return if form is valid
-  function validate() {
+  function validate(invalidId) {
     toValidate = $("p.error-text").length;
     validated = $("p.error-text.hide").length;
     valid = false;
     if (toValidate === validated) {
       valid = true;
-      $("#invalid-data").addClass("hide");
+      $(`#${invalidId}`).addClass("hide");
     } else {
       valid = false;
-      $("#invalid-data").removeClass("hide");
+      $(`#${invalidId}`).removeClass("hide");
     }
     return valid;
   }
 
   // Signup form validation
   $("#signup").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -398,7 +399,8 @@ $(document).ready(function () {
 
   // Complete profile form validation
   $("#complete-profile").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -406,7 +408,8 @@ $(document).ready(function () {
 
   // Edit personal info modal form validation
   $("#form-edit-info").submit(function (e) {
-    valid = validate();
+    invalidId = "invalid-data-info";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -414,7 +417,8 @@ $(document).ready(function () {
 
   // Edit email modal form validation
   $("#form-edit-email").submit(function (e) {
-    valid = validate();
+  let invalidId = "invalid-data-email";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -422,7 +426,8 @@ $(document).ready(function () {
 
   // Edit password modal form validation
   $("#form-edit-password").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data-password";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -430,7 +435,8 @@ $(document).ready(function () {
 
   // Add group form validation
   $("#add_group").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -438,7 +444,8 @@ $(document).ready(function () {
 
   // Add event form validation
   $("#add_event").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -446,7 +453,8 @@ $(document).ready(function () {
 
   // Edit group form validation
   $("#edit_group").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }
@@ -454,7 +462,8 @@ $(document).ready(function () {
 
   // Edit event form validation
   $("#edit_event").submit(function (e) {
-    valid = validate();
+    let invalidId = "invalid-data";
+    valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
     }

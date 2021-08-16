@@ -19,6 +19,7 @@
                 <p>{{ message }}</p>
                 {% endfor %}
                 {% endwith %}
+                <p id="invalid-data" class="center-align margin-bottom hide">Correct invalid information and submit again</p>
             </div>
             <div class="col s12">
                 <form id="signup" method="POST" action="{{ url_for('auth.signup') }}">
@@ -74,7 +75,7 @@
     </div>
     <!-- Image large screen only -->
     <div class="col l6 right-align hide-on-med-and-down">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/app-signup.svg')}}" alt="signup illustration">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/app-signup.svg')}}" width="520" height="450" alt="signup illustration">
     </div>
 
 </div>

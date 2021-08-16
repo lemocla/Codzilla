@@ -27,15 +27,16 @@
     <div class="col 12 s12 l8 offset-l2 ">
         <!-- Personal information-->
         <div class="row profile-container">
-                <h2 class="margin-bottom">Personal information</h2>
+            <h2 class="margin-bottom">Personal information</h2>
             <div class="row valign-wrapper">
                 <div class="col s3 left-align">
-                    {% if user.user_img_url == "" or user.user_img_url is none %}
+                    {% if user.user_img_url|length == 0 or user.user_img_url is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
-                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img">
-                    {% else %}
-                    <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar"
-                        alt="user profile image" class="circle responsive-img profile-img">
+                        data-default="avatar" alt="default user profile avatar"
+                        class="circle responsive-img profile-img">
+                    {% elif user.user_img_url|length > 0  %}
+                    <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar" alt="user profile"
+                        class="circle responsive-img profile-img">
                     {% endif %}
                 </div>
                 <div class="col s9 ">
@@ -44,10 +45,10 @@
                     <p><i class="fas fa-map-marker-alt profile-icon"></i> {{ user.city}}, {{user.country}}</p>
                 </div>
             </div>
-                <button id="edit-personal-info" data-target="personal-info-modal"
-                    class="btn modal-trigger btn-send">Edit</button>
+            <button id="edit-personal-info" data-target="personal-info-modal"
+                class="btn modal-trigger btn-send">Edit</button>
         </div>
-        
+
         <!-- Account settings -->
         <div class="row profile-container">
             <h2 class="margin-bottom">Account settings</h2>
@@ -167,30 +168,32 @@
 <div id="personal-info-modal" class="modal">
     <div class="modal-content content-profile">
         <!--Modal content -->
-        <i class="far fa-times-circle close-form modal-close" data-group="close-modal"
+        <i class="far fa-times-circle close-form modal-close" data-action="reset" data-group="close-modal"
             data-target="personal-info-modal"></i>
         <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
-        <p id="invalid-data" class="flashes center-align hide">Correct invalid information and submit again</p>
+        <p id="invalid-data-info" class="flashes margin-bottom center-align hide">Correct invalid information and submit
+            again</p>
         <!-- form-->
         <form id="form-edit-info" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_info', user_id=user._id) }}">
             <!-- Image Url-->
             <div class="row">
                 <div class="col s12 m2 center-align">
-                    {% if user.user_img_url == "" or user.user_img_url is none %}
+                    {% if user.user_img_url|length == 0 or user.user_img_url is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="60" height="60"
-                        data-default="avatar" alt="user profile image" class="circle responsive-img profile-img-modal">
-                    {% else %}
+                        data-default="avatar" alt="user profile avatar" class="circle responsive-img profile-img-modal">
+                    {% elif user.user_img_url|length > 0  %}
                     <img src="{{user.user_imgUrl}}" width="60" height="60" data-default="avatar"
-                        alt="user profile image" class="circle responsive-img profile-img profile-img-modal">
+                        alt="default user profile avatar" class="circle responsive-img profile-img profile-img-modal">
                     {% endif %}
                 </div>
                 <div class="input-field col s12 m10">
                     <textarea id="user-img" class="materialize-textarea validate" name="user-img"
                         data-input="img">{{ user.user_imgUrl }}</textarea>
                     <label for="user-img">Image URL</label>
-                    <p class="error-text hide" data-error="user-img">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
+                    <p class="error-text hide" data-error="user-img">Leave blank or include a valid image Url and make
+                        sure that it contains an image extension such as png, jpg...</p>
                 </div>
             </div>
             <!-- First name -->
@@ -199,7 +202,8 @@
                     <input id="fname" name="fname" value="{{ user.first_name }}" type="text" class="validate"
                         minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="fname">First name</label>
-                    <p class="error-text hide" data-error="fname">Please enter a valid first name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                    <p class="error-text hide" data-error="fname">Please enter a valid first name between 1 and 32
+                        characters. Only special characters - . _ and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Last name -->
@@ -208,7 +212,8 @@
                     <input id="lname" name="lname" value="{{ user.last_name }}" type="text" class="validate"
                         minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="lname">Last name</label>
-                    <p class="error-text hide" data-error="lname">Please enter a valid last name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                    <p class="error-text hide" data-error="lname">Please enter a valid last name between 1 and 32
+                        characters. Only special characters - . _ and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- City -->
@@ -217,7 +222,8 @@
                     <input id="city" name="city" value="{{ user.city }}" type="text" class="validate" minlength="1"
                         maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="city">City</label>
-                    <p class="error-text hide" data-error="city">Please enter a valid city between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                    <p class="error-text hide" data-error="city">Please enter a valid city between 1 and 32 characters.
+                        Only special characters - . _ and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Country -->
@@ -226,7 +232,8 @@
                     <input id="country" name="country" value="{{ user.country }}" type="text" class="validate"
                         minlength="1" maxlength="32" pattern="^[a-zA-Z-_. ]{1,32}$" required>
                     <label for="country">Country</label>
-                    <p class="error-text hide" data-error="country">Please enter a valid country between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                    <p class="error-text hide" data-error="country">Please enter a valid country between 1 and 32
+                        characters. Only special characters - . _ and spaces are accepted, no digits.</p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -244,10 +251,12 @@
 <div id="email-modal" class="modal">
     <div class="modal-content">
         <!--Modal content -->
-        <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="email-modal"></i>
+        <i class="far fa-times-circle close-form modal-close" data-action="reset" data-group="close-modal"
+            data-target="email-modal"></i>
         <h2 class="center-align">Change your email</h2>
         <hr class="breakline">
-        <p id="invalid-data margin-bottom" class="flashes center-align hide">Correct invalid information and submit again</p>
+        <p id="invalid-data-email" class="margin-bottom flashes center-align hide">Correct invalid information and
+            submit again</p>
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_email', user_id=user._id) }}">
@@ -262,7 +271,8 @@
             <!-- New email -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" type="email" name="email" data-verify="new-email" maxlength="50" class="validate" required>
+                    <input id="email" type="email" name="email" data-verify="new-email" maxlength="50" class="validate"
+                        required>
                     <label for="email">New email</label>
                     <p class="error-text hide" data-error="email">Please enter a valid email address</p>
                 </div>
@@ -273,7 +283,8 @@
                     <input id="confirm-email" type="email" name="confirm-email" data-target="email" data-check="check"
                         maxlength="50" class="validate" required>
                     <label for="confirm-email">Confirm your new email</label>
-                    <p id="error-confirm-email" class="error-text hide" data-error="confirm-email">Please make sure that both emails match.</p>
+                    <p id="error-confirm-email" class="error-text hide" data-error="confirm-email">Please make sure that
+                        both emails match.</p>
                 </div>
             </div>
             <!-- Buttons -->
@@ -291,10 +302,12 @@
 <div id="password-modal" class="modal">
     <div class="modal-content">
         <!--Modal content -->
-        <i class="far fa-times-circle close-form modal-close" data-group="close-modal" data-target="password-modal"></i>
+        <i class="far fa-times-circle close-form modal-close" data-action="reset" data-group="close-modal"
+            data-target="password-modal"></i>
         <h2 class="center-align">Change your password</h2>
         <hr class="breakline">
-        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
+        <p id="invalid-data-password" class="flashes center-align margin-bottom hide">Correct invalid information and
+            submit again</p>
         <!-- Error messages-->
         <p id="message-error" class="center-align flashes hide"></p>
 
@@ -371,4 +384,3 @@
     </div>
 </div>
 {% endblock %}
-
