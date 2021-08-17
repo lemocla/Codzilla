@@ -1,9 +1,28 @@
 $(document).ready(function () {
+  
+  // Variables
+  let id;
+  let src;
+  let valid;
+  let checkUrl;
+  let checkUrlValid;
+  let checkVal;
+  let checkArray;
+  let errorMsg;
+  let groupName;
+  let dataCheck;
+  let existing;
+  let email;
+  let check;
+  let option;
+  let toValidate;
+  let validated;
 
   // Materialize side bar
   $('.sidenav').sidenav({
     edge: "right"
   });
+
   // Materialize drop down functionality
   $(".dropdown-trigger").dropdown();
 
@@ -38,7 +57,7 @@ $(document).ready(function () {
   // Back to previous page
   $("button[data-action=back]").click(function () {
     window.history.back();
-  })
+  });
 
   // Add asterix to labels for required fields 
   $("[required]").each(function () {
@@ -74,11 +93,11 @@ $(document).ready(function () {
     // check for url extension
     $.each(checkUrl, function (key, value) {
       checkUrlValid.push(src.includes(value));
-    })
+    });
     // check for img extension 
     $.each(checkVal, function (key, value) {
       checkArray.push(src.includes(value));
-    })
+    });
     // check image display on load
     if (!formData) {
       // Default image value if url invalid
@@ -92,7 +111,7 @@ $(document).ready(function () {
       }
     } else {
       // Display error on form imput 
-      errorMsg = "Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg..."
+      errorMsg = "Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...";
       // check starts with http or https
       if (!checkUrlValid.includes(true)) {
         $(`p[data-error=${targetImg.attr("id")}]`).html(errorMsg).removeClass("hide");
@@ -130,7 +149,7 @@ $(document).ready(function () {
     } else {
       $(`p[data-error=${$(this).attr("id")}]`).addClass("hide");
     }
-  })
+  });
 
   //Validate Materialize Select Field 
   // From Code Institute Task Manager mini project
@@ -180,9 +199,9 @@ $(document).ready(function () {
     groupName = $("#group_name").val();
     dataCheck = $("#group_name").attr("data-check");
     if (dataCheck != null) {
-      existing = dataCheck
+      existing = dataCheck;
     } else {
-      existing = "none"
+      existing = "none";
     }
     $.ajax({
       url: "/check_name",
@@ -200,7 +219,7 @@ $(document).ready(function () {
         }
       }
     });
-  })
+  });
 
   // Profile forms validation
 
@@ -237,8 +256,8 @@ $(document).ready(function () {
      https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html
   */
   $('#current-pwd').change(function () {
-    email = $("#user_email").text().replace(" ", "")
-    check = $("#current-pwd").val()
+    email = $("#user_email").text().replace(" ", "");
+    check = $("#current-pwd").val();
     $.ajax({
       url: `/check_password/${email}/${check}`,
       data: email,
@@ -307,13 +326,13 @@ $(document).ready(function () {
 
   // Change display according to event type on add event
   $('#event_type').change(function () {
-    option = $(this).val()
+    option = $(this).val();
     if (option == "in person") {
       $("#link_container").addClass("hide");
       $("#location_container").removeClass("hide");
       $("input#event_location").prop("required", true);
       $("label[for='event_location']").append('<span class="required"> *</span>');
-      $("#event_link").val(null)
+      $("#event_link").val(null);
     } else if (option == "online event") {
       $("#link_container").removeClass("hide");
       $("#location_container").addClass("hide");
@@ -351,7 +370,7 @@ $(document).ready(function () {
   $("#edit_event input[type=checkbox]").each(function () {
     if (($(this).attr("data-value") == "true") || ($(this).attr("data-value") == "True")) {
       $(this).prop("checked", true);
-      $("#end_time_container").removeClass('hide')
+      $("#end_time_container").removeClass('hide');
     } else {
       $(this).val(false);
       $(this).prop("checked", false);
@@ -408,6 +427,7 @@ $(document).ready(function () {
 
   // Edit personal info modal form validation
   $("#form-edit-info").submit(function (e) {
+    let invalidId;
     invalidId = "invalid-data-info";
     valid = validate(invalidId);
     if (!valid) {
@@ -417,7 +437,7 @@ $(document).ready(function () {
 
   // Edit email modal form validation
   $("#form-edit-email").submit(function (e) {
-  let invalidId = "invalid-data-email";
+    let invalidId = "invalid-data-email";
     valid = validate(invalidId);
     if (!valid) {
       e.preventDefault();
@@ -501,7 +521,7 @@ $(document).ready(function () {
     if ($(this).attr("data-status") == "active") {
       let user_id = $(this).attr("data-user");
       let event_id = $(this).attr("data-event");
-      actionGroupEvent(user_id, event_id, "/attend")
+      actionGroupEvent(user_id, event_id, "/attend");
     }
   });
 
@@ -515,7 +535,7 @@ $(document).ready(function () {
   $(".btn.btn-unattend").click(function () {
     let event_id = $(this).attr("data-event");
     let user_id = $(this).attr("data-user");
-    actionGroupEvent(user_id, event_id, "/unattend")
+    actionGroupEvent(user_id, event_id, "/unattend");
   });
 
   // Toggle interest bookmarked
@@ -523,7 +543,7 @@ $(document).ready(function () {
     if ($(this).attr("data-status") == "active") {
       let event_id = $(this).attr("data-event");
       let user_id = $(this).attr("data-user");
-      actionGroupEvent(user_id, event_id, "/bookmark_interest")
+      actionGroupEvent(user_id, event_id, "/bookmark_interest");
     }
   });
 
@@ -531,7 +551,7 @@ $(document).ready(function () {
   $(".btn-interested").click(function () {
     let event_id = $(this).attr("data-event");
     let user_id = $(this).attr("data-user");
-    actionGroupEvent(user_id, event_id, "/remove_interest")
+    actionGroupEvent(user_id, event_id, "/remove_interest");
   });
 
   //Follow group
@@ -539,7 +559,7 @@ $(document).ready(function () {
     if ($(this).attr("data-status") == "active") {
       let group_id = $(this).attr("data-group");
       let user_id = $(this).attr("data-user");
-      actionGroupEvent(user_id, group_id, "/follow")
+      actionGroupEvent(user_id, group_id, "/follow");
     }
   });
 
@@ -553,7 +573,7 @@ $(document).ready(function () {
   $(".btn-unfollow").click(function () {
     let group_id = $(this).attr("data-group");
     let user_id = $(this).attr("data-user");
-    actionGroupEvent(user_id, group_id, "/unfollow")
+    actionGroupEvent(user_id, group_id, "/unfollow");
   });
 
 });

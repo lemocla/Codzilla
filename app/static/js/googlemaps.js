@@ -5,7 +5,7 @@ $(document).ready(function () {
         const input = document.getElementById("event_location");
         const option = {
             fields: ["formatted_address", "name", "geometry"]
-        }
+        };
         const searchBox = new google.maps.places.SearchBox(input, option);
         input.setAttribute("data-place", "search");
 
@@ -26,9 +26,9 @@ $(document).ready(function () {
             }
             // Remove error message
             if (input.getAttribute("data-place") === "search") {
-                document.getElementById("location_error").classList.removeClass("hide")
+                document.getElementById("location_error").classList.removeClass("hide");
             }
-        })
+        });
     });
 
     //check if input field has been completed from places

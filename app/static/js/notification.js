@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    // Variables
+
+    let val;
+    let newval;
+
     // Notifications
     $(".collapsible-header").click(function () {
         // Ajax requestion to python function to add to read_by
@@ -24,7 +29,7 @@ $(document).ready(function () {
                     // https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
                     // Update number of notification 
                     if (response == "success") {
-                        val = $(".new-notification").text()
+                        val = $(".new-notification").text();
                         newval = parseInt(val) - 1;
                         if (newval > 0) {
                             $(".new-notification").text(newval);
