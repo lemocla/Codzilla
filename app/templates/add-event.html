@@ -18,8 +18,6 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
-        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit
-            again</p>
     </div>
 </div>
 
@@ -68,7 +66,6 @@
                     </div>
 
                     <!-- group  -->
-
                     {% if groups|length > 0 %}
                     <div class="row">
                         <div class="input-field col s12">
@@ -90,7 +87,6 @@
                         </div>
                     </div>
                     {% endif %}
-
 
                     <!-- date -->
                     <div class="row">
@@ -169,6 +165,7 @@
                             <p class="error-text hide" data-error="max_attendees">Enter number between 1 and 100</p>
                         </div>
                     </div>
+
                     <!-- cover image -->
                     <div class="row">
                         <div class="input-field col s12">
@@ -183,6 +180,8 @@
 
                     <!-- buttons -->
                     <div class="row">
+                        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid
+                            information and submit again</p>
                         <div class="col s6 right-align margin-top">
                             <button class="btn btn-send" type="submit">Submit</button>
                         </div>
@@ -193,7 +192,6 @@
                 </form>
         </div>
     </div>
-
 </div>
 
 {% endblock  %}

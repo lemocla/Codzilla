@@ -13,30 +13,34 @@
 <div class="row">
     <div class="col s12 l6">
         <div class="row">
+            <!-- flashes -->
             <div class="col s12 center-align flashes">
                 {% with messages = get_flashed_messages() %}
                 {% for message in messages %}
                 <p>{{ message }}</p>
                 {% endfor %}
                 {% endwith %}
-                <p id="invalid-data" class="center-align margin-bottom hide">Correct invalid information and submit again</p>
             </div>
             <div class="col s12">
                 <form id="signup" method="POST" action="{{ url_for('auth.signup') }}">
+                    <!-- first and last name -->
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="fname" name="fname" type="text" class="validate" minlength="1" maxlength="32"
                                 pattern="^[a-zA-Z-_. ]{1,32}$" required>
                             <label for="fname">First name</label>
-                            <p class="error-text hide" data-error="fname">Please enter a valid first name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                            <p class="error-text hide" data-error="fname">Please enter a valid first name between 1 and
+                                32 characters. Only special characters - . _ and spaces are accepted, no digits.</p>
                         </div>
                         <div class="input-field col s6">
                             <input id="lname" name="lname" type="text" class="validate" minlength="1" maxlength="32"
                                 pattern="^[a-zA-Z-_. ]{1,32}$" required>
                             <label for="lname">Last name</label>
-                            <p class="error-text hide" data-error="lname">Please enter a valid last name between 1 and 32 characters. Only special characters - . _  and spaces are accepted, no digits.</p>
+                            <p class="error-text hide" data-error="lname">Please enter a valid last name between 1 and
+                                32 characters. Only special characters - . _ and spaces are accepted, no digits.</p>
                         </div>
                     </div>
+                    <!-- email -->
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="email" type="email" name="email" maxlength="50" class="validate" required>
@@ -44,8 +48,8 @@
                             <p class="error-text hide" data-error="email">Please enter a valid email address.</p>
                         </div>
                     </div>
+                    <!-- password -->
                     <div class="row">
-
                         <div class="input-field col s12">
                             <!-- https://regex101.com/ -->
                             <i class="password-visible far fa-eye" data-target="password"></i>
@@ -59,23 +63,28 @@
                             <p class="error-text hide" data-error="password">Please enter a valid password.</p>
                         </div>
                     </div>
+                    <!-- buttons -->
                     <div class="row">
+                        <p id="invalid-data" class="center-align margin-bottom hide">Correct invalid information and
+                            submit again</p>
                         <div class="col s12 center-align margin-top">
                             <button class="btn btn-send" type="submit" name="signup">Sign-up</button>
                         </div>
                     </div>
                 </form>
-
+                <!-- link to sign in form -->
                 <div class="col s12 center-align">
-                    <p>Already have an account? <a class="hyperlink" href="{{ url_for('auth.login') }}">Please sign-in</a>.
-                        </p>
+                    <p>Already have an account? <a class="hyperlink" href="{{ url_for('auth.login') }}">Please
+                            sign-in</a>.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Image large screen only -->
     <div class="col l6 right-align hide-on-med-and-down">
-        <img class="responsive-img" src="{{ url_for('static', filename='images/app-signup.svg')}}" width="520" height="450" alt="signup illustration">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/app-signup.svg')}}" width="520"
+            height="450" alt="signup illustration">
     </div>
 
 </div>

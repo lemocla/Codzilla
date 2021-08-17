@@ -17,8 +17,6 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
-        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit
-            again</p>
     </div>
 </div>
 
@@ -75,8 +73,9 @@
                             and make sure that it contains an image extension such as png, jpg...</p>
                     </div>
                 </div>
-
                 <div class="row">
+                    <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information
+                        and submit again</p>
                     <div class="col s6 right-align margin-top">
                         <button class="btn btn-send" type="submit">Submit</button>
                     </div>

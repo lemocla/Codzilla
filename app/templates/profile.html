@@ -172,8 +172,6 @@
             data-target="personal-info-modal"></i>
         <h2 class="center-align">Edit personal information</h2>
         <hr class="breakline">
-        <p id="invalid-data-info" class="flashes margin-bottom center-align hide">Correct invalid information and submit
-            again</p>
         <!-- form-->
         <form id="form-edit-info" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_info', user_id=user._id) }}">
@@ -238,6 +236,8 @@
             </div>
             <!-- Buttons -->
             <div class="row margin-top">
+                <p id="invalid-data-info" class="flashes margin-bottom center-align hide">Correct invalid information
+                    and submit again</p>
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
                     <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
@@ -255,8 +255,6 @@
             data-target="email-modal"></i>
         <h2 class="center-align">Change your email</h2>
         <hr class="breakline">
-        <p id="invalid-data-email" class="margin-bottom flashes center-align hide">Correct invalid information and
-            submit again</p>
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('users.edit_email', user_id=user._id) }}">
@@ -289,6 +287,8 @@
             </div>
             <!-- Buttons -->
             <div class="row margin-top">
+                <p id="invalid-data-email" class="margin-bottom flashes center-align hide">Correct invalid information
+                    and submit again</p>
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
                     <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
@@ -306,8 +306,6 @@
             data-target="password-modal"></i>
         <h2 class="center-align">Change your password</h2>
         <hr class="breakline">
-        <p id="invalid-data-password" class="flashes center-align margin-bottom hide">Correct invalid information and
-            submit again</p>
         <!-- Error messages-->
         <p id="message-error" class="center-align flashes hide"></p>
 
@@ -354,6 +352,8 @@
             </div>
             <!-- Buttons -->
             <div class="row margin-top">
+                <p id="invalid-data-password" class="flashes center-align margin-bottom hide">Correct invalid
+                    information and submit again</p>
                 <div class="col s12 center-align border-top">
                     <button class="btn btn-send margin-top" type="submit" name="submit">Submit</button>
                     <button class="btn btn-send margin-top modal-close" data-action="reset" type="button">Close</button>
