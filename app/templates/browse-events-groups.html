@@ -118,8 +118,9 @@
                     </p>
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
-                            <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }}{{ max }}
+                            <div class="col s6 valign-wrapper attendee-container">
+                                <p class="p-attendee">
+                                <i class="fas fa-user-circle attendees"></i>{{ event.attendees|length }}{{ max }}
                                     attendee(s)
                                 </p>
                             </div>
@@ -208,7 +209,7 @@
                     <div class="card-action">
                         <div class="row action-container valign-wrapper">
                             <div class="col s6 valign-wrapper">
-                                <p><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
+                                <p class="p-attendee"><i class="fas fa-user-circle attendees"></i>{{ group.group_members|length }}
                                     member(s)</p>
                             </div>
                             <div class="col s6 right-align">

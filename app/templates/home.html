@@ -143,8 +143,8 @@
                     </p>
                     <div class="card-action">
                         <div class="row action-container">
-                            <div class="col s6">
-                                <p><i class="fas fa-user-circle attendees"></i>
+                            <div class="col s6 attendee-container">
+                                <p class="p-attendee"><i class="fas fa-user-circle attendees"></i>
                                     {{ event.attendees|length }}{{max}} attendee(s)
                                 </p>
                             </div>
@@ -178,8 +178,6 @@
                                 <a class="btn btn-attend modal-trigger" href="#request-registration-modal">Attend</a>
                                 {% endif %}
                                 {% endif %}
-
-
                                 <!-- end event actions -->
                             </div>
                         </div>

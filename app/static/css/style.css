@@ -1,21 +1,19 @@
 /*---------[ Font ]---------*/
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Roboto:wght@400;500;700&family=Tourney:wght@800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Roboto:wght@400;500;700&family=Tourney:wght@800&display=swap");
 
 /*---------[ Color ]---------*/
 
 :root {
-    --ivory: #E7E7E0;
-    --fuchsia: #D9276A;
-    --darkgray: #6E6E6E;
+    --ivory: #e7e7e0;
+    --fuchsia: #d9276a;
+    --darkgray: #6e6e6e;
     --black: #070100;
-    --blue: #5710E6;
-    --imgHeight: auto;
+    --blue: #5710e6;
 }
 
-
 body {
-    font-family: 'Open Sans', serif;
+    font-family: "Open Sans", serif;
     background-image: url("/static/images/wave.svg");
     background-size: contain;
     background-repeat: no-repeat;
@@ -29,7 +27,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Roboto', serif;
+    font-family: "Roboto", serif;
     font-weight: 700;
 }
 
@@ -77,11 +75,12 @@ h3 {
     margin-top: 1rem;
 }
 
-p {
+/*https://css-tricks.com/almanac/selectors/f/first-letter/*/
+p::first-letter {
     text-transform: capitalize;
 }
 
-/*--------[ buttons ]---------*/
+/*-------------[ buttons ]------------*/
 
 .btn.contact-btn {
     background-color: var(--fuchsia);
@@ -108,7 +107,6 @@ p {
     border: 1px solid #6e6e6e6b;
 }
 
-
 .btn-interest {
     background-color: var(--ivory);
     color: var(--black);
@@ -116,7 +114,6 @@ p {
     border: 1px solid var(--darkgray);
     text-align: center;
     box-shadow: 0px 0px 5px var(--black);
-    ;
 }
 
 .btn-interested {
@@ -136,30 +133,10 @@ p {
     color: inherit;
 }
 
-.tabs {
-    height: 40px;
-}
-
-.tabs .tab a {
-    color: var(--black);
-    background: var(--ivory) !important;
-    border-radius: 3px;
-}
-
-.tabs .tab a:hover,
-.tabs .tab a.active {
-    background-color: var(--darkgray) !important;
-    color: #fafafa;
-    font-weight: 700;
-}
-
-
-.tabs .indicator {
-    background-color: var(--black);
-}
-
-.tabs .tab {
-    line-height: 40px;
+.btn.btn-send,
+.btn.btn-attending,
+.btn.btn-following {
+    background-color: var(--blue);
 }
 
 .page-footer a:hover,
@@ -178,15 +155,11 @@ p {
 .btn-floating:hover {
     background-color: var(--ivory);
     transform: scale(1.1);
-    /*box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.164) inset;*/
 }
 
 .btn-floating.btn-interested:hover {
-    /*font-weight: bold;
-    font-size: 1.1rem;*/
     background-color: var(--blue);
     transform: scale(1.1);
-    /*box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.164) inset;*/
 }
 
 .close-form:hover {
@@ -215,7 +188,34 @@ p {
     right: 0px !important;
 }
 
-/*---------[ Margins ]---------*/
+/*-------------[ Tabs ]--------------*/
+
+.tabs {
+    height: 40px;
+}
+
+.tabs .tab a {
+    color: var(--black);
+    background: var(--ivory) !important;
+    border-radius: 3px;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+    background-color: var(--darkgray) !important;
+    color: #fafafa;
+    font-weight: 700;
+}
+
+.tabs .indicator {
+    background-color: var(--black);
+}
+
+.tabs .tab {
+    line-height: 40px;
+}
+
+/*------------[ Margins ]------------*/
 
 .margin-bottom {
     margin-bottom: 2rem;
@@ -223,14 +223,6 @@ p {
 
 .margin-top {
     margin-top: 2rem;
-}
-
-.small-mg-top {
-    margin-top: 1rem;
-}
-
-.small-mg-bottom {
-    margin-bottom: 1rem;
 }
 
 .small-pd-top {
@@ -258,11 +250,13 @@ p {
     padding-right: 0 !important;
 }
 
+/*-----------[ Borders ]-----------*/
+
 .border-top {
-    border-top: 1px solid rgba(160, 160, 160, 0.2)
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 
-/*---------[ Navbar ]---------*/
+/*-----------[ Navbar ]-----------*/
 
 nav {
     height: 60px;
@@ -297,13 +291,12 @@ button:focus {
 
 nav ul a {
     cursor: default !important;
-    -webkit-transition: none;
     transition: none;
 }
 
 nav .brand-logo {
     color: var(--fuchsia) !important;
-    font-family: 'Tourney', cursive;
+    font-family: "Tourney", cursive;
     font-size: 2.3rem;
     font-weight: bold;
 }
@@ -312,6 +305,7 @@ nav .brand-logo {
     color: var(--black);
     font-size: 2rem;
     padding-right: 9px;
+    padding-top: 1rem;
 }
 
 .nav-item {
@@ -348,6 +342,8 @@ button.nav-item.dropdown-trigger {
     top: 5px;
 }
 
+/*---------[ Back buttons ]----------*/
+
 .back-btn {
     position: absolute;
     left: -5px;
@@ -357,7 +353,7 @@ button.nav-item.dropdown-trigger {
     border: none;
     font-size: 2.5rem;
     margin: 0;
-    -webkit-text-size-adjust: none;
+    padding: 0;
 }
 
 .back-btn:hover,
@@ -366,7 +362,7 @@ button.nav-item.dropdown-trigger {
     background-color: inherit;
 }
 
-/*---------[ borders ]------------*/
+/*------------[ borders ]-------------*/
 
 .border-grey {
     border: 1px solid #6e6e6e6b;
@@ -389,12 +385,12 @@ button.nav-item.dropdown-trigger {
 }
 
 .home-container h1 {
-    font-family: 'Tourney', cursive;
+    font-family: "Tourney", cursive;
     margin-bottom: 2.85rem;
 }
 
 .p-home-container {
-    font-family: 'Open Sans', serif;
+    font-family: "Open Sans", serif;
     font-size: 1.25rem;
     font-weight: 700;
     margin: 1.75rem 0 1.25rem 0;
@@ -420,7 +416,7 @@ button.nav-item.dropdown-trigger {
 }
 
 .list-item {
-    padding-bottom: 0.65rem
+    padding-bottom: 0.65rem;
 }
 
 .list-icon {
@@ -441,8 +437,7 @@ button.nav-item.dropdown-trigger {
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
     color: white;
-    -webkit-transition: color .3s ease;
-    transition: color .3s ease;
+    transition: color 0.3s ease;
     text-transform: uppercase;
 }
 
@@ -456,7 +451,9 @@ button.nav-item.dropdown-trigger {
     font-size: 1.3rem;
     font-weight: bold;
     text-transform: capitalize;
-    font-family: 'Open Sans', serif;
+    font-family: "Open Sans", serif;
+    line-height: initial;
+    margin: 0.5rem 0 0.5rem 0;
 }
 
 .organiser {
@@ -493,7 +490,15 @@ button.nav-item.dropdown-trigger {
     min-height: 36px !important;
 }
 
-/*----[ Homepage carousel ]---*/
+.attendee-container {
+    padding-right: 0 !important;
+}
+
+.p-attendee {
+    text-transform: lowercase;
+}
+
+/*--------[ Homepage carousel ]------*/
 
 .main-carousel {
     margin-bottom: 3.5rem;
@@ -523,10 +528,10 @@ button.nav-item.dropdown-trigger {
     width: 80%;
 }
 
-/*-------[ Horizontal cards ]--*/
+/*-------[ Horizontal cards ]-------*/
 
 .card.horizontal {
-    flex-direction: column !important
+    flex-direction: column !important;
 }
 
 .horizontal-card-img {
@@ -562,7 +567,7 @@ button.nav-item.dropdown-trigger {
     right: unset;
 }
 
-/*---------[ groups]-------*/
+/*------[ groups / events ]------*/
 
 .col-head {
     position: relative;
@@ -662,7 +667,12 @@ button.nav-item.dropdown-trigger {
     font-size: 1.2rem;
 }
 
-/*---------[ notifications ] ----*/
+.title {
+    text-transform: capitalize;
+    font-size: inherit !important;
+}
+
+/*---------[ notifications ]---------*/
 
 .collapsible-body {
     padding: 1rem 2rem;
@@ -684,7 +694,7 @@ button.nav-item.dropdown-trigger {
     font-weight: 500;
 }
 
-/*---------[ faq ]------------*/
+/*--------------[ faq ]---------------*/
 
 .question {
     color: var(--fuchsia);
@@ -692,7 +702,7 @@ button.nav-item.dropdown-trigger {
     font-weight: 700;
 }
 
-/*---------[ Log in ]-------------*/
+/*------------[ Log in ]--------------*/
 
 .login-img {
     /* border: 1px solid; */
@@ -704,7 +714,8 @@ button.nav-item.dropdown-trigger {
     background-position: 37% 75%;
 }
 
-/*--------[ profile page ]---------*/
+/*----------[ profile page ]-----------*/
+
 .profile-container {
     padding-bottom: 2.5rem;
     border-bottom: 1px solid var(--darkgray) !important;
@@ -731,7 +742,7 @@ button.nav-item.dropdown-trigger {
     font-size: 1.7rem;
 }
 
-/*------------[ Modals ]------------*/
+/*-------------[ Modals ]--------------*/
 
 .modal {
     top: 5% !important;
@@ -751,7 +762,7 @@ button.nav-item.dropdown-trigger {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .modal-forms {
@@ -759,7 +770,7 @@ button.nav-item.dropdown-trigger {
     margin: 0 auto;
 }
 
-/*---------[ Contact form ]---------*/
+/*-----------[ Contact form ]-----------*/
 
 .contact-img {
     width: 100%;
@@ -811,32 +822,22 @@ label {
     display: none;
 }
 
-.btn.btn-send,
-.btn.btn-attending,
-.btn.btn-following {
-    background-color: var(--blue);
-}
-
-/* valid color */
-.input-field input[type=text].valid,
+.input-field input[type="text"].valid,
 textarea.materialize-textarea.valid {
     border-bottom: 1px solid #000;
     box-shadow: none;
 }
 
-/* invalid color */
-.input-field input[type=text].invalid {
+.input-field input[type="text"].invalid {
     border-bottom: 1px solid #000;
     box-shadow: none;
 }
 
 input:focus,
 textarea:focus {
-    /*box-shadow: none !important;*/
     box-shadow: 0 1px 0 0 #000 !important;
 }
 
-/* icon prefix focus color */
 .input-field .prefix.active {
     color: #000;
 }
@@ -847,7 +848,7 @@ textarea:focus {
 }
 
 .datepicker-date-display .year-text {
-    color: var(--darkgray)
+    color: var(--darkgray);
 }
 
 .timepicker-digital-display {
@@ -857,17 +858,17 @@ textarea:focus {
 
 .text-primary,
 .timepicker-text-container {
-    color: var(--black) !important
+    color: var(--black) !important;
 }
 
-/*---------[ Error pages]-----*/
+/*----------[ Error pages ]-----------*/
 
 .error-container {
     flex-direction: column;
 }
 
 .h1-error {
-    margin-top: 3rem
+    margin-top: 3rem;
 }
 
 .error-container img {
@@ -878,7 +879,7 @@ textarea:focus {
     font-size: 1.2rem;
 }
 
-/*---------[ Footer ]---------*/
+/*------------[ Footer ]-------------*/
 
 .page-footer {
     background-color: var(--ivory);
@@ -889,8 +890,7 @@ textarea:focus {
     color: var(--black);
 }
 
-
-/*---------[ Media queries ]---------*/
+/*------------[ Media queries ]---------*/
 
 @media only screen and (max-width: 600px) {
     .event-card-content {
@@ -899,9 +899,7 @@ textarea:focus {
     }
 }
 
-
 @media only screen and (min-width: 600px) {
-
     nav {
         padding: 0 15px !important;
     }
@@ -915,7 +913,7 @@ textarea:focus {
     }
 
     .home-container h1 {
-        margin-top: reset;
+        margin-top: 2.5rem;
     }
 
     .small-pd-top {
@@ -927,7 +925,7 @@ textarea:focus {
     }
 
     .h1-error {
-        margin-top: 3rem
+        margin-top: 3rem;
     }
 
     .carousel-cell {
@@ -988,7 +986,6 @@ textarea:focus {
         height: 60px !important;
     }
 
-
     .resize {
         max-width: 70px !important;
         max-height: 70px !important;
@@ -1001,20 +998,18 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 992px) {
-
     .banner-image {
         padding-top: 45px;
     }
 }
 
 @media only screen and (min-width: 993px) {
-
     body {
         background-position: right 20px;
     }
 
     .head-container {
-        margin-top: 8.25rem
+        margin-top: 8.25rem;
     }
 
     nav {
@@ -1068,5 +1063,25 @@ textarea:focus {
     .error-container img {
         margin-top: 0;
     }
+}
 
+@media only screen and (min-width: 1200px) {
+    body {
+        max-width: 1500px;
+        background-position: center 20px;
+        background-size: 1500px;
+        margin: 0 auto;
+    }
+
+    nav .nav-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-height: 900px) {
+    main.container {
+        min-height: 60vh;
+        margin-top: 12rem;
+    }
 }
