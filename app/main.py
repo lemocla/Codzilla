@@ -16,6 +16,12 @@ main = Blueprint("main", __name__)
 # Search
 @main.route("/search", methods=["GET", "POST"])
 def search():
+    """
+    Render template for all groups and events according to
+    search query
+    Pass variables so that relevant group and event action are
+    displayed
+    """
     if session:
         user = User.check_existing_user(session["email"])
     else:
@@ -51,6 +57,12 @@ def search():
 @main.route("/")
 @main.route("/home")
 def home():
+    """
+    Render template for homepage
+    Fetch the latest 6 coming events
+    If user in session, pass variables so that the relevant actions for
+    events are displayed
+    """
     # Variables
     events = Event.upcoming_events()
     total = len(Event.find_all_active_events())
@@ -77,6 +89,12 @@ def home():
 # All events and groups
 @main.route("/browse_events_groups/")
 def browse_events_groups():
+    """
+    Render template for all groups and events
+    Find all active and current events
+    If user in session, pass the variables so that
+    relevant user actions for groups and events are displayed
+    """
     events = Event.find_all_active_events()
     groups = Group.find_all_groups()
     users = User.find_all_users()
@@ -113,7 +131,8 @@ https://sendgrid.com/blog/sending-emails-from-python-flask-applications-with-twi
 
 @main.route("/contact_us", methods=['GET', 'POST'])
 def contact_us():
-    """ Get input from user in contact form
+    """
+    Get input from user in contact form
     Send a acknowledgment email to suer
     Send email with email, fullname and message to the website owner
     Lets user know the email has been sent
@@ -158,16 +177,25 @@ def contact_us():
 # Accessibility page
 @main.route("/accessibility")
 def accessibility():
+    """
+    Return template for accessibility page
+    """
     return render_template("accessibility.html")
 
 
 # Frequently asked question page
 @main.route("/faq")
 def faq():
+    """
+    Return template for Frequently Asked Question
+    """
     return render_template("faq.html")
 
 
 # Privacy page
 @main.route("/privacy")
 def privacy():
+    """
+    Return template for privacy page
+    """
     return render_template('privacy.html')

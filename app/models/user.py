@@ -87,57 +87,47 @@ class User():
         return info
 
     def insert_into_database(self):
-        """Writes a Book to the Database.
-        Writes the output of the get_info
-        method directly to the database.
         """
-        try:
-            mongo.db.users.insert_one(self.get_user_info())
-        except Exception as e:
-            print(e)
+        Add a user in MongoDB
+        """
+        mongo.db.users.insert_one(self.get_user_info())
 
     @staticmethod
     def edit_user(user_id, info):
         """
-        Update record
+        Update a user in MongoDB
         """
-        try:
-            mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                      {"$set": info})
-        except Exception as e:
-            print(e)
+        mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                  {"$set": info})
 
     @staticmethod
     def append_list(user_id, field, value):
         """
-        Update record
+        Add to any list for a user in MongoDB
         """
-        try:
-            mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                      {"$push": {field: ObjectId(value)}})
-        except Exception as e:
-            print(e)
+        mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                  {"$push": {field: ObjectId(value)}})
 
     @staticmethod
     def remove_from_list(user_id, field, value):
-        print(f"should pull {value} from {field} in {user_id}")
-        try:
-            mongo.db.users.update_one({"_id": ObjectId(user_id)},
-                                      {"$pull": {field: ObjectId(value)}})
-        except Exception as e:
-            print(e)
+        """
+        Remove from any list for a user in MongoDB
+        """
+        mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                  {"$pull": {field: ObjectId(value)}})
 
     @staticmethod
     def delete_one_user(user_id):
         """
-        Delete record
+        Delete a user in MongoDB
         """
         mongo.db.users.delete_one({"_id": ObjectId(user_id)})
 
     @staticmethod
     def check_existing_user(email):
         """
-        Find record with user in MongoDB
+        Find a user by email in MongoDB
+        Return user
         """
         user = mongo.db.users.find_one({"email": email})
         return user
@@ -145,7 +135,8 @@ class User():
     @staticmethod
     def find_user_by_id(user_id):
         """
-        Find record with user in MongoDB
+        Find a user by Id in MongoDB
+        Return user
         """
         user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
         return user
@@ -153,18 +144,24 @@ class User():
     @staticmethod
     def get_user_id(email):
         """
-        Find record with user in MongoDB
+        Get and return a user Id in MongoDB using email
         """
         user_id = mongo.db.users.find_one({"email": email.lower()})["_id"]
         return user_id
 
     @staticmethod
     def find_all_users():
+        """
+        Find and return all users in MongoDB
+        """
         users = list(mongo.db.users.find())
         return users
 
     @staticmethod
     def find_users_by_id(col):
+        """
+        Find items in array in user in MongoDB
+        """
         users = mongo.db.users.find({"_id": {"$in": col}})
         return users
 

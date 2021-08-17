@@ -4,6 +4,9 @@ from bson.objectid import ObjectId
 
 
 class Event():
+    """
+    Class representing an event
+    """
     def __init__(self, event_title, event_location, event_link, date_start,
                  date_end, is_endtime, event_description, event_category,
                  event_type, img_url, max_attendees, status, created_by,
@@ -49,26 +52,34 @@ class Event():
         return info
 
     def insert_into_database(self):
-        try:
-            new_id = mongo.db.events.insert_one(self.get_event_info())
-            return new_id
-        except Exception as e:
-            print(e)
+        """
+        Add an event in MongoDB and return new event id
+        """
+        new_id = mongo.db.events.insert_one(self.get_event_info())
+        return new_id
 
     @staticmethod
     def update_event(event_id, info):
-        try:
-            mongo.db.events.update_one({"_id": ObjectId(event_id)},
-                                       {"$set": info})
-        except Exception as e:
-            print(e)
+        """
+        Update one event in MongoDB
+        """
+        mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                   {"$set": info})
 
     @staticmethod
     def delete_event(event_id):
+        """
+        Delete one event in MongoDB
+        """
         mongo.db.events.delete_one({"_id": ObjectId(event_id)})
 
     @staticmethod
     def find_all_active_events():
+        """
+        Find all active events in MongoDB
+        Search by status, start date greated than today
+        Sort by date
+        """
         events = list(mongo.db.events.find(
                   {"date_start": {"$gte": datetime.today()},
                    "status": "active"}).sort("date_start", 1))
@@ -76,6 +87,11 @@ class Event():
 
     @staticmethod
     def upcoming_events():
+        """
+        Find first 6 active events
+        Search by status, start date greated than today
+        Sort by date
+        """
         upcoming_events = list(mongo.db.events.find(
                           {"date_start": {"$gte": datetime.today()},
                            "status": "active"}).sort(
@@ -84,6 +100,9 @@ class Event():
 
     @staticmethod
     def search_events(query):
+        """
+        Search index for events in MongoDB by query
+        """
         results = mongo.db.events.find({
                  "date_start": {"$gte": datetime.today()},
                  "$text": {"$search": query}})
@@ -91,36 +110,41 @@ class Event():
 
     @staticmethod
     def find_events_by_dates(isos, isoe):
+        """
+        Find events within date range in MongoDB
+        """
         events = mongo.db.events.find(
                  {"date_start": {'$gte': isos, '$lte': isoe}})
         return events
 
     @staticmethod
     def find_events_by_id(col):
+        """
+        Find events matching an array of Id
+        """
         events = mongo.db.events.find({"_id": {"$in": col}})
         return events
 
     @staticmethod
     def find_one_event(event_id):
+        """
+        Find one event in MongoDB and return object
+        """
         event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
         return event
 
     @staticmethod
     def add_to_list(event_id, field, value):
         """
-        Update record
+        Add value to any array in events in MongoDB
         """
-        try:
-            mongo.db.events.update_one({"_id": ObjectId(event_id)},
-                                       {"$push": {field: ObjectId(value)}})
-        except Exception as e:
-            print(e)
+        mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                   {"$push": {field: ObjectId(value)}})
 
     @staticmethod
     def remove_from_list(event_id, field, value):
-        print(f"should pull {value} from {field} in {event_id}")
-        try:
-            mongo.db.events.update_one({"_id": ObjectId(event_id)},
-                                       {"$pull": {field: ObjectId(value)}})
-        except Exception as e:
-            print(e)
+        """
+        Remove value from any array in events in MongoDB
+        """
+        mongo.db.events.update_one({"_id": ObjectId(event_id)},
+                                   {"$pull": {field: ObjectId(value)}})

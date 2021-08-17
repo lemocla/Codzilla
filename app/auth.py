@@ -74,13 +74,17 @@ def complete_profile(email):
     """
     Get email, first name and user ID from MongoDB
     Build dictionary from user input
+    Add group if group name is not empty
     Update user in MongoDB
     Flash message to inform user of successful completion
     Redirect to complete profile completed page
+    If url image not valid, return complete profile,
+    Flash message to inform user profile couldn't be completed
     """
     user = User.check_existing_user(email)
     if not user:
         return redirect(url_for("auth.login"))
+
     # Get the first name for session user from MongoDB
     fname = User.check_existing_user(email)["first_name"].capitalize()
 
@@ -136,7 +140,6 @@ def profile_completed(email):
     Get email and first name from MongoDB
     Display page if user in session
     """
-
     if session["email"]:
         fname = User.check_existing_user(email)["first_name"].capitalize()
         return render_template(
@@ -150,6 +153,8 @@ def login():
     Get existing user from MongoDB
     Check if existing user
     If existing user, check password
+    If existing user, check events happening with next 2 days and,
+    Add notification if not already notified and preference setting is true
     If password match redirect to profile completed
     If no password match, redirect to login page and,
     Inform user password is incorrect
@@ -157,15 +162,14 @@ def login():
     """
 
     if request.method == "POST":
-
+        # Check if user exists in DB
         user = User.check_existing_user(request.form.get("email").lower())
 
         if user:
-
+            # check if passowrd matches
             pwd = request.form.get("password")
             existing_user_pwd = user["password"]
 
-            # check if passowrd matches
             if check_password_hash(existing_user_pwd, pwd):
 
                 # put user in session
@@ -219,7 +223,6 @@ def login():
 
         else:
             # username doesn't exist
-            print("user don't exist")
             flash("Incorrect email and/or password")
             return redirect(url_for("auth.login"))
 
@@ -291,12 +294,12 @@ def verify_reset_token(token):
     """
     Decode token and return email
     Check if email exists in MongoDB
+    Inform user if link has timed out
     """
     try:
         email = jwt.decode(token, os.environ.get("SECRET_KEY"),
                            algorithms=["HS256"])['user']
-    except Exception as e:
-        print(e)
+    except Exception:
         flash("Your link has timed out. Reset your password again"
               " for a new link")
         return

@@ -3,6 +3,9 @@ from bson.objectid import ObjectId
 
 
 class Question():
+    """
+    Class representing a question and answer
+    """
     def __init__(self, question, asked_by, event_id,
                  answered, answer=None, answered_by=None, _id=None):
         self._id = _id
@@ -23,34 +26,41 @@ class Question():
         return info
 
     def insert_into_database(self):
-        try:
-            new_id = mongo.db.questions_answers.insert_one(self.get_qa_info())
-            return new_id
-        except Exception as e:
-            print(e)
+        """
+        Insert one question and answer in MongoDB
+        Return id inserted
+        """
+        new_id = mongo.db.questions_answers.insert_one(self.get_qa_info())
+        return new_id
 
     @staticmethod
     def update_qa(qa_id, info):
-        try:
-            mongo.db.questions_answers.update_one({"_id": ObjectId(qa_id)},
-                                                  {"$set": info})
-        except Exception as e:
-            print(e)
+        """
+        Update one question and answer in MongDB
+        """
+        mongo.db.questions_answers.update_one({"_id": ObjectId(qa_id)},
+                                              {"$set": info})
 
     @staticmethod
     def delete_one_question(qa_id):
         """
-        Delete record
+        Delete one question and answer in MongoDB
         """
         mongo.db.questions_answers.delete_one({"_id": ObjectId(qa_id)})
 
     @staticmethod
     def find_one_qa(qa_id):
+        """
+        Find one question and answer by Id in MongoDB
+        """
         qa = mongo.db.questions_answers.find_one({"_id": ObjectId(qa_id)})
         return qa
 
     @staticmethod
     def find_all_questions_answers(event_id):
+        """
+        Find all questions and answers in MongoDB
+        """
         questions_answers = list(mongo.db.questions_answers.find(
                                  {"event_id": ObjectId(event_id)}))
         return questions_answers

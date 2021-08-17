@@ -17,6 +17,10 @@ events = Blueprint("events", __name__)
 
 @events.route("/event/<event_id>")
 def event(event_id):
+    """
+    Render event page
+    Pass variable to display relevant user actions
+    """
     event = Event.find_one_event(event_id)
     owner = User.find_user_by_id(event["created_by"])
     attendees = list(User.find_users_by_id(event["attendees"]))
@@ -45,7 +49,17 @@ def event(event_id):
 @events.route("/add-event/<group_id>", methods=["GET", "POST"])
 @events.route("/add-event", methods=["GET", "POST"])
 def add_event(group_id=None):
-
+    """
+    Render add an event page
+    If user not in session, redirect to login
+    If user in session, check if url is valid and,
+    Add event to MongoDB
+    Update group if event is attached to a group
+    Return to my events or my groups accoring to origin request
+    Flash message to inform user group has been successfully added
+    If url not valid, return to add event page with
+    Flash message to inform user of invalid data
+    """
     user = User.check_existing_user(session["email"])
     types = mongo.db.types.find()
     categories = mongo.db.categories.find()
@@ -120,7 +134,18 @@ def add_event(group_id=None):
 @events.route("/edit-event/<event_id>/<group_id>", methods=["GET", "POST"])
 @events.route("/edit-event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id, group_id=None):
-
+    """
+    Render edit event template
+    Check if user in session and if not session, return to login
+    If user in session and if user is owner of event, and
+    If image url is valid
+    Add notifications for event update according to user preference
+    Edit event in MongoDB
+    Flash message to inform user that event has been successfully edited
+    If user is not owner of event, return to my events
+    If image url is invalid, return to edit event page
+    Flash message to inform user data is invalid
+    """
     user = User.check_existing_user(session["email"])
     types = mongo.db.types.find()
     categories = mongo.db.categories.find()
@@ -192,7 +217,7 @@ def edit_event(event_id, group_id=None):
                         send_to.append(ObjectId(att["_id"]))
 
                     if date_start != event["date_start"]:
-                        print("date has changed - notification")
+                        # Date has changed notification
                         notification = Notification.set_col_update(
                                     send_to, event_id, "date", date_start)
 
@@ -200,7 +225,7 @@ def edit_event(event_id, group_id=None):
 
                     if(request.form.get("event_location") != event[
                        "event_location"]):
-                        print("location has changed - notification")
+                        # Location has changed notification
                         notification = Notification.set_col_update(
                                     send_to, event_id, "location",
                                     request.form.get("event_location"))
@@ -236,7 +261,14 @@ def edit_event(event_id, group_id=None):
 
 @events.route("/cancel-event/<event_id>", methods=["GET", "POST"])
 def cancel_event(event_id):
-
+    """
+    If user not in session, redirect to login
+    If user in session,
+    Create notification for event's attendees according to preference
+    Update event status as cancelled
+    Flash message informing user event successfully cancelled
+    Return to event page
+    """
     if not session["email"]:
         return redirect(url_for('login'))
 
@@ -249,11 +281,10 @@ def cancel_event(event_id):
             if att["preferences"]["event_update"] == "true":
                 send_to.append(ObjectId(att["_id"]))
 
-        print("event cancelled - notification")
         notification = Notification.set_col_cancellation(
                                send_to, event_id)
         Notification.insert_notification(notification)
-
+        # Update MongoDB
         status = {"status": "cancelled"}
         Event.update_event(event_id, status)
         flash("Event succesfully cancelled!")
@@ -263,7 +294,15 @@ def cancel_event(event_id):
 
 @events.route("/delete-event/<event_id>", methods=["GET", "POST"])
 def delete_event(event_id):
-
+    """
+    Remove from group if any - events
+    Remove from users - events_organised
+    Remove from users - events_attendees
+    Remove from db - events_interest
+    Delete event from MongoDB
+    Flash message to inform user of successful delete
+    Return to my events
+    """
     if not session["email"]:
         return redirect(url_for('login'))
 
@@ -296,6 +335,13 @@ def delete_event(event_id):
 
 @events.route("/add_question/<event_id>", methods=["GET", "POST"])
 def add_question(event_id):
+    """
+    If user not in session return to login
+    Create dictionary to be inserted in MongoDB
+    Add to notification according to user preferences
+    Insert question in MongoDB
+    Return to event page
+    """
     if not session:
         return redirect(url_for('login'))
 
@@ -322,6 +368,14 @@ def add_question(event_id):
 
 @events.route("/edit_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def edit_question(event_id, qa_id):
+    """
+    If user not in session return to login
+    Find the relevant question document in MongoDB
+    Create dictionary to be updated in MongoDB
+    Add to notification according to user preferences
+    Update relevant document in MongoDB
+    Return to event page
+    """
     if not session:
         return redirect(url_for('login'))
 
@@ -334,23 +388,36 @@ def edit_question(event_id, qa_id):
 
 @events.route("/delete_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def delete_question(event_id, qa_id):
+    """
+    If user not in session, redirect to login
+    Find question and answer document on MongoDB
+    If question has been answered, update document
+    If question has not been answered, delete document
+    Redirect to event page
+    """
     if not session:
         return redirect(url_for('login'))
 
     question = Question.find_one_qa(qa_id)
     if request.method == "POST":
         if question["answered"] is True:
-            print("update the question to none")
             update = {"question": None}
             Question.update_qa(qa_id, update)
         else:
-            print("no answers so can delete")
             Question.delete_one_question(qa_id)
         return redirect(url_for('events.event', event_id=event_id))
 
 
 @events.route("/answer_question/<event_id>/<qa_id>", methods=["GET", "POST"])
 def answer_question(event_id, qa_id):
+    """
+    If user not in session, redirect to login
+    If user in session, find event by id
+    Prepare answer dictionary
+    Add notification according to user preference
+    Update question and answer in MongoDB
+    Redirect to event page
+    """
     if not session:
         return redirect(url_for('login'))
     event = Event.find_one_event(event_id)
@@ -376,6 +443,11 @@ def answer_question(event_id, qa_id):
 
 @events.route("/edit_answer/<event_id>/<qa_id>", methods=["GET", "POST"])
 def edit_answer(event_id, qa_id):
+    """
+    If user not in session redirect to login
+    Update question and answer document in MongoDB
+    Return to event page
+    """
     if not session:
         return redirect(url_for('login'))
 
@@ -388,6 +460,12 @@ def edit_answer(event_id, qa_id):
 
 @events.route("/delete_answer/<event_id>/<qa_id>", methods=["GET", "POST"])
 def delete_answer(event_id, qa_id):
+    """
+    If user not in session redirect to login
+    If question in document, then update in MongoDB
+    If question has been deleted, then delete in MongoDB
+    Return event page
+    """
     if not session:
         return redirect(url_for('login'))
 
@@ -397,6 +475,5 @@ def delete_answer(event_id, qa_id):
             update = {"answer": None, "answered": False}
             Question.update_qa(qa_id, update)
         elif question["question"] is None:
-            print("no answers so can delete")
             Question.delete_one_question(qa_id)
         return redirect(url_for('events.event', event_id=event_id))

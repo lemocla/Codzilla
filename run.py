@@ -3,7 +3,6 @@ from flask import render_template, session
 from app import create_app
 from app.models.user import User
 from app.models.notifications import Notification
-from datetime import datetime
 
 
 app = create_app()
@@ -14,16 +13,25 @@ app = create_app()
 # https://flask.palletsprojects.com/en/2.0.x/errorhandling/
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Render page 404
+    """
     return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
+    """
+    Render error page 500
+    """
     return render_template('500.html'), 500
 
 
 @app.context_processor
 def new_notifications():
+    """
+    Set variable to use across all templates to count new notifications
+    """
     if "email" in session:
         user = User.check_existing_user(session["email"].lower())
         notifications = list(Notification.get_notifications_for_user(

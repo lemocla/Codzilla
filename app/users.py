@@ -101,9 +101,11 @@ def edit_email(user_id):
             return render_template("profile.html", user=user)
 
 
-# Check if password is correct on user input when changing password
 @users.route('/check_password/<email>/<check>', methods=['GET', 'POST'])
 def check_password(email, check):
+    """
+    Check if password is correct on user input when edit password
+    """
     user = User.check_existing_user(email.lower())
 
     if check_password_hash(user["password"], check):
@@ -213,6 +215,12 @@ def delete_account(user_id):
 
 @users.route("/my_groups")
 def my_groups():
+    """
+    Check if user in session
+    Fetch the list group owned by the user
+    Fetch list of groups followed by the user
+    Render template my groups
+    """
     user = User.check_existing_user(session["email"].lower())
     if not user:
         return redirect(url_for("login"))
@@ -226,6 +234,13 @@ def my_groups():
 
 @users.route("/my_events")
 def my_events():
+    """
+    Check if user in session
+    Fetch events organised by user from MongoDB
+    Fetch events user is attending from MongoDB
+    Fetch events user has bookmarked from MongoDB
+    Render my events
+    """
     user = User.check_existing_user(session["email"].lower())
     if not user:
         return redirect(url_for("login"))
@@ -242,6 +257,15 @@ def my_events():
 
 @users.route("/attend", methods=['GET', 'POST'])
 def attend():
+    """
+    Function called from scripts.js
+    Read the data
+    Add user to event's attendees in MongoDB
+    Add event to user's events attending in MongoDB
+    Add notification to event organiser about new follower,
+    if preference is true
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -265,6 +289,13 @@ def attend():
 
 @users.route("/unattend", methods=['GET', 'POST'])
 def unattend():
+    """
+    Function called from scrip.js
+    Read the data
+    Remove event from user's events attending in MongoDB
+    Remove user from event attendees in MongoDB
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -281,6 +312,12 @@ def unattend():
 
 @users.route("/bookmark_interest", methods=['GET', 'POST'])
 def bookmark_interest():
+    """
+    Function called from scrip.js
+    Read the data
+    Append list of user's events interests in MongoDB
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -296,6 +333,12 @@ def bookmark_interest():
 
 @users.route("/remove_interest", methods=['GET', 'POST'])
 def remove_interest():
+    """
+    Function called from scrip.js
+    Read the data
+    Remove event from user's event interests in MongoDB
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -311,6 +354,13 @@ def remove_interest():
 
 @users.route("/follow", methods=['GET', 'POST'])
 def follow():
+    """
+    Function called from script.js
+    Read the data
+    Add group to list of group following in user in MongoDB
+    Add user from list of follower in group in MongoDB
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -336,6 +386,13 @@ def follow():
 
 @users.route("/unfollow", methods=['GET', 'POST'])
 def unfollow():
+    """
+    Function called from script.js
+    Read the data
+    Remove group from list of group following in user in MongoDB
+    Remove user from list of follower in group in MongoDB
+    Return success message
+    """
     # https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
@@ -343,7 +400,7 @@ def unfollow():
     user = User.find_user_by_id(user_id)
 
     if user:
-        # Add group to user group_following
+        # Remove group to user group_following
         User.remove_from_list(user_id, "group_following", group_id)
         # Remove user to group group_members
         Group.remove_from_list(group_id, "group_members", user_id)
@@ -353,6 +410,9 @@ def unfollow():
 
 @users.route("/notifications", methods=["GET", "POST"])
 def notifications():
+    """
+    Render notification page for the user
+    """
     if not session:
         return redirect(url_for('login'))
     user = User.check_existing_user(session["email"].lower())
@@ -364,12 +424,13 @@ def notifications():
 @users.route("/remove_notifications/<notification_id>/<user_id>",
              methods=["GET", "POST"])
 def remove_notification(notification_id, user_id):
-
+    """
+    Remove user from users in notification if list length is more than one
+    Delete notification if list of users length is one
+    """
     notification = Notification.find_one_notification(notification_id)
     if request.method == "POST":
         Notification.remove_one_notification(notification_id, user_id)
-        print(f'list {notification["users"]} '
-              f'size {len(notification["users"])}')
         if notification:
             if len(notification["users"]) == 1:
                 Notification.delete_notification(notification_id)
@@ -379,6 +440,10 @@ def remove_notification(notification_id, user_id):
 
 @users.route("/mark_as_read", methods=["GET", "POST"])
 def mark_as_read():
+    """
+    Function called from script.js when notification header is clicked
+    Append list of ready by user in Nofification in MongoDB
+    """
     resp = request.form.to_dict(flat=False)
     user_id = resp["user_id"][0]
     notification_id = resp["target_id"][0]
