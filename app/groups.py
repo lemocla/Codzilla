@@ -91,22 +91,27 @@ def edit_group(group_id):
     user = User.check_existing_user(session["email"])
     group = Group.find_one_group(group_id)
 
-    if request.method == "POST":
-        edit_info = {"group_name": request.form.get("group_name").lower(),
-                     "group_city": request.form.get("group_city").lower(),
-                     "group_country": request.form.get(
-                                      "group_country").lower(),
-                     "group_description": request.form.get(
-                                          "group_description").lower(),
-                     "img_url": request.form.get("img_url")}
-        check = validators.check_img_url(request.form.get("img_url"))
-        if check:
-            Group.update_group(group_id, edit_info)
-            flash("Group successfully edited!")
-            return redirect(url_for('users.my_groups'))
-        else:
-            flash("Invalid url image")
-            return redirect(url_for('groups.edit_group', group_id=group_id))
+    if user["_id"] in group["group_admin"]:
+
+        if request.method == "POST":
+            edit_info = {"group_name": request.form.get("group_name").lower(),
+                         "group_city": request.form.get("group_city").lower(),
+                         "group_country": request.form.get(
+                                          "group_country").lower(),
+                         "group_description": request.form.get(
+                                              "group_description").lower(),
+                         "img_url": request.form.get("img_url")}
+            check = validators.check_img_url(request.form.get("img_url"))
+            if check:
+                Group.update_group(group_id, edit_info)
+                flash("Group successfully edited!")
+                return redirect(url_for('users.my_groups'))
+            else:
+                flash("Invalid url image")
+                return redirect(url_for('groups.edit_group',
+                                        group_id=group_id))
+    else:
+        return redirect(url_for('users.my_groups'))
 
     return render_template("edit_group.html", user=user, group=group,
                            group_id=group_id)

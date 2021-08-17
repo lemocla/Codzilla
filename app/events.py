@@ -84,7 +84,7 @@ def add_event(group_id=None):
                     max_attendees=request.form.get("max_attendees"),
                     status="active",
                     created_by=user["_id"])
-    
+
         check = validators.check_img_url(request.form.get("img_url"))
         if check:
             new = new_event.insert_into_database()
@@ -131,92 +131,94 @@ def edit_event(event_id, group_id=None):
     if not session["email"]:
         return redirect(url_for('login'))
 
-    if request.method == "POST":
-        # date time to ISO format
-        start_string = (f'{request.form.get("date_start")}T'
-                        f'{request.form.get("time_start")}:00')
+    if user["_id"] == event["created_by"]:
+        if request.method == "POST":
+            # date time to ISO format
+            start_string = (f'{request.form.get("date_start")}T'
+                            f'{request.form.get("time_start")}:00')
 
-        if validators.check_box(request.form.get("is_endtime")) == "true":
-            end_string = (f'{request.form.get("date_start")}T'
-                          f'{request.form.get("time_end")}:00')
-        else:
-            end_string = start_string
-
-        date_start = datetime.strptime(start_string, '%d/%m/%YT%H:%M:%S')
-        date_end = datetime.strptime(end_string, '%d/%m/%YT%H:%M:%S')
-
-        current_group = event["group"]
-
-        if request.form.get('group') != current_group:
-            # Remove from event from list of events in group
-            if group_id:
-                print(f"origin from group and there's a group id {group_id}")
-                Group.remove_from_list(group_id, "events", event_id)
+            if validators.check_box(request.form.get("is_endtime")) == "true":
+                end_string = (f'{request.form.get("date_start")}T'
+                              f'{request.form.get("time_end")}:00')
             else:
-                if current_group:
-                    gp_id = Group.find_group_by_name(current_group)["_id"]
-                    Group.remove_from_list(gp_id, "events", event_id)
-            # Add to new group if any
-            if request.form.get('group'):
-                new_gp = Group.find_group_by_name(
-                         request.form.get('group'))["_id"]
-                print(f"should add to new group {new_gp}")
-                group_id = new_gp
-                Group.add_to_list(new_gp, "events", event_id)
+                end_string = start_string
+
+            date_start = datetime.strptime(start_string, '%d/%m/%YT%H:%M:%S')
+            date_end = datetime.strptime(end_string, '%d/%m/%YT%H:%M:%S')
+
+            current_group = event["group"]
+
+            if request.form.get('group') != current_group:
+                # Remove from event from list of events in group
+                if group_id:
+                    Group.remove_from_list(group_id, "events", event_id)
+                else:
+                    if current_group:
+                        gp_id = Group.find_group_by_name(current_group)["_id"]
+                        Group.remove_from_list(gp_id, "events", event_id)
+                # Add to new group if any
+                if request.form.get('group'):
+                    new_gp = Group.find_group_by_name(
+                             request.form.get('group'))["_id"]
+                    group_id = new_gp
+                    Group.add_to_list(new_gp, "events", event_id)
+                else:
+                    group_id = None
+
+            update = {"event_title": request.form.get("event_title"),
+                      "event_type": request.form.get("event_type"),
+                      "event_category": request.form.get("event_category"),
+                      "group": request.form.get("group"),
+                      "date_start": date_start,
+                      "is_endtime": validators.check_box(request.form.get(
+                                    "is_endtime")),
+                      "date_end": date_end,
+                      "event_description": request.form.get(
+                                           "event_description"),
+                      "event_location": request.form.get("event_location"),
+                      "event_link": request.form.get("event_link"),
+                      "img_url": request.form.get("img_url"),
+                      "max_attendees": request.form.get("max_attendees"),
+                      "status": request.form.get("status")}
+
+            check = validators.check_img_url(request.form.get("img_url"))
+
+            if check:
+                # Notifications
+                send_to = []
+                for attendee in event["attendees"]:
+                    att = User.find_user_by_id(attendee)
+                    if att["preferences"]["event_update"] == "true":
+                        send_to.append(ObjectId(att["_id"]))
+
+                    if date_start != event["date_start"]:
+                        print("date has changed - notification")
+                        notification = Notification.set_col_update(
+                                    send_to, event_id, "date", date_start)
+
+                        Notification.insert_notification(notification)
+
+                    if(request.form.get("event_location") != event[
+                       "event_location"]):
+                        print("location has changed - notification")
+                        notification = Notification.set_col_update(
+                                    send_to, event_id, "location",
+                                    request.form.get("event_location"))
+                        Notification.insert_notification(notification)
+
+                Event.update_event(event_id, update)
+                flash("Event successfully edited!")
+
+                if group_id:
+                    return redirect(url_for('groups.group', group_id=group_id))
+                else:
+                    return redirect(url_for('users.my_events'))
             else:
-                group_id = None
-
-        update = {"event_title": request.form.get("event_title"),
-                  "event_type": request.form.get("event_type"),
-                  "event_category": request.form.get("event_category"),
-                  "group": request.form.get("group"),
-                  "date_start": date_start,
-                  "is_endtime": validators.check_box(request.form.get(
-                                "is_endtime")),
-                  "date_end": date_end,
-                  "event_description": request.form.get("event_description"),
-                  "event_location": request.form.get("event_location"),
-                  "event_link": request.form.get("event_link"),
-                  "img_url": request.form.get("img_url"),
-                  "max_attendees": request.form.get("max_attendees"),
-                  "status": request.form.get("status")}
-
-        check = validators.check_img_url(request.form.get("img_url"))
-
-        if check:
-            # Notifications
-            send_to = []
-            for attendee in event["attendees"]:
-                att = User.find_user_by_id(attendee)
-                if att["preferences"]["event_update"] == "true":
-                    send_to.append(ObjectId(att["_id"]))
-
-                if date_start != event["date_start"]:
-                    print("date has changed - notification")
-                    notification = Notification.set_col_update(
-                                   send_to, event_id, "date", date_start)
-
-                    Notification.insert_notification(notification)
-
-                if(request.form.get("event_location") != event[
-                   "event_location"]):
-                    print("location has changed - notification")
-                    notification = Notification.set_col_update(
-                                   send_to, event_id, "location",
-                                   request.form.get("event_location"))
-                    Notification.insert_notification(notification)
-
-            Event.update_event(event_id, update)
-            flash("Event successfully edited!")
-
-            if group_id:
-                return redirect(url_for('groups.group', group_id=group_id))
-            else:
-                return redirect(url_for('users.my_events'))
-        else:
-            flash("Invalid Url image")
-            return redirect(url_for('events.edit_event', event_id=event_id))
-
+                flash("Invalid Url image")
+                return redirect(url_for('events.edit_event',
+                                        event_id=event_id))
+    else:
+        return redirect(url_for('users.my_events'))
     # Templates
     if (group_id):
         group = Group.find_one_group(group_id)
