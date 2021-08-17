@@ -678,6 +678,10 @@ button.nav-item.dropdown-trigger {
 
 /*---------[ notifications ]---------*/
 
+.notification-container {
+    min-height: 50vh;
+}
+
 .collapsible-body {
     padding: 1rem 2rem;
     background-color: #e7e7e038;
