@@ -92,7 +92,6 @@
     </div>
 </div>
 
-
 <!-- Description -->
 <div class="row section-container">
     <div class="col s12">
@@ -102,7 +101,6 @@
         <p>{{ group.group_description }}</p>
     </div>
 </div>
-
 
 <!-- Upcoming events -->
 <div class="row section-container">
@@ -294,7 +292,6 @@
         {% endif %}
     </div>
 
-
     <!-- Members -->
     <div class="row">
         <div class="col s12">
@@ -305,10 +302,9 @@
             <ul class="collection">
                 {% for memb in users %}
                 <li class="collection-item avatar z-depth-2">
-                    {% if memb.user_img_url == "" or memb.user_img_url is none %}
+                    {% if memb.user_imgUrl == "" or memb.user_imgUrl is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
-                        data-default="avatar" alt="default member profile avatar"
-                        class="circle responsive-img profile-img">
+                        data-default="avatar" alt="default member profile avatar" class="circle">
                     {% else %}
                     <img src="{{ memb.user_imgUrl }}" width="110" height="110" data-default="avatar"
                         alt="member profile avatar {{memb.first_name}}" class="circle">
@@ -329,6 +325,7 @@
         </div>
         {% endif %}
     </div>
+
     <!-- modal delete confirmation -->
     <div id="group-delete-confirmation" class="modal">
         <div class="row modal-content">
@@ -346,6 +343,7 @@
             </form>
         </div>
     </div>
+
     <!-- modal request registration -->
     <div id="request-registration-modal" class="modal">
         <div class="row modal-content">

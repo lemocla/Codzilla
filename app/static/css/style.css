@@ -376,6 +376,9 @@ button.nav-item.dropdown-trigger {
     text-align: center;
 }
 
+main{
+    min-height: 50vh;
+}
 /*-------[ homepage ]------------*/
 
 .head-container,
@@ -563,7 +566,6 @@ button.nav-item.dropdown-trigger {
 
 .gp-description {
     margin-top: 0.75rem !important;
-    text-transform: capitalize;
 }
 
 .btn-action-event {
@@ -677,10 +679,6 @@ button.nav-item.dropdown-trigger {
 }
 
 /*---------[ notifications ]---------*/
-
-.notification-container {
-    min-height: 50vh;
-}
 
 .collapsible-body {
     padding: 1rem 2rem;
@@ -962,9 +960,8 @@ textarea:focus {
         width: 40%;
     }
 
-    .card-summary.card.horizontal .card-image {
-        max-width: 50% !important;
-        width: 50%;
+    .card-stacked {
+        width: 60%;
     }
 
     .hor-card-btn {
@@ -1087,7 +1084,7 @@ textarea:focus {
     }
 }
 
-@media only screen and (min-height: 900px) {
+@media only screen and (min-width: 1200px) and (min-height: 900px) {
     main.container {
         min-height: 60vh;
         margin-top: 12rem;

@@ -99,17 +99,14 @@
                         {% endif %}
                         <!-- User action -->
                         {% if admin != True %}
-
                         <!-- User in session  -->
                         {% if session.email %}
                         <div class="col s6 remove-pd">
                             {% if event._id in user["events_attending"] %}
-
                             <button class="btn btn-attending" data-user="{{ user._id }}"
                                 data-event="{{ event._id}}">Attending</button>
                             <button class="btn btn-unattend btn-action-event hide" data-user="{{ user._id }}"
                                 data-event="{{ event._id}}">Unattend</button>
-
                             {% else %}
                             {% if event.max_attendees and event.max_attendees|int == event.attendees|length %}
                             <p class="p-full">Full</p>
@@ -149,28 +146,19 @@
                                 <i class="far fa-star" aria-hidden="true"></i>
                             </a>
                         </div>
-
                         {% endif %}
                         <!-- end event action -->
-
                         {% endif %}
-
-
-
                         <!-- end card action-->
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
-
 <!-- Event details -->
 <div class="row section-container">
-    <!--<hr>-->
-
     <div class="col s12 m6">
         <h2 class="h2-page">Details</h2>
         <p class="margin-bottom">{{ event.event_description }}</p>
@@ -226,7 +214,6 @@
 
 <!-- Attendees -->
 <div class="row section-container">
-    <!--<hr>-->
     <div class="col s12">
         <h2 class="h2-page">Attendees ({{attendees|length }}{{max}})</h2>
     </div>
@@ -235,10 +222,10 @@
         <ul class="collection">
             {% for attendee in attendees %}
             <li class="collection-item avatar z-depth-2">
-                {% if attendee.user_img_url|length == 0 or attendee.user_img_url is none %}
+                {% if attendee.user_imgUrl|length == 0 or attendee.user_imgUrl is none %}
                 <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="50" height="50"
                     data-default="avatar" alt="default participant avatar" class="circle">
-                {% elif attendee.user_img_url|length > 0  %}
+                {% elif attendee.user_imgUrl|length > 0  %}
                 <img src="{{ attendee.user_imgUrl }}" width="50" height="50" data-default="avatar"
                     alt="participant avatar" class="circle">
                 {% endif %}
@@ -261,7 +248,6 @@
 
 <!-- Questions and anwers -->
 <div class="row" id="questions_answers_container">
-    <!--<hr>-->
     <div class="col s12">
         <h2 class="h2-page">Questions and Answers</h2>
     </div>

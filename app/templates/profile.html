@@ -30,11 +30,11 @@
             <h2 class="margin-bottom">Personal information</h2>
             <div class="row valign-wrapper">
                 <div class="col s3 left-align">
-                    {% if user.user_img_url|length == 0 or user.user_img_url is none %}
+                    {% if user.user_imgUrl|length == 0 or user.user_imgUrl is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="110" height="110"
                         data-default="avatar" alt="default user profile avatar"
                         class="circle responsive-img profile-img">
-                    {% elif user.user_img_url|length > 0  %}
+                    {% elif user.user_imgUrl|length > 0  %}
                     <img src="{{user.user_imgUrl}}" width="110" height="110" data-default="avatar" alt="user profile"
                         class="circle responsive-img profile-img">
                     {% endif %}
@@ -178,10 +178,10 @@
             <!-- Image Url-->
             <div class="row">
                 <div class="col s12 m2 center-align">
-                    {% if user.user_img_url|length == 0 or user.user_img_url is none %}
+                    {% if user.user_imgUrl|length == 0 or user.user_imgUrl is none %}
                     <img src="{{ url_for('static', filename='images/avatar_default.png')}}" width="60" height="60"
                         data-default="avatar" alt="user profile avatar" class="circle responsive-img profile-img-modal">
-                    {% elif user.user_img_url|length > 0  %}
+                    {% elif user.user_imgUrl|length > 0  %}
                     <img src="{{user.user_imgUrl}}" width="60" height="60" data-default="avatar"
                         alt="default user profile avatar" class="circle responsive-img profile-img profile-img-modal">
                     {% endif %}
