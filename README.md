@@ -211,6 +211,10 @@ Using the principles of UX design, this fully responsive and interactive website
 
         (this may evolve to adjust to the application requirements)
 
+    - #### **Differences** 
+      - Notifications are stored in a dedicated collection rather than being nested in the user collection, to allow notification for multiple users.
+      - An additional collection for event status - active/cancelled was also included to ensure consistency.
+
 
 - ## **Skeleton**
 
@@ -237,8 +241,8 @@ Using the principles of UX design, this fully responsive and interactive website
 
     #### **Difference to design**
 
-      - The notification layout differs from wireframes and feature shorter messags without any imagery.
-      - Filters to search area were not implemented at this stage.
+     - The notification layout differs from wireframes and feature shorter messags without any imagery.
+     - Filters to search area were not implemented at this stage.
 
 - ## **Design** 
 
@@ -280,19 +284,18 @@ Using the principles of UX design, this fully responsive and interactive website
 
   - ## **Implemented features** 
 
-    Existing features as well as features left to implement can be found [here](documentation/features.md)
+     Existing features as well as features left to implement can be found in [feature.md](documentation/features.md)
 
-    [include screnshots]
 
   - ## **Features left to implement**   
 
-    - Further authentication on registration by asking the user to confirm his email address
-    - Add email notifications and amend user preferences settings accordingly 
-    - Allow group owners to add co-admin to their group 
-    - Allow users to share events on social media 
-    - Implement a discussion feature on group so that users can exchange 
-    - Upload, store and retrieve images for group and event cover as well as for profile image 
-    - Filter search results by location, topic and dates.
+     - Further authentication on registration by asking the user to confirm his email address
+     - Add email notifications and amend user preferences settings accordingly 
+     - Allow group owners to add co-admin to their group 
+     - Allow users to share events on social media 
+     - Implement a discussion feature on group so that users can exchange 
+     - Upload, store and retrieve images for group and event cover as well as for profile image 
+     - Filter search results by location, topic and dates.
 
 
 # **TECHNOLOGY USED**
@@ -304,58 +307,232 @@ Using the principles of UX design, this fully responsive and interactive website
     - Python 
 
   - ## **Database**
-    - MongoDB: document-oriented database to store data
+    - [MongoDB](https://www.mongodb.com/): document-oriented database to store data
 
   - ## **Libraries frameworks and other technologies**
-    - Materialize: css framework to style page, forms and interactive elements 
-    - Font Awesome: used for icons
-    - Flickity: to display carousel on the homepage
-    - Jquery: to simplify Ajax, DOM manipulation and event handling
-    - Google places: to search and imput valid addresses
-    - Google static maps: to display static maps on event pages
-    - Flask: to render, route and display pages
-    - Jinja: to display information using templating.
-    - Werkzeug: to enable generation and checking of secure passwords.
-    - Heroku: to deploy the application
-    - PyMongo 
+    - [Materialize](https://materializecss.com/): css framework to style page, forms and interactive elements 
+    - [Font Awesome](https://fontawesome.com/): used for icons throughout the website
+    - [Flickity](https://flickity.metafizzy.co/): to display carousel on the homepage
+    - [Jquery](https://jquery.com/): to simplify Ajax, DOM manipulation and event handling
+    - [Google places](https://developers.google.com/maps/documentation/javascript/places): to search and imput valid addresses
+    - [Google static maps](https://developers.google.com/maps/documentation/maps-static/overview): to display static maps on event pages
+    - [Flask](https://flask.palletsprojects.com/en/2.0.x/): to render, route and display pages
+    - [Jinja](https://jinja.palletsprojects.com/en/3.0.x/templates/): to display information using templating.
+    - [Werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/utils/#logging): python library to enable generation and checking of secure passwords.
+    - [Heroku](https://heroku.com/) : to deploy the application
+    - [PyMongo](https://pypi.org/project/pymongo/): python library to connect to MongoDB 
     - [JWT](https://jwt.io/#libraries-io): JSON Web Token for to create and decode web tokens 
-    - Urrlib: to check validity and data type of image url 
-    - Sendgrid and flask mail: to send emails from contact form and reset password
+    - [Urrlib](https://docs.python.org/3/howto/urllib2.html): library to check validity and data type of image url 
+    - [Sengrid](https://sendgrid.com/) and flask mail: to send emails from contact form and reset password
 
  - ## **Testing**
+    - [W3C Markup Validation Service](https://validator.w3.org/): to check there's not error in HTML
+    - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/): This tool was used to check there's no error in the CSS code.
+    - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/): This tool was used to evaludate accessibility of the webiste.
+    - [PEP8 online](http://pep8online.com/): to validate python syntax
+    - [JSHint](https://jshint.com/)
+    - [Regex101](https://regex101.com/): to check implementation of regex pattern
+    - Chrome DevTools: Google inspect was used to test and fix code and page responsiveness.
+    - Google lighthouse: Google lighthouse was used to assess performance of the site
+   
+# **CODE ORGANISATION**
+
+   As the code grew, the developer decided to implement Flask Factory and settings to organise the code in a more purposeful way and separation of concerns as follow:
+
+   - run.py that initalise the App 
+   - An app folder that contains all python file, classes and static files, including templates, css and javascript files as well as:
+     - __init__.py that configure the application instance as follows:
+         set the application instances: PyMong, Flask mail, config.py 
+         Import and register blueprints for separation of concerns
+     - config.py for the configuration variables
+
+   The app folder includes:   
+   - Models folder that hosts classes for event, user, group, notifcations, question_answer. Each of these files also handle static methods for creating, reading, updating and deleting documents in MongoDB. 
+   - Validators folder and files handles validation functionalities
+   - auth.py handles user registration, sign-in and resetting password
+   - main.py handles rendering of the homepage and any other templates that do not require user registration.
+   - users handle rendering of the profile, notifications as well as my groups and my events templates, in addition of handling editing of user information as well as group and event actions.
+   - events.py handle rendering event page as well as the implementation of CRUD functionalities for event as well as questions and answers
+   - groups.py handles rendering of the group page as well as the implementation of CRUD functionalities for groups.
+
+
+# **DATA VALIDATION**
+
+  - ## **Validating text input** 
+      
+      Some text input fields will have regex pattern to ensure that the data entered match the required format:
+      - **First name and last name**: valid data between 1 and 32 characters. Only special characters - . _ and spaces are accepted, no digits.
+      - **Passwords**: valid data between eight and 32 characters with a mix of letters, numbers and symbols and at least one capital letter.
+      - **City and country**: valid data between 1 and 32 characters with onlyy special characters - . _  and spaces accepted, no digits allowed.
+      - **Time**: time is selected from a time picker, however the developer noticed that the data could be modified by the user. Therefore a regex pattern was added so that the time match the format HH:MM
+      - **Event title**: valid data between 3 and 250 characters
+      - **Description**: valid data betweeen 3 and 1500 characters
+      - **Maximum of attendees**: only digits between 1 and 100
     
+      Date is already formatted within materialize and the W3C HTML markup tool would not allow for the regex pattern, so it was removed.
+
+      Regex pattern were validated using [Regex101](https://regex101.com/) before implementation to make sure they work in the attended way.
+
+  - ## **Validating email and passwords**
+
+    - ### **Editing emails**
+
+      When a user wants to edit his password, he will be prompted for:
+      - his existing password,
+      - a new password,
+      - confirm new password.
+      
+      The developer implemented frontend checks as follows:
+       - Ajax call to python to check the input against the hash string and return a value of 'match' or 'no match'. 
+       - Both new and confirm new password to match. 
+
+      If the value is 'no match' an error message will display to inform that the wrong password has been entered and to prompt the user to enter the correct password. 
+
+      The developer also implemented a functionality, in addition of regex pattern, to check wether new and confirm new password match. If they don't an error message will display prompting the user to match both passwords.
+
+      Similar checks have also been implemented from the backend to ensure that all information are correct and valid. If not the user will be returned to his profile page with a flash message informing him of the outcome.
+      
+    - ### **Editing passwords**
+
+      When a user wants to edit his password, he will be prompted for:
+      - a new email address
+      - confirmation of that new email address 
+
+      The developer has implemented frontend checks as follows:
+      - Ajax call to python to check wether the new email address exists on MongoDB
+      - Both new and confirmation email match 
+
+      If both of the above return an error, an error message will display prompting the user to enter valid information
+
+      Similar checks have also been implemented from the backend to ensure that all the information are correct and valid. If not the user will be returned to his profile page with a flash message informing him of the outcome. 
+  
+  - ## **Resetting password**
+
+      When the user reset his password:
+      - Checks in place to ensure user exists,
+      - If user exists,  an email will be sent a token to a page where he can reset his passwords. 
+      - Upon opening the reset password, the token is decoded and user is checked against the database
+      - Checks have been also implemented so that both new and confirm passwords match and meet the regex format
+      - If all checks are valid, the new password is updated in MongoDB
+      - If invalid data are entered, an error message will display to prompt user to enter valid passwords. 
+
+  - ## **Validating group name is unique**
+
+      For the purpose of the application, the group name needs to be unique. 
+
+      A functionality has been implemenend on the relevant fields when completing profile, adding and editing a group that the value submitted will be checked against the database to verify if a group with the same name already exists.
+
+      The functionality uses an Ajax call to Python where the value is checked against the database and return a response - either a 'match' or 'no match'.
+
+      If a group with the same name already exists, an error message will display under the field and the user will be prompted to enter a different group name. 
+
+  - ## **Validating image url**
+
+      - ### **Frontend**
+
+        When a user input an image url in the relevant field, the string will be check for the two following elements:
+        - it contains http or https
+        - it contains an image exstension such as png, jpg, jpeg, svg ...
+
+        If not an error message will display below the input field informing the user that the value entered is invalid.
+
+        The checks also happen for the display of images, so that if the url is invalid, a default image will be displayed.
+
+      - ### **Backend**
+
+         Image Url are checked using Urrlib library. The function will check first is the string submitted is an url, before Urllib request to open the file. Any errors will be caught at this point and will return a False check value. If Urllib can open the url, it will check the headers for the url and if the content main type is an image.   
+
+         If the check value is false the form will be returned with a flash message informing the user that url is invalid.   
+  
+  - ## **Validating location on add and edit events** 
+       
+       The location field for events will only be displayed and required if the event type is "in person". 
+
+       The developer implemented an autofill feature on the location field for events, where a user can select from an adress generated by Google Places.
+
+       If the user does not select an address from the dropdown menu, an error message will display below the field prompting the user to select a valid address.
+
+       The form will not submit (see section below) if a valid hasn't been selected. 
 
 
+  - ## **Validating forms upon submission** 
+
+     The developer implemented checks so that forms are not submitted to the database if there are any invalid data as follows:
+
+     - ### **From the frontend**
+
+       The preventDefault() method is applied to each form, so that - if any error messages are displayed - the form will not submit until the data has been corrected and deemed valid. An error message will display at the bottom of the form informing the user that he needs to correct the information before submitting the form again.
+
+     - ### **From the backend**
+         
+        Additional checks are taking place on specific fields as follows:
+         - Image Url:
+         - Registration
+         - Group name is unique 
+         - Check box value set as "true" or "false"
+         - Edit user profile email : if the new updated email already exists and both new and confirm emails match
+         - Edit user password: if the existing password is correct and both new and confirm passwords match, as well as if the regex pattern for new password is met. 
+
+      - ### **Defensive design**
+
+        - The developer implemented checks so that only the user can edit their personal information, events and groups
 
 # **TESTING** 
 
-    Testing section can be found here 
- - ## **Intro** 
+  
+ - ## **Intro**
+
+   The website was extensively tested as it was developed with the implementation of new features, using:
+
+   - console.log() and google developer tools
+   - terminal for backend functionalities by printing expected outcome
+   - testing scenarios manually
+
 
  - ## **Code validation** 
 
     - #### **W3C HTML Code Validator**
-      Each page for the website was run W3C Markup Validation Service by direct input and returned no errors.
 
-      The HTML validation for each pages can be found [here](documentation/html_validation.md)
+      Each page for the website was run through the [W3C Markup Validation Service](https://validator.w3.org/) by direct input and returned no errors.
+      As the webpages are dynamically rendered with Jinja template, each scenario had to be validate by direct input by viewing and copying the source code for the page. 
+
+      The HTML validation screenshots for each pages can be found be found in the folder [documentation/html_validation](documentation/html_validation)
 
     - #### **W3C CSS Jigsaw Validator**
+
+       The CSS file was tested with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) via direct input and returned no error. 
+       ![documention/css_validation/css_validation.png]
+
+       The 6 warnings are due to that imported style sheets are not checked in direct input and file upload modes by W3C validation services.
+  
     - #### **JSHint validator**
+       
+       All javascripts files were tested with [JSHint](https://jshint.com/) and returned no errors, except for google not being recognise as a variable, however this is part of the function to access Google places library.
+
     - #### **Python 8**
-      Each python file was run 
+
+        Each python file was run through [PEP8 online](http://pep8online.com/) and returned no errors. 
 
  - ## **User stories** 
+
+      The testing of user stories were done manually and can be found in the document [Testing User Stories](documentation/userstoriestesting.md).
 
  - ## **Responsiveness and compatibility** 
 
  - ## **Testing performance**
 
  - ## **Testing accessibility - wave report**
+   
+   Since each page is rendered dynamically, each pages were tested individually for accessibility with [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/) and for the most part returned no errors. 
+
+   There are remaining errors on the select fields in the Add and Edit event forms as Wave could not read the labels despite being there. The website uses Materialize for the design of the form and there is possibly an attribute that prevents Wave from reading the labels. 
+
+   The Wave validation screenshots for each page can be found the folder [documentation/accessibility](accessibility_testing)
 
   - ## **Interesting issues and know bugs**
 
     - #### **Interesting issues**
-
+      - Checkbox value 
       - Validating url 
     
     - #### **Known bugs**
@@ -367,8 +544,11 @@ Using the principles of UX design, this fully responsive and interactive website
   The application is deployed on Heroku with the repository hosted on Github
   
   - ## **Prerequisite**
-    - Have an account with MongoDB and get a connection string 
-    - Have an account with Heroku 
+    - Have an account with [MongoDB](https://www.mongodb.com/) and get a connection string 
+    - Have an account with [Heroku](https://heroku.com/) 
+    - Have an account with [Sengrid](https://sendgrid.com/)
+    - Have an API key for Google places and Google static map
+  
   - ## **To use the code locally** 
 
     To use this project, you can either fork or clone the local repository on gitHug as follows, then go to the deployment section to configure and deploy the app on Heroku.
@@ -433,6 +613,12 @@ Using the principles of UX design, this fully responsive and interactive website
             os.environ.setdefault("SECRET_KEY", "your_secret_key")   
             os.environ.setdefault("MONGO_URI", "Your_Mongo_connection_string")   
             os.environ.setdefault("MONGO_DBNAME", "Your_DB_Name")
+            os.environ.setdefault("MAIL_SERVER", "smtp.sendgrid.net")
+            os.environ.setdefault("MAIL_PORT", "587")
+            os.environ.setdefault("MAIL_USE_TLS", "True")
+            os.environ.setdefault("MAIL_USERNAME", "apikey")
+            os.environ.setdefault("SENDGRID_API_KEY", "Your_API_key")
+            os.environ.setdefault("MAIL_DEFAULT_SENDER", "Your_email")
 
       - Add your env.py and ‘pycache/’ directory to .gitignore 
 
