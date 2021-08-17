@@ -11,10 +11,10 @@
 
 <!-- login form -->
 <div class="row">
-
     <div class="col s12 l6">
         <div class="row">
             <div class="col s12">
+                <!-- flash messages -->
                 <div class="col s12 center-align flashes">
                     {% with messages = get_flashed_messages() %}
                     {% for message in messages %}
@@ -22,10 +22,9 @@
                     {% endfor %}
                     {% endwith %}
                 </div>
-
             </div>
+            <!-- form -->
             <form class="cols s12" id="signin" method="POST" action="{{ url_for('auth.login') }}">
-
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="email" type="email" name="email" maxlength="50" class="validate" required>
@@ -39,8 +38,8 @@
                         <input id="password" type="password" name="password" minlength="8" maxlength="32"
                             class="validate" required>
                         <label for="password">Password</label>
-                        <p class="helper-text">Forgotten your password? <a href="#reset-modal" class="hyperlink modal-trigger"
-                                data-target="reset-modal">Reset password</a></p>
+                        <p class="helper-text">Forgotten your password? <a href="#reset-modal"
+                                class="hyperlink modal-trigger" data-target="reset-modal">Reset password</a></p>
                     </div>
                 </div>
                 <div class="row">
@@ -50,7 +49,8 @@
                 </div>
             </form>
             <div class="col s12 center-align">
-                <p>Don't have an account? <a class="hyperlink" href="{{ url_for('auth.signup') }}">Please register</a>.</p>
+                <p>Don't have an account? <a class="hyperlink" href="{{ url_for('auth.signup') }}">Please register</a>.
+                </p>
             </div>
         </div>
     </div>
@@ -71,7 +71,6 @@
         <!-- form -->
         <form id="form-edit-email" class="modal-forms" method="POST"
             action="{{ url_for('auth.password_reset_request') }}">
-
             <div class="row">
                 <div class="input-field col s12">
                     <input id="email-request" type="email" name="email-request" maxlength="50" class="validate"
@@ -87,7 +86,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 {% endblock %}

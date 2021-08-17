@@ -22,7 +22,6 @@
     </div>
 </div>
 
-
 <!-- Events as an organiser  -->
 <div id="view-events-organised" class="row">
     <div class="col s12 m6">
@@ -152,7 +151,6 @@
         </div>
         <!--end section-->
     </div>
-
     {% endfor %}
     {% else %}
     <div class="col s6 offset-s3 m4 offset-m4 margin-top">
@@ -163,7 +161,6 @@
         <h3>You dont't have any organised events</h3>
     </div>
     {% endif %}
-
 </div>
 
 <!-- Events as a participant -->
@@ -269,7 +266,6 @@
         <h3>You are not attending any events</h3>
         <a href="{{ url_for('main.browse_events_groups')}}" class="btn btn-send">Browse groups & events</a>
     </div>
-
     {% endif %}
 </div>
 
@@ -374,7 +370,6 @@
         <h3>You haven't got any events bookmarked as interesting</h3>
         <a href="{{ url_for('main.browse_events_groups')}}" class="btn btn-send">Browse groups & events</a>
     </div>
-
     {% endif %}
 </div>
 

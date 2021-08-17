@@ -12,11 +12,11 @@
 
 <div class="row flashes">
     <div class="col s12 l6 center-align">
-    {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
         <p>{{ message }}</p>
-    {% endfor %}
-    {% endwith %}
+        {% endfor %}
+        {% endwith %}
     </div>
 </div>
 

@@ -426,13 +426,17 @@ button.nav-item.dropdown-trigger {
 }
 
 .last-card-image {
-    padding: 0.7rem 3rem !important;
+    padding: 1.1rem 3rem !important;
 }
 
 .card .card-image img {
     object-fit: cover;
     max-height: 184px;
     width: 100% !important;
+}
+
+.last-img {
+    max-height: 300px !important;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {

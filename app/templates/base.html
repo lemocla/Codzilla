@@ -30,7 +30,7 @@
         <a href="{{ url_for('main.home') }}" class="brand-logo left">codzilla</a>
 
         {% if session.email %}
-        
+
         <!-- Navigation user not in session -->
         <ul class="right">
           <li>
@@ -76,8 +76,9 @@
         {% else %}
         <!-- Navigation user not in session -->
 
-        <button data-target="mobile" data-beloworigin="true" aria-label="open dropdown menu" class="dropdown-trigger hide-on-large-only right">
-        <i class="nav-btn fas fa-bars" aria-hidden="true"></i></button>
+        <button data-target="mobile" data-beloworigin="true" aria-label="open dropdown menu"
+          class="dropdown-trigger hide-on-large-only right">
+          <i class="nav-btn fas fa-bars" aria-hidden="true"></i></button>
 
         <ul class="right hide-on-med-and-down">
           <li><a class="nav-item nav-text" href="{{ url_for('main.home') }}">Home</a></li>

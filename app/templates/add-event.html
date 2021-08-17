@@ -18,7 +18,8 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
-        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
+        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit
+            again</p>
     </div>
 </div>
 
@@ -38,7 +39,8 @@
                             <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
                                 class="validate" required>
                             <label for="event_title">Event title</label>
-                            <p class="error-text hide" data-error="event_title">Please enter a valid event title between 3 and 250 characters.</p>
+                            <p class="error-text hide" data-error="event_title">Please enter a valid event title between
+                                3 and 250 characters.</p>
                         </div>
                     </div>
                     <!-- type and categories -->
@@ -100,7 +102,8 @@
                         </div>
                         <!-- time -->
                         <div class="input-field col s6">
-                            <input id="time_start" name="time_start" type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$" required>
+                            <input id="time_start" name="time_start" type="text" class="timepicker validate"
+                                pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$" required>
                             <label for="time_start">Select time</label>
                             <p class="error-text hide" data-error="time_start">Please select a valid time</p>
                         </div>
@@ -120,9 +123,10 @@
                     <!--https://stackoverflow.com/questions/7536755/regular-expression-for-matching-hhmm-time-format/7536768-->
                     <div id="end_time_container" class="row hide">
                         <div class="input-field col s6">
-                            <input id="time_end" name="time_end" type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$">
+                            <input id="time_end" name="time_end" type="text" class="timepicker validate"
+                                pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$">
                             <label for="time_end">Select end time</label>
-                             <p class="error-text hide" data-error="time_end">Please select a valid time</p>
+                            <p class="error-text hide" data-error="time_end">Please select a valid time</p>
                         </div>
                     </div>
 
@@ -132,16 +136,19 @@
                             <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
                                 class="materialize-textarea validate" required></textarea>
                             <label for="event_description">Event description</label>
-                            <p class="error-text hide" data-error="event_description">Enter a description betweeen 3 and 1500 characters</p>
+                            <p class="error-text hide" data-error="event_description">Enter a description betweeen 3 and
+                                1500 characters</p>
                         </div>
                     </div>
 
                     <!-- location -->
                     <div id="location_container" class="row">
                         <div class="input-field col s12">
-                            <input class="controls" id="event_location" data-place="search" type="text" name="event_location">
+                            <input class="controls" id="event_location" data-place="search" type="text"
+                                name="event_location">
                             <label for="event_location">Event location</label>
-                            <p id="location_error" class="error-text hide" data-error="event_location">Please select a valid address</p>
+                            <p id="location_error" class="error-text hide" data-error="event_location">Please select a
+                                valid address</p>
                         </div>
                     </div>
 
@@ -150,7 +157,7 @@
                         <div class="input-field col s12">
                             <input id="event_link" type="text" name="event_link" pattern="^https.*$">
                             <label for="event_link">Event link</label>
-                             <p class="error-text hide" data-error="event_link">Please enter a valid link</p>
+                            <p class="error-text hide" data-error="event_link">Please enter a valid link</p>
                         </div>
                     </div>
 
@@ -166,9 +173,11 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="fas fa-image prefix"></i>
-                            <textarea id="img_url" name="img_url" data-input="img" class="materialize-textarea validate"></textarea>
+                            <textarea id="img_url" name="img_url" data-input="img"
+                                class="materialize-textarea validate"></textarea>
                             <label for="img_url">Add a cover image</label>
-                            <p class="error-text hide" data-error="img_url">Leave blank or include a valid image Url and make sure that it contains an image extension such as png, jpg...</p>
+                            <p class="error-text hide" data-error="img_url">Leave blank or include a valid image Url and
+                                make sure that it contains an image extension such as png, jpg...</p>
                         </div>
                     </div>
 

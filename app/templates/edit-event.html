@@ -22,7 +22,8 @@
         <p>{{ message }}</p>
         {% endfor %}
         {% endwith %}
-         <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit again</p>
+        <p id="invalid-data" class="flashes center-align margin-bottom hide">Correct invalid information and submit
+            again</p>
     </div>
 </div>
 
@@ -43,7 +44,8 @@
                             <input id="event_title" type="text" name="event_title" minlength="3" maxlength="250"
                                 class="validate" value="{{ event.event_title }}" required>
                             <label for="event_title">Event title</label>
-                            <p class="error-text hide" data-error="event_title">Please enter a valid event title between 3 and 250 characters.</p>
+                            <p class="error-text hide" data-error="event_title">Please enter a valid event title between
+                                3 and 250 characters.</p>
                         </div>
                     </div>
                     <!-- type and categories -->
@@ -83,7 +85,8 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select id="group" name="group" class="validate">
-                                <option class="option-default" value="" {% if event.group is none %} selected {% endif %} disabled>Select group</option>
+                                <option class="option-default" value="" {% if event.group is none %} selected
+                                    {% endif %} disabled>Select group</option>
                                 <option value="">None</option>
                                 {% for gp in groups %}
                                 {% if gp.group_name == event.group %}
@@ -100,7 +103,7 @@
 
                     <!-- date -->
                     <div class="row">
-                    <!--https://regex101.com/library/jZ4kA4-->
+                        <!--https://regex101.com/library/jZ4kA4-->
                         <div class="input-field col s6">
                             <input id="date_start" name="date_start" value="{{ event.date_start.strftime('%d/%m/%Y') }}"
                                 type="text" class="datepicker validate" required>
@@ -110,7 +113,8 @@
                         <!-- time -->
                         <div class="input-field col s6">
                             <input id="time_start" name="time_start" value="{{ event.date_start.strftime('%H:%M') }}"
-                                type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$" required>
+                                type="text" class="timepicker validate" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                                required>
                             <label for="time_start">Select time</label>
                             <p class="error-text hide" data-error="time_start">Please select a valid time</p>
                         </div>
@@ -123,7 +127,7 @@
                                 <input id="is_endtime" type="checkbox" class="filled-in" name="is_endtime"
                                     data-value="{{ event.is_endtime}}">
                                 <span>Add an end date and time</span>
-                                
+
                             </label>
                         </p>
                     </div>
@@ -132,9 +136,10 @@
                     <div id="end_time_container" class="row hide">
                         <div class="input-field col s6">
                             <input id="time_end" name="time_end" type="text"
-                                value="{{ event.date_end.strftime('%H:%M') }}" class="timepicker validate"  pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$">
+                                value="{{ event.date_end.strftime('%H:%M') }}" class="timepicker validate"
+                                pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$">
                             <label for="time_end">Select end time</label>
-                             <p class="error-text hide" data-error="time_start">Please select a valid time</p>
+                            <p class="error-text hide" data-error="time_start">Please select a valid time</p>
                         </div>
                     </div>
 
@@ -144,7 +149,8 @@
                             <textarea id="event_description" name="event_description" minlength="3" maxlength="1500"
                                 class="materialize-textarea validate" required>{{ event.event_description }}</textarea>
                             <label for="event_description">Event description</label>
-                            <p class="error-text hide" data-error="event_description">Enter a description betweeen 3 and 1500 characters</p>
+                            <p class="error-text hide" data-error="event_description">Enter a description betweeen 3 and
+                                1500 characters</p>
                         </div>
                     </div>
 
@@ -161,9 +167,10 @@
                     <!-- event link -->
                     <div id="link_container" class="row hide">
                         <div class="input-field col s12">
-                            <input id="event_link" type="text" name="event_link" value="{{ event.event_link }}" pattern="^https.*$">
+                            <input id="event_link" type="text" name="event_link" value="{{ event.event_link }}"
+                                pattern="^https.*$">
                             <label for="event_link">Event link</label>
-                             <p class="error-text hide" data-error="event_link">Please enter a valid link</p>
+                            <p class="error-text hide" data-error="event_link">Please enter a valid link</p>
                         </div>
                     </div>
 
