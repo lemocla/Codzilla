@@ -22,7 +22,7 @@
 
 <div class="row">
     <!-- Contact form -->
-    <form class="col s12 l6" method="POST">
+    <form class="col s12 l6" method="POST" action="{{ url_for('main.contact_us') }}">
         <div class="row">
             <div class="input-field col s12">
                 <input id="fullname" name="fullname" type="text" class="validate" maxlength="50" required>

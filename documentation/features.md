@@ -1,6 +1,6 @@
 # **FEATURES** 
 
-[Return to main README](../README.md#features)
+[Return to main README](../README.md#implemented-features)
 
 - ## **Implemented features** 
 
@@ -11,24 +11,26 @@
 
          > As a new user, I want a responsive website so that I can access it on different devices.   
 
-         ![include screenshots]
+        ![include screenshots](screenshots/responsive_design.png)
 
     - ### **Collapsible and interactive navigation menu**
 
-        The website features a navigation menu on top of the page to allow users to easily navigate throughout the website. The navigation is  collapsible on mobile devices for better visibility.
+        The website features a navigation menu on top of the page to allow users to easily navigate throughout the website. The navigation is collapsible on mobile devices for better visibility.
 
-        Once a user is logged in, the navigation bar will update to functional icons allowing the user to access all the features on the website.
+        Once a user is logged in, the navigation bar will update to functional icons allowing the user to access all the features on the website. If the user has new notification, a little indicator is displayed with the number of new notification.
 
         > As a new user, I want to easily navigate across the site so that I can find the information I need.
  
-        ![Add screenshots]()
+        ![collapsible menu](screenshots/collapsible_menu.png)
+
+        ![interactive menu](screenshots/interactive_nav.png)
  
  
     - ### **Interactive design**
  
       All interactive elements - including icons, links and buttons - feature hovering effects and all modals include closing icons.   
  
-      ![Add screenshots]()
+      ![interactive design](screenshots/interactive_buttons.png)
  
  
     - ### **Homepage**
@@ -40,7 +42,9 @@
       > As a new user, I want to search events without having to register so that I can assess if this website is for me
       > As a new user, I want to read about how to use this website so that I can make the most of the features on offer.   
  
-      ![Add screenshots]()
+      ![about us](screenshots/about_us.png)
+
+      ![how_to_use](screenshots/how_to_use_website.png)
  
  
     - ### **Search functionality**
@@ -51,7 +55,7 @@
  
        > As a new user, I want to search events without having to register so that I can assess if this website is for me.  
 
-      ![Add screenshots]()
+      ![Home search](screenshots/search_home.png)
 
     - ### **Browse all events and groups**
  
@@ -61,6 +65,7 @@
 
        > As a new user, I want to search events without having to register so that I can assess if this website is for me
        > As a meetup participant, I want to easily join an event so that I can start meeting other users    
+
  
     - ### **Footer**
 
@@ -68,7 +73,7 @@
 
          > As a frequent user, I want to contact the site owner so that I can make queries about the website.  
  
-         ![Add screenshots]()
+         ![footer](screenshots/footer.png)
  
     - ### **Sign up page**
 
@@ -80,7 +85,7 @@
 
          > As a new user, I want to sign-up on the website so that I can join or organise an event.  
 
-         ![Add screenshots]()
+         ![sign up](screenshots/sign_up.png)
 
     - ### **Login page**
 
@@ -100,7 +105,7 @@
 
          > As a returning user, I want to login on the website so that I can make use of all the features on the website    
  
-         ![Add screenshots]()
+         ![login](screenshots/login.png)
 
     - ### **Reset password**
 
@@ -112,7 +117,7 @@
 
          > As a returning user, I want to reset my password if I forgot it so that I can access my account.      
 
-         ![Add screenshots]()
+         ![reset](screenshots/reset_password.png)
 
     - ### **My profile page** 
 
@@ -124,7 +129,9 @@
          > As a returning user, I want to be able to delete my profile so that my personal information is removed from the website   
          > As a returning user, I want to set my preferences for my notification so that I don’t miss important information     
 
-         ![Add screenshots]()
+         ![profile page](screenshots/my_profile1.png)
+
+         ![profile page](screenshots/my_profile2.png)
 
     - ### **Event detail page**
 
@@ -139,7 +146,9 @@
          > As a meetup participant, I want to be able to ask a question about the event  so that I can get more details about the event
          > As an event organiser, I want to post an answer to a question about a meetup I’m organising so that I can offer more details about the event.   
 
-         ![Add screenshots]()
+         ![event page](screenshots/event.png)
+
+         ![event page](screenshots/event_page2.png)
 
      - ### **My events**
 
@@ -156,11 +165,11 @@
             > As an event organiser, I want to view events that I have created so that I can manage my events
             > As a meetup participant, I want to view the events that I am planning to attend 
             > As a frequent user, I want to be able to edit an event so that I can reschedule or update details about the event
-            > As a meetup participant,  I want to cancel my participation to an event
+            > As a meetup participant, I want to cancel my participation to an event
             > As a frequent user, I want to be able to cancel an event so that attendees can get notified of the cancellation
             > As a frequent user, I want to be able to delete an event so that I can manage my account more effectively. 
 
-         ![Add screenshots]()
+         ![my events](screenshots/my_events.png)
 
     - ### **Add an event page**
 
@@ -168,7 +177,7 @@
 
          > As an event organiser, I want to easily create an event so that I can start meeting with other users. 
 
-         ![Add screenshots]()
+         ![Add event page](screenshots/add_event.png)
 
     - ### **Edit an event page**
 
@@ -177,7 +186,7 @@
 
          > As a frequent user, I want to be able to edit an event so that I can reschedule or update details about the event. 
 
-     ![Add screenshots]()
+     ![Edit event page](screenshots/edit_event.png)
 
     - ### **My groups** 
 
@@ -192,7 +201,7 @@
 
         > As an event organiser, I want to create a group so that my events are easier to find. 
  
-     ![Add screenshots]()
+     ![My groups](screenshots/my_groups.png)
  
     - ### **Group detail page**
 
@@ -206,7 +215,7 @@
 
         > As an event organiser, I want to create a group so that my events are easier to find
 
-        ![Add screenshots]()
+        ![Group detail page](screenshots/group.png)
 
     - ### **Notification page** 
 
@@ -222,7 +231,7 @@
 
         > As a frequent user I want to view important notifications about my events so that I keep up-to-date.  
 
-        ![Add screenshots]()
+       ![notifications](screenshots/notifications.png)
 
 
     - ### **Frequently asked question page**
@@ -231,12 +240,12 @@
 
         > As a new user, I want to read about how to use this website so that I can make the most of the features on offer.
 
-        ![Add screenshots]()
+        ![faq](screenshots/faq.png)
 
 
     - ### **Accessibility statement**
 
         This page features the accessibility statement, indicating the site owner’s best effort to make the website accessible to all users.  
 
-        ![Add screenshots]()
+        ![accessibility](screenshots/accessibility.png)
 

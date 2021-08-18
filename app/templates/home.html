@@ -126,7 +126,7 @@
                     <a class="page-link" href="{{ url_for('events.event', event_id=event._id)}}">
                         <h3 class="event-title">{{ event.event_title.capitalize() }}</h3>
                     </a>
-                    <p class="organiser">
+                    <p class="organiser truncate">
                         {{ event.event_category.capitalize() }}
                         {% if event.group %}
                         by {{ event.group.capitalize()  }}

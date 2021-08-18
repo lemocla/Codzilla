@@ -519,7 +519,17 @@ Using the principles of UX design, this fully responsive and interactive website
 
  - ## **Responsiveness and compatibility** 
 
+      The website was tested through the following devices and browsers
+
+      ![Compatibility](documentation/screenshots/browser_testing.png)
+
+      The website was also tested using Google Inspect and Responsive viewer
+
+      ![Responsive](documentation/screenshots/responsive_testing.png)
+
  - ## **Testing performance**
+
+ 
 
  - ## **Testing accessibility - wave report**
    
