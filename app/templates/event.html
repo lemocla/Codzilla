@@ -55,19 +55,19 @@
                     {{ event.date_start.strftime('%A %d %B %Y @ %H:%M') }}
                     {% endif %}
                 </p>
-                <h2 class="event-title">{{ event.event_title.capitalize() }}</h2>
-                <p class="organiser">{{ event.event_category.capitalize() }}
+                <h2 class="event-title">{{ event.event_title }}</h2>
+                <p class="organiser">{{ event.event_category }}
                     {% if event.group %}
-                    by {{ event.group.capitalize()  }}
+                    by {{ event.group }}
                     {% else %}
                     by {{ owner.first_name.capitalize()  }} {{owner.last_name.capitalize() }}
                     {% endif %}
                 </p>
                 <p class="location">
                     {% if event.event_type == "in person" %}
-                    {{ event.event_location.capitalize() }}
+                    {{ event.event_location }}
                     {% else %}
-                    {{ event.event_type.capitalize() }}
+                    {{ event.event_type }}
                     {% endif %}
                 </p>
 
@@ -173,9 +173,9 @@
         </p>
         <p>
             {% if event.event_type == "in person" %}
-            <i class="fas fa-map-marker-alt li-page"></i> {{ event.event_location.capitalize() }}
+            <i class="fas fa-map-marker-alt li-page"></i> {{ event.event_location }}
             {% else %}
-            <i class="fas fa-video li-page"></i> {{ event.event_type.capitalize() }}
+            <i class="fas fa-video li-page"></i> {{ event.event_type }}
         </p>
         {% if user %}
         {% if event._id in user["events_attending"] %}
@@ -204,7 +204,9 @@
     {% if event.event_type == "in person" %}
     <div class="col s12 m6 map-container">
         {% set location0 = event.event_location|replace(", ", ",") -%}
-        {% set location = location0|replace(" ", "+") -%}
+        {% set location1 = location0|replace(" & ", " + ") -%}
+        {% set location2 = location1|replace(".", "") -%}
+        {% set location = location2|replace(" ", "+") -%}
         <img class="responsive-img z-depth-3 border-grey"
             src="https://maps.googleapis.com/maps/api/staticmap?center={{ location }}&zoom=16&size=625x365&markers=scale:2%7Ccolor:0xD9276A%7Clabel:S%7C{{ location }}&key=AIzaSyCsN5ekHnsmK3g6oqZ4ipvbuH6ghUkC_zQ&map_id=c46f8d111a1500f"
             alt="google static map for event">

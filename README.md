@@ -496,7 +496,7 @@ Using the principles of UX design, this fully responsive and interactive website
       Each page for the website was run through the [W3C Markup Validation Service](https://validator.w3.org/) by direct input and returned no errors.
       As the webpages are dynamically rendered with Jinja template, each scenario had to be validate by direct input by viewing and copying the source code for the page. 
 
-      The HTML validation screenshots for each pages can be found be found in the folder [documentation/html_validation](documentation/html_validation)
+      The HTML validation screenshots for each pages can be found be found in the folder documentation/html_validation
 
     - #### **W3C CSS Jigsaw Validator**
 
@@ -527,15 +527,66 @@ Using the principles of UX design, this fully responsive and interactive website
 
    There are remaining errors on the select fields in the Add and Edit event forms as Wave could not read the labels despite being there. The website uses Materialize for the design of the form and there is possibly an attribute that prevents Wave from reading the labels. 
 
-   The Wave validation screenshots for each page can be found the folder [documentation/accessibility](accessibility_testing)
+   The Wave validation screenshots for each page can be found the folder documentation/accessibility
 
   - ## **Interesting issues and know bugs**
 
-    - #### **Interesting issues**
-      - Checkbox value 
-      - Validating url 
+    - #### **Using materialize framework**    
+      Styling components in materialize created a number of issue, especially with regards to images and the navigation bar. The developer resolved these issues by using google inspect tools and targeting the right elements, as well as making use of !important to override the default styling when necessary. 
+
+    - #### **Edit preferences - checkbox values & checked attribute**
+
+      The user preferences for notification uses Materialize switch components and the value for checkbox are handled from pseudo-attributes and not from the HTML attribute, which created the following issues:
+       - Retrieving the false and true value from the checkbox for inserting preferences in MongoDB
+       - Displaying the true and false value when displaying the user preferences in the profile page
+       - Updating preferences in MongoDB
+
+      In addition, values True or False returned from MongoDB via Jinja templates couldn't be passed directly to the satement without manipulation (either by a conditional statement or else)
+
+      To remedy to these issues and ensure consistency when inserting and editing document in MongoDB
+       - Preferences checkbox where passed as a string "true" or "false", this was ensured via a validator function
+       - When displaying the profile page, the string value was passed to checkbox
+       - Javascript function props the attribute true or false to the checkbox
+
+      The developer used this post from [stackoverflow post](https://stackoverflow.com/questions/3442322/jquery-checkbox-event-handling) to handle checkbox attributes
+     
+
+    - #### **Nesting jinja conditional statements**
+        
+      A number of issues arised from nesting jinja conditional statements and making sure that they don't invalidate the html by having a stray or missing </div>. This was particurlarly an issue with the event page that handle different user scenarios such as user not in session, user in session and administrator of the event which would display different buttons according the role and status of the user. 
+
+      The event page was particularly problematic, due to the fact that the nested statements were built progressively as the application was developed. In the end the developer had to remove and rebuild the nested statements section per section, checking the html with the W3C markup tools for each scenarios. 
+
+    - #### **Validating the forms** 
+       Regex patterns allowed to catch most of the invalid data on a form, however it was not enough as a user could still enter an invalid image url or an invalid address and still submit the form. 
+        // #https://stackoverflow.com/questions/18128882/set-input-as-invalid
+        //  https://stackoverflow.com/questions/14384593/jquery-how-to-know-when-input-have-a-invalid-selector 
+      https://stackoverflow.com/questions/6462143/prevent-default-on-form-submit-jquery
+
+      - Refreshing page to location the user interacted on the page
+      //https://stackoverflow.com/questions/18490026/refresh-reload-the-content-in-div-using-jquery-ajax
+
+    - #### **Ensuring input in location field is from selected address in Google Places** 
+       
+       To make sure the value in the location is from a selected address from Google Place, the developer added a data-place attribute to the input field and set the default value as "search" and then when an address is selected from Google place, the data-place is set as selected. The issue was to make sure that the error message displayed according the validity of the field and find the right event handler to display the message, in this case focusout. 
+
+    - #### **Validating the image url** 
+
+      Images on the website are handled via url so the developper had to figure out a way to validate the url to make sure that it renders as an image. The first issue the developer looked at was how to catch the error when the page is loaded. This technique proved unreliable so the developer implemented the Urrlib request functionality to check if the file is anhowever, it created CORS error in the console.
+
+      The developer resorted to checking from the frontend if the url either contains the string "http" or "http" and an image extension such as png, jpeg ... then checking from the backend if the url content type is an image. 
+
+    - #### **Checking and updating values without relaoading the page**
+
+      When using Flask, a page will be automatically reloaded which sometimes doesn't provide the best user experience. This was particularly true for when:
+      - A user which to edit his password and the system needs to check if the existing password is correct
+      - A user which to attend, unattend as well as bookmarked/ remove bookmark from an event 
+      In these instances, the developer desired outcome was that the user to directed to the exact same position on the page with the updated information. 
+
+      After exploring different solutions, the developper implemented ajax call to python, which returns a response as json. The first implementation was a bit challenging but this feature proved really useful across the website and was helped with the posts from [bogotobogo website](https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php), [healey codes](https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html) as well as this [stackoverflow post](https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request) on how to retrieve the date sent in flask. 
     
     - #### **Known bugs**
+      - The notification count down may not always refresh in synch with the notifications if they are opened to quickly.
 
 # **DEPLOYMENT**
 
@@ -654,8 +705,39 @@ Using the principles of UX design, this fully responsive and interactive website
 # **CREDITS** 
 
 - ## **Code**
+
+   - Reset password functionalities was adapted from [Steven Monaghan tutorial on Medium](https://medium.com/@stevenrmonaghan/password-reset-with-flask-mail-protocol-ddcdfc190968)
+   - Regex pattern for times format in HH:MM from this [stackoverflow post](https://stackoverflow.com/questions/7536755/regular-expression-for-matching-hhmm-time-format/7536768)
+   - Google place auto-complete was adapted from this [Google Documentation](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform)
+   - Toggle password is adapted from this [W3School tutorial](https://www.w3schools.com/howto/howto_js_toggle_password.asp)
+   - Flask mail for contact form is adapted from this [SendGrid](https://sendgrid.com/blog/sending-emails-from-python-flask-applications-with-twilio-sendgrid/) tutorial together with flask mail [documentation](https://pythonhosted.org/Flask-Mail/)
+   - Validation on select fields in Materialize forms from Code Institute Task mini project. 
+   - Capitalize first letter in words is from this [CSS Tricks post](https://css-tricks.com/almanac/selectors/f/first-letter/)
+   - Other documentation used for this project:
+     - Jinja filters were adapted from [Web Forefront](https://www.webforefront.com/django/usebuiltinjinjafilters.html)
+     - Formatting time in jinja template from [Dyspatch Sendwithus](https://support.sendwithus.com/jinja/jinja_time/)
+
+
 - ## **Content**
+
+  - Accessibility statement is from [W3C Web Accessibility Initiatlive](https://www.w3.org/WAI/planning/statements/minimal-example/)
+  - Privacy policy adapted from [Net Lawman](https://www.netlawman.co.uk/d/website-privacy-policy)
+
 - ## **Media**
-      - Sign-up page: [unDraw](https://undraw.co/search)
-      - Contact page: [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=email)
+  - Sign-up page illustration from [unDraw](https://undraw.co/search)
+  - Contact page illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=email)
+  - Homepage: 
+	  - Support section illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=support-team)
+    - About us section illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=about-us)
+    - Events/ calendar illustration from [Undraw](https://undraw.co/)
+  - No event found illustration from [Undraw](https://undraw.co)
+  - Landing page illustrtion from [Shutterstock](https://www.shutterstock.com/image-vector/people-meeting-restaurant-bar-dinner-isolated-1790123390)
+  - Login page illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=my-password)
+  - Contact page illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=email)
+  - Page 404 illustration from [Undraw](https://undraw.co/)
+  - Page 500 from bug tracking illustration from [Scale by Flexiple](https://2.flexiple.com/illustrations/bug-tracking)
+  - Avatar from [Pixabay](https://pixabay.com/users/wingtilldie-3058071/)
+  - Default event cover from [Shutterstock](https://www.shutterstock.com/image-vector/web-development-coding-programming-responsive-layout-1449924503)
+  - Default group cover from  [Shutterstock](https://www.shutterstock.com/image-vector/freelance-work-trendy-flat-vector-concept-1636986448)
+
 - ## **Acknowledgments** 

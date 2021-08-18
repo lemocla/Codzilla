@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     //Search address using google place library
+    // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
     $('#event_location').focusin(function () {
         const input = document.getElementById("event_location");
         const option = {

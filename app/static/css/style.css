@@ -1079,7 +1079,7 @@ textarea:focus {
     }
 
     nav .nav-wrapper {
-        max-width: 1200px;
+        max-width: 97.5%;
         margin: 0 auto;
     }
 }
