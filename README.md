@@ -27,6 +27,8 @@ Using the principles of UX design, this fully responsive and interactive website
     - [Languages](#languages)
     - [Database](#database)
     - [Libraries, frameworks and other technologies](#libraries-frameworks-and-other-technologies)
+  - [Code organisation](#code-organisation)
+  - [Data validation](#data-validation)
   - [Testing](#testing)
   - [Deployment](#deployment)
     - [Deployment of the page](#deployment-of-the-page)
@@ -529,11 +531,23 @@ Using the principles of UX design, this fully responsive and interactive website
 
  - ## **Testing performance**
 
+    Google Lighthouse was run on different pages returning different results, with thexternal libraries and url images affecting best practice scores - Below is an extract of the reports for the home page, the login and an event page.
 
+    - ### **Home page**
+
+      ![home report](documentation/lighthouse/google_lighthouse_home.png)
+
+    - ### ***Event page**
+     
+      ![event report](documentation/lighthouse/google_lighthouse_event.png)
+
+    - ### **Login page**
+
+      ![event report](documentation/lighthouse/google_lighthouse_login.png)
 
  - ## **Testing accessibility - wave report**
    
-   Since each page is rendered dynamically, each pages were tested individually for accessibility with [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/) and for the most part returned no errors. 
+   Since each page is rendered dynamically, each page was tested individually for accessibility with [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/) and for the most part returned no errors. 
 
    There are remaining errors on the select fields in the Add and Edit event forms as Wave could not read the labels despite being there. The website uses Materialize for the design of the form and there is possibly an attribute that prevents Wave from reading the labels. 
 
@@ -546,7 +560,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
     - #### **Edit preferences - checkbox values & checked attribute**
 
-      The user preferences for notification uses Materialize switch components and the value for checkbox are handled from pseudo-attributes and not from the HTML attribute, which created the following issues:
+      The user preferences for notification uses Materialize switch components and the value for checkbox are handled from pseudo-attributes and not from the HTML, which created the following issues:
        - Retrieving the false and true value from the checkbox for inserting preferences in MongoDB
        - Displaying the true and false value when displaying the user preferences in the profile page
        - Updating preferences in MongoDB
