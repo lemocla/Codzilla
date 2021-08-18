@@ -100,7 +100,12 @@ def check_img_url(url):
         check_value = True
         return check_value
 
-    if url and "http" not in url:
+    checks = ["http://", "https://"]
+    results = []
+    for check in checks:
+        results.append(check in url)
+
+    if any(results) is False:
         check_value = False
         return check_value
 
@@ -113,8 +118,10 @@ def check_img_url(url):
         response = urllib.request.urlopen(req)
     except urllib.error.HTTPError:
         check_value = False
+        return check_value
     except urllib.error.URLError:
         check_value = False
+        return check_value
     else:
         info = response.info()
         if response.getcode() != 200:

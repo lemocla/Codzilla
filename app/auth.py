@@ -341,8 +341,8 @@ def reset_password(token):
             return render_template("reset-password.html")
 
         user_id = existing_user["_id"]
-        password_update = {"$set": {"password": generate_password_hash(
-                            password)}}
+        password_update = {"password": generate_password_hash(
+                            password)}
 
         User.edit_user(user_id, password_update)
         flash("Your password has been reset successfully!")

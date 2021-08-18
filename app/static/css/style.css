@@ -60,7 +60,7 @@ h3 {
     color: var(--black);
 }
 
-.page-link p:hover {
+.page-link:hover {
     color: var(--blue);
     font-size: 1.4rem !important;
 }

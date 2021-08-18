@@ -515,7 +515,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
  - ## **User stories** 
 
-      The testing of user stories were done manually and can be found in the document [Testing User Stories](documentation/userstoriestesting.md).
+      The testing of user stories were done manually and can be found in the document [testing user stories](documentation/userstoriestesting.md).
 
  - ## **Responsiveness and compatibility** 
 
@@ -529,7 +529,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
  - ## **Testing performance**
 
- 
+
 
  - ## **Testing accessibility - wave report**
    
@@ -734,6 +734,7 @@ Using the principles of UX design, this fully responsive and interactive website
   - Privacy policy adapted from [Net Lawman](https://www.netlawman.co.uk/d/website-privacy-policy)
 
 - ## **Media**
+
   - Sign-up page illustration from [unDraw](https://undraw.co/search)
   - Contact page illustration from [Delesign](https://delesign.com/free-designs/graphics/?category=illustrations&asset=email)
   - Homepage: 

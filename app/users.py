@@ -81,24 +81,21 @@ def edit_email(user_id):
     if request.method == "POST":
 
         check_existing = User.check_existing_user(request.form.get("email"))
-        if request.form.get("email") == request.form.get(
-           "confirm-email") and not user:
-
-            User.edit_user(user_id, request.form.get("email"))
-            flash("Your email has been updated successfully")
-            session["email"] = request.form.get("email")
-
+        if check_existing:
+            flash("Your email couldn't be updated. Email already"
+                  " exists.")
             return redirect(url_for("users.profile", user=user))
-
+        if request.form.get("email") == request.form.get(
+           "confirm-email"):
+            update = {"email": request.form.get("email").lower()}
+            User.edit_user(user_id, update)
+            flash("Your email has been updated successfully")
+            session["email"] = request.form.get("email").lower()
         else:
-            if check_existing:
-                flash_msg = ("Your email couldn't be updated. Email already"
-                             " exists.")
-            else:
-                flash_msg = ("Your email couldn't be updated. Make sure that "
-                             "both new and confirm email are the same.")
-            flash(flash_msg)
-            return render_template("profile.html", user=user)
+            flash("Your email couldn't be updated. Make sure that "
+                  "both new and confirm email are the same.")
+        return redirect(url_for("users.profile", user=user))
+    return render_template("profile.html", user=user)
 
 
 @users.route('/check_password/<email>/<check>', methods=['GET', 'POST'])

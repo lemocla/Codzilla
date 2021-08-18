@@ -32,7 +32,18 @@
  
       ![interactive design](screenshots/interactive_buttons.png)
  
- 
+      Each event will display a button inviting the user to attend the event and a star for the user to mark his interest in the event. The user can simply click on attend to attend the event and the button will change to attending. In a similar way, the user can just click on the star to bookmark the event. Once clicked, both buttons will turn blue. 
+
+      When clicking on attend or bookmark, if a user is not signed-in/registered a modal window will open prompting him to do so. 
+
+      If the logged in user is the owner of the event, buttons for editing and cancelling the event will be displayed.
+
+       > As a meetup participant, I want to easily join an event so that I can start meeting other users
+       > As a meetup participant, I want to cancel my participation to an event
+       > As a frequent user, I want to be able to edit an event so that I can reschedule or update details about the event
+       > As a frequent user, I want to be able to cancel an event so that attendees can get notified of the cancellation 
+
+    
     - ### **Homepage**
 
       The homepage features a search functionality that displays results in the ‘browse all groups and events’ page.    
@@ -91,7 +102,7 @@
 
         The login page features a form asking the user for his email and password.  The password can be made visible using by toggling the eye icon.     
 
-        Upon successfully login the user will be redirected to [complete] and the navigation bar will update with functional icons to access all the features of the website such as adding an event, managing groups and events as well as viewing notification.    
+        Upon successfully login the user will be redirected to a landing page and the navigation bar will update with functional icons to access all the features of the website such as adding an event, managing groups and events as well as viewing notification.    
 
          - Once logged in, the user is able to:
          - Add / edit / delete an event
@@ -102,6 +113,7 @@
 
          The login page also features a link allowing the user to reset his password.      
 
+         Upon logging in, the user nofification will update with event reminder according to user preferences. 
 
          > As a returning user, I want to login on the website so that I can make use of all the features on the website    
  
@@ -198,7 +210,6 @@
          - Add / edit / delete a group
          - Follow / unfollow a group.        
 
-
         > As an event organiser, I want to create a group so that my events are easier to find. 
  
      ![My groups](screenshots/my_groups.png)
@@ -227,7 +238,7 @@
             - Questions to an event notification so that the organiser knows that he needs to provide an answer
             - New followers so that users can keep track of interests into his groups.   
 
-        The user is able to delete notifications.  
+        The user is able to delete notifications. 
 
         > As a frequent user I want to view important notifications about my events so that I keep up-to-date.  
 
