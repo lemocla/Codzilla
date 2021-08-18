@@ -41,7 +41,7 @@
 	 ![search](screenshots/search_react.png) ![search](screenshots/result_react.png)
 
 ***** 
-- ## **As a new user, I want to view a details for an event so that I can see all the practical information** 
+- ## **As a new user, I want to view thr details for an event so that I can see all the practical information** 
 	
      - When I look at upcoming events on the homepage, or when I browse all events and,
      - When I hover over the event card, its appearance changes 
@@ -66,7 +66,7 @@
 	- when I enter invalid information in the “first name” field or leave the field empty, and/or
 	- When I enter invalid information in the “last name” field and or leave the field empty, and/or
 	- when I enter an invalid email address in the “email” field or leave the field and if
-	- When I enter an invalid password or leave the passwowrd field empty,
+	- When I enter an invalid password or leave the password field empty,
 	- Errors messages will display and I will be prompted to input valid information and 
 	- I won't be able to submit the form.    
     - **Results**: Pass
@@ -181,7 +181,7 @@
 
 	- ### **Edit my password - invalid path**  
 	 - If enter the wrong existing password an error message will display under the field, 
-	 - If I enter a password that does not a contain 1 capital letter, a number or a symbol, a error message will display to let me knoow that I shoudl enter the information in the right format. 
+	 - If I enter a password that does not a contain 1 capital letter, a number or a symbol, a error message will display to let me know that I should enter the information in the right format. 
 	 - And if my new password and confirm my new password don't match, an error message will display prompting me to match both passwords,
 	 - **Results**: Pass
 
@@ -206,15 +206,15 @@
 	  ![preferences](screenshots/my_profile2.png)
 
 *****
-- ## **As a returning user, I want to reset my password if I forgot it so that I can access my account**
+- ## **As a returning user, I want to reset my password if I forget it so that I can access my account**
  
   - ### **Acceptance criteria**
 	- When on the login page, the link to reset the password is displayed 
 	- When I click on the reset your password link, a modal form is displayed
 	- When I enter my email address and my address is valid
 	- When I click on submit, I am redirected to the login page and a flash message is displayed 
-	- Once I receive my email and that I open it in time, I am redirected to a page where I can enter my new password and confirm this new password, 
-	- If both password match, when I click submit I am redirected to the landing page. 
+	- Once I receive my email and I open it in time, I am redirected to a page where I can enter my new password and confirm this new password, 
+	- If both passwords match, when I click submit I am redirected to the landing page. 
     - **Results**: Pass 
 
 	 ![password reset](screenshots/reset_password.png)
@@ -222,9 +222,9 @@
  *****
 - ## **As a returning user, I want to be able to delete my profile so that my personal information is removed from the website** 
 	- When I am on my profile page and I scroll down the page,
-	- A button delete is displayed and I hover the button its appearance changes
-	- When I click on delete, a modal window will open asking me to confirm if want to delete my profile, 
-	- When I click on submit, my profile is delete and I am redirected to the sign up page.
+	- A button "delete" is displayed and when I hover over the button its appearance changes
+	- When I click on "delete", a modal window will open asking me to confirm if want to delete my profile, 
+	- When I click on "submit", my profile is deleted and I am redirected to the sign up page.
 	- **Results**: Pass
 
 	 ![delete profile](screenshots/delet_profile.png)
@@ -232,10 +232,10 @@
 *****
 - ## **As an event organiser, I want to create a group so that my events are easier to find**
 
-	- When I am logged in, when I click on the user icon and that dropdown menu is displayed, 
+	- When I am logged in and when I click on the user icon and that the dropdown menu is displayed, 
 	- When I click on my groups, my groups page is displayed
-	- When I am on the group I owned tab, I can see a button "Add a group". 
-	- When I click on Add a group, I am redirected to the add a group page that features a form, and
+	- When I am on the under the tab labelled "owning", a button "Add a group" is displayed.
+	- When I click on "Add a group" button, I am redirected to the "add a group" page that features a form, and
 	- The city and country should auto-filled matchting the one on my profile
 
 	 ![add group](screenshots/add_group.png)
@@ -248,9 +248,9 @@
 
 	    ![group_valid](screenshots/group_add_success.png)
 
-	- #### **Valid path**
+	- #### **Invalid path**
 	  - When I enter a group name and that group name already exist on the database,
-	  - An error message will display prompting me to choosea different name
+	  - An error message will display prompting me to choose a different name
 	    ![group invalid name](screenshots/invalid_group_name.png)
 
 	  - When I enter an invalid image url, an error message will display and 
@@ -300,8 +300,8 @@
 	     ![form success](screenshots/event_add_success.png)
 
 	- ### **Check on location field**
-	   - When I start typing the in location field, a dropdown menu from google will display with suggested address, 
-	   - if select the address, it will be displayed in the field. 
+	   - When I start typing in address field, a dropdown menu from google will display with suggested addresses, 
+	   - if I select the address, it will inserted as the value of the input field. 
 	   - if I don't select an address from the dropdown menu, an error message will display prompting me to select a valid address.
 	   - **Result**: Pass 
 
@@ -334,9 +334,9 @@
 - ## **As a frequent user, I want to be able to cancel an event so that attendees can get notified of the cancellation**
 
 	- From my events, my groups or the event page,
-	- The button cancel is clearly displayed
-	- When I click on cancel, a modal window asking if I want to cancel the event will display,
-	- Whe I clikc on cancel, I am redirected to the event page with a message informing me that my event has been successfully cancelled displayed on top of the page.
+	- The button "cancel" is clearly displayed for my events
+	- When I click on "cancel", a modal window asking if I want to cancel the event will display,
+	- Whe I clikc on "confirm", I am redirected to the event page with a message informing me that my event has been successfully cancelled.
 	- **Result**: Pass
 
 	  ![cancel_event](screenshots/cancel_event_confirmation.png)
@@ -347,9 +347,9 @@
 - ## **As a frequent user, I want to be able to delete an event so that I can manage my account more effectively**
 
 	- From my events, my groups or the event page,
-	- Once I have cancelled an event, the button delete will be displayed 
-	- When I click on the delete, a modal window asking if I want to delete the event will display,
-	- Whe I clikc on delete, I am redirected to my events page with a message informing me that my event has been successfully deleted is displayed.   
+	- Once I have cancelled an event, the button "delete" will be displayed 
+	- When I click on the "delete" button, a modal window asking if I want to delete the event will display,
+	- Whe I click on delete, I am redirected to my events page with a message informing me that my event has been successfully deleted.
 	- **Result**: Pass
 
 	  ![delete_modal](screenshots/event_delete_modal.png)
@@ -359,7 +359,7 @@
 *****
 - ## **As a meetup participant, I want to be able to ask a question about the event so that I can get more details about the event**
 	- When I am logged in and that I am on an event page and when I scroll down the page, 
-	- I can see a button ask a question that changes appearance when hovered, 
+	- I can see a button ask a question that changes appearance when hovered over, 
 	- When I click on ask a question a modal window will open, 
 	- When I enter a question and click submit, the event page will referesh with my question 
 	- If I leave the question field blank, I will be prompted to fill the field.
@@ -385,14 +385,14 @@
 
 	 ![answer](screenshots/answer_display.png)
 	
-	According to their preferences, the user who asked the question should receive a notification that his question has been answered.
+	According to their preferences, the user who asked the question should receive a notification that their question has been answered.
 
 *****
 - ## **As a meetup participant, I want to easily join an event so that I can start meeting other users** 
 
-  - When I am logged in and that I browse events, I can see the button "attend",
-  - When I hove on button, its appearance changes and 
-  - When I click attend, the button changes to attending and the event will be displayed in my events - attending
+  - When I am logged in and I browse events, I can see the button "attend",
+  - When I hover on the button, its appearance changes and 
+  - When I click "attend", the button changes to "attending" and the event will be displayed in my events  under the "participant" tab.
   - **Result**: Pass
 
      ![attend](screenshots/attend_event.png)
@@ -402,10 +402,10 @@
 *****
 - ## **As a meetup participant, I want to cancel my participation to an event**
 
-  - When I am logged, 
+  - When I am logged in, 
   - I can see the events I am taking part in throughout the website,
-  - When I click on attending, a button unattend will be displayed and,
-  - When I click on unfollow, the button will revert to its default attend button. 
+  - When I click on "attending", a button "unattend" will be displayed and,
+  - When I click on "unfollow", the button will revert to the default "attend" button. 
   - **Result**: Pass
 
      ![unattend](screenshots/unattend_event.png)
@@ -433,10 +433,10 @@
 *****
 - ## **As a frequent user, I want to view important notifications about my events so that I keep up-to-date.**
 
-     - ### ***Acceptance criteria**
-	     - When I log in, I can see if I have new notifications thanks to the bubblee with the number of notification in the menu
-	     - When I click on the notification icon, the notification page opens with the header of the message beign displayed.
-	     - When I click on one of the header, the content of the message is displayed with a button to view the event/group and a butten to delete the nofication and 
+     - ### **Acceptance criteria**
+	     - When I log in, I can see if I have new notifications thanks to the bubble with the number of notifications in the menu
+	     - When I click on the notification icon, the notification page opens with the header of the message being displayed.
+	     - When I click on the heading of the message, its content is displayed with a button to view the event/group and a button to delete the nofication and 
 	     - If the message is new, then the new label will disappear and the number of new notification will decrease by one.
 	     - **Result**: Pass
 

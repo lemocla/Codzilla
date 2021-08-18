@@ -17,7 +17,7 @@
 
         The website features a navigation menu on top of the page to allow users to easily navigate throughout the website. The navigation is collapsible on mobile devices for better visibility.
 
-        Once a user is logged in, the navigation bar will update to functional icons allowing the user to access all the features on the website. If the user has new notification, a little indicator is displayed with the number of new notification.
+        Once a user is logged in, the navigation bar will update to functional icons allowing the user to access all the features on the website. If the user has a new notification, a little indicator is displayed with the number of new notifications.
 
         > As a new user, I want to easily navigate across the site so that I can find the information I need.
  
@@ -34,21 +34,21 @@
  
       Each event will display a button inviting the user to attend the event and a star for the user to mark his interest in the event. The user can simply click on attend to attend the event and the button will change to attending. In a similar way, the user can just click on the star to bookmark the event. Once clicked, both buttons will turn blue. 
 
-      When clicking on attend or bookmark, if a user is not signed-in/registered a modal window will open prompting him to do so. 
+      When clicking on "attend" or bookmark, if a user is not signed-in/registered a modal window will open prompting them to do so. 
 
       If the logged in user is the owner of the event, buttons for editing and cancelling the event will be displayed.
 
-       > As a meetup participant, I want to easily join an event so that I can start meeting other users
-       > As a meetup participant, I want to cancel my participation to an event
-       > As a frequent user, I want to be able to edit an event so that I can reschedule or update details about the event
-       > As a frequent user, I want to be able to cancel an event so that attendees can get notified of the cancellation 
+       > As a meetup participant, I want to easily join an event so that I can start meeting other users.
+       > As a meetup participant, I want to cancel my participation to an event.
+       > As a frequent user, I want to be able to edit an event so that I can reschedule or update details about the event.
+       > As a frequent user, I want to be able to cancel an event so that attendees can get notified of the cancellation. 
 
     
     - ### **Homepage**
 
       The homepage features a search functionality that displays results in the ‘browse all groups and events’ page.    
  
-      The homepage also features sections  ‘about us’ as well as a section displaying upcoming events and a section explaining how to use the website, giving the user a good and an engaging overview of what the website is about.   
+      The homepage also features sections  ‘about us’ as well as a section displaying upcoming events and a section explaining how to use the website, giving the user a good and engaging overview of what the website is about.   
  
       > As a new user, I want to search events without having to register so that I can assess if this website is for me
       > As a new user, I want to read about how to use this website so that I can make the most of the features on offer.   
@@ -88,7 +88,7 @@
  
     - ### **Sign up page**
 
-         This page features a form asking the user for its first name, last name and email address.     
+         This page features a form asking the user for their first name, last name and email address.     
 
          Upon signing up, a ‘complete your profile page’ will display where the user is able to add a profile image (via url), his location and set his notification preferences.   
 
@@ -100,7 +100,7 @@
 
     - ### **Login page**
 
-        The login page features a form asking the user for his email and password.  The password can be made visible using by toggling the eye icon.     
+        The login page features a form asking the user for his email and password.  The password can be made visible by toggling the eye icon.     
 
         Upon successfully login the user will be redirected to a landing page and the navigation bar will update with functional icons to access all the features of the website such as adding an event, managing groups and events as well as viewing notification.    
 
@@ -111,7 +111,7 @@
          - Attend / unattend an event 
          - Follow / unfollow a group    
 
-         The login page also features a link allowing the user to reset his password.      
+         The login page also features a link allowing the user to reset their password.      
 
          Upon logging in, the user nofification will update with event reminder according to user preferences. 
 
@@ -121,11 +121,11 @@
 
     - ### **Reset password**
 
-         The user will be asked for his email and a reset link with a token will be sent to the email address provided should it exist in the database.    
+         The user will be asked for their email and a reset link with a token will be sent to the email address provided should it exist in the database.    
 
-         Once clicking on the reset link, the user is redirected to form prompting for a new password and confirmation of that password.   
+         Once clicking on the reset link, the user is redirected to a form prompting for a new password and confirmation of that password.   
 
-         Upon the submitting the new password the user is redirected to [].  
+         Upon the submitting the new password the user is redirected to the landing page.  
 
          > As a returning user, I want to reset my password if I forgot it so that I can access my account.      
 
@@ -133,9 +133,9 @@
 
     - ### **My profile page** 
 
-         My profile page features the user’s personal information, account settings and notification preferences. The user is able to edit each section as well as changing his password using modal forms. The page will be updated upon submitting the new information.   
+         My profile page features the user’s personal information, account settings and notification preferences. The user is able to edit each section as well as changing their password using modal forms. The page will be updated upon submitting the new information.   
 
-         This page also features the ability for the user to delete his account. Upon clicking delete, a confirmation modal opens so that the user doesn’t delete his account by accident.     
+         This page also features the ability for the user to delete their account. Upon clicking delete, a confirmation modal opens so that the user doesn’t delete his account by accident.     
 
          > As a returning user, I want to be able to edit my profile so that I can update my personal information  
          > As a returning user, I want to be able to delete my profile so that my personal information is removed from the website   
@@ -166,12 +166,12 @@
 
          This page features events the user is organising, events the user is attending and events the user is interested in (bookmarked events).   
 
-         Using the tab navigation the the user is able to switch between the different categories and manage his events accordingly:   
+         Using the tab navigation, the user is able to switch between the different categories and manage their events accordingly:   
 
          A user can:
          - Add / edit / delete an event 
          - Attend / unattend an event 
-         - Remove bookmark if he’s no longer interested in the event.         
+         - Remove bookmark if they're no longer interested in the event.         
 
 
             > As an event organiser, I want to view events that I have created so that I can manage my events

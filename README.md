@@ -48,7 +48,7 @@ Using the principles of UX design, this fully responsive and interactive website
     - a group or open-source project, 
     - a study group to learn and expand on a specific language or framework 
     - a working group to help each others with cvs and cover letters or
-    - a drink to simply meet and socialize    
+    - to simply meet and socialize    
     
     The site owner, as a remote student on a full-stack development course, appreciates that it can be a lonely process and has enjoyed meeting with fellow students on the course, working and socializing together on an array of projects. 
 
@@ -56,7 +56,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
     - To provide an easy and engaging community platform where users can create and join meetups
     - To expand on software development skills using Python, Flask and MongoDB
-    - To create a minimum viable product that can be further developed with additional features   
+    - To create a Minimum Viable Product that can be further developed with additional features   
 
     **User goals** 
 
@@ -70,12 +70,12 @@ Using the principles of UX design, this fully responsive and interactive website
     - I want a responsive website so that I can access it on different devices.
     - I want to easily navigate across the site so that I can find the information I need.
     - I want to search events without having to register so that I can assess if this website is for me
-    - I want to view a details for an event so that I can see all the practical information 
+    - I want to view details for an event so that I can see all the practical information 
     - I want to sign-up on the website so that I can join or organise an event
     - I want to read about how to use this website so that I can make the most of the features on offer.  
 
     **As a returning user:** 
-    - I want to login on the website so that I can make use of all the features on the website 
+    - I want to login onto the website so that I can make use of all the features on the website 
     - I want to be able to edit my profile so that I can update my personal information
     - I want to set my preferences for my notification so that I don’t miss important information
     - I want to reset my password if I forgot it so that I can access my account
@@ -136,7 +136,7 @@ Using the principles of UX design, this fully responsive and interactive website
       - Display profile and event images 
 
     - ### **Content requirements**
-        - Clear and concise information on how how to use the website 
+        - Clear and concise information on how to use the website 
         - Forms for user input 
         - Engaging text and headings throughout to display relevant user input such as profile page, events and groups as well as questions and answers
         - Background images to provide visually appealing and engaging interface
@@ -166,7 +166,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
       **Header:** Logo and a collapsible menu for guest users. Once users are logged in, they will have access to certain functionality such as notification and add an event. Users will also have easy access to their profile, their events as well as their groups.   
 
-      **Homepage:** Search option, information about and on how to use the website as well as a carousel of upcoming events,
+      **Homepage:** Search option, information about and how to use the website as well as a carousel of upcoming events,
     
       **Footer:** Contact form and useful links
     
@@ -243,7 +243,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
     #### **Difference to design**
 
-     - The notification layout differs from wireframes and feature shorter messags without any imagery.
+     - The notification layout differs from wireframes and feature shorter messages without any imagery.
      - Filters to search area were not implemented at this stage.
 
 - ## **Design** 
@@ -261,11 +261,11 @@ Using the principles of UX design, this fully responsive and interactive website
 
       The colour blue will be used for icons and buttons to inform users with regards to their interest and participation into groups and events. 
       
-      Fuchsia will be used for the logo and was selected for its bright and bold appearance offering a striking contrast with the blue. It will also be used to hightlight certain text elements. 
+      Fuchsia will be used for the logo and was selected for its bright and bold appearance offering a striking contrast with the blue. It will also be used to highlight certain text elements. 
 
     - #### **Typography**
 
-      The website will use the following fronts from [Google](https://fonts.google.com/):
+      The website will use the following fonts from [Google](https://fonts.google.com/):
       - Open sans for the text throughout due its friendly appearance and being easy to read. 
       - Roboto for headings as it complements Open sans very nicely 
       - Tourney for the logo for its technological aspect. 
@@ -286,18 +286,19 @@ Using the principles of UX design, this fully responsive and interactive website
 
   - ## **Implemented features** 
 
-     Existing features as well as features left to implement can be found in [feature.md](documentation/features.md)
+     Existing features can be found in the document [feature.md](documentation/features.md).
 
 
   - ## **Features left to implement**   
 
-     - Further authentication on registration by asking the user to confirm his email address
-     - Add email notifications and amend user preferences settings accordingly 
+     - Further authentication on registration by asking the user to confirm their email address
+     - Add email notifications and amend user preference accordingly 
      - Allow group owners to add co-admin to their group 
      - Allow users to share events on social media 
      - Implement a discussion feature on group so that users can exchange 
-     - Upload, store and retrieve images for group and event cover as well as for profile image 
+     - Upload, store and retrieve images for groups and events as well as for profile image 
      - Filter search results by location, topic and dates.
+     - Add pagination for groups and events
 
 
 # **TECHNOLOGY USED**
@@ -316,7 +317,7 @@ Using the principles of UX design, this fully responsive and interactive website
     - [Font Awesome](https://fontawesome.com/): used for icons throughout the website
     - [Flickity](https://flickity.metafizzy.co/): to display carousel on the homepage
     - [Jquery](https://jquery.com/): to simplify Ajax, DOM manipulation and event handling
-    - [Google places](https://developers.google.com/maps/documentation/javascript/places): to search and imput valid addresses
+    - [Google places](https://developers.google.com/maps/documentation/javascript/places): to search and input valid addresses
     - [Google static maps](https://developers.google.com/maps/documentation/maps-static/overview): to display static maps on event pages
     - [Flask](https://flask.palletsprojects.com/en/2.0.x/): to render, route and display pages
     - [Jinja](https://jinja.palletsprojects.com/en/3.0.x/templates/): to display information using templating.
@@ -330,7 +331,7 @@ Using the principles of UX design, this fully responsive and interactive website
  - ## **Testing**
     - [W3C Markup Validation Service](https://validator.w3.org/): to check there's not error in HTML
     - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/): This tool was used to check there's no error in the CSS code.
-    - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/): This tool was used to evaludate accessibility of the webiste.
+    - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/): This tool was used to evaluate accessibility of the webiste.
     - [PEP8 online](http://pep8online.com/): to validate python syntax
     - [JSHint](https://jshint.com/)
     - [Regex101](https://regex101.com/): to check implementation of regex pattern
@@ -342,15 +343,15 @@ Using the principles of UX design, this fully responsive and interactive website
    As the code grew, the developer decided to implement Flask Factory and settings to organise the code in a more purposeful way and separation of concerns as follow:
 
    - run.py that initalise the App 
-   - An app folder that contains all python file, classes and static files, including templates, css and javascript files as well as:
-     - __init__.py that configure the application instance as follows:
-         set the application instances: PyMong, Flask mail, config.py 
-         Import and register blueprints for separation of concerns
+   - An app folder that contains all python file, classes and static files, including templates, css and javascript as well as:
+     - __init__.py that configures the application instance as follows:
+         - set the application instances: PyMong, Flask mail, config.py 
+         - Import and register blueprints for separation of concerns
      - config.py for the configuration variables
 
    The app folder includes:   
-   - Models folder that hosts classes for event, user, group, notifcations, question_answer. Each of these files also handle static methods for creating, reading, updating and deleting documents in MongoDB. 
-   - Validators folder and files handles validation functionalities
+   - Models folder that hosts classes for event, user, group, notifcations, question_answer. Each of these files also handles static methods for creating, reading, updating and deleting documents in MongoDB. 
+   - Validators folder and files handle validation functionalities
    - auth.py handles user registration, sign-in and resetting password
    - main.py handles rendering of the homepage and any other templates that do not require user registration.
    - users handle rendering of the profile, notifications as well as my groups and my events templates, in addition of handling editing of user information as well as group and event actions.
@@ -365,13 +366,13 @@ Using the principles of UX design, this fully responsive and interactive website
       Some text input fields will have regex pattern to ensure that the data entered match the required format:
       - **First name and last name**: valid data between 1 and 32 characters. Only special characters - . _ and spaces are accepted, no digits.
       - **Passwords**: valid data between eight and 32 characters with a mix of letters, numbers and symbols and at least one capital letter.
-      - **City and country**: valid data between 1 and 32 characters with onlyy special characters - . _  and spaces accepted, no digits allowed.
+      - **City and country**: valid data between 1 and 32 characters with only special characters - . _  and spaces accepted, no digits allowed.
       - **Time**: time is selected from a time picker, however the developer noticed that the data could be modified by the user. Therefore a regex pattern was added so that the time match the format HH:MM
       - **Event title**: valid data between 3 and 250 characters
       - **Description**: valid data betweeen 3 and 1500 characters
       - **Maximum of attendees**: only digits between 1 and 100
     
-      Date is already formatted within materialize and the W3C HTML markup tool would not allow for the regex pattern, so it was removed.
+      Date is already formatted within Materialize and the W3C HTML markup tool would not allow for the regex pattern, so it was removed.
 
       Regex pattern were validated using [Regex101](https://regex101.com/) before implementation to make sure they work in the attended way.
 
@@ -379,8 +380,8 @@ Using the principles of UX design, this fully responsive and interactive website
 
     - ### **Editing emails**
 
-      When a user wants to edit his password, he will be prompted for:
-      - his existing password,
+      When a user wants to edit their password, he will be prompted for:
+      - their existing password,
       - a new password,
       - confirm new password.
       
@@ -388,35 +389,35 @@ Using the principles of UX design, this fully responsive and interactive website
        - Ajax call to python to check the input against the hash string and return a value of 'match' or 'no match'. 
        - Both new and confirm new password to match. 
 
-      If the value is 'no match' an error message will display to inform that the wrong password has been entered and to prompt the user to enter the correct password. 
+      If the value is 'no match' an error message will be displayed to inform the user and to prompt them to enter the correct password. 
 
-      The developer also implemented a functionality, in addition of regex pattern, to check wether new and confirm new password match. If they don't an error message will display prompting the user to match both passwords.
+      The developer also implemented  in addition of regex pattern, a functionality to check whether new and confirm new password match. If they don't an error message will be displayed prompting the user to match both passwords.
 
-      Similar checks have also been implemented from the backend to ensure that all information are correct and valid. If not the user will be returned to his profile page with a flash message informing him of the outcome.
+      Similar checks have also been implemented from the backend to ensure that all information is correct and valid. If not, the user will be returned to their profile page with a flash message informing them of the outcome.
       
     - ### **Editing passwords**
 
-      When a user wants to edit his password, he will be prompted for:
+      When a user wants to edit their password, they will be prompted for:
       - a new email address
       - confirmation of that new email address 
 
       The developer has implemented frontend checks as follows:
-      - Ajax call to python to check wether the new email address exists on MongoDB
+      - Ajax call to python to check whether the new email address exists on MongoDB
       - Both new and confirmation email match 
 
       If both of the above return an error, an error message will display prompting the user to enter valid information
 
-      Similar checks have also been implemented from the backend to ensure that all the information are correct and valid. If not the user will be returned to his profile page with a flash message informing him of the outcome. 
+      Similar checks have also been implemented from the backend to ensure that all the information is correct and valid. If not the user will be returned to their profile page with a flash message informing them of the outcome. 
   
   - ## **Resetting password**
 
-      When the user reset his password:
+      When the user resets their password:
       - Checks in place to ensure user exists,
-      - If user exists,  an email will be sent a token to a page where he can reset his passwords. 
+      - If user exists,  an email will be sent a token to a page where they can reset their passwords. 
       - Upon opening the reset password, the token is decoded and user is checked against the database
       - Checks have been also implemented so that both new and confirm passwords match and meet the regex format
       - If all checks are valid, the new password is updated in MongoDB
-      - If invalid data are entered, an error message will display to prompt user to enter valid passwords. 
+      - If invalid data is entered, an error message will display to prompt user to enter valid passwords. 
 
   - ## **Validating group name is unique**
 
@@ -432,7 +433,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
       - ### **Frontend**
 
-        When a user input an image url in the relevant field, the string will be check for the two following elements:
+        When a user input an image url in the relevant field, the string will be checked for the two following elements:
         - it contains http or https
         - it contains an image exstension such as png, jpg, jpeg, svg ...
 
@@ -442,15 +443,15 @@ Using the principles of UX design, this fully responsive and interactive website
 
       - ### **Backend**
 
-         Image Url are checked using Urrlib library. The function will check first is the string submitted is an url, before Urllib request to open the file. Any errors will be caught at this point and will return a False check value. If Urllib can open the url, it will check the headers for the url and if the content main type is an image.   
+         Image Url are checked using Urrlib library. The function will check first if the string submitted is an url, before Urllib request to open the file. Any errors will be caught at this point and will return a False check value. If Urllib can open the url, it will check the headers for the url and if the content main type is an image.   
 
-         If the check value is false the form will be returned with a flash message informing the user that url is invalid.   
+         If the check value is false then the form will be returned with a flash message informing the user that url is invalid.   
   
   - ## **Validating location on add and edit events** 
        
        The location field for events will only be displayed and required if the event type is "in person". 
 
-       The developer implemented an autofill feature on the location field for events, where a user can select from an adress generated by Google Places.
+       The developer implemented an autofill feature on the location field for events, where a user can select from an address generated by Google Places.
 
        If the user does not select an address from the dropdown menu, an error message will display below the field prompting the user to select a valid address.
 
@@ -496,7 +497,7 @@ Using the principles of UX design, this fully responsive and interactive website
     - #### **W3C HTML Code Validator**
 
       Each page for the website was run through the [W3C Markup Validation Service](https://validator.w3.org/) by direct input and returned no errors.
-      As the webpages are dynamically rendered with Jinja template, each scenario had to be validate by direct input by viewing and copying the source code for the page. 
+      As the webpages are dynamically rendered with Jinja template, each scenario had to be validated by direct input by viewing and copying the source code for the page. 
 
       The HTML validation screenshots for each pages can be found be found in the folder documentation/html_validation
 
@@ -509,7 +510,7 @@ Using the principles of UX design, this fully responsive and interactive website
   
     - #### **JSHint validator**
        
-       All javascripts files were tested with [JSHint](https://jshint.com/) and returned no errors, except for google not being recognise as a variable, however this is part of the function to access Google places library.
+       All javascripts files were tested with [JSHint](https://jshint.com/) and returned no errors, except for google not being recognised as a variable, however this is part of the function to access Google places library.
 
     - #### **Python 8**
 
@@ -531,7 +532,7 @@ Using the principles of UX design, this fully responsive and interactive website
 
  - ## **Testing performance**
 
-    Google Lighthouse was run on different pages returning different results, with thexternal libraries and url images affecting best practice scores - Below is an extract of the reports for the home page, the login and an event page.
+    Google Lighthouse was run on different pages returning different results, with the external libraries and url images affecting best practice scores - Below is an extract of the reports for the home page, the login and an event page.
 
     - ### **Home page**
 
@@ -553,10 +554,10 @@ Using the principles of UX design, this fully responsive and interactive website
 
    The Wave validation screenshots for each page can be found the folder documentation/accessibility
 
-  - ## **Interesting issues and know bugs**
+  - ## **Interesting issues and known bugs**
 
     - #### **Using materialize framework**    
-      Styling components in materialize created a number of issue, especially with regards to images and the navigation bar. The developer resolved these issues by using google inspect tools and targeting the right elements, as well as making use of !important to override the default styling when necessary. 
+      Styling components in materialize created a number of issues, especially with regards to images and the navigation bar. The developer resolved these issues by using google inspect tools and targeting the right elements, as well as making use of !important to override the default styling when necessary. 
 
     - #### **Edit preferences - checkbox values & checked attribute**
 
@@ -565,9 +566,9 @@ Using the principles of UX design, this fully responsive and interactive website
        - Displaying the true and false value when displaying the user preferences in the profile page
        - Updating preferences in MongoDB
 
-      In addition, values True or False returned from MongoDB via Jinja templates couldn't be passed directly to the satement without manipulation (either by a conditional statement or else)
+      In addition, values True or False returned from MongoDB via Jinja templates couldn't be passed directly to the statement without manipulation.
 
-      To remedy to these issues and ensure consistency when inserting and editing document in MongoDB
+      To solve these issues and ensure consistency when inserting and editing document in MongoDB
        - Preferences checkbox where passed as a string "true" or "false", this was ensured via a validator function
        - When displaying the profile page, the string value was passed to checkbox
        - Javascript function props the attribute true or false to the checkbox
@@ -603,14 +604,14 @@ Using the principles of UX design, this fully responsive and interactive website
     - #### **Checking and updating values without relaoading the page**
 
       When using Flask, a page will be automatically reloaded which sometimes doesn't provide the best user experience. This was particularly true for when:
-      - A user which to edit his password and the system needs to check if the existing password is correct
-      - A user which to attend, unattend as well as bookmarked/ remove bookmark from an event 
+      - A user whishes to edit their password and the system needs to check if the existing password is correct
+      - A user whishes to attend, unattend as well as bookmarked/ remove bookmark from an event 
       In these instances, the developer desired outcome was that the user to directed to the exact same position on the page with the updated information. 
 
-      After exploring different solutions, the developper implemented ajax call to python, which returns a response as json. The first implementation was a bit challenging but this feature proved really useful across the website and was helped with the posts from [bogotobogo website](https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php), [healey codes](https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html) as well as this [stackoverflow post](https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request) on how to retrieve the date sent in flask. 
+      After exploring different solutions, the developper implemented ajax call to python, which returns a response as json. The first implementation was a bit challenging but this feature proved really useful across the website and was helped with the posts from [bogotobogo website](https://www.bogotobogo.com/python/Flask/Python_Flask_with_AJAX_JQuery.php), [healey codes](https://healeycodes.com/javascript/python/beginners/webdev/2019/04/11/talking-between-languages.html) as well as this [stackoverflow post](https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request) on how to retrieve the data sent in flask. 
     
     - #### **Known bugs**
-      - The notification count down may not always refresh in synch with the notifications if they are opened to quickly.
+      - The notification count down may not always refresh in sync with the notifications if they are opened too quickly.
 
 # **DEPLOYMENT**
 
@@ -629,7 +630,7 @@ Using the principles of UX design, this fully responsive and interactive website
     To use this project, you can either fork or clone the local repository on gitHug as follows, then go to the deployment section to configure and deploy the app on Heroku.
  
     - ### **Forking local repository** 
-      You can make a copy of the GitHub Repository by "forking" the original repository onto your own account, where changes can be made without affecting the original repository by following the following steps: 
+      You can make a copy of the GitHub Repository by "forking" the original repository onto your own account, where changes can be made without affecting the original repository by taking the following steps: 
 
       - Log onto Github
       - Navigate to the GitHub repository : https://github.com/lemocla/Codzilla
@@ -766,3 +767,7 @@ Using the principles of UX design, this fully responsive and interactive website
   - Default group cover from  [Shutterstock](https://www.shutterstock.com/image-vector/freelance-work-trendy-flat-vector-concept-1636986448)
 
 - ## **Acknowledgments** 
+
+  - My mentor Can Sucullu for his advice and guidance during this project,
+  - Code Institute tutor support for their brillant advice,
+  - The Code Institute slack community for general advices and solution to problems that others encountered,
