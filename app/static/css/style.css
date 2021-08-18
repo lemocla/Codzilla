@@ -376,9 +376,10 @@ button.nav-item.dropdown-trigger {
     text-align: center;
 }
 
-main{
+main {
     min-height: 50vh;
 }
+
 /*-------[ homepage ]------------*/
 
 .head-container,
@@ -429,7 +430,7 @@ main{
 }
 
 .last-card-image {
-    padding: 1.05rem 3rem !important;
+    padding: 0.92rem 3rem !important;
 }
 
 .card .card-image img {
@@ -440,6 +441,7 @@ main{
 
 .last-img {
     max-height: 300px !important;
+    height: 236px !important;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
