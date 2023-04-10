@@ -8,7 +8,7 @@ Codizilla -  an online meetup-planning platform - was created for educational pu
 
 Using the principles of UX design, this fully responsive and interactive website was developed using HTML, CSS, JavaScript, Python, Flask and MongoDB. 
 
-[View live project here](https://codzilla-app.herokuapp.com/)
+[View live project here](https://codzilla.onrender.com/home)
 
 
 ## **Table of content** 
@@ -711,21 +711,28 @@ Using the principles of UX design, this fully responsive and interactive website
 
   - ##  **Deployment on Heroku**
 
-    - Log onto Heroku and click the create new app button
-      ![Heroku add app](documentation/deployment/heroku_add.png)
+    - Log onto Render and click the "new" button in the top menu
+      ![Heroku add app](documentation/deployment/render-new-button.png)
+    - Select the option "new webservice"
+      ![Heroku add app](documentation/deployment/render-new-webservice.png)
     - Enter a unique name for your application
-    - Select the region closest to you      
-    - Set your deployment method to 'GitHub'
-      ![Heroku connect github](documentation/deployment/heroku_connect.png)
-    - Search for the repository you wish to deploy from 
-    - Enable automatic deploy 
-      ![Heroku github setting](documentation/deployment/heroku_github.png)
-
-    - Set environment in Heroku App 
-      - Go to settings, then click on reveal config vars
-      - Enter your key value pairs as per your env.py file (without the inverted commas)
-        ![Heroku variable](documentation/deployment/heroku_variable.png)
-
+    - Select the region closest to you 
+    - Enter "main" as branch
+    - Enter "Python 3" as runtime
+      ![Heroku add app](documentation/deployment/render-setting.png)
+    - Enter "pip install -r requirements.tx" in build command
+    - Enter "python run.py" as start command 
+    - Make sure you select the free option under instance type
+      ![Heroku add app](documentation/deployment/render-setting-2.png)  
+    - Add your environment variables, by selecting "advance" then select option to add environment file.
+      ![Heroku connect github](documentation/deployment/render-add-env-file.png)
+      - Name file as env.py
+      - Copy and paste your local environment file
+      - Click save
+    - Select "yes" for auto-deploy
+      ![Heroku connect github](documentation/deployment/render-auto-deploy.png) 
+    - Click "create webservice" - you should see the following message when build is successful
+      ![Heroku connect github](documentation/deployment/render-success.png) 
 
 # **CREDITS** 
 
