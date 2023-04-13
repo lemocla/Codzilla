@@ -702,14 +702,10 @@ Using the principles of UX design, this fully responsive and interactive website
 
       - Create a requirements.txt file, which will list all of the Python dependencies by typing the following in the command line interface:    
             ``$ pip freeze > requirements.txt``   
- 
-      - Create a Procfile, which is a specific type of file that tells Heroku how to run our project by typing the following the command line interface:    
-            ``$ echo web: python app.py > Procfile``     
-       (Make sure to write Procfile with a capital P and to remove blank line in the Procfile)
-    
+     
       - Add and commit the requirement.txt and procfile then push to GitHub
 
-  - ##  **Deployment on Heroku**
+  - ##  **Deployment on Render**
 
     - Log onto Render and click the "new" button in the top menu
       ![Heroku add app](documentation/deployment/render-new-button.png)
