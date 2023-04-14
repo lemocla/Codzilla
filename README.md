@@ -703,7 +703,7 @@ Using the principles of UX design, this fully responsive and interactive website
       - Create a requirements.txt file, which will list all of the Python dependencies by typing the following in the command line interface:    
             ``$ pip freeze > requirements.txt``   
      
-      - Add and commit the requirement.txt and procfile then push to GitHub
+      - Add and commit the requirement.txt then push to GitHub
 
   - ##  **Deployment on Render**
 
