@@ -123,7 +123,7 @@
         <div class="div card horizontal hoverable">
             <div class="card-image">
                 {% if event.img_url == "" or event.img_url is none %}
-                <img class="horizontal-card-img" src="{{ url_for('static', filename='images/event_default.png')}}"
+                <img class="horizontal-card-img" src="https://res.cloudinary.com/codzilla/image/upload/v1681567808/codzilla-assets/event_default_qglf2b.png"
                     width="368" height="184" alt="default event cover">
                 {% else %}
                 <img class="horizontal-card-img" src="{{ event.img_url }}" data-default="event" width="368" height="184"
@@ -364,3 +364,6 @@
     </div>
     <!-- end modal -->
     {% endblock %}
+    {% block scripts %}
+<script src="{{ url_for('static', filename='js/event_group_actions.js')}}"></script>
+{% endblock %}

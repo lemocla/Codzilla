@@ -98,3 +98,10 @@
 </div>
 
 {% endblock %}
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/form_select.js')}}"></script>
+<script src="{{ url_for('static', filename='js/check_img_url.js')}}"></script>
+<script src="{{ url_for('static', filename='js/group_form.js')}}"></script>
+<script src="{{ url_for('static', filename='js/form_validation.js')}}"></script>
+{% endblock %}
