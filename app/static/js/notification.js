@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     // Variables
-
     let val;
     let newval;
 

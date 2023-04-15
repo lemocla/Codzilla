@@ -84,7 +84,7 @@
             <div class="card">
                 <div class="card-image">
                     {% if event.img_url == "" or event.img_url is none %}
-                    <img src="{{ url_for('static', filename='images/event_default.png')}}" width="368" height="184"
+                    <img src="https://res.cloudinary.com/codzilla/image/upload/v1681567808/codzilla-assets/event_default_qglf2b.png" width="368" height="184"
                         alt="default cover for event">
                     {% else %}
                     <img src="{{ event.img_url }}" data-default="event" width="368" height="184"
@@ -294,4 +294,5 @@
 {% block scripts %}
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="{{ url_for('static', filename='js/flickity.js')}}"></script>
+<script src="{{ url_for('static', filename='js/event_group_actions.js')}}"></script>
 {% endblock %}
