@@ -8,7 +8,7 @@ Codizilla -  an online meetup-planning platform - was created for educational pu
 
 Using the principles of UX design, this fully responsive and interactive website was developed using HTML, CSS, JavaScript, Python, Flask and MongoDB. 
 
-[View live project here](https://codzilla.onrender.com/home)
+[View live project here](https://codzilla.up.railway.app)
 
 
 ## **Table of content** 
@@ -705,8 +705,10 @@ Using the principles of UX design, this fully responsive and interactive website
      
       - Add and commit the requirement.txt then push to GitHub
 
-  - ##  **Deployment on Render**
-
+  - ##  **Deployment on Railway**
+	
+    This project deployment has now moved on Railway.
+    
     - Log onto Render and click the "new" button in the top menu
       ![Heroku add app](documentation/deployment/render-new-button.png)
     - Select the option "new webservice"
